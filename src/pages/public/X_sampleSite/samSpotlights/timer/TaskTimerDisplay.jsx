@@ -1,0 +1,280 @@
+import React, {useState, useEffect, useRef} from 'react'
+import {connect} from 'react-redux'
+import {startingElapsedTime} from '../../../../../app/helpers/timerHelpers'
+import{chitOrange,  mediumGrey, mediumLightGrey, chitOrangeLight, darkGrey, } from '../../../../../styles/colors'
+import {UTCtoDate, DatetoUTC, msToStringDisplay, convertElapsedTime} from '../../../../../app/helpers/dateHelper'
+
+
+// ----Material ui imports  -------
+import { styled, createMuiTheme  } from "@material-ui/core/styles"
+
+
+
+const theme = createMuiTheme(); // allows use of mui theme in styled component
+
+
+
+//---------TASK Display STYLING ---------------------------------
+
+const TaskTimeWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+ 
+  
+// backgroundColor: 'white',
+  borderRadius: '3px',
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const TaskTimeRow= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+ 
+  color: 'grey',
+
+  
+  '& .green' : {color: 'green ', fontWeight: 'bold' },
+  '& .red' : {color: 'red ' , fontWeight: 'bold' },
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
+const TaskTimeStatus= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  marginRight: '.5rem',
+ 
+
+
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+ 
+const TaskTimeComponent= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+ 
+
+
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
+const TaskTime= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+ 
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const TaskTimeLabel= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: '0 5px 0 1px',
+  fontStyle: ' italic',
+  
+  
+
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
+// ==========================
+function TaskTimerDisplay(props) {
+
+  let {spotlightId, taskId}  = props
+
+
+
+  let timerData = props.display.private.data.spotlightData.spotlights[spotlightId].tasks[taskId].clock
+  let {timerStatus, accumulatedTime, lastDate }  = timerData
+
+
+  // set intial state
+  const [timerDays, setTimerDays] = useState('00')
+  const [timerHours, setTimerHours] = useState('00')
+  const [timerMinutes, setTimerMinutes] = useState('00')
+  const [timerSeconds, setTimerSeconds] = useState('00')
+  const [status, setStatus] = useState(timerStatus)
+
+
+  let interval = useRef()
+  let startTimerRunning = useRef()
+  let startTimerStopped = useRef()
+
+
+
+  startTimerStopped.current = () => {
+
+    /*  
+     shows frozen accumulated time
+     derived from Redux task.clock.accumulatedTime
+    */ 
+
+    let displayTime = msToStringDisplay(accumulatedTime)
+    let {days, hours, minutes, seconds} = displayTime
+
+      setTimerDays(days)
+      setTimerHours(hours)
+      setTimerMinutes(minutes)
+      setTimerSeconds(seconds)
+    
+  }
+
+  startTimerRunning.current = () => {
+  /*  
+     shows running time 
+     calculated:  current (date-time) - (lastDate)
+  */ 
+ 
+    const startTime = new Date(lastDate).getTime() 
+ 
+
+    
+    interval = setInterval(() => {
+      const now = new Date().getTime()
+      const  distance = now - startTime 
+      
+      let displayTime = msToStringDisplay(distance)
+      let {days, hours, minutes, seconds} = displayTime
+
+
+        setTimerDays(days)
+        setTimerHours(hours)
+        setTimerMinutes(minutes)
+        setTimerSeconds(seconds)
+ 
+
+    }, 1000)
+
+  }
+
+  useEffect(()=>{
+
+    setStatus(timerStatus)
+    
+    if(status === 'running'){
+      startTimerRunning.current()
+      return  ()=> {clearInterval(interval)}
+    }else{
+      startTimerStopped.current()
+    }
+  }, [startTimerRunning, status,timerStatus]) 
+
+
+
+  // []-----------------------------------------------
+  return (
+    <TaskTimeWrapper>
+
+
+     
+    <TaskTimeRow> 
+
+      {timerStatus === 'inactive' && 
+      <TaskTimeStatus>
+        {timerStatus} :
+      </TaskTimeStatus>
+     }
+
+{timerStatus === 'running' && 
+      <TaskTimeStatus className = 'green'>
+        {timerStatus} :
+      </TaskTimeStatus>
+     }
+
+{timerStatus === 'paused' && 
+      <TaskTimeStatus className = 'red'>
+        {timerStatus} :
+      </TaskTimeStatus>
+     }
+
+
+      <TaskTimeComponent>
+        <TaskTime>{timerDays}</TaskTime>
+        <TaskTimeLabel>d :</TaskTimeLabel>
+      </TaskTimeComponent>
+ 
+    
+     
+      <TaskTimeComponent>
+        <TaskTime>{timerHours}</TaskTime>
+        <TaskTimeLabel>h :</TaskTimeLabel>
+     
+      </TaskTimeComponent>
+ 
+      <TaskTimeComponent>
+        <TaskTime>{timerMinutes}</TaskTime>
+        <TaskTimeLabel>m :</TaskTimeLabel>
+
+      </TaskTimeComponent>
+
+      <TaskTimeComponent>
+        <TaskTime>{timerSeconds}</TaskTime>
+        <TaskTimeLabel>s</TaskTimeLabel>
+    
+      </TaskTimeComponent>
+    </TaskTimeRow>
+    
+    
+    
+    
+              </TaskTimeWrapper>
+  )
+}// end TaskTimerDisplay
+
+ 
+
+const mapState = state => ({
+  display: state
+})
+
+export default connect(mapState)(TaskTimerDisplay)
+

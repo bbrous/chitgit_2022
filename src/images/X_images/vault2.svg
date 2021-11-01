@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X8 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="322px" height="287px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 878685 783177"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#373435;stroke-width:5685.42}
+    .str1 {stroke:#A6B9DE;stroke-width:5685.42}
+    .str4 {stroke:#DFE6F5;stroke-width:2455.95}
+    .str3 {stroke:#41506E;stroke-width:2455.95}
+    .str2 {stroke:#455575;stroke-width:2455.95}
+    .fil8 {fill:#8682AB}
+    .fil6 {fill:#585570}
+    .fil3 {fill:#52658C}
+    .fil1 {fill:#DFE6F5}
+    .fil10 {fill:#CCD9F5}
+    .fil11 {fill:#8A99B8}
+    .fil2 {fill:#A6B9DE}
+    .fil7 {fill:#3A4863}
+    .fil4 {fill:#556991}
+    .fil9 {fill:#5A6F99}
+    .fil5 {fill:#667EAD}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <radialGradient id="id0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 -0 -0 0.621663 0 148153)" cx="439341" cy="391588" r="869135" fx="439341" fy="391588">
+   <stop offset="0" style="stop-opacity:1; stop-color:white"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#A6B9DE"/>
+  </radialGradient>
+ </defs>
+ <g id="greyback">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0" width="878685" height="783177"/>
+ </g>
+ <g id="vault">
+  <metadata id="CorelCorpID_1Corel-Layer"/>
+  <ellipse class="fil1 str0" cx="426991" cy="390898" rx="355422" ry="355423"/>
+  <path class="fil2 str0" d="M426990 74639c174666,0 316260,141594 316260,316260 0,174662 -141594,316256 -316260,316256 -174662,0 -316256,-141594 -316256,-316256 0,-174666 141594,-316260 316256,-316260z"/>
+  <ellipse class="fil3 str1" cx="425273" cy="390898" rx="282966" ry="282967"/>
+  <ellipse class="fil2 str0" cx="425273" cy="390898" rx="99870" ry="99871"/>
+  <rect class="fil4 str2" x="69548" y="377955" width="711517" height="16800"/>
+  <rect class="fil5" transform="matrix(5.31818E-15 -0.198862 0.201537 5.28601E-15 416907 743830)" width="3543354" height="83357"/>
+  <circle class="fil1 str0" cx="425273" cy="390898" r="49935"/>
+  <rect class="fil6" transform="matrix(0.0590725 0.0615441 -0.0648998 0.0622937 492032 316623)" width="161174" height="554036"/>
+  <rect class="fil6" transform="matrix(-0.0590725 0.0615441 0.0648998 0.0622937 359285 315241)" width="161174" height="554036"/>
+  <rect class="fil7" transform="matrix(0.0590725 0.0615441 -0.0648998 0.0622937 492032 316623)" width="161174" height="554036"/>
+  <rect class="fil7" transform="matrix(-0.0590725 0.0615441 0.0648998 0.0622937 359285 315241)" width="161174" height="554036"/>
+  <rect class="fil6" transform="matrix(0.0590725 -0.0615441 -0.0648998 -0.0622937 493920 465711)" width="161174" height="554036"/>
+  <rect class="fil6" transform="matrix(-0.0590725 -0.0615441 0.0648998 -0.0622937 361174 467093)" width="161174" height="554036"/>
+  <rect class="fil7" transform="matrix(0.0590725 -0.0615441 -0.0648998 -0.0622937 492201 463992)" width="161174" height="554036"/>
+  <rect class="fil7" transform="matrix(-0.0590725 -0.0615441 0.0648998 -0.0622937 361174 467093)" width="161174" height="554036"/>
+  <rect class="fil8" x="535535" y="151198" width="34373" height="107679"/>
+  <rect class="fil2" x="459017" y="149852" width="88404" height="107679"/>
+  <rect class="fil9" x="535535" y="149479" width="34373" height="107679"/>
+  <rect class="fil2" x="461554" y="529026" width="87650" height="107679"/>
+  <rect class="fil9" x="540914" y="528653" width="34373" height="107679"/>
+  <rect class="fil1" x="683479" y="553229" width="129214" height="107679"/>
+  <rect class="fil9" x="660992" y="552856" width="34373" height="107679"/>
+  <rect class="fil1" x="682731" y="122960" width="129214" height="107679"/>
+  <rect class="fil9" x="660244" y="122587" width="34373" height="107679"/>
+  <rect class="fil5 str3" x="569260" y="122587" width="91087" height="540252"/>
+  <rect class="fil10" x="738030" y="65098" width="70994" height="58086"/>
+  <rect class="fil10 str4" x="739855" y="660655" width="70994" height="58086"/>
+  <rect class="fil11" x="761375" y="70936" width="25779" height="159703"/>
+  <rect class="fil11" x="760464" y="555440" width="25779" height="159703"/>
+ </g>
+</svg>

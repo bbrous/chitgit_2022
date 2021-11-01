@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X8 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="260px" height="247px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 439366 417863"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#A99018;stroke-width:3517.77}
+    .fil3 {fill:url(#id2)}
+    .fil1 {fill:url(#id3)}
+    .fil5 {fill:url(#id4)}
+    .fil2 {fill:url(#id5)}
+    .fil4 {fill:url(#id6)}
+    .fil0 {fill:url(#id7)}
+   ]]>
+  </style>
+      <clipPath id="id0">
+       <path d="M182515 162328l78711 0 0 134796 -78711 0 0 -134796z"/>
+      </clipPath>
+      <clipPath id="id1">
+       <path d="M237180 173930l73407 0 0 125850 -73407 0 0 -125850z"/>
+      </clipPath>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="253156" y1="282523" x2="294609" y2="191190">
+   <stop offset="0" style="stop-opacity:1; stop-color:#957417"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FFFF51"/>
+  </linearGradient>
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" xlink:href="#id2" x1="194528" y1="275986" x2="249215" y2="183467">
+  </linearGradient>
+  <linearGradient id="id4" gradientUnits="userSpaceOnUse" xlink:href="#id2" x1="241257" y1="198016" x2="255527" y2="165614">
+  </linearGradient>
+  <linearGradient id="id5" gradientUnits="userSpaceOnUse" xlink:href="#id2" x1="147567" y1="280429" x2="189020" y2="189098">
+  </linearGradient>
+  <linearGradient id="id6" gradientUnits="userSpaceOnUse" xlink:href="#id2" x1="187283" y1="197849" x2="201556" y2="165447">
+  </linearGradient>
+  <radialGradient id="id7" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.999995 -0 -0 0.95106 1 10204)" cx="219683" cy="208492" r="218652" fx="219683" fy="208492">
+   <stop offset="0" style="stop-opacity:1; stop-color:#EFEC0C"/>
+   <stop offset="0.619608" style="stop-opacity:1; stop-color:#C5B513"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#9C7F1A"/>
+  </radialGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1996471921648">
+   <polygon class="fil0 str0" points="219683,540 271068,159724 438335,159401 302823,257457 354818,416441 219683,317864 84548,416441 136543,257457 1031,159401 168299,159724 "/>
+   <g>
+    <g>
+     <g style="clip-path:url(#id0)">
+      <image x="182515" y="162328" width="78711" height="134796" xlink:href="star_Images\star_ImgID1.png"/>
+     </g>
+    </g>
+    <path class="fil1" d="M217543 171410c4246,10435 7315,21533 11561,31967 2365,295 3254,-3817 3067,-10803 5536,5293 8403,14737 11088,24473 14996,27777 10401,49897 -9200,67681 -8022,4389 -16041,4138 -24066,882 -17880,-12650 -26142,-35982 -8964,-68784 1470,-6228 3163,-12440 6843,-18519 1136,4934 2472,9341 5188,10141 1101,-12125 3383,-24912 4483,-37038z"/>
+    <path class="fil2" d="M184639 180308c3985,8206 6406,14308 11888,17186 -7180,13389 -13417,26778 -20597,40167 5494,11191 10047,22383 15539,33572 -4806,5997 -9614,11991 -14420,17986 -12858,-15387 -24130,-35381 -36990,-50768 14669,-20918 29911,-37226 44580,-58143z"/>
+    <g>
+     <g style="clip-path:url(#id1)">
+      <image x="237180" y="173930" width="73407" height="125850" xlink:href="star_Images\star_ImgID2.png"/>
+     </g>
+    </g>
+    <path class="fil3" d="M257537 182400c-3986,8206 -6405,14308 -11889,17186 7179,13389 14137,26778 21316,40167 -5494,11191 -10765,22383 -16259,33572 4806,5997 9614,11991 14420,17986 12861,-15387 24134,-35381 36993,-50768 -14670,-20918 -29911,-37226 -44581,-58143z"/>
+    <path class="fil4" d="M197294 200752c2685,-2730 4651,-5462 7335,-8192 0,-9793 0,-19585 0,-29376 -19639,-5183 -30501,22277 -7335,37568z"/>
+    <path class="fil5" d="M245516 200922c-2682,-2732 -4648,-5462 -7333,-8194 0,-9792 0,-19583 0,-29377 19637,-5183 30502,22277 7333,37571z"/>
+   </g>
+  </g>
+ </g>
+</svg>
