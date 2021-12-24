@@ -3,6 +3,9 @@ import { createSelector } from 'reselect'
 import InitialStore from '../store/sampleStore/ex_spot_initialStore'
 import cuid from 'cuid';
 import {msToISO} from '../../../app/helpers/dateHelper'
+
+
+
 export const spotlightsSlice = createSlice({
   name: 'spotights',
   initialState: InitialStore,

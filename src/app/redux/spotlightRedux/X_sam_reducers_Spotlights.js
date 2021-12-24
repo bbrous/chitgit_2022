@@ -3,7 +3,7 @@ import produce from 'immer';
 import cuid from 'cuid';
 
 import InitialStore from '../store/sampleStore/ex_spot_initialStore'
-import {calculateEstimatedTime, msToStringDisplay,  msToISO} from '../../../app/helpers/dateHelper'
+import {calculateEstimatedTime, msToStringDisplay,  msToISO} from '../../helpers/dateHelper'
 
 import {  ADD_SPOTLIGHT_TO_STORE,
   UPDATE_SPOTLIGHT_IN_STORE,

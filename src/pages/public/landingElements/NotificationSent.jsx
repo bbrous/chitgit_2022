@@ -1,7 +1,7 @@
 import React , {Fragment} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 import{chitBlueDull, chitOrangeLight, chitRedDark, chitOrange} from '../../../styles/colors'
 

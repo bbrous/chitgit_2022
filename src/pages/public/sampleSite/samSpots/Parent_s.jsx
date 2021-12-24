@@ -7,19 +7,23 @@ parent: SpotlightMain - pages/public/sampleSite/samSpots/SpotlightMain
 ------------------------------------*/
 
 import React, {useState, useEffect}  from 'react'
-import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate, useParams   } from 'react-router-dom'
 
 import{chitOrange, chitOrangeLight, veryLightGrey, chitBlueDull} from '../../../../styles/colors'
 
-import{   
-  makeSelectSpotlights,
-  selectTasks,
-  makeGetSpotlight,
-  selectParentSpotlight
-  // selectSpotlightTaskArray
+// import{   
+//   makeSelectSpotlights,
+   
+//   makeGetSpotlight,
+//   selectParentSpotlight
+//   // selectSpotlightTaskArray
   
-} from '../../../../app/redux/spotlightRedux/sam_selectors_Spotlights'
+// } from '../../../../app/redux/spotlightRedux/sam_selectors_Spotlights'
+import{ 
+  selectSpotlights,
+  selectSpotlightFromArray,
+} from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
 
 import ForwardIcon from '@mui/icons-material/Forward';
@@ -130,22 +134,29 @@ const ParentLink= styled(ForwardIcon)({
 
 // ==========================
 function Parent(props) {
-  let history = useHistory()
+  let navigate = useNavigate()
+  let match = useParams()
+  const spotlightsArray = useSelector(selectSpotlights)
+  let matchId = match.detailId
+  let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
+
+  console.log('[Parent - matchId - ', match)
+  // console.log('[Parent - spotlightDisplayed - ', spotlightDisplayed)
 
   // (1) get parentId if exists in spotight from URL
-  const parentId = props.spotlight.spotlight.parentId
+  const parentId = spotlightDisplayed.parentId
 
   // (2) if there is a parent - get the title
   let parentSpotlight, parentSpotlightTitle
   if (parentId) {
-    parentSpotlight = selectParentSpotlight(props.spotlights, parentId)
+    parentSpotlight = selectSpotlightFromArray(spotlightsArray, parentId)
     parentSpotlightTitle = parentSpotlight.title
     
   }
 
   //(3) if parent - change the URL spotlight Id
   function handleChangeSpotlight(parentId) {
-    history.push(`/sample/spotlights/${parentId}`)
+    navigate(`/sample/spotlights/${parentId}`)
 
   }
 
@@ -176,31 +187,9 @@ function Parent(props) {
 }
 
 
-const actions = {
-  // // changeDisplaySpotlight,
-  // changeSpotlightCompletedStatus,
-  // changeDisplaySpotlight
-}
 
-const makeMapStateToProps = () => {
-  const getSpotlight = makeGetSpotlight()
-  const Spotlights = makeSelectSpotlights();
- 
- 
-  return (state, ownProps) => 
-     {
-       const matchid = ownProps.match.params.detailId
-       return {
-         spotlights: Spotlights(state),
-         spotlight: getSpotlight(state, matchid),
-         allTasksArray: selectTasks(state),
-     
-     }}
- 
-
- };
  
  
  
  
- export default withRouter(connect(makeMapStateToProps, actions)(Parent))
+ export default Parent

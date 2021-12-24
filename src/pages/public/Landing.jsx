@@ -10,7 +10,7 @@
 
 import React from 'react'
 import {backgroundBlue} from '../../styles/colors'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import HeaderLanding from './landingElements/Header_landing'
 import LandingPage from './landingElements/Landing_page'
@@ -31,18 +31,7 @@ const BodyWrapper= styled('div')({
     overflowX: 'hidden',
     fontFamily: 'Lato, sans-serif',
  
-    // '&::-webkit-scrollbar': {
-    //   width: '0.75em' 
-    // },
-    // '&::-webkit-scrollbar-track': {
-    //   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)',
-    //   webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)'
-    // },
-    // '&::-webkit-scrollbar-thumb': {
-    //   backgroundColor: 'rgba(0,175,239,.5)',
-    //   border: '2px solid rgba(0,175,239,.4)',
-    //   borderRadius: '5px'
-    // },
+    
 
     [theme.breakpoints.down('xs')] : {
                                 
@@ -117,11 +106,11 @@ const SlidesWrapper= styled('div')({
 
 const Landing = () => {
 
-  let history = useHistory()
+  const navigate = useNavigate()
   const handleClick = (evt) => {
   
     // console.log('[MAIN} - handleClick', evt.target.id)
-    history.push(`/join`)
+   navigate(`/join`)
   }
 
 

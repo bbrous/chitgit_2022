@@ -13,7 +13,7 @@
 
 import React, {useState, useEffect}  from 'react'
 import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
 import{backgroundBlue, chitOrange, chitOrangeVeryLight, veryLightGrey} from '../../../../styles/colors'
 
@@ -197,7 +197,6 @@ backgroundColor: 'pink',
 
 function SpotlightTree(props) {
 
-  let id = props.match.params.detailId
 
 
   return (
@@ -211,31 +210,9 @@ function SpotlightTree(props) {
 }
 
 
-const actions = {
-  // // changeDisplaySpotlight,
-  // changeSpotlightCompletedStatus,
-  // changeDisplaySpotlight
-}
-
-const makeMapStateToProps = () => {
-  const getSpotlight = makeGetSpotlight()
-  const Spotlights = makeSelectSpotlights();
- 
- 
-  return (state, ownProps) => 
-     {
-       const matchid = ownProps.match.params.detailId
-       return {
-         spotlights: Spotlights(state),
-         spotlight: getSpotlight(state, matchid),
-         allTasksArray: selectTasks(state),
-     
-     }}
- 
-
- };
  
  
  
  
- export default withRouter(connect(makeMapStateToProps, actions)(SpotlightTree))
+ export default SpotlightTree
+ 

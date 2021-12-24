@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { Link, useHistory, useRouteMatch } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { lightGrey, darkGrey, chitRedDark, mediumLightGrey,chitBlueDull, veryLightGrey, chitOrangeMedium, mediumGrey} from '../../../../../styles/colors'
 
@@ -286,12 +286,12 @@ function SpotlightNav(props)  {
 
   const dispatch = useDispatch()
 
-  let history = useHistory()
-  let match = useRouteMatch()
+  let navigate = useNavigate()
+  let match = useParams()
 
   // --- displayId for setting background color of Nav Link ---
 
-  let displayId = match.params.detailId
+  let displayId = match.detailId
 
   
   //  --- get and update all Spotlights when new spotlight added  ---  
@@ -379,7 +379,7 @@ function SpotlightNav(props)  {
   
   const handleChangeSpotlight = (evt) => {
 
-    history.push(`/sample/spotlights/${evt.currentTarget.id}`)
+    navigate(`/sample/spotlights/${evt.currentTarget.id}`)
     // props.updateStatusView('spotlight', 'detail')
     dispatch(updateStatusView({
       pageType: 'spotlight',

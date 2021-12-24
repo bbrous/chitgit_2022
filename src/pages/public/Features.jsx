@@ -19,7 +19,7 @@ import LogSlides from './landingElements/FeatureSlides_logs'
 import TimestampSlides from './landingElements/FeatureSlides_timestamp'
 import SpotlightSlides from './landingElements/FeatureSlides_spotlights'
 
-import {useRouteMatch} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 import HeaderPublic from './landingElements/Header_public'
 import FeaturesNav from '../navComponents/publicNav/Feature_nav'
@@ -280,12 +280,12 @@ top: '2rem',
 
 
 function Features() {
-  let match = useRouteMatch()
+  let match = useParams()
 
   let view
-let brad = match.params.id
+let brad = match.id
 
-if(!brad){view = 'chits'}else{view = match.params.id}
+if(!brad){view = 'chits'}else{view = match.id}
 console.log('[Features  page] route id is :  ', view)
 
   return (

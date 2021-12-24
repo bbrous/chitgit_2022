@@ -66,7 +66,10 @@ typography: {
       main: `${chitOrange}`
     },
     secondary: {
-      main: `${chitOrangeLight}`
+      main: `${testBlue}`
+    },
+    tertiary: {
+      main: `${testBlue}`
     }
   }
 })

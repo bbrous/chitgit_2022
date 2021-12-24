@@ -10,7 +10,7 @@
 import React from 'react'
  
 import {connect} from 'react-redux'
-import {NavLink, withRouter, match } from 'react-router-dom'
+import {NavLink, match } from 'react-router-dom'
 
 
 import{highlightGrey } from '../../../../styles/colors'
@@ -101,7 +101,7 @@ const mapState = state => ({
   
 });
 
-export default connect(mapState, actions)(withRouter(MainPage_NavButtons_s))
+export default connect(mapState, actions)(MainPage_NavButtons_s)
 
 
 // const makeMapStateToProps = () => {

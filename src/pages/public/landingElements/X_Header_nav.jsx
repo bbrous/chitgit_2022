@@ -3,7 +3,7 @@ import { styled, createMuiTheme } from "@material-ui/core/styles"
 
 import {NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 
 import{testColors, chitOrangeLight, highlightGrey} from '../../../styles/colors'

@@ -9,7 +9,7 @@
 
 import React  from 'react'
 import { useSelector} from 'react-redux'
-import {withRouter } from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
 
@@ -226,8 +226,9 @@ const DetailRowRight = styled('div')({
 // ================================================
 function SpotlightDetail(props) {
  
+  const match = useParams()
 
-  const matchId = props.match.params.detailId
+  const matchId = match.detailId
 
   const spotlightsArray = useSelector(selectSpotlights)
 
@@ -346,4 +347,4 @@ function SpotlightDetail(props) {
 }// end func SpotlightDetail
 
  
-export default withRouter(SpotlightDetail)
+export default SpotlightDetail

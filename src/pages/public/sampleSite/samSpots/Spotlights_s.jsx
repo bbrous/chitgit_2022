@@ -9,7 +9,7 @@
 
 import React, {useState, useEffect} from 'react'
 import { useSelector} from 'react-redux'
-import { useRouteMatch, useHistory } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import {veryLightGrey} from '../../../../styles/colors'
 
@@ -107,13 +107,13 @@ const ViewNavWrapper= styled('div')({
 
 function Spotlights(props) {
 
-  let match = useRouteMatch()
-  let history = useHistory()
+  let match = useParams()
+  let navigate = useNavigate()
 
-  const SpotlightPage = match.params.pageView
-  const SpotlightId = match.params.detailId
+  const SpotlightPage = match.pageView
+  const SpotlightId = match.detailId
 
-
+  console.log('=======[Spotlights_s]  match is', match)
   let status = useSelector(selectStatus)
   let SpotlightsArray = useSelector(selectSpotlights)
 
@@ -139,10 +139,10 @@ function Spotlights(props) {
   useEffect(() => {
     if (lastStoredSpotlight && !SpotlightId) {
 
-      history.push(`${SpotlightPage}/${lastStoredSpotlight}`)
+      navigate(`${SpotlightPage}/${lastStoredSpotlight}`)
 
     }
-  }, [history, match.url, SpotlightId, lastStoredSpotlight, SpotlightPage])
+  }, [navigate, match.url, SpotlightId, lastStoredSpotlight, SpotlightPage])
 
   // --- set up initial Message  for Popover
   // const displayPopoverModalMessage = false

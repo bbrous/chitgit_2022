@@ -1,4 +1,4 @@
-/* app/App.js in chitPro_2021
+/* app/App.js in chitgit_2022
 
 Main Funcitional Wrapper for entire site.
 contains:
@@ -18,8 +18,11 @@ contains:
 
 import React, { Component, Fragment, useEffect, useState } from 'react';
  
-import { Route, Switch } from 'react-router-dom'
-// import { auth, createUserProfileDocument } from './firebase/firebase.utils.js'
+import { useDispatch, useSelector } from 'react-redux'; 
+import { Route, Routes , Navigate, Link } from 'react-router-dom'
+
+
+import FirebaseAuthService from './firebase/FirebaseAuthService.js';
 
 
 import { ThemeProvider } from '@mui/styles';
@@ -27,20 +30,22 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import theme from '../styles/Theme'
 
-
-import Protected from '../pages/private/Protected'
+import Loading from '../common_components/Loading';
 import Landing from '../pages/public/Landing'
 import Features from '../pages/public/Features'
 import Sample from '../pages/public/Sample'
 import SampleMain from '../pages/public/sampleSite/Main_s'
 
-// import Home from '../pages/private/Main'
+import Home from '../pages/private/Home'
+import Main from '../pages/private/Main'
+import Join from '../pages/public/Join'
+import Login from '../pages/public/Login'
 // import Try from '../pages/sandBox/aTry'
 // import Notes from '../pages/private/Notes'
 // import Spotlights from '../pages/private/spotlightElements/SpotlightsMain'
 // 
 
-// import Join from '../pages/public/Join'
+
 // import Notification from '../pages/public/Notification'
 
 
@@ -55,117 +60,55 @@ import SampleMain from '../pages/public/sampleSite/Main_s'
 
 
 
-class App extends Component {
-
-  constructor(){
-    super()
-
-    this.state = {
-      currentUser: null
-    }
-  }
-
-  //---- set Firebase auth0 -------------
-  unsubscribeFromAuth = null
+const App = () => {
 
 
-  // **** UN-COMMENT to Autorization - change database in firebase.utils
+  const [user, setUser ] = useState(null)
 
-//    componentDidMount(){
-//     auth.onAuthStateChanged(user => {
-//       this.setState({currentUser: user})
-//       if(!user){console.log('[App.js] - not logged in')}
-
-//       if(user){console.log('[App.js]- you are logged in - ', user)}
-
-//     })
-
-//     this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-// createUserProfileDocument(user)
-
-
-//     })
-//   }
-
-
-  
-//   componentWillUnmount(){
-//     this.unsubscribeFromAuth()
-
-//   }
-
- 
-
-  render() {
-
-    
+  FirebaseAuthService.subscribeToAuthChanges(setUser) 
     return (
       <CssBaseline>
         <ThemeProvider theme = {theme} >
-        <Switch>
 
-            {!this.state.currentUser &&
-              <Route path={`${process.env.PUBLIC_URL}/`} exact component={Landing} />
-            }
+        <Routes>
 
-            {this.state.currentUser &&
-              //  <Protected currentUser = {this.state.currentUser}
+{/* ---  logged in ---- */}
 
-              <Route path={`${process.env.PUBLIC_URL}/`}
+        {user && 
+          <>
 
-                render={(props) => (
-                  <Protected {...props} currentUser={this.state.currentUser} />
+            <Route path="/" element={<Navigate replace to="/home" />} />
+            <Route path='/home' element={<Home />} />
+            
+            <Route path='/main/:page:id' element={<Main />} />
+            <Route path='/main/:page' element={<Main />} />
+            <Route path='/main' element={<Main />} />
 
-                )}
+          </>
+        }
 
-              />
-              
-            }
-            <Route path={`${process.env.PUBLIC_URL}/home`} exact component={Landing} />
+{/* --- not logged in ---- */}
 
-            <Route path={`${process.env.PUBLIC_URL}/features`} exact component={Features} />
+            <Route path='/join' element={<Join />} />
+            <Route path='/login' element={<Login />} />
 
-            <Route path={`${process.env.PUBLIC_URL}/features/:id`}  component={Features} />
+<Route path='/features' element={<Features />} /> 
+            
+            <Route path='/sample/:pageView/:detailId' element={<SampleMain />} />
+            <Route path='/sample/:pageView' element={<SampleMain />} />
+            <Route path='/sample' element={<Sample />} />
 
+            <Route path='/' element={<Landing />} />
 
-            <Route path={`${process.env.PUBLIC_URL}/sample`} exact component={Sample} />
- 
-            <Route path={`${process.env.PUBLIC_URL}/sample/:pageView`}  exact component={SampleMain} />
-
-            <Route path={`${process.env.PUBLIC_URL}/sample/:pageView/:detailId`}  exact component={SampleMain} /> 
-   
-
+            {/* <Route path='/*' element={<NotFound />} /> */}
 
 
-            {/* <Route path ={`${process.env.PUBLIC_URL}/join`}   exact component = {Join} />   */}
 
+    
+
+
+          </Routes>
            
-
-            {/* <Route   exact path ={`${process.env.PUBLIC_URL}/main`}   
-            render={(props) => (
-              <Home {...props} currentUser = {this.state.currentUser}/>
-            )}
-            />  */}
-{/* 
-<Route path ={`${process.env.PUBLIC_URL}/main/spotlights`}     exact component = {Spotlights} /> 
-
-<Route path ={`${process.env.PUBLIC_URL}/main/spotlights/:id`}      component = {Spotlights} /> 
-
-            <Route path ={`${process.env.PUBLIC_URL}/main/notes`}      component = {Notes} />  
-
-             
-
-
-            <Route   path ={`${process.env.PUBLIC_URL}/try`}   component = {Try} /> 
- */}
-
-
-          </Switch>
-           
-          {/* <Route   path ='/(.+)' render ={()=>(
-
-              )} 
-              />  */}
 
 
               
@@ -174,6 +117,6 @@ class App extends Component {
         
     )
   }
-}
+
 
 export default App;

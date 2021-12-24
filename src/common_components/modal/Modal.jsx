@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react'
 import {connect} from 'react-redux'
 import{lightGrey, chitBlueDull, } from '../../styles/colors'
-import{closeModal} from '../../app/redux/actions/mainActions'
+import{closeModal} from '../../app/redux/actions/X_mainActions'
 
 
 import ChitDetailTP from '../../pages/private/ChitDetail_TP'

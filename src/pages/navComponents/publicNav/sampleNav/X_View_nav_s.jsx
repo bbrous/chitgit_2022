@@ -13,8 +13,8 @@ import{ chitOrangeLight, chitOrangeMedium, highlightGrey, lightGrey, shadowBlue,
 // import{ 
 //   sample_selectLastSpotlight
 // } from '../../../../app/redux/statusRedux/sam_selectors_Status'
-import{ selectStatus } from '../../../../app/redux/statusRedux/sam_selectors_Status'
-import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_actions_Status'
+import{ selectStatus } from '../../../../app/redux/statusRedux/X_sam_selectors_Status'
+import{ updateStatusView } from '../../../../app/redux/statusRedux/X_sam_actions_Status'
 import Button from '@material-ui/core/Button'
  
 const theme = createMuiTheme(); // allows use of mui theme in styled component

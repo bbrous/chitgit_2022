@@ -15,7 +15,7 @@ import React from 'react'
 
 import{chitOrange,  veryLightGrey} from '../../../../styles/colors'
 
-
+import { useParams } from 'react-router'
 import Spotlight from './Spotlight_s'
 import Parent from './Parent_s'
 
@@ -109,7 +109,8 @@ const TaskWrapper = styled('div')({
 // ============================================================
 
 function SpotlightMain(props) {
-
+  let match = useParams()
+  console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
   return (
     <>
 

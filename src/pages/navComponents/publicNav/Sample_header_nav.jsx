@@ -14,9 +14,9 @@
 import React, {Fragment} from "react"
  
 
-import {NavLink, withRouter, useLocation} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 import {getPage} from '../../../app/helpers/locationHelper'
 import{ veryLightGrey } from '../../../styles/colors'
@@ -200,4 +200,4 @@ const mapState = state => ({
   page: state
 });
 
-export default connect(mapState, actions)(withRouter(HeaderNav))
+export default connect(mapState, actions)(HeaderNav)

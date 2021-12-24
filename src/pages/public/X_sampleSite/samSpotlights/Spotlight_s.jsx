@@ -9,7 +9,7 @@ import{ selectSpotlights,
   makeGetSpotlight,
   selectSpotlightTaskArray
   
-} from '../../../../app/redux/spotlightRedux/sam_selectors_Spotlights'
+} from '../../../../app/redux/spotlightRedux/X_sam_selectors_Spotlights'
 
 import{chitOrange, lightGrey, chitOrangeLight, chitBlueDull, mediumGrey, mediumLightGrey,  veryLightGrey} from '../../../../styles/colors'
 

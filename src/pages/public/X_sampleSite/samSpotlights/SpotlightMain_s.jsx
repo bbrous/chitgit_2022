@@ -9,7 +9,7 @@ import{ selectSpotlights,
   makeGetSpotlight,
   selectSpotlightTaskArray
   
-} from '../../../../app/redux/spotlightRedux/sam_selectors_Spotlights'
+} from '../../../../app/redux/spotlightRedux/X_sam_selectors_Spotlights'
 
 import Spotlight from './Spotlight_s'
 import SpotlightParent from './SpotlightParent_s'

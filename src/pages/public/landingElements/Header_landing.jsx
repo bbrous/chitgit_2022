@@ -89,7 +89,7 @@ const NavBox= styled('div')({
 
   [theme.breakpoints.down('sm')] : {
     
-    width: '45%',
+    width: '100%',
     
   }
 

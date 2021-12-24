@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import{lightGrey, chitBlueDull, } from '../../../../styles/colors'
 // import{closeModal} from '../../app/redux/actions/mainActions'
 
-import {sample_selectStatus} from '../../../../app/redux/statusRedux/sam_selectors_Status'
+import {sample_selectStatus} from '../../../../app/redux/statusRedux/X_sam_selectors_Status'
 
 // ####### CHANGE TO GET MODAL FROM ACTIONS IN STATUS #################
 

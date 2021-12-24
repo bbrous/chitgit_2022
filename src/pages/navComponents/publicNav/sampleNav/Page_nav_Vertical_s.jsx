@@ -1,8 +1,8 @@
 import React from "react"
  
 
-import {NavLink, withRouter, useLocation} from 'react-router-dom'
-import {useHistory, useRouteMatch, match} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
+import {useHistory, useParams, match} from 'react-router-dom'
 import {connect} from 'react-redux'
 // import{setPage} from '../../../app/redux/actions/landingActions'
 
@@ -163,14 +163,14 @@ const Submenu = styled('div')({
 // ================================================
 
 function PageNav(props) {
-  let match = useRouteMatch()
+  let match = useParams()
 
 //   let location = useLocation()
 //   let page = getPage(location)
 let handleClose = props.handleClose
 let page
 
-  if(!match.params.pageView){page = 'twoParty'}else{page = match.params.pageView}
+  if(!match.pageView){page = 'twoParty'}else{page = match.pageView}
 
 console.log('[PageNav ] - page location : ', page)
 // let page = 'twoParty'
@@ -417,4 +417,4 @@ const mapState = state => ({
   
 });
 
-export default connect(mapState, actions)(withRouter(PageNav))
+export default connect(mapState, actions)(PageNav)

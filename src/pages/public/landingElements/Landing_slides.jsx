@@ -11,9 +11,9 @@
 */
 
 import React  from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 
 import {Picture1, Narration1} from '../slides/homeSlides/Description_one'
@@ -307,6 +307,6 @@ const mapState = state => ({
   page: state
 });
 
-export default connect(mapState, actions)(withRouter(Landing_slides))
+export default connect(mapState, actions)(Landing_slides)
 
  

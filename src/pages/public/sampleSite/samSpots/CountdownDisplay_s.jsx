@@ -9,7 +9,7 @@
 
 import React, {useState, useEffect}  from 'react'
 import {connect, useSelector} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {DatetoUTC,  msToStringDisplay} from '../../../../app/helpers/dateHelper'
 import{ chitBlueDull} from '../../../../styles/colors'
 
@@ -117,7 +117,9 @@ const Minus= styled('span')({
 // ====================================================
 
 function CountdownDisplay(props) {
-  const matchId = props.match.params.detailId
+  const match = useParams()
+
+  const matchId = match.detailId
    
   // (1) get parentId if exists in spotight from URL
   // const {endEst, } = props.spotlight.spotlight
@@ -245,4 +247,4 @@ function CountdownDisplay(props) {
 
 
  
- export default withRouter(CountdownDisplay)
+ export default CountdownDisplay

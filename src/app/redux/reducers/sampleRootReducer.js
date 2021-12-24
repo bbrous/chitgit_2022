@@ -21,16 +21,16 @@ import asyncReducer from './asyncReducer'
 import statusReducer from '../statusRedux/sam_statusSlice'
 
 import taskReducer from '../taskRedux/sam_tasksSlice'
-import logReducer from '../logRedux/sam_reducers_Logs'
+import logReducer from '../logRedux/X_sam_reducers_Logs'
 
 import noteReducer from '../noteRedux/sam_notesSlice'
 
 
-import peopleReducer from '../peopleRedux/sam_reducers_People'
-import orgReducer from '../orgRedux/sam_reducers_Orgs'
-import topicReducer from '../topicRedux/sam_reducers_Topics'
-import chitReducer from  '../chitRedux/sam_reducers_Chits'
-import chitLinkReducer from  '../chitRedux/sam_reducers_ChitLinks'
+import peopleReducer from '../peopleRedux/X_sam_reducers_People'
+import orgReducer from '../orgRedux/X_sam_reducers_Orgs'
+import topicReducer from '../topicRedux/X_sam_reducers_Topics'
+import chitReducer from  '../chitRedux/X_sam_reducers_Chits'
+import chitLinkReducer from  '../chitRedux/X_sam_reducers_ChitLinks'
 import spotlightReducer from '../spotlightRedux/sam_spotlightsSlice'
 
 

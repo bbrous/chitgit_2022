@@ -7,7 +7,7 @@
 ------------------------------------*/
 
 import React, {Fragment} from "react"
-import {withRouter} from 'react-router-dom'
+
 import {useDispatch, useSelector} from 'react-redux'
 
 import{ chitOrangeMedium, shadowBlue, veryLightGrey} from '../../../../styles/colors'
@@ -170,4 +170,4 @@ function SpotlightViewNav(props) {
   // ----------------------------------------------
 
 
-export default withRouter(SpotlightViewNav)
+export default SpotlightViewNav

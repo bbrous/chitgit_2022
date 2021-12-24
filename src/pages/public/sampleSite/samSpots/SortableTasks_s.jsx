@@ -12,7 +12,7 @@
  
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 import{ 
   selectSpotlights,
@@ -68,10 +68,11 @@ backgroundColor: 'purple',
 
 function SortableTasks(props) {
   let dispatch = useDispatch()
+  const match = useParams()
 
   let allSpotlights = useSelector(selectSpotlights)
   let allTasks = useSelector(selectTasks)
-  let currentSpotlight = props.match.params.detailId
+  let currentSpotlight = match.detailId
 
 
   // 1 --- get current spotlight 
@@ -149,7 +150,7 @@ function SortableTasks(props) {
     const {active, over} = event;
 
     // --- get spotlight Id from URL in order to dispatch to Redux store
-    let spotlightId = props.match.params.detailId
+    let spotlightId = match.detailId
 
     // --- recreate the taskArray in the new order
     if (active.id !== over.id) {
@@ -184,4 +185,4 @@ function SortableTasks(props) {
 
 
 
-export default withRouter(SortableTasks)
+export default SortableTasks

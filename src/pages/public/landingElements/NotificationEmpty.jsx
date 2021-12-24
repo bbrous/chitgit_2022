@@ -1,7 +1,7 @@
 import React  from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 import {JoinButtonNotification} from '../landingElements/Nav_buttons'
 
 import{chitOrangeLight,  chitOrange} from '../../../styles/colors'

@@ -18,13 +18,14 @@ import { combineReducers } from 'redux';
 
 // import asyncReducer from './asyncReducer'
 import sampleReducer from './sampleRootReducer'
-
+import mainReducer from './mainRootReducer'
 
 
 const rootReducer = combineReducers({
 
   // async: asyncReducer,
-    sample: sampleReducer
+    sample: sampleReducer,
+    main: mainReducer
 
   
 

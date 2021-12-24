@@ -2,7 +2,7 @@
 import { delay } from '../../utils/util';
 import { asyncActionError, asyncActionFinish, asyncActionStart } from '../reducers/asyncReducer';
 
-import  {fetchSampleData, fetchInitialAccountInfo} from '../../../app/api/mockApi'
+import  {fetchSampleData, fetchInitialAccountInfo} from '../../api/mockApi'
  
 
 

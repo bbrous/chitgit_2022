@@ -13,7 +13,7 @@ parent: SpotlightMain - pages/public/sampleSite/samSpots/SpotlightMain
 
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import {mediumLightGrey, mediumGrey, chitOrange, chitMediumGreen} from '../../../../styles/colors'
 
@@ -310,8 +310,16 @@ const LightTooltip = withStyles({
 // ============================================
 
 function Spotlight(props) {
+let match = useParams()
+console.log('@@@ [spotlight_s]- params' , match)
 
-  const matchId = props.match.params.detailId
+useEffect(()=>{
+  console.log('@@@ [spotlight_s]- params' , match)
+
+
+}, [match])
+
+  const matchId = match.detailId
   const dispatch = useDispatch()
   const spotlightsArray = useSelector(selectSpotlights)
 
@@ -464,4 +472,4 @@ function Spotlight(props) {
 
 
 
-export default withRouter(Spotlight)
+export default Spotlight

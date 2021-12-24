@@ -2,7 +2,7 @@ import React, {useState, useEffect}  from 'react'
 import {useHistory, useRouteMatch, match} from 'react-router-dom'
 import {connect, useSelector, useDispatch} from 'react-redux'
 
-import {sample_selectStatus} from '../../../app/redux/statusRedux/sam_selectors_Status'
+import {sample_selectStatus} from '../../../app/redux/statusRedux/X_sam_selectors_Status'
 
 import SampleNav from '../../navComponents/publicNav/sampleNav/Sample_nav'
 import HeaderMain from './samComponents/Header_main'

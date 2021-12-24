@@ -15,10 +15,10 @@ import React, {Fragment} from "react"
  
 
 import {NavLink, withRouter  } from 'react-router-dom'
-import { useRouteMatch } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 import{backgroundBlue, veryLightGrey} from '../../../styles/colors'
 
@@ -113,16 +113,16 @@ const StyledLink= styled(NavLink)({
 // ================================================
 
 function FeatureNav(props) {
-  let match = useRouteMatch()
+  let match = useParams()
   // let {page} = props
 
   // let location = useLocation()
   // let page = getPage(location)
 // console.log('[Features Nav ] - page location : ', page)
 let view
-let featureId = match.params.id
+let featureId = match.id
 
-if(!featureId){view = 'chits'}else{view = match.params.id}
+if(!featureId){view = 'chits'}else{view = match.id}
 console.log('[Features Nav page] I  is:  ', view)
 
   return (
@@ -279,4 +279,4 @@ const mapState = state => ({
   page: state
 });
 
-export default withRouter(connect(mapState, actions)(withRouter(FeatureNav)))
+export default connect(mapState, actions)(FeatureNav)

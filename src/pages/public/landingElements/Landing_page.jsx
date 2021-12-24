@@ -5,9 +5,9 @@
 */
 
 import React  from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import{setPage} from '../../../app/redux/actions/landingActions'
+import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 
 import{ chitDullYellow, backgroundBlue, chitYellow, chitSkyBlue } from '../../../styles/colors'
@@ -89,7 +89,7 @@ position: 'relative',
   minWidth: '37rem',
   height: '30rem',
  
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('sm')] : {
     flexDirection: 'column'
     
   }
@@ -578,4 +578,4 @@ const mapState = state => ({
   page: state
 });
 
-export default connect(mapState, actions)(withRouter(Landing_page))
+export default connect(mapState, actions)(Landing_page)
