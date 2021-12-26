@@ -6,14 +6,16 @@ Main wrapper for Login form
 
 */
 
-import React  from 'react'
+import React , {useState, useEffect} from 'react'
 import {backgroundBlue, chitRedDark, chitDullLightYellow } from '../../styles/colors'
 
 import LoginForm from '../../forms/LoginForm.jsx'
 
 
-import HeaderPublic from './landingElements/Header_public'
-import FeaturesNav from '../navComponents/publicNav/Feature_nav'
+ 
+import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
+ import JoinButtonLarge from '../navComponents/buttons/JoinButtonLarge'
+
 
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -151,7 +153,7 @@ const HeadWrapper= styled('div')({
 const LoginBox= styled(Paper)({
 
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   position: 'relative',
@@ -181,8 +183,12 @@ const LoginBox= styled(Paper)({
 
 // ================================================
 
-const Login = () => {
+const Login = (props) => {
+
+  console.log('00000000000000000000000000', props.component)
   return (
+
+
     <BodyWrapper>
     <HeaderPublic/>
     <NavSpacer/>
@@ -193,7 +199,9 @@ const Login = () => {
     </HeadWrapper>
 <ContentWrapper>
         <LoginBox>
-    LoginForm here
+        <div>LoginForm here</div>
+<div>not a member <JoinButtonLarge/></div>
+     
     </LoginBox>
 
     </ContentWrapper>

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import InitialStore from '../store/sampleStore/ex_note_initialStore'
 
 export const notesSlice = createSlice({
-  name: 'notes',
+  name: 'notesSample',
   initialState: InitialStore,
 
   reducers: {

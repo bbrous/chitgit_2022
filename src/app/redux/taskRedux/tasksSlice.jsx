@@ -29,7 +29,7 @@ export const tasksSlice = createSlice({
 // --- Export selectors ------------------------------------------
 
 
-export const selectTasks = (state) => state.sample.tasks
+export const selectTasks = (state) => state.main.tasks
 
 
 

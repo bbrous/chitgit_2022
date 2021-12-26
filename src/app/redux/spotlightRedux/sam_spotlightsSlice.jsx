@@ -7,7 +7,7 @@ import {msToISO} from '../../../app/helpers/dateHelper'
 
 
 export const spotlightsSlice = createSlice({
-  name: 'spotights',
+  name: 'spotightsSample',
   initialState: InitialStore,
 
   reducers: {
@@ -53,7 +53,7 @@ export const spotlightsSlice = createSlice({
    }, // end CHANGE_SPOTLIGHT_COMPLETED_STATUS
 
    changeSpotlightLastVisit: (state, action) => {
-
+    console.log('ZZZZZZZZZZZZZZZZZZZZZZZ tate is' , action.payload.spotId)
     let spotId = action.payload.spotId
     let visitedDate = action.payload.visitedDate
     

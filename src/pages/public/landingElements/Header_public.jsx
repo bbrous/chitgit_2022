@@ -7,14 +7,16 @@
 */
 
 import React  from 'react'
-
+import {Link, useParams, useLocation} from 'react-router-dom'
 import{backgroundBlue, highlightGrey} from '../../../styles/colors'
+
+import { getPage } from '../../../app/helpers/locationHelper'
 
  
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Logo from '../../../images/ChitPro_2021_logo_sm.svg'
-
+import LoginButton from '../../navComponents/buttons/LoginButton'
 // import HeaderLogin from './Header_login'
 
  
@@ -125,39 +127,24 @@ const LoginBox= styled('div')({
 
 })
 
-
-const LoginButton= styled(Button)({
-
  
-
-      display: 'block',
-      textTransform: 'none',
-      
-      border: '1px solid white' ,
-      color: 'white',
-      fontWeight: 'normal',
-      fontSize: '.6rem',
-      padding: '1px',
-      
-      '&:hover' : {
-        backgroundColor: highlightGrey,
-        textDecoration: 'none',
-      }
-
-
-})
 
 // -------------------------
 
 const Header_public = (props) => {
 
-  let {handlePageChange} = props
+  let location = useLocation()
+  let page = getPage(location)
+console.log('[Header_Public @@@@ ] - page location : ', page)
+
+   let handlePageChange = props.handlePageChange
 
 
   return (
     
         <HeaderWrapper position="fixed" elevation={0}>
           <Header>
+            
         <LogoWrapper>
         <LogoStyle src= {Logo}   alt="Chit Git Logo" />
          </LogoWrapper> 
@@ -172,8 +159,10 @@ const Header_public = (props) => {
         </NavBox>
 
         <LoginBox>
-          
-          <LoginButton>Login</LoginButton>
+        {page !== 'login' && 
+        <LoginButton/> 
+    }
+         
         </LoginBox>
 
           </Header>

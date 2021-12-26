@@ -1,6 +1,10 @@
 // --- File: pages/navComponents/publicNav/sampleNav/SpotlightNav
 // --- Navigation for Spotlights in Side Panel
 
+
+
+
+
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'

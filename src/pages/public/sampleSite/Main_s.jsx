@@ -31,7 +31,7 @@ import {useSelector, useDispatch,} from 'react-redux'
 import {chitLightLavendar, chitOrangeMedium,veryLightGrey, chitLightGreen, chitLightBlueDull, chitLightPink, chitDullYellow, mediumGrey, lightGrey} from '../../../styles/colors'
 
 import {capitalizeFirstLetter} from '../../../app/helpers/commonHelpers'
-import{changeLastSpotlightDisplayed,  openModal, selectStatus} from '../../../app/redux/statusRedux/sam_statusSlice'
+import{  openModal, selectStatus} from '../../../app/redux/statusRedux/sam_statusSlice'
 
 
 import HeaderMain from './samComponents/Header_main'

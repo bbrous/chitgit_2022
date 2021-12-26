@@ -8,12 +8,13 @@
 */
 
 import React from 'react'
+import {Link, useParams, useLocation} from 'react-router-dom'
 
-import{backgroundBlue,  highlightGrey} from '../../../styles/colors'
-
+import{backgroundBlue} from '../../../styles/colors'
  
+import LoginButton from '../../navComponents/buttons/LoginButton';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button'
+import { getPage } from '../../../app/helpers/locationHelper';
 
 
 // import HeaderLogin from './Header_login'
@@ -107,38 +108,27 @@ const LoginBox= styled('div')({
   [theme.breakpoints.down('sm')] : {
     justifyContent: 'flex-end',
     width: '12%',
-    marginRight: '2%'
+    marginRight: '2%',
+
   }
 
 })
 
 
-const LoginButton= styled(Button)({
-
-      display: 'block',
-      textTransform: 'none',
-      
-      border: '1px solid white' ,
-      color: 'white',
-      fontWeight: 'normal',
-      fontSize: '.6rem',
-      padding: '1px',
-      
-      '&:hover' : {
-        backgroundColor: highlightGrey,
-        textDecoration: 'none',
-      }
 
 
-})
 
 // -------------------------
 
 const Header_landing = (props) => {
+  let location = useLocation()
+  let page = getPage(location)
+console.log('[Header_Landing ] - page location : ', page)
 
-  let {handlePageChange} = props
+   let handlePageChange = props.handlePageChange
 
-
+ 
+ 
   return (
     
         <HeaderWrapper position="fixed" elevation={0}>
@@ -153,12 +143,14 @@ const Header_landing = (props) => {
        
           />
         </NavBox>
-
+{location !== 'login' && 
         <LoginBox>
-          
-          <LoginButton>Login</LoginButton>
+<LoginButton/>
         </LoginBox>
+      }
 
+
+      
           </Header>
           <AppBarSpacer/>
 

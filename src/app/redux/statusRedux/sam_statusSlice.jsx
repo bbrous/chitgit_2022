@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { createSelector } from 'reselect'
 
 export const statusSlice = createSlice({
-  name: 'status',
+  name: 'statusSample',
 
   initialState: {
 

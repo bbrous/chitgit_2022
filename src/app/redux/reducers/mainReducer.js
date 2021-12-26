@@ -19,10 +19,10 @@ import { combineReducers } from 'redux';
 // import mainReducer from './x_reducer_Main'
 // import asyncReducer from './asyncReducer'
 
-import statusReducer from '../statusRedux/main_statusSlice'
-import spotlightReducer from '../spotlightRedux/main_spotlightsSlice'
-import taskReducer from '../taskRedux/main_tasksSlice'
-import noteReducer from '../noteRedux/main_notesSlice'
+import statusReducer from '../statusRedux/statusSlice'
+import spotlightReducer from '../spotlightRedux/spotlightsSlice'
+import taskReducer from '../taskRedux/tasksSlice'
+import noteReducer from '../noteRedux/notesSlice'
 
 // import logReducer from '../logRedux/X_sam_reducers_Logs'
 // import peopleReducer from '../peopleRedux/X_sam_reducers_People'

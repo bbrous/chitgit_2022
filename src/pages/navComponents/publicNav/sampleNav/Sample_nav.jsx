@@ -21,6 +21,8 @@ import HeaderNav from '../Sample_header_nav'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Logo from '../../../../images/ChitPro_2021_logo_sm.svg'
+import JoinButtonSmall from '../../buttons/JoinButtonSmall'
+import LoginButton from '../../buttons/LoginButton'
 
 // import HeaderLogin from './Header_login'
 
@@ -114,14 +116,15 @@ const NavBox= styled('div')({
 
 })
 
-const LoginBox= styled('div')({
+const ButtonBox= styled('div')({
 
   height: '100%', 
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  width: '21%',
+  width: '31%',
   marginRight: '4%',
+  
 
   [theme.breakpoints.down('sm')] : {
     justifyContent: 'flex-end',
@@ -131,27 +134,21 @@ const LoginBox= styled('div')({
 
 })
 
-
-const JoinButton= styled(Button)({
-
+const ButtonWrapper = styled('div')({
+  display: 'flex',
+   
+  justifyContent: 'center',
+  alignItems: 'center',
  
+  marginLeft: '1rem',
 
-      display: 'block',
-      textTransform: 'none',
-      
-      border: '1px solid white' ,
-      color: 'white',
-      fontWeight: 'normal',
-      fontSize: '.6rem',
-      padding: '2px 6px',
-      
-      '&:hover' : {
-        backgroundColor: highlightGrey,
-        textDecoration: 'none',
-      }
-
-
+  [theme.breakpoints.down('xs')]: {
+    
+  }
 })
+
+
+
 
 // -------------------------
 
@@ -177,10 +174,21 @@ const SampleNav = (props) => {
           />
         </NavBox>
 
-        <LoginBox>
+        <ButtonBox>
+          <ButtonWrapper>
+          <JoinButtonSmall/>
+
+          </ButtonWrapper>
+
+          <ButtonWrapper>
+
+          <LoginButton/>
+          </ButtonWrapper>
           
-          <JoinButton>Join Chit Git</JoinButton>
-        </LoginBox>
+          
+           
+        </ButtonBox>
+        
 
           </Header>
           <AppBarSpacer/>

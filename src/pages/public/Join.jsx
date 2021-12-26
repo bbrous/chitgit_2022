@@ -11,11 +11,10 @@ import {backgroundBlue, chitRedDark, chitDullLightYellow } from '../../styles/co
 
 import JoinForm from '../../forms/JoinForm.jsx'
 
+import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
+ 
 
-import HeaderPublic from './landingElements/Header_public'
-import FeaturesNav from '../navComponents/publicNav/Feature_nav'
-
-import Button from '@mui/material/Button';
+ 
 import Paper from '@mui/material/Paper';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component

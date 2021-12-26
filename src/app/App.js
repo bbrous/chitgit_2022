@@ -89,8 +89,8 @@ const App = () => {
 
 {/* --- not logged in ---- */}
 
-            <Route path='/join' element={<Join />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/join' element={<Join component = 'join'/>} />
+            <Route path='/login' element={<Login component = 'login' />} />
 
 <Route path='/features' element={<Features />} /> 
             

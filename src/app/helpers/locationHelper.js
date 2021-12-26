@@ -24,30 +24,10 @@ export   const getPage = (url) => {
     thisPage = 'join'
     return(thisPage)
 
-  }else if(url.pathname.includes('main') ){
+  }else if(url.pathname.includes('login') ){
+    thisPage = 'login'
+    return(thisPage)
 
-    // console.log('[locationHelper] - main exists')
-   
-
-
-    if(url.pathname.includes('journal') ){
-      thisPage = 'journal'
-      return(thisPage)
-
-    }else if(url.pathname.includes('spotlight') ){
-
-    
-      thisPage = 'spotlight'
-      return(thisPage)
-
-
-
-    }else{
-      thisPage = 'home'
-      return(thisPage)
-    }
-
-    
   }else{
     thisPage = 'home'
     return(thisPage)

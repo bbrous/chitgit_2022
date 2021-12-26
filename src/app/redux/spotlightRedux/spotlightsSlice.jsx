@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { createSelector } from 'reselect'
  
 import cuid from 'cuid';
-import {msToISO} from '../../../app/helpers/dateHelper'
+import {msToISO} from '../../helpers/dateHelper'
 
 let InitialStore = []
 
@@ -108,9 +108,9 @@ export const {
 // --- Export selectors ------------------------------------------
 
 
-export const selectSpotlights = (state) => state.sample.spotlights
-export const makeSelectSpotlights = () => (state) => state.sample.spotlights
-export const selectTasks = (state) => state.sample.tasks
+export const selectSpotlights = (state) => state.main.spotlights
+export const makeSelectSpotlights = () => (state) => state.main.spotlights
+export const selectTasks = (state) => state.main.tasks
 
 export const selectSpotlightFromArray = (spotlightArray, id) => {
  
@@ -173,7 +173,7 @@ export const selectParentSpotlight = (spotlightArray, id) => {
 
 }
 
-const getSpotlight = (state, props) => state.sample.spotlights.find(spotlight => spotlight.id === props)
+const getSpotlight = (state, props) => state.main.spotlights.find(spotlight => spotlight.id === props)
 
 // selects single spotlight
 

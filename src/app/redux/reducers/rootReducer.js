@@ -18,14 +18,23 @@ import { combineReducers } from 'redux';
 
 // import asyncReducer from './asyncReducer'
 import sampleReducer from './sampleRootReducer'
-import mainReducer from './mainRootReducer'
+// import mainReducer from './mainReducer'
+
+import statusReducer from '../statusRedux/statusSlice'
+import spotlightReducer from '../spotlightRedux/spotlightsSlice'
+import taskReducer from '../taskRedux/tasksSlice'
+import noteReducer from '../noteRedux/notesSlice'
 
 
 const rootReducer = combineReducers({
 
   // async: asyncReducer,
     sample: sampleReducer,
-    main: mainReducer
+    status:  statusReducer,
+    spotlights:  spotlightReducer,
+    tasks: taskReducer ,
+    notes:  noteReducer
+    
 
   
 
