@@ -9,7 +9,7 @@ export const statusSlice = createSlice({
     loading: false,
 
     auth: {
-     
+      uid: '',
       loginStatus:  false,
       loginFirstName: '',
       loginLastName: '',
@@ -142,9 +142,20 @@ export const statusSlice = createSlice({
       state.view[action.payload.pageType].display = action.payload.pageView
                    
     },
+// --- Firebase status reducers -------------
 
     changeLoadingStatus: (state, action) => {
       state.loading = action.payload
+                   
+    },
+
+    updateLoginStatus: (state, action) => {
+      state.auth.loginStatus = action.payload
+                   
+    },
+
+    updateUid: (state, action) => {
+      state.auth.uid = action.payload
                    
     },
 
@@ -162,7 +173,9 @@ export const {
   changeStatusInitialMessage, 
   changeLastSpotlightDisplayed,
   updateStatusView,
+  updateLoginStatus,
   changeLoadingStatus,
+  updateUid
 
   } = statusSlice.actions
 
@@ -172,6 +185,9 @@ export const {
 
 export const selectStatus = state => state.sample.status //Sample site
 export const selectLoadingStatus = state => state.status.loading//Sample site
+export const selectLoginStatus = state => state.status.auth.loginStatus//Sample site
+
+export const selectUid = state => state.status.auth.uid//Sample site
 
 export const selectView = (page) => createSelector(
   [selectStatus],

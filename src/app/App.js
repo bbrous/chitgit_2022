@@ -23,7 +23,7 @@ import { Route, Routes , Navigate, Link } from 'react-router-dom'
 
 
 import FirebaseAuthService from './firebase/FirebaseAuthService.js';
-
+import { selectLoadingStatus, updateUid, selectUid } from './redux/statusRedux/statusSlice.jsx';
 
 import { ThemeProvider } from '@mui/styles';
 import CssBaseline from '@mui/material/CssBaseline'
@@ -41,7 +41,7 @@ import Main from '../pages/private/Main'
 import Join from '../pages/public/Join'
 import Login from '../pages/public/Login'
 
-import { selectLoadingStatus } from './redux/statusRedux/statusSlice.jsx';
+
 
 // import Try from '../pages/sandBox/aTry'
 // import Notes from '../pages/private/Notes'
@@ -71,6 +71,24 @@ const App = () => {
   let loadingStatus = useSelector(selectLoadingStatus)
 
   FirebaseAuthService.subscribeToAuthChanges(setUser) 
+
+  let [uid, setUid ]= useSelector(selectUid)
+
+
+  useEffect(() => {
+    console.log('[ App ] user ', user);
+    if(user){
+      dispatch(updateUid(user.uid))
+    }
+  
+      
+    },[user, dispatch])
+
+     
+
+ 
+
+    // ---return
     return (
       <CssBaseline>
         <ThemeProvider theme = {theme} >
@@ -81,7 +99,7 @@ const App = () => {
 
 {/* ---  logged in ---- */}
 
-        {user && 
+        {uid && 
           <>
 
             <Route path="/" element={<Navigate replace to="/home" />} />

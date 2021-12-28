@@ -210,7 +210,7 @@ const Login = (props) => {
     </HeadWrapper>
 <ContentWrapper>
         <LoginBox>
-        <div>LoginForm here</div>
+       <LoginForm/>
 
      
     </LoginBox>
