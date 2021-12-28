@@ -40,6 +40,9 @@ import Home from '../pages/private/Home'
 import Main from '../pages/private/Main'
 import Join from '../pages/public/Join'
 import Login from '../pages/public/Login'
+
+import { selectLoadingStatus } from './redux/statusRedux/statusSlice.jsx';
+
 // import Try from '../pages/sandBox/aTry'
 // import Notes from '../pages/private/Notes'
 // import Spotlights from '../pages/private/spotlightElements/SpotlightsMain'
@@ -61,14 +64,18 @@ import Login from '../pages/public/Login'
 
 
 const App = () => {
-
+  const dispatch = useDispatch()
 
   const [user, setUser ] = useState(null)
+
+  let loadingStatus = useSelector(selectLoadingStatus)
 
   FirebaseAuthService.subscribeToAuthChanges(setUser) 
     return (
       <CssBaseline>
         <ThemeProvider theme = {theme} >
+
+        {loadingStatus && <Loading />}
 
         <Routes>
 
@@ -89,8 +96,8 @@ const App = () => {
 
 {/* --- not logged in ---- */}
 
-            <Route path='/join' element={<Join component = 'join'/>} />
-            <Route path='/login' element={<Login component = 'login' />} />
+            <Route path='/join' element={<Join/>} />
+            <Route path='/login' element={<Login/>} />
 
 <Route path='/features' element={<Features />} /> 
             

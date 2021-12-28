@@ -122,7 +122,7 @@ const ButtonBox= styled('div')({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  width: '31%',
+  width: '20%',
   marginRight: '4%',
   
 

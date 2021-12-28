@@ -131,7 +131,7 @@ function HeaderNav(props) {
             id = 'home' 
             // onClick = {handlePageChange}
           
-          >aHome </NavButton>
+          >Home </NavButton>
         }
 
         {page === 'home' && 

@@ -1,14 +1,19 @@
-/* Join.jsx
+/*---- File - Join.jsx 
+   sign up + auth + redirect
 
-Main wrapper for join form
+links from:  src\pages\public\landingElements\Landing_page.jsx
+             src\pages\public\Login.jsx
+     
 
+   Contains children: 
+       JoinForm - src\forms\JoinForm.jsx
 
-
+   parent: Router - direct from App.jsx
 */
 
 import React  from 'react'
 import {backgroundBlue, chitRedDark, chitDullLightYellow } from '../../styles/colors'
-
+import {Navigate, useNavigate} from   'react-router'
 import JoinForm from '../../forms/JoinForm.jsx'
 
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
@@ -183,20 +188,24 @@ const JoinBox= styled(Paper)({
 const Join = () => {
   return (
     <BodyWrapper>
-    <HeaderPublic/>
-    <NavSpacer/>
-    <HeadWrapper>
-      Join
-      
-    <SubHeader>ChitGit is free</SubHeader>
-    </HeadWrapper>
-<ContentWrapper>
-        <JoinBox>
-    JoinForm here
-    </JoinBox>
+      <HeaderPublic />
+      <NavSpacer />
 
-    </ContentWrapper>
-  </BodyWrapper>
+      <HeadWrapper>
+        Join
+
+        <SubHeader>ChitGit is free</SubHeader>
+
+      </HeadWrapper>
+
+      <ContentWrapper>
+
+        <JoinBox>
+          <JoinForm  mark = 'mike' />
+        </JoinBox>
+
+      </ContentWrapper>
+    </BodyWrapper>
   )
 }
 

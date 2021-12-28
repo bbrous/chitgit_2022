@@ -29,7 +29,8 @@ const theme = createTheme(); // allows use of mui theme in styled component
 const HeaderWrapper = styled(AppBar)({
   height: '2.5rem', 
   backgroundColor: backgroundBlue,
-  border: 'none'
+  border: 'none',
+ 
 
 })
 
@@ -44,8 +45,9 @@ const Header= styled('div')({
   alignItems: 'center',
 
   [theme.breakpoints.down('sm')] : {
-    height: '3rem'
-    
+    height: '3rem',
+    justifyContent: 'space-around',
+ 
   }
  
 
@@ -73,7 +75,7 @@ const Spacer= styled('div')({
 
   [theme.breakpoints.down('sm')] : {
      
-    width: '23%',
+    width: '0',
     height: '2rem',
     marginLeft: '1%', 
   }
@@ -89,9 +91,10 @@ const NavBox= styled('div')({
   width: '80%',
 
   [theme.breakpoints.down('sm')] : {
-    
+    justifyContent: 'space-around',
     width: '100%',
-    
+  
+
   }
 
 })
@@ -106,9 +109,8 @@ const LoginBox= styled('div')({
   marginRight: '9%',
 
   [theme.breakpoints.down('sm')] : {
-    justifyContent: 'flex-end',
-    width: '12%',
-    marginRight: '2%',
+    display: 'none',
+
 
   }
 
@@ -125,39 +127,40 @@ const Header_landing = (props) => {
   let page = getPage(location)
 console.log('[Header_Landing ] - page location : ', page)
 
-   let handlePageChange = props.handlePageChange
+  //  let handlePageChange = props.handlePageChange
 
  
  
   return (
-    
-        <HeaderWrapper position="fixed" elevation={0}>
-          <Header>
-        <Spacer/> 
-    
 
-        <NavBox> 
-          <HeaderNav 
-          handlePageChange = {handlePageChange}
-        
-       
+    <HeaderWrapper position="fixed" elevation={0}>
+      <Header>
+        <Spacer />
+
+
+        <NavBox>
+          <HeaderNav
+            // handlePageChange={handlePageChange}
+
+
           />
         </NavBox>
-{location !== 'login' && 
-        <LoginBox>
-<LoginButton/>
-        </LoginBox>
-      }
+
+        {location !== 'login' &&
+          <LoginBox>
+            <LoginButton />
+          </LoginBox>
+        }
 
 
-      
-          </Header>
-          <AppBarSpacer/>
 
-        </HeaderWrapper>
+      </Header>
+      <AppBarSpacer />
 
-   
- 
+    </HeaderWrapper>
+
+
+
   )
 }
 

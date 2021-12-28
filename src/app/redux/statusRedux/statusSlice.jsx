@@ -6,6 +6,8 @@ export const statusSlice = createSlice({
 
   initialState: {
   
+    loading: false,
+
     auth: {
      
       loginStatus:  false,
@@ -140,6 +142,12 @@ export const statusSlice = createSlice({
       state.view[action.payload.pageType].display = action.payload.pageView
                    
     },
+
+    changeLoadingStatus: (state, action) => {
+      state.loading = action.payload
+                   
+    },
+
   }, //end reducers
 
 }) // end slice statusSlice 
@@ -154,6 +162,7 @@ export const {
   changeStatusInitialMessage, 
   changeLastSpotlightDisplayed,
   updateStatusView,
+  changeLoadingStatus,
 
   } = statusSlice.actions
 
@@ -162,6 +171,7 @@ export const {
 // --- Export selectors ------------------------------------------
 
 export const selectStatus = state => state.sample.status //Sample site
+export const selectLoadingStatus = state => state.status.loading//Sample site
 
 export const selectView = (page) => createSelector(
   [selectStatus],

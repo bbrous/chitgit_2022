@@ -40,8 +40,10 @@ const StyledJoinButton= styled(Button)({
   padding: '2px 6px',
   
   '&:hover' : {
-    backgroundColor: highlightGrey,
-    textDecoration: 'none',
+        // backgroundColor: chitSkyBlue,
+        textDecoration: 'none',
+        border: '1px solid #A8BEED' ,
+        color: '#A8BEED'
   }
 
 

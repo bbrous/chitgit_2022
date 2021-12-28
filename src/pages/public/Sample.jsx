@@ -121,7 +121,7 @@ const HeaderWrapper= styled('div')({
   fontSize: '1.3rem', 
   color: chitYellow,
 
-
+  marginTop: '1rem',
  
   height: '3rem',
 
@@ -141,7 +141,7 @@ const NavWrapper= styled('div')({
      
     width: '80%',
     
-    margin: '3rem 2rem',
+    margin: '1.5rem 2rem 1.5rem 2rem',
      
     // overflow: 'hidden',
     
@@ -173,6 +173,7 @@ const NavWrapper= styled('div')({
     backgroundColor: 'white',
     borderRadius: '20px',
     padding: '0 1.5rem 1rem 1.5rem',
+    
   })
 
 

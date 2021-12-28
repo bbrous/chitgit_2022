@@ -82,7 +82,7 @@ const NavButtonDisabled= styled(Button)({
    
   [theme.breakpoints.down('sm')] : {
     fontWeight: 'bold',
-    fontSize: '.85rem',
+    fontSize: '.75rem',
     padding: '1px',
     
   },
@@ -103,6 +103,16 @@ const StyledLink= styled(NavLink)({
 
 })
 
+const HiddenStyledLink= styled(NavLink)({
+  display: 'none',
+  textDecoration: 'none',
+
+  [theme.breakpoints.down('sm')] : {
+    display: 'block'
+    
+  }
+
+})
 
 
 // ================================================
@@ -183,12 +193,27 @@ console.log('[Header_Nav ] - page location : ', page)
 
 
     </StyledLink>
+ 
+    <HiddenStyledLink to="/login" >
 
-    {/* <StyledLink to="/main/twoParty" >
+{page !== 'login' && 
+  <NavButton
+    id = 'login' 
+    // onClick = {handlePageChange}
+     
+  >Login </NavButton>
+}
+
+{page === 'login' && 
+  <NavButtonDisabled disabled
+    id = 'login' 
+    // onClick = {handlePageChange}
+  
+  >Login </NavButtonDisabled>
+}
 
 
-
-      </StyledLink> */}
+</HiddenStyledLink>
    
   </Fragment>
   );

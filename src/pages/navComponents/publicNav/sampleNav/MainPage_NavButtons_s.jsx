@@ -39,12 +39,14 @@ const NavButton= styled(Button)({
   padding: '.3rem .8rem',
   
   fontSize: '1.2rem',
-  height: '4.5rem',
-  width: '8rem',
+  height: '3rem',
+  width: '7.5rem',
   margin: '0 1rem',
   '&:hover' : {
-    backgroundColor: highlightGrey,
+    
     textDecoration: 'none',
+    border: '1px solid #A8BEED' ,
+    color: '#A8BEED'
   }
 
 

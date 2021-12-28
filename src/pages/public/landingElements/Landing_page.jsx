@@ -313,15 +313,18 @@ const JoinButton = styled(Button)({
   display: 'block',
   textTransform: 'none',
   
-  border: '1px solid #FADAC1' ,
+  border: '1px solid white' ,
   color: 'white',
   fontWeight: 'normal',
   fontSize: '1.1rem',
   padding: '0 2.5rem',
   
   '&:hover' : {
-    backgroundColor: chitSkyBlue,
+    // backgroundColor: chitSkyBlue,
     textDecoration: 'none',
+    border: '1px solid #A8BEED' ,
+    color: '#A8BEED'
+
   }
 
 

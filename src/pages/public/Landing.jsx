@@ -134,19 +134,7 @@ const Landing = () => {
      
 
 
-      {/* <ContentWrapper>
-        <TryIt to="/Try">  </TryIt>
-        <BoxLink id = 'join' onClick = {(evt)=> handleClick(evt)} > Join</BoxLink>
-        <LogoWrapper>
-        <LogoStyle src= {Logo}   alt="Chit Git Logo" />
-          
-          
-        </LogoWrapper>
-
-        <LoginWrapper>
-          <Login/>
-        </LoginWrapper>
-      </ContentWrapper> */}
+  
 
 
 

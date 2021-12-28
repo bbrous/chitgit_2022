@@ -1,6 +1,7 @@
 /* Header_public.jsx
    contains child components: 
       HeaderNav - public nav to SampleSite, Landing, etc
+                  navComponents/publicNav/Header_nav
 
     parent: src/pages/public/Features.jsx
 

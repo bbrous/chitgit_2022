@@ -1,9 +1,14 @@
-/* Login.jsx
+/*---- File - Login.jsx 
+   sign in
 
-Main wrapper for Login form
+links from:  src\pages\public\landingElements\Landing_page.jsx
+             src\pages\public\Login.jsx
+      Router - direct from App.jsx
 
+   Contains children: 
+       JoinForm - src\forms\JoinForm.jsx
 
-
+   parent:  Router - direct from App.jsx
 */
 
 import React , {useState, useEffect} from 'react'
@@ -14,7 +19,7 @@ import LoginForm from '../../forms/LoginForm.jsx'
 
  
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
- import JoinButtonLarge from '../navComponents/buttons/JoinButtonLarge'
+ import JoinButtonSmall from '../navComponents/buttons/JoinButtonSmall'
 
 
 import Button from '@mui/material/Button';
@@ -98,16 +103,21 @@ const HeadWrapper= styled('div')({
   const SubHeader= styled('div')({
 
       display: 'flex',
-      
+      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'flex-start',
-
-      width: '100%',
+      margin: '.5rem 0',
+      width: '30%',
 
       color: 'white',
       fontSize: '.9rem',
       
-     
+      '& span' : {
+        color: 'white',
+        fontSize: '.8rem',
+        marginRight: '.75rem'
+      },
+ 
     
       [theme.breakpoints.down('xs')] : {
         overflow: 'auto',
@@ -185,7 +195,7 @@ const LoginBox= styled(Paper)({
 
 const Login = (props) => {
 
-  console.log('00000000000000000000000000', props.component)
+
   return (
 
 
@@ -193,14 +203,15 @@ const Login = (props) => {
     <HeaderPublic/>
     <NavSpacer/>
     <HeadWrapper>
-      Login
+     <div>Login</div>
       
-    <SubHeader>ChitGit is free</SubHeader>
+    <SubHeader> 
+      <span>not a member  </span> <JoinButtonSmall/> </SubHeader>
     </HeadWrapper>
 <ContentWrapper>
         <LoginBox>
         <div>LoginForm here</div>
-<div>not a member <JoinButtonLarge/></div>
+
      
     </LoginBox>
 
