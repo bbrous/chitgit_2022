@@ -14,7 +14,7 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 
 import { useDispatch } from 'react-redux';
 import { changeLoadingStatus } from '../app/redux/statusRedux/statusSlice'
-
+import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaOf, string, object, array } from 'yup';
 import {StyledInput} from './formComponents/StyledInput'
@@ -22,7 +22,7 @@ import {StyledInput} from './formComponents/StyledInput'
 import {styled, createTheme}  from '@mui/material/styles'
 import Button from '@mui/material/Button'; 
 import FirebaseAuthService from '../app/firebase/FirebaseAuthService';
-
+import {createUserProfileDocument} from '../app/firebase/FirebaseFirestoreService';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -142,6 +142,8 @@ const StyledButton= styled(Button)({
 const defaultValues = {
   email: "",
   password: "",
+  firstName : "",
+  lastName : ""
 
 
 };
@@ -149,9 +151,17 @@ const defaultValues = {
 //  -- Input requirements for user for each component (if any)
 
 const formSchema = object({
-  email: string().required('email is required').email('not an email'),
-  password: string().max(10, 'no more than 10'),
 
+  firstName: string().required('last name required is required'),
+  lastName: string().required('last name required is required'),
+  email: string().required('email is required').email('not an email'),
+  
+  password: string()
+            .required('Confirm Password is required')
+            .max(10, 'no more than 10'),
+  confirmPassword: string()
+            .required('Confirm Password is required')
+            .oneOf([yup.ref('password')], 'Passwords must match')
 
  
 
@@ -177,7 +187,7 @@ function JoinForm({existingUser}) {
     // };
   
     const submitForm = async (data ) => {
-      console.log('[Responsive_Form]...data ', data.email)
+ 
       
       // evt.preventDefault()
       const {email, password} = data
@@ -185,7 +195,21 @@ function JoinForm({existingUser}) {
        
         dispatch(changeLoadingStatus(true))
        let userData = await FirebaseAuthService.registerUser(data.email, data.password)
+
+
+
        if(userData){
+
+        const userId = userData.user.uid
+        const userEmail = userData.user.email
+        const firstName = data.firstName
+        const lastName = data.lastName
+
+        console.log('[ JoinForm ] firstName ', firstName);
+        console.log('[ JoinForm ] lastName ', lastName);
+        console.log('[ JoinForm ] data.user ', userData.user.email);
+        console.log('[ JoinForm ] data.user.uid ', userData.user.uid);
+        await createUserProfileDocument(userId, userEmail, firstName, lastName)
          navigate('/home')
          dispatch(changeLoadingStatus(false))
          reset()
@@ -215,6 +239,32 @@ function JoinForm({existingUser}) {
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
+          {/* ------Input Component  -------------------------- */}
+
+          <FormComponentWrapper>
+          <ComponentName>
+            first name
+          </ComponentName>
+
+          <ComponentWrapper>
+            <StyledInput name="firstName" control={control} label="First Name" type = "text"/>
+
+          </ComponentWrapper>
+        </FormComponentWrapper>
+
+         {/* ------Input Component  -------------------------- */}
+
+        <FormComponentWrapper>
+          <ComponentName>
+            last name
+          </ComponentName>
+
+          <ComponentWrapper>
+            <StyledInput name="lastName" control={control} label="Last Name" type = "text"/>
+
+          </ComponentWrapper>
+        </FormComponentWrapper>             
+
 
         {/* ------Input Component  -------------------------- */}
 
@@ -242,7 +292,18 @@ function JoinForm({existingUser}) {
           </ComponentWrapper>
         </FormComponentWrapper>
 
-       
+               {/* ------Input Component  -------------------------- */}
+
+               <FormComponentWrapper>
+          <ComponentName>
+            Confirm Password
+          </ComponentName>
+
+          <ComponentWrapper>
+            <StyledInput name="confirmPassword" control={control} type = "password" label="Password" />
+
+          </ComponentWrapper>
+        </FormComponentWrapper>
 
 
         {/* ------Submit ---------- -------------------------- */}

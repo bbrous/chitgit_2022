@@ -45,8 +45,9 @@ const LandingWrapper= styled('div')({
 
   borderBottom: '1px solid #606062',
 
-  [theme.breakpoints.down('xs')] : {
-    overflow: 'auto',
+  [theme.breakpoints.down('sm')] : {
+    // overflow: 'auto',
+  
   }
 
 
@@ -90,8 +91,8 @@ position: 'relative',
   height: '30rem',
  
   [theme.breakpoints.down('sm')] : {
-    flexDirection: 'column'
-    
+    flexDirection: 'column',
+    height: 'auto',
   }
 
 })
@@ -129,7 +130,7 @@ const LeftSide= styled('div')({
 
   [theme.breakpoints.down('sm')] : {
 
-    width: '48%',
+    width: '100%',
     paddingLeft: '2%',
 
 },

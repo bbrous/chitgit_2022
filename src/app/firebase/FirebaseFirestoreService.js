@@ -22,23 +22,67 @@ const createDocument = (uid, appCollection, dataObject) => {
 // --- create a document with Firebase with prefab ID ----------------
 // use to create new user when ID comes from the auth_0
 
-const createNewUserDocument =async (uid) => {
+// const createNewUserDocument =async (uid) => {
 
-  const userRef = firestore.doc(`users/${uid}`)
+//   const userRef = firestore.doc(`users/${uid}`)
   
-  try {
-    userRef.set({
-      entities: [],
-      notes: []
-    })
+//   try {
+//     userRef.set({
+//       entities: [],
+//       notes: []
+//     })
 
    
 
-  } catch(error){
-    console.log('[firebase.utils] error in createNewUserDocument: ' , error.message)
-  }
-}
+//   } catch(error){
+//     console.log('[firebase.utils] error in createNewUserDocument: ' , error.message)
+//   }
+// }
 
+
+// --- create a new User in Firestore with Firebase with prefab ID ----------------
+
+export const createUserProfileDocument = async (userId, userEmail, userFirstName, userLastName) =>{
+
+  // check if auth does Not exist - don't do anything
+  if(!userId){ return}
+  console.log('{firebase.utils] userAuth: ', userId)
+  // if there is a userAuth object
+
+  const userRef = firestore.doc(`users/${userId}`)
+
+console.log('[ firebase ] userRef ', userRef);
+
+  const snapShot = await userRef.get()
+  console.log('[ firebase ] snapShot ', snapShot);
+  
+
+  if(!snapShot.exists) {
+    const email = userEmail
+    const firstName = userFirstName
+    const lastName = userLastName
+
+    console.log('[ firebase ] userRef ', email);
+    const createdAt = new Date()
+    const lastVisit = new Date()
+    try {
+      await userRef.set({
+        firstName,
+        lastName,
+        email,
+        createdAt,
+        lastVisit
+        
+      })
+
+    } catch(error){
+      console.log('[firebase.utils] error in createUserProfileDocument: ' , error.message)
+    }
+
+    return userRef
+
+  }
+} // end createUserProfileDocument
 
 
 // ===================== export ======================================
@@ -46,7 +90,8 @@ const createNewUserDocument =async (uid) => {
 const FirebaseFirestoreService = {
   
   createDocument,
-  createNewUserDocument
+  // createNewUserDocument,
+
 
 }
 

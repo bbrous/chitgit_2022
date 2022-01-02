@@ -10,11 +10,7 @@ contains:
    
     Also contains theming for @MUI
 
-note: upon load, App determines if logged in 
-     -- if yes
-      1) dispatch user Id to Redux store
-      2) redirect to Main Page
-     -- if no - show Landing Page
+
 */
 
 

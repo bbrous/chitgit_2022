@@ -45,12 +45,12 @@ const SlideContent= styled('div')({
   width: '100vw',
   minHeight: '15rem',
   // marginBottom: '5rem',
-
+  background: 'white',
   borderBottom: '1px solid #E6E7E8',
   
 
 
-  [theme.breakpoints.down('md')] : {
+  [theme.breakpoints.down('sm')] : {
     // backgroundColor: 'orange'
   },
 

@@ -8,12 +8,12 @@ Children:  form components in -  ./formCompnents
 
 import React  from 'react'
 
-import {Navigate, useNavigate} from   'react-router'
+import {Navigate, useNavigate} from   'react-router-dom'
 
 import { FormProvider, useForm, Controller } from "react-hook-form";
 
 import { useDispatch } from 'react-redux';
-// import { changeLoadingStatus } from '../../app/redux/statusRedux/statusSlice'
+import { changeLoadingStatus } from '../app/redux/statusRedux/statusSlice'
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaOf, string, object, array } from 'yup';
@@ -178,33 +178,34 @@ function JoinForm({existingUser}) {
   
     const submitForm = async (data ) => {
       console.log('[Responsive_Form]...data ', data.email)
+      
       // evt.preventDefault()
-      // const {email, password} = data
-      // try{
+      const {email, password} = data
+      try{
        
-      //   dispatch(changeLoadingStatus(true))
-      //  let userData = await FirebaseAuthService.registerUser(data.email, data.password)
-      //  if(userData){
-      //    navigate('/home')
-      //    dispatch(changeLoadingStatus(false))
-      //    reset()
-      //   }
-      // //  FirebaseAuthService(data.email, data.password)
-      //   console.log('[JoinForm ]...data ', data)
-      //   reset(defaultValues)
+        dispatch(changeLoadingStatus(true))
+       let userData = await FirebaseAuthService.registerUser(data.email, data.password)
+       if(userData){
+         navigate('/home')
+         dispatch(changeLoadingStatus(false))
+         reset()
+        }
+      //  FirebaseAuthService(data.email, data.password)
+        console.log('[JoinForm ]...data ', data)
+        reset(defaultValues)
     
-      // }catch (error){
+      }catch (error){
   
-      //   alert(error.message)
-      //   dispatch(changeLoadingStatus(false))
-      //   navigate('/join')
-      //   reset(defaultValues)
-      // }
+        alert(error.message)
+        dispatch(changeLoadingStatus(false))
+        navigate('/join')
+        reset(defaultValues)
+      }
   
     };
   
     const handleLogout = () => {
-      FirebaseAuthService.logoutUser()
+      // FirebaseAuthService.logoutUser()
     }
   
      // --- Actual Form ---------------------------------------------
