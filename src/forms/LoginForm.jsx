@@ -22,7 +22,7 @@ import {StyledInput} from './formComponents/StyledInput'
 import {styled, createTheme}  from '@mui/material/styles'
 import Button from '@mui/material/Button'; 
 import FirebaseAuthService from '../app/firebase/FirebaseAuthService';
-
+import {updateLastVisit} from '../app/firebase/FirebaseFirestoreService';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -186,12 +186,17 @@ function LoginForm({existingUser}) {
         dispatch(changeLoadingStatus(true))
        let userData = await FirebaseAuthService.loginUser(data.email, data.password)
        if(userData){
+
+        const userId = userData.user.uid
+        console.log('[LoginForm ]...userData ', userId)
+        await updateLastVisit(userId)
+
          navigate('/home')
          dispatch(changeLoadingStatus(false))
          reset()
         }
       //  FirebaseAuthService(data.email, data.password)
-        console.log('[JoinForm ]...data ', data)
+ 
         reset(defaultValues)
     
       }catch (error){

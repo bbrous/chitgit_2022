@@ -39,6 +39,19 @@ const createDocument = (uid, appCollection, dataObject) => {
 //   }
 // }
 
+// --- create a new User in Firestore with Firebase with prefab ID ----------------
+
+export const updateLastVisit = async (userId) =>{
+
+  // check if auth does Not exist - don't do anything
+  if(!userId){ return}
+  const newLastVisit = new Date()
+  const userRef = firestore.doc(`users/${userId}`)
+  userRef.update({lastVisit: newLastVisit})
+
+}// updateLastVisit
+
+
 
 // --- create a new User in Firestore with Firebase with prefab ID ----------------
 
@@ -61,6 +74,14 @@ console.log('[ firebase ] userRef ', userRef);
     const email = userEmail
     const firstName = userFirstName
     const lastName = userLastName
+    const initialMessage = {
+      spotlights: true,
+      personal : true,
+      twoParty : true,
+      work: true,
+      chronicles: true,
+      logs: true
+    }
 
     console.log('[ firebase ] userRef ', email);
     const createdAt = new Date()
@@ -71,7 +92,8 @@ console.log('[ firebase ] userRef ', userRef);
         lastName,
         email,
         createdAt,
-        lastVisit
+        lastVisit,
+        initialMessage
         
       })
 

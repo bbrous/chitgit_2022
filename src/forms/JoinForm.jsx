@@ -209,6 +209,7 @@ function JoinForm({existingUser}) {
         console.log('[ JoinForm ] lastName ', lastName);
         console.log('[ JoinForm ] data.user ', userData.user.email);
         console.log('[ JoinForm ] data.user.uid ', userData.user.uid);
+        
         await createUserProfileDocument(userId, userEmail, firstName, lastName)
          navigate('/home')
          dispatch(changeLoadingStatus(false))
