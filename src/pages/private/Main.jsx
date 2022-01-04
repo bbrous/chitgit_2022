@@ -15,9 +15,9 @@ const Main = () => {
     <div>
        
       <div>Main Page here</div>
-      <div>- load spotlights</div>
-      <div>- load chits</div>
-      <div>- load notes</div>
+      <div>- load spotlights from database</div>
+      <div>- load chits from database</div>
+      <div>- load notes from database</div>
       <div>- etc</div>
 
     </div>

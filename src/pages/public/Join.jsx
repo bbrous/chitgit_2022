@@ -12,8 +12,8 @@ links from:  src\pages\public\landingElements\Landing_page.jsx
 */
 
 import React  from 'react'
-import {backgroundBlue, chitRedDark, chitDullLightYellow } from '../../styles/colors'
-import {Navigate, useNavigate} from   'react-router'
+import {backgroundBlue } from '../../styles/colors'
+ 
 import JoinForm from '../../forms/JoinForm.jsx'
 
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
@@ -30,7 +30,6 @@ const theme = createTheme(); // allows use of mui theme in styled component
 const BodyWrapper= styled('div')({
   display: 'block',
   
-  // backgroundColor: 'white' ,
   height: '100vh',
   overflowY: 'hidden',
   overflowX: 'hidden',
@@ -48,8 +47,6 @@ const BodyWrapper= styled('div')({
  }
 
 
-// backgroundColor: testColors.testGreen
-
 })
 
 const NavSpacer = styled('div')({
@@ -63,8 +60,6 @@ const NavSpacer = styled('div')({
  
  }
 
-
-// backgroundColor: testColors.testGreen
 
 })
 
@@ -91,9 +86,7 @@ const HeadWrapper= styled('div')({
       overflow: 'auto',
     }
   
-  
-  
-  // backgroundColor: testColors.testGreen
+
   
   })
 

@@ -1,28 +1,18 @@
-/*---- File - Login.jsx 
-   sign in
+/*---- File - PasswordReset.jsx 
+  reset password wrapper
 
-links from:  src\pages\public\landingElements\Landing_page.jsx
-             src\pages\public\Login.jsx
-      Router - direct from App.jsx
+links from:  ./LoginForm .jsx
 
-   Contains children: 
-       JoinForm - src\forms\JoinForm.jsx
-
-   parent:  Router - direct from App.jsx
+   parent:   none 
 */
 
 import React  from 'react'
 import {backgroundBlue } from '../../styles/colors'
 
-import LoginForm from '../../forms/LoginForm.jsx'
-
-
- 
+import PasswordResetForm from '../../forms/PasswordResetForm.jsx'
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
- import JoinButtonSmall from '../navComponents/buttons/JoinButtonSmall'
 
-
-
+//  --- mui ---
 import Paper from '@mui/material/Paper';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -47,7 +37,7 @@ const BodyWrapper= styled('div')({
     width: '100%',
     padding: '0',
    
- 
+
  }
 
 
@@ -59,10 +49,9 @@ const NavSpacer = styled('div')({
 
 
   [theme.breakpoints.down('xs')] : {
- 
-   
- }
 
+ 
+ }
 
 
 })
@@ -84,40 +73,15 @@ const HeadWrapper= styled('div')({
     height: '6rem',
     padding: '1rem 0 1.5rem 0',
   
- 
-  
     [theme.breakpoints.down('xs')] : {
       overflow: 'auto',
     }
+  
 
   
   })
 
-  const SubHeader= styled('div')({
 
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      margin: '.5rem 0',
-      width: '30%',
-
-      color: 'white',
-      fontSize: '.9rem',
-      
-      '& span' : {
-        color: 'white',
-        fontSize: '.8rem',
-        marginRight: '.75rem'
-      },
- 
-    
-      [theme.breakpoints.down('xs')] : {
-        overflow: 'auto',
-      }
-    
-    
-    })
     const ContentWrapper= styled('div')({
  
       display: 'flex',
@@ -127,25 +91,20 @@ const HeadWrapper= styled('div')({
      
       height: 'calc(100vh  - 2.5rem)',
   
-  
-  
-      // height: '100%',
-      
-      // marginTop: '2.5rem',
       paddingBottom: '1rem 0',
       backgroundColor: backgroundBlue,
       overflow: 'hidden',
       fontFamily: 'Lato, sans-serif',
-  
-
+    
       [theme.breakpoints.down('xs')] : {
         overflow: 'hidden',
       }
+    
 
     
     })
     
-const LoginBox= styled(Paper)({
+const ResetBox = styled(Paper)({
 
   display: 'flex',
   flexDirection: 'column',
@@ -155,46 +114,38 @@ const LoginBox= styled(Paper)({
 
   width: '45rem',
   height: '25rem',
-  backgroundColor: 'white' ,
+  backgroundColor: 'white',
   borderRadius: '20px',
 
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('xs')]: {
     width: '25rem',
     height: '25rem',
   }
 
-
 })
-
 
 
 // ================================================
 
-const Login = (props) => {
+const PasswordReset = (props) => {
 
 
   return (
 
-
     <BodyWrapper>
+
       <HeaderPublic />
       <NavSpacer />
-      <HeadWrapper>
-        <div>Login</div>
+      <HeadWrapper></HeadWrapper>
 
-        <SubHeader>
-          <span>not a member  </span> <JoinButtonSmall /> </SubHeader>
-      </HeadWrapper>
       <ContentWrapper>
-        <LoginBox>
-          <LoginForm />
-
-
-        </LoginBox>
-
+        <ResetBox>
+          <PasswordResetForm />
+        </ResetBox>
       </ContentWrapper>
+
     </BodyWrapper>
   )
 }
 
-export default Login
+export default PasswordReset

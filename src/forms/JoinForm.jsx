@@ -8,15 +8,15 @@ Children:  form components in -  ./formCompnents
 
 import React  from 'react'
 
-import {Navigate, useNavigate} from   'react-router-dom'
+import { useNavigate} from   'react-router-dom'
 
-import { FormProvider, useForm, Controller } from "react-hook-form";
+import { FormProvider, useForm} from "react-hook-form";
 
 import { useDispatch } from 'react-redux';
 import { changeLoadingStatus } from '../app/redux/statusRedux/statusSlice'
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SchemaOf, string, object, array } from 'yup';
+import { string, object, array } from 'yup';
 import {StyledInput} from './formComponents/StyledInput'
 
 import {styled, createTheme}  from '@mui/material/styles'
@@ -39,18 +39,6 @@ const Wrapper= styled('div')({
 
 })
 
-const TitleWrapper= styled('h3')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '50%'
- 
-  
- 
-
-
-})
 
 const FormWrapper = styled('form')({
   position: 'relative',
@@ -77,7 +65,7 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '100%',
   margin: '.5rem',
-  // overflowY: 'hidden',
+
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -93,7 +81,7 @@ const ComponentName= styled('div')({
   alignItems: 'center',
   width: '100%',
   color: 'darkGrey',
-  // overflowY: 'hidden',
+
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -108,7 +96,7 @@ const ComponentWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
-  // overflowY: 'hidden',
+
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -124,7 +112,7 @@ const ButtonWrapper= styled('div')({
   alignItems: 'center',
   width: '60%',
   margin: '.75rem',
-  // overflowY: 'hidden',
+
   
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -138,13 +126,15 @@ const StyledButton= styled(Button)({
 
 })
 
-// ===================================================
+// ==================================================
+
+// --- Yup setup ---
+
 const defaultValues = {
   email: "",
   password: "",
   firstName : "",
   lastName : ""
-
 
 };
 
@@ -163,10 +153,9 @@ const formSchema = object({
             .required('Confirm Password is required')
             .oneOf([yup.ref('password')], 'Passwords must match')
 
- 
-
   
 });
+
 // ===================================================
 
 function JoinForm({existingUser}) {
@@ -178,27 +167,23 @@ function JoinForm({existingUser}) {
       resolver: yupResolver(formSchema)
     });
   
-    const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
+    const { handleSubmit, reset, control} = methods;
   
-    // const submitForm = async (data) => {
-    //   console.log('[Responsive_Form]...data ', data)
-    //   reset(defaultValues)
   
-    // };
-  
-    const submitForm = async (data ) => {
- 
-      
-      // evt.preventDefault()
-      const {email, password} = data
-      try{
-       
-        dispatch(changeLoadingStatus(true))
-       let userData = await FirebaseAuthService.registerUser(data.email, data.password)
+  const submitForm = async (data) => {
+
+    // --- Join functions --- 
+    try {
+
+      // --- start the spinner ---
+      dispatch(changeLoadingStatus(true))
+
+      // --- firebase register ---
+      let userData = await FirebaseAuthService.registerUser(data.email, data.password)
 
 
-
-       if(userData){
+      //  --- register succssful  successful ---
+      if (userData) {
 
         const userId = userData.user.uid
         const userEmail = userData.user.email
@@ -209,34 +194,38 @@ function JoinForm({existingUser}) {
         console.log('[ JoinForm ] lastName ', lastName);
         console.log('[ JoinForm ] data.user ', userData.user.email);
         console.log('[ JoinForm ] data.user.uid ', userData.user.uid);
-        
+
+
+        //  --- Add auth data + form data into database ---
+
         await createUserProfileDocument(userId, userEmail, firstName, lastName)
-         navigate('/home')
-         dispatch(changeLoadingStatus(false))
-         reset()
-        }
-      //  FirebaseAuthService(data.email, data.password)
-        console.log('[JoinForm ]...data ', data)
-        reset(defaultValues)
-    
-      }catch (error){
-  
-        alert(error.message)
+
+        // --- navigate + end spinner + reset form ---
+
+        navigate('/home')
         dispatch(changeLoadingStatus(false))
-        navigate('/join')
-        reset(defaultValues)
+        reset()
       }
-  
-    };
-  
-    const handleLogout = () => {
-      // FirebaseAuthService.logoutUser()
+      //  FirebaseAuthService(data.email, data.password)
+      console.log('[JoinForm ]...data ', data)
+      reset(defaultValues)
+
+    } catch (error) {
+
+      // --- alert error + navigate + end spinner + reset form ---
+      alert(error.message)
+      dispatch(changeLoadingStatus(false))
+      navigate('/join')
+      reset(defaultValues)
     }
+
+  };
   
+
      // --- Actual Form ---------------------------------------------
   return (
     <>
-    <TitleWrapper> Join</TitleWrapper>
+  
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
@@ -317,18 +306,8 @@ function JoinForm({existingUser}) {
       </FormWrapper>
 
     </FormProvider>
-    {existingUser && 
-    <StyledButton  type = 'button' variant="contained" color="primary"
-      onClick = {handleLogout}
-    >
-            Log Out
-          </StyledButton>
-          }
-{!existingUser && 
-    <StyledButton type = 'button' variant="contained" color="primary">
-            Go to Log in
-          </StyledButton>
-          }
+  
+
 
   </>
 )// end return

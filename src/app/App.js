@@ -44,7 +44,7 @@ import Home from '../pages/private/Home'
 import Main from '../pages/private/Main'
 import Join from '../pages/public/Join'
 import Login from '../pages/public/Login'
-
+import PasswordReset from '../pages/public/PasswordReset'
 
 
 // import Try from '../pages/sandBox/aTry'
@@ -120,6 +120,7 @@ const App = () => {
 
             <Route path='/join' element={<Join/>} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/resetPassword' element={<PasswordReset/>} />
 
 <Route path='/features' element={<Features />} /> 
             

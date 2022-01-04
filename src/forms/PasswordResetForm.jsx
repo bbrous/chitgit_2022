@@ -1,29 +1,28 @@
 /* LoginForm.jsx
 
 Form to join 
-Parent: pages/public/Login.jsx
+Parent: pages/public/Join.jsx
 Children:  form components in -  ./formCompnents
 
 */
 
 import React  from 'react'
 
-import {useNavigate} from   'react-router-dom'
+import {Navigate, useNavigate} from   'react-router-dom'
 
-import { FormProvider, useForm} from "react-hook-form";
+import { FormProvider, useForm, Controller } from "react-hook-form";
 
 import { useDispatch } from 'react-redux';
 import { changeLoadingStatus } from '../app/redux/statusRedux/statusSlice'
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { string, object, array } from 'yup';
+import { SchemaOf, string, object, array } from 'yup';
 import {StyledInput} from './formComponents/StyledInput'
 
 import {styled, createTheme}  from '@mui/material/styles'
 import Button from '@mui/material/Button'; 
 import FirebaseAuthService from '../app/firebase/FirebaseAuthService';
 import {updateLastVisit} from '../app/firebase/FirebaseFirestoreService';
-import { backgroundBlue } from '../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -78,7 +77,7 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '100%',
   margin: '.5rem',
- 
+  // overflowY: 'hidden',
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -94,7 +93,7 @@ const ComponentName= styled('div')({
   alignItems: 'center',
   width: '100%',
   color: 'darkGrey',
- 
+  // overflowY: 'hidden',
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -123,9 +122,9 @@ const ButtonWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '60%',
+  width: '80%',
   margin: '.75rem',
- 
+  // overflowY: 'hidden',
   
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -135,50 +134,28 @@ const ButtonWrapper= styled('div')({
 })
 
 const StyledButton= styled(Button)({
-  color: 'yellow'
-
-})
-
-const ResetWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '60%',
-  margin: '.75rem',
- 
-  cursor: 'pointer',
-  color: backgroundBlue,
+  color: 'yellow',
   fontSize: '.85rem',
-  textDecoration: 'underline',
-  
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-
-  },
-
+textTransform: 'none'
 })
 
 // ===================================================
 
 // --- Yup setup ---
+
 const defaultValues = {
   email: "",
-  password: "",
-
 };
 
 //  -- Input requirements for user for each component (if any)
 
 const formSchema = object({
   email: string().required('email is required').email('not an email'),
-  password: string().max(10, 'no more than 10'),
-
 });
 
 // ===================================================
 
-function LoginForm({existingUser}) {
+function PasswordReset() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
@@ -187,39 +164,28 @@ function LoginForm({existingUser}) {
       resolver: yupResolver(formSchema)
     });
   
-    const { handleSubmit, reset, control  } = methods;
- 
+    const { handleSubmit, reset, control} = methods;
+  
+
   
     const submitForm = async (data ) => {
-   
-      // --- Login functions ---
+      console.log('[Responsive_Form]...data ', data.email)
       
+
       try {
 
         // --- start the spinner ---
         dispatch(changeLoadingStatus(true))
 
-        // --- firebase login ---
-        let userData = await FirebaseAuthService.loginUser(data.email, data.password)
+        //  --- send request for password reset - auth will send email
+        await FirebaseAuthService.sendPasswordResetEmail(data.email)
 
-        //  --- login successful ---
-
-        if (userData) {
-
-          // --- update the lastVisit field in user doc ---
-
-          const userId = userData.user.uid
-          await updateLastVisit(userId)
-          
-          // --- navigate + end spinner + reset form ---
-
-          navigate('/home')
-          dispatch(changeLoadingStatus(false))
-          reset()
-        }
-        //  FirebaseAuthService(data.email, data.password)
+         // --- navigate + end spinner + reset form ---
 
         reset(defaultValues)
+        dispatch(changeLoadingStatus(false))
+        alert('Check your email to complete password reset')
+        navigate('/login')
 
       } catch (error) {
 
@@ -231,17 +197,12 @@ function LoginForm({existingUser}) {
       }
 
     };
-  
-    // --- reset function - called in link below ---
 
-    const goToReset = () => {
-      navigate('/resetPassword')
-    }
   
      // --- Actual Form ---------------------------------------------
   return (
     <>
-    <TitleWrapper> Login</TitleWrapper>
+    <TitleWrapper> Reset Password</TitleWrapper>
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
@@ -250,7 +211,7 @@ function LoginForm({existingUser}) {
 
         <FormComponentWrapper>
           <ComponentName>
-            email
+            Enter email
           </ComponentName>
 
           <ComponentWrapper>
@@ -259,18 +220,7 @@ function LoginForm({existingUser}) {
           </ComponentWrapper>
         </FormComponentWrapper>
 
-        {/* ------Input Component  -------------------------- */}
 
-        <FormComponentWrapper>
-          <ComponentName>
-            Password
-          </ComponentName>
-
-          <ComponentWrapper>
-            <StyledInput name="password" control={control} type = "password" label="Password" />
-
-          </ComponentWrapper>
-        </FormComponentWrapper>
 
        
 
@@ -279,14 +229,13 @@ function LoginForm({existingUser}) {
         <ButtonWrapper>
 
           <StyledButton type="submit" variant="contained" color="primary">
-            Submit
+            Reset Password
           </StyledButton>
         </ButtonWrapper>
       </FormWrapper>
 
-      <ResetWrapper onClick = {goToReset} > I forgot my password </ResetWrapper>
-
     </FormProvider>
+
 
 
 
@@ -294,7 +243,7 @@ function LoginForm({existingUser}) {
 )// end return
 }
 
-export default LoginForm
+export default PasswordReset
 
 
 
