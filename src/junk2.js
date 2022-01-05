@@ -1,31 +1,82 @@
 // Junk2 in chitgit_2022
 
-import{backgroundBlue,  highlightGrey} from '../../../../styles/colors'
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 
-
-
-import AppBar from '@mui/material/AppBar'
-import Button from '@mui/material/Button'
-import Logo from '../../../../images/ChitPro_2021_logo_sm.svg'
-
-// import HeaderLogin from './Header_login'
-
-
-import { styled, createTheme  } from "@mui/material/styles"
-import { getToggleButtonGroupUtilityClass } from '@mui/material'
+import "react-datepicker/dist/react-datepicker.css";
+import './datePickerStyleOverrides.css'
+import { Controller } from "react-hook-form";
+import "react-datepicker/dist/react-datepicker.css";
+import { styled, createTheme} from "@mui/material/styles"
+import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
+const ReactDatePicker= styled(DatePicker)({
+  border: '1px solid orange',
+  borderRadius: '5px',
+  // width: '80%', 
 
-Material ui react hook form 
+  width: '97%',
+  backgroundColor: 'white',
+  marginRight: '8px',
+  padding: '.5rem 0 .5rem .5rem',
+  
 
-https://www.youtube.com/watch?v=aaj6YCil1p4
+  '&:hover': {
+    // border: '1px solid darkOrange'
+    boxShadow: 'inset 1px 1px #FADAC1'
+  },
 
-https://github.com/Mohammad-Faisal/react-hook-form-material-ui
+  '&:focus': {
+    outline: 'none !important',
+  },
+
+  
+
+  '&:active': {
+    border: '1px solid orange'
+  },
+})
 
 
-{part 1 }  tutorial github
 
-https://github.com/leoroese/reacthookform-v7-ts-materialui-tutorial/tree/part1
+// CSS Modules, react-datepicker-cssmodules.css
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-https://github.com/leoroese/reacthookform-v7-ts-materialui-tutorial/tree/part2
+export const StyledDatePicker = ({
+  name,
+  control,
+  label,
+}) => {
+
+
+  
+  const [startDate, setStartDate] = useState();
+  return (
+
+
+    <Controller
+                name={name}
+                control={control}
+                
+                  render={({ field }) => (
+                    <ReactDatePicker
+                      className="input"
+                      placeholderText="Select date"
+                      onChange={(e) => field.onChange(e)}
+                      selected={field.value}
+                    />
+                )}
+            />
+    // <StyledTextField 
+    // name = {name}
+    // selected={startDate} 
+    // onChange={(date) => setStartDate(date)} 
+    // placeholderText="Click to create target end date"
+    // dateFormat="d MMMM , yyyy"
+    // disabledKeyboardNavigation
+    // popperPlacement="bottom"
+    // />
+  );
+};
