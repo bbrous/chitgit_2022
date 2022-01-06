@@ -195,7 +195,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 const defaultValues = {
   title: "",
   endEst: "",
-  parentId: ""
+  parentId: "spot44"
 
 };
 
@@ -338,6 +338,7 @@ export default function SpotlightForm_s(props) {
                 control={control}
                 label={"Parent"}
                 options = {spotlightArray}
+                value = {spotlightArray[0]}
               />
 
             </ComponentWrapper>

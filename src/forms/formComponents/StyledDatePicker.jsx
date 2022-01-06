@@ -70,14 +70,6 @@ export const StyledDatePicker = ({
                     />
                 )}
             />
-    // <StyledTextField 
-    // name = {name}
-    // selected={startDate} 
-    // onChange={(date) => setStartDate(date)} 
-    // placeholderText="Click to create target end date"
-    // dateFormat="d MMMM , yyyy"
-    // disabledKeyboardNavigation
-    // popperPlacement="bottom"
-    // />
+
   );
 };

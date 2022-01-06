@@ -1,8 +1,11 @@
 /* StyledSelector
 
-parent -  ./muiForm
+parent -  form
 
-menu items come from options prop from Mui_form
+menu items come from options prop in parent form
+NOTE * :  To set default value requires 2 steps:
+   1. in parent form - set RHF default value = {optionsArray value}
+   2. 
 
 
 */
@@ -29,8 +32,8 @@ https://react-select.com/styles#provided-styles-and-state
 */
 
 // -----------------------------------------------------------------
-export const StyledSelector = ({ name, control, label , options}) => {
-
+export const StyledSelector = ({ name, control, label , options, value}) => {
+console.log('[ STYLED-SELECTOR ] options ', options);
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -87,7 +90,7 @@ export const StyledSelector = ({ name, control, label , options}) => {
         isClearable
         {...field}
         options={options}
-       
+        value = {value}
         styles={customStyles} 
       />
     )}
