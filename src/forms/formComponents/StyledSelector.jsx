@@ -32,7 +32,7 @@ https://react-select.com/styles#provided-styles-and-state
 */
 
 // -----------------------------------------------------------------
-export const StyledSelector = ({ name, control, label , options, value}) => {
+export const StyledSelector = ({ name, control, label , options, initialValue}) => {
 console.log('[ STYLED-SELECTOR ] options ', options);
   const customStyles = {
     control: (base, state) => ({
@@ -90,7 +90,8 @@ console.log('[ STYLED-SELECTOR ] options ', options);
         isClearable
         {...field}
         options={options}
-        value = {value}
+        defaultValue = {initialValue}
+         
         styles={customStyles} 
       />
     )}

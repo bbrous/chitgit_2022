@@ -190,14 +190,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
-// --- Yup setup ---
 
-const defaultValues = {
-  title: "",
-  endEst: "",
-  parentId: "spot44"
-
-};
 
 //  -- Input requirements for user for each component (if any)
 
@@ -209,16 +202,10 @@ const formSchema = object({
 });
 
 
-// ############## TEMP ##################
 
-let spotlightArray = [
-  {value: 'spot22', label: 'Spot 22 Title' },
-  {value: 'spot33', label: 'Spot 33 Title' },
-  {value: 'spot44', label: 'Spot 44 Title' },
-  {value: 'spot55', label: 'Spot 55 Title' }
-]
 
-// ####################################
+
+
 
 // ==============================
 
@@ -228,6 +215,30 @@ export default function SpotlightForm_s(props) {
 
   // retrieve spot id if passed from edit
     let spotId = props.detailId
+
+
+  // set up react-select options and intial value
+
+// ############## TEMP ##################
+
+  let spotlightArray = [
+    {value: '', label: 'none'}, 
+    {value: 'spot22', label: 'Spot 22 Title' },
+    {value: 'spot33', label: 'Spot 33 Title' },
+    {value: 'spot44', label: 'Spot 44 Title' },
+    {value: 'spot55', label: 'Spot 55 Title' }
+  ]
+// ####################################
+
+
+  // --- Yup setup ---
+
+const defaultValues = {
+  title: "",
+  endEst: "",
+  parentId: spotlightArray[0]
+
+};
 
   
     const methods = useForm({
@@ -338,7 +349,7 @@ export default function SpotlightForm_s(props) {
                 control={control}
                 label={"Parent"}
                 options = {spotlightArray}
-                value = {spotlightArray[0]}
+                initialValue = {spotlightArray[0]}
               />
 
             </ComponentWrapper>
