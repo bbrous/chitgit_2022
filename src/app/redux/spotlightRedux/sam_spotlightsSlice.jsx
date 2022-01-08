@@ -14,20 +14,21 @@ export const spotlightsSlice = createSlice({
 
     addSpotlightToStore: (state, action) => {
       console.log('REDUCER #########################################')
-      let spotlight  = {
-        id: cuid(),
-        type: 'spotlight', 
-        parent: '',
-        lastVisit: msToISO(1647216060000),
-        title: action.payload.title,
-        spotlightStatus: 'inactive', 
-        completedTimeStamp: '',
-        completed: false,
-        endEst: action.payload.endEst,
-        note: '',
-        chitId: '',
-        taskArray: []
-      }
+      let spotlight  = action.payload
+      
+      // {
+      //   id: cuid(),
+      //   type: 'spotlight', 
+      //   parent: '',
+      //   title: action.payload.title,
+      //   spotlightStatus: 'inactive', 
+      //   completedTimeStamp: '',
+      //   completed: false,
+      //   endEst: action.payload.endEst,
+      //   note: '',
+      //   chitId: '',
+      //   taskArray: []
+      // }
 
       state.push(spotlight)
     },
@@ -95,7 +96,7 @@ let spotIndex = state.findIndex(index => index.id === spotId)
 
 export const { 
 
-  addSpotlightToStore, 
+    addSpotlightToStore, 
     updateSpotLightInStore, 
     changeSpotlightCompletedStatus,
     changeSpotlightLastVisit,

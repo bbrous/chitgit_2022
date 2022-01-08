@@ -28,6 +28,7 @@ import { string, object, array } from 'yup';
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 
+import { selectSpotlights, addSpotlightToStore } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
@@ -221,22 +222,46 @@ export default function SpotlightForm_s(props) {
 
 // ############## TEMP ##################
 
-  let spotlightArray = [
-    {value: '', label: 'none'}, 
-    {value: 'spot22', label: 'Spot 22 Title' },
-    {value: 'spot33', label: 'Spot 33 Title' },
-    {value: 'spot44', label: 'Spot 44 Title' },
-    {value: 'spot55', label: 'Spot 55 Title' }
-  ]
-// ####################################
+  // let spotlightsOptionsArray = [
+  //   {value: '', label: 'none'}, 
+  //   {value: 'spot22', label: 'Spot 22 Title' },
+  //   {value: 'spot33', label: 'Spot 33 Title' },
+  //   {value: 'spot44', label: 'Spot 44 Title' },
+  //   {value: 'spot55', label: 'Spot 55 Title' }
+  // ]
 
+let spotlightArray = useSelector(selectSpotlights)
+
+// console.log('[ Spotlight Form ] REDUX store -  spotlightArray ', spotlightArray);
+
+let spotlightsOptionsArray = [
+  {value: '', label: 'none'}
+]
+
+let spotlightOption
+ 
+
+
+ spotlightArray.map((spotlight, index) => {
+ // code 
+  spotlightOption = {value: spotlight.id, label: spotlight.title}
+  spotlightsOptionsArray.push(spotlightOption)
+
+return spotlightsOptionsArray
+}
+) //end map
+
+
+// console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
+
+ 
 
   // --- Yup setup ---
 
 const defaultValues = {
   title: "",
   endEst: "",
-  parentId: spotlightArray[0]
+  parentId: spotlightsOptionsArray[0]
 
 };
 
@@ -256,29 +281,43 @@ const defaultValues = {
         // --- start the spinner ---
         dispatch(changeLoadingStatus(true))
   
-        // await Firebase add + return newSpotlightId
+        
+
         let newSpotlightId = cuid()
-  
-        //  --- register succssful  successful ---
-        if (newSpotlightId) {
-  
-          const title = data.title
-          const endEst = data.endEst
-          const parentId = data.parentId
+    
+
+        
+
+                  // console.log('[ SpotlightForm ] title ', data.title);
+          // console.log('[ SpotlightForm ] endEst ', data.endEst);
+          // console.log('[ SpotlightForm ] parentId ', parentId);
+
+        // --- New SPOTLIGHT -----------set up all fields in FB -------
        
+        if (newSpotlightId) {
+
+            let newSpotlightData = {
+              id : newSpotlightId,
+              type: 'spotlight',
+              parentId: data.parentId.value,
+              currentTaskId: '',
+              title: data.title,
+              spotlightStatus: 'inactive',
+              completedTimeStamp: '',
+              completed: false,
+              endEst: data.endEst,
+              note: '',
+              chitId: '',
+              taskArray: []
+
+            }
+
   
-          console.log('[ SpotlightForm ] title ', title);
-          console.log('[ SpotlightForm ] endEst ', endEst);
-          console.log('[ SpotlightForm ] parentId ', parentId);
+          // #### await Firebase  -- add + return newSpotlightId ############ 
+       
+          dispatch(addSpotlightToStore(newSpotlightData))
   
-  /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-
-     Dispatch data to Redux here  with await
-
-  */
+ 
 
   
           // --- end spinner + reset form ---
@@ -348,8 +387,8 @@ const defaultValues = {
                 name={"parentId"}
                 control={control}
                 label={"Parent"}
-                options = {spotlightArray}
-                initialValue = {spotlightArray[0]}
+                options = {spotlightsOptionsArray}
+                initialValue = {spotlightsOptionsArray[0]}
               />
 
             </ComponentWrapper>

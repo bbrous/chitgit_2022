@@ -4,8 +4,9 @@ parent -  form
 
 menu items come from options prop in parent form
 NOTE * :  To set default value requires 2 steps:
-   1. in parent form - set RHF default value = {optionsArray value}
-   2. 
+   1. in parent form - set RHF default value = optionsArray[index] 
+       - this is an object {value: x, label y}
+   2. in parent form set initial value in selector to same optionsArray[index]
 
 
 */
@@ -33,7 +34,7 @@ https://react-select.com/styles#provided-styles-and-state
 
 // -----------------------------------------------------------------
 export const StyledSelector = ({ name, control, label , options, initialValue}) => {
-console.log('[ STYLED-SELECTOR ] options ', options);
+
   const customStyles = {
     control: (base, state) => ({
       ...base,
