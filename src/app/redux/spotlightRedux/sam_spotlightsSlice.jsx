@@ -86,6 +86,31 @@ let spotIndex = state.findIndex(index => index.id === spotId)
 }, // updateTaskArray
 
 
+addT0TaskArray: (state, action) => {
+
+  let spotId = action.payload.spotId
+  let id = action.payload.id
+  let type = action.payload.type
+   
+  
+  console.log('[sam_reducer_Spotlight] --- I got here')
+
+//  get the index of the spotlight Object in store Spotlights Array
+let spotIndex = state.findIndex(index => index.id === spotId)
+
+console.log('[sam_reducer_Spotlight] --- spotId', spotId)
+console.log('[sam_reducer_Spotlight] --- id', id)
+console.log('[sam_reducer_Spotlight] --- type', type)
+
+console.log('[sam_reducer_Spotlight] --- spotIndex', spotIndex)
+console.log('[sam_reducer_Spotlight] --- state[spotIndex]', state[spotIndex])
+
+  // state[spotIndex].taskArray.push = {id: id, type: type}
+  state[spotIndex].taskArray.push({id: id, type: type})
+
+ 
+ 
+}, // updateTaskArray
 
   }, //end reducers
 
@@ -100,7 +125,8 @@ export const {
     updateSpotLightInStore, 
     changeSpotlightCompletedStatus,
     changeSpotlightLastVisit,
-    updateTaskArray
+    updateTaskArray,
+    addT0TaskArray
 
   } = spotlightsSlice.actions
 

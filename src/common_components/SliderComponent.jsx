@@ -101,7 +101,7 @@ function SliderComponent(props) {
   return (
     <FormGroup>
       <Typography component="div">
-        <StyledGrid component="label" container = 'true' spacing={1}>
+        <StyledGrid component="label" container = {true} spacing={1}>
           <Label>{rightLabel}</Label>
           <div>
             <AntSwitch

@@ -27,8 +27,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { string, object, array } from 'yup';
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
-
-import { selectSpotlights, addSpotlightToStore } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
+import{closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
+import { selectSpotlights, addSpotlightToStore, addT0TaskArray } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
@@ -199,7 +199,7 @@ const formSchema = object({
 
   title: string().required('A title for your spotlight is required'),
 
-  
+
 });
 
 
@@ -215,131 +215,145 @@ export default function SpotlightForm_s(props) {
   const dispatch = useDispatch()
 
   // retrieve spot id if passed from edit
-    let spotId = props.detailId
+  let spotId = props.detailId
 
 
-  // set up react-select options and intial value
+  // --- set up react-select options and intial value-------------
 
-// ############## TEMP ##################
-
-  // let spotlightsOptionsArray = [
-  //   {value: '', label: 'none'}, 
-  //   {value: 'spot22', label: 'Spot 22 Title' },
-  //   {value: 'spot33', label: 'Spot 33 Title' },
-  //   {value: 'spot44', label: 'Spot 44 Title' },
-  //   {value: 'spot55', label: 'Spot 55 Title' }
-  // ]
-
-let spotlightArray = useSelector(selectSpotlights)
-
-// console.log('[ Spotlight Form ] REDUX store -  spotlightArray ', spotlightArray);
-
-let spotlightsOptionsArray = [
-  {value: '', label: 'none'}
-]
-
-let spotlightOption
- 
-
-
- spotlightArray.map((spotlight, index) => {
- // code 
-  spotlightOption = {value: spotlight.id, label: spotlight.title}
-  spotlightsOptionsArray.push(spotlightOption)
-
-return spotlightsOptionsArray
-}
-) //end map
-
-
-// console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
-
- 
-
-  // --- Yup setup ---
-
-const defaultValues = {
-  title: "",
-  endEst: "",
-  parentId: spotlightsOptionsArray[0]
-
-};
-
+  let spotlightArray = useSelector(selectSpotlights)
   
-    const methods = useForm({
-      defaultValues: defaultValues,
-      resolver: yupResolver(formSchema)
-    });
-  
-    const { handleSubmit, reset, control, watch} = methods;
 
-    const submitForm = async (data) => {
+  // console.log('[ Spotlight Form ] REDUX store -  spotlightArray ', spotlightArray);
 
-      // --- Join functions --- 
-      try {
+  let spotlightsOptionsArray = [
+    { value: '', label: 'none' }
+  ] //  defining an initial value in array
+
+  let spotlightOption
+
+  spotlightArray.map((spotlight, index) => {
+    // code 
+    spotlightOption = { value: spotlight.id, label: spotlight.title }
+    spotlightsOptionsArray.push(spotlightOption)
+
+    return spotlightsOptionsArray
+  }) //end map
   
-        // --- start the spinner ---
-        dispatch(changeLoadingStatus(true))
-  
+
+
+  // console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
+
+
+
+  // --- Yup setup ----------
+
+  const defaultValues = {
+    title: "",
+    endEst: "",
+    parentId: spotlightsOptionsArray[0]
+
+  };
+
+
+  const methods = useForm({
+    defaultValues: defaultValues,
+    resolver: yupResolver(formSchema)
+  });
+
+  const { handleSubmit, reset, control, watch } = methods;
+
+  const submitForm = async (data) => {
+
+    // --- Join functions --- 
+    try {
+
+      // --- start the spinner ---
+      dispatch(changeLoadingStatus(true))
+
+      
+
+      let newSpotlightId = cuid()
+
+
+
+
+      // console.log('[ SpotlightForm ] title ', data.title);
+      // console.log('[ SpotlightForm ] endEst ', data.endEst);
+      // console.log('[ SpotlightForm ] parentId ', parentId);
+
+      // --- New SPOTLIGHT -----------set up all fields in FB -------
+
+      if (newSpotlightId) {
+
         
 
-        let newSpotlightId = cuid()
-    
+        let newSpotlightData = {
+          id: newSpotlightId,
+          type: 'spotlight',
+          parentId: data.parentId.value,
+          currentTaskId: '',
+          title: data.title,
+          spotlightStatus: 'inactive',
+          completedTimeStamp: '',
+          completed: false,
+          lastVisit: new Date().toISOString(),
+          endEst: data.endEst,
+          note: '',
+          chitId: '',
+          taskArray: []
 
-        
-
-                  // console.log('[ SpotlightForm ] title ', data.title);
-          // console.log('[ SpotlightForm ] endEst ', data.endEst);
-          // console.log('[ SpotlightForm ] parentId ', parentId);
-
-        // --- New SPOTLIGHT -----------set up all fields in FB -------
-       
-        if (newSpotlightId) {
-
-            let newSpotlightData = {
-              id : newSpotlightId,
-              type: 'spotlight',
-              parentId: data.parentId.value,
-              currentTaskId: '',
-              title: data.title,
-              spotlightStatus: 'inactive',
-              completedTimeStamp: '',
-              completed: false,
-              endEst: data.endEst,
-              note: '',
-              chitId: '',
-              taskArray: []
-
-            }
-
-  
-          // #### await Firebase  -- add + return newSpotlightId ############ 
-       
-          dispatch(addSpotlightToStore(newSpotlightData))
-  
- 
-
-  
-          // --- end spinner + reset form ---
-  
-          
-          dispatch(changeLoadingStatus(false))
-          reset()
         }
-        //  FirebaseAuthService(data.email, data.password)
-    
-        reset(defaultValues)
-  
-      } catch (error) {
-  
-        // --- alert error + navigate + end spinner + reset form ---
-        alert(error.message)
-        dispatch(changeLoadingStatus(false))
-        
-        reset(defaultValues)
+
+ 
+
+ // #### await Firebase  -- add + return newSpotlightId ############ 
+
+        dispatch(addSpotlightToStore(newSpotlightData))
+
+ 
+
+        if(data.parentId.value){
+          console.log('[ SpotlightForm ] data.parentId.value  YES YES ', data.parentId.value);
+  // ####  await Firebase update spotlight.taskarray with parentId -- 
+
+      // fetch spotlight with id = parentId
+       dispatch(addT0TaskArray(
+         {spotId: data.parentId.value,
+          id: newSpotlightId,  
+         type: "spotlight"}
+         ))
+       
+      
+      
       }
-  
-    };
+        if(!data.parentId.value){
+          console.log('[ SpotlightForm ] data.parentId.value -NO NO NO')
+        
+        
+        
+        }
+
+        // --- end spinner + reset form ---
+
+
+        dispatch(changeLoadingStatus(false))
+        reset()
+      }
+      //  FirebaseAuthService(data.email, data.password)
+
+      reset(defaultValues)
+      dispatch(closeModal())
+
+    } catch (error) {
+
+      // --- alert error + navigate + end spinner + reset form ---
+      alert(error.message)
+      dispatch(changeLoadingStatus(false))
+
+      reset(defaultValues)
+    }
+
+  };
     
   
        // --- Actual Form ---------------------------------------------
