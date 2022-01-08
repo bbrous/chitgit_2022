@@ -88,7 +88,7 @@ export const StyledSelector = ({ name, control, label , options, initialValue}) 
     render={({ field }) => (
       <ReactSelect
       placeholder={'custom placeholder component'}
-        isClearable
+       
         {...field}
         options={options}
         defaultValue = {initialValue}
