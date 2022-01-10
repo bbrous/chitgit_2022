@@ -23,6 +23,7 @@ import{ closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import{selectStatus} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import MainHelp from '../samHelp/Main_help_s'
+import HelpSpotlights from '../../sampleSite.bak/samHelp/Help_spotlights_s'
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
 
@@ -109,20 +110,20 @@ const Close = styled('div')({
 
 //======================================
 const Modal = (props) => {
-
+console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props.modalType);
   const dispatch = useDispatch()
   // --- IMPORTANT -----------------------------------
-  // detailId is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...
-  //         but for "help", detailId is a help page (ie. 'spotlights' or 'notes')
+  // id is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...
+  //         but for "help", id is a help page (ie. 'spotlights' or 'notes')
 
-let {modalType, modalDisplayed, detailId} = useSelector(selectStatus).modal
+let {modalType, modalPage, modalDisplayed, id} = useSelector(selectStatus).modal
 
-
+console.log('[ modal ] modalPage ', modalPage);
 
   return(
 <Fragment>
   <ModalWrapper></ModalWrapper>
-       <ModalDisplay > 
+       {modalType === 'form' && <ModalDisplay > 
        
          <Close onClick = {()=>dispatch(closeModal())}>Close</Close>
          
@@ -142,26 +143,39 @@ let {modalType, modalDisplayed, detailId} = useSelector(selectStatus).modal
            
           } */}
 
-        {modalType === 'help' &&
-          <MainHelp helpPage = {detailId}/>
-        }
-
-        {modalType === 'spotlightForm' &&
-          <SpotlightForm detailId = {detailId} type = 'spotlights' />
+     
+        {modalPage === 'spotlights' &&
+          <SpotlightForm id = {id} type = 'spotlights' />
 
         }
 
-        {modalType === 'noteForm' &&
-          <NoteForm detailId = {detailId} type = 'notes'/>
+        {modalPage === 'notes' &&
+          <NoteForm id = {id} type = 'notes'/>
 
         }
-
+   <Close onClick = {()=>dispatch(closeModal())}>Close</Close>
+     
          </ModalDisplay>
+         
+} 
+
+{modalType === 'info' && <ModalDisplay >        
+
+<Close onClick = {()=>dispatch(closeModal())}>Close</Close>
+   <HelpSpotlights/>
+
+</ModalDisplay>
+} 
+       
+    
+
+       
+
 
   
   </Fragment>
   
-  //   if(modalType === 'workChit'){
+  //   if(modalPage === 'workChit'){
   //     return(
   //       <Fragment>
   //       <WOChitDetail modalChitId = {displayChitId} />
@@ -169,7 +183,7 @@ let {modalType, modalDisplayed, detailId} = useSelector(selectStatus).modal
   //     )
   //   }
 
-  //   if(modalType === 'personalChit'){
+  //   if(modalPage === 'personalChit'){
   //     return(
   //       <Fragment>
   //       <PEChitDetail modalChitId = {displayChitId} />
@@ -177,7 +191,7 @@ let {modalType, modalDisplayed, detailId} = useSelector(selectStatus).modal
   //     )
   //   }
 
-  //   if(modalType === 'twoPartyChit'){
+  //   if(modalPage === 'twoPartyChit'){
   //     return(
   //       <Fragment>
   //       <TPChitDetail modalChitId = {displayChitId} />
@@ -185,7 +199,7 @@ let {modalType, modalDisplayed, detailId} = useSelector(selectStatus).modal
   //     )
   //   }
 
-  //   if(modalType === 'newChit'){
+  //   if(modalPage === 'newChit'){
   //     return(
   //       <Fragment>
   //       <NewModalDisplay  />

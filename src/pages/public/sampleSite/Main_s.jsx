@@ -39,7 +39,7 @@ import HeaderMain from './samComponents/Header_main'
 // imports for main - pages Chits, Spotlights, etc  -----------------
 
 import New from './samComponents/New_s'
- 
+import InfoIcon from './samComponents/Info_s'
 import Chits from './samChits/Chits_s'
 
 import Notes from './samNotes/Notes_s'
@@ -63,7 +63,7 @@ import Modal from './samComponents/Modal_s.jsx'
 
 // -------Material UI 
 
-import InfoIcon from '@mui/icons-material/Info';
+ 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 
@@ -285,13 +285,14 @@ const Header = styled('div')({
 })
 
 
-const Info= styled(InfoIcon)({
-  display: 'block',
+const InfoIconWrapper= styled('div')({
    
+ 
+
   position: 'absolute',
   top: '2px',
   right: '24px',
-  color: mediumGrey,
+  
   '&:hover' : {
     color: lightGrey,
     cursor: 'pointer'
@@ -358,9 +359,14 @@ function Main_s(props) {
 
         <HeaderWrapper style={{ backgroundColor: headerColor(page) }}>
           <Header> {formattedPage}   </Header>
+<InfoIconWrapper>
 
-          <Info onClick={() => openModal('help', page)} />
 
+          <InfoIcon
+          
+          // onClick={() => openModal('help', page)} 
+          />
+</InfoIconWrapper>
         </HeaderWrapper>
         <MainContentWrapper>
 

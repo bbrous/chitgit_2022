@@ -64,15 +64,15 @@ const LightTooltip = withStyles({
 // ================================
 
 
-function handleClick(passedId){
-  // console.log('[Note_icon - I be clicked')
+function handleClick(type, id){
+  console.log('[ EditIcon aa  ] props ', type, id);
 }
 
 
 function Edit(props) {
 
   const {type, id} = props
- 
+
   // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   // let passedId = id
@@ -111,7 +111,7 @@ function Edit(props) {
       <Icon
 
 
-        onClick={handleClick(passedId)}
+        onClick={handleClick(type, id)}
        
       />
       </LightTooltip  >

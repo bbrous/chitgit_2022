@@ -1,5 +1,5 @@
-/* New.jsx
-    New Button for all app components 
+/* Info.jsx
+    Info Button for all app components 
     Has Icon that Opens Modal with app specific form (ie spotlight, note, etc)
     gets page type from URL ... 
     then  passes it to OpenModal action - in - redux/statusRedux/sam_statusSlice
@@ -23,7 +23,7 @@ import {capitalizeFirstLetter} from '../../../../app/helpers/commonHelpers'
 // material UI imports ---------
 import Tooltip from '@mui/material/Tooltip';
  
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import InfoIcon from '@mui/icons-material/Info';
 import Paper from '@mui/material/Paper'; 
  
 
@@ -33,7 +33,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
-const NewWrapper= styled(Paper)({
+const InfoWrapper= styled(Paper)({
 
   display: 'flex',
   justifyContent: 'flex-end',
@@ -51,7 +51,7 @@ const NewWrapper= styled(Paper)({
 
 })
 
-const AddCircleIconWrapper= styled(AddCircleIcon)({
+const InfoIconWrapper= styled(InfoIcon)({
 
   color: 'grey',
   fontSize : '1.7rem',
@@ -63,7 +63,7 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 
 })
 
-const NewTitle= styled('div')({
+const InfoTitle= styled('div')({
 
   display: 'block',
   marginRight: '6px',
@@ -85,7 +85,7 @@ const LightTooltip = withStyles({
 
 // =====================================
 
-function New(props) {
+function Info(props) {
   let match = useParams()
   let page, id, formattedPage
   const dispatch = useDispatch()
@@ -93,15 +93,15 @@ function New(props) {
   page = match.pageView // get URL view location
   id = match.id // get URL view location
 
-  // --- format which New button display -- new Chit, new Note, etc
+  // --- format which Info button display -- Info Chit, Info Note, etc
 
   if(page === 'spotlights'){
-  formattedPage = 'New top-tier ' + capitalizeFirstLetter(page).substring(0, page.length - 1) 
+  formattedPage = 'Info top-tier ' + capitalizeFirstLetter(page).substring(0, page.length - 1) 
   }else{
-    formattedPage = 'New' + capitalizeFirstLetter(page).substring(0, page.length - 1) 
+    formattedPage = 'Info' + capitalizeFirstLetter(page).substring(0, page.length - 1) 
   }
 
-const openSpotlightForm = ()=>{
+const openInfoModal = ()=>{
 
   //  define which Form to open in Modal by passing
   //  modalPage to Modal depending on pageView in browser URL 
@@ -131,7 +131,7 @@ const openSpotlightForm = ()=>{
   // props.openModal(modalPage, id)
 
   dispatch(openModal({
-    modalType: 'form',
+    modalType: 'info',
     modalPage: modalPage,
     id: ''
 
@@ -142,19 +142,19 @@ const openSpotlightForm = ()=>{
 }
 
   return (
-    <NewWrapper elevation={1}>
+     
 
   
 <LightTooltip title= {formattedPage} arrow>
-    <AddCircleIconWrapper 
-    onClick = {()=> openSpotlightForm(page, id)}
+    <InfoIconWrapper 
+    onClick = {()=> openInfoModal(page, id)}
      />
 </LightTooltip>
 
-  </NewWrapper>
+  
   )
 }
 
 
 
-export default New
+export default Info

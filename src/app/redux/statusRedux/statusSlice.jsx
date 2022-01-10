@@ -19,8 +19,9 @@ export const statusSlice = createSlice({
       modal: {
      
         modalDisplayed: false,
-        modalType: '',
-        detailId: '',
+        modalType: '', // info or form
+        modalPage: '', // spotlight, twoParty, note, etc.
+        id: '',
       },
   
       initialMessage: {
@@ -112,18 +113,19 @@ export const statusSlice = createSlice({
   reducers: {
     openModal: (state, action) => {
       console.log('REDUCER OpenModal here : ', action.payload.modalType)
-      let detailId = action.payload.detailId ? action.payload.detailId : ''
+      let id = action.payload.id ? action.payload.id : ''
 
       state.modal.modalType = action.payload.modalType
-
-      state.modal.detailId = detailId
+      state.modal.modalPage = action.payload.modalPage
+      state.modal.id = id
       state.modal.modalDisplayed = true
     },
 
     closeModal: (state, action) => {
       state.modal.modalType = ''
+      state.modal.modalPage = ''
       state.modal.modalDisplayed = false
-      state.modal.detailId = ''
+      state.modal.id = ''
 
     },
     

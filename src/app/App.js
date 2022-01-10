@@ -124,7 +124,7 @@ const App = () => {
 
 <Route path='/features' element={<Features />} /> 
             
-            <Route path='/sample/:pageView/:detailId' element={<SampleMain />} />
+            <Route path='/sample/:pageView/:id' element={<SampleMain />} />
             <Route path='/sample/:pageView' element={<SampleMain />} />
             <Route path='/sample' element={<Sample />} />
 
