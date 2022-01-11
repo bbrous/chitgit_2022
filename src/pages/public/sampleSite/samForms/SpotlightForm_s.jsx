@@ -264,6 +264,8 @@ export default function SpotlightForm_s(props) {
 
   const submitForm = async (data) => {
 
+    let a = data.endEst
+console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data.endEst ',  a);
     // --- Join functions --- 
     try {
 
@@ -297,7 +299,7 @@ export default function SpotlightForm_s(props) {
           completedTimeStamp: '',
           completed: false,
           lastVisit: new Date().toISOString(),
-          endEst: data.endEst,
+          endEst: data.endEst.toISOString() ,
           note: '',
           chitId: '',
           taskArray: []

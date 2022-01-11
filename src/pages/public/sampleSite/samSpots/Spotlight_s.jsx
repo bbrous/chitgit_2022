@@ -318,11 +318,11 @@ useEffect(()=>{
 
 
 }, [match])
-
-  const matchId = match.detailId
+  const page = match.pageView
+  const matchId = match.id
   const dispatch = useDispatch()
   const spotlightsArray = useSelector(selectSpotlights)
-
+console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
   // --- get spotlight object from mapStateToProps selector---
   // let spotlightDisplayed = props.spotlight.spotlight
   let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)

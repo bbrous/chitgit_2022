@@ -111,7 +111,7 @@ function Spotlights(props) {
   let navigate = useNavigate()
 
   const SpotlightPage = match.pageView
-  const SpotlightId = match.detailId
+  const SpotlightId = match.id
 
   console.log('=======[Spotlights_s]  match is', match)
   let status = useSelector(selectStatus)

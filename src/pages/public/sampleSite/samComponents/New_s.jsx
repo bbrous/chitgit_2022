@@ -104,16 +104,16 @@ function New(props) {
 const openSpotlightForm = ()=>{
 
   //  define which Form to open in Modal by passing
-  //  modalPage to Modal depending on pageView in browser URL 
+  //  dbCollection to Modal depending on pageView in browser URL 
 
-  let modalPage
+  let dbCollection
   switch (page) {
     case 'spotlights':
-      modalPage = 'spotlights'
+      dbCollection = 'spotlights'
       break;
     
     case 'notes':
-      modalPage = 'notes'
+      dbCollection = 'notes'
       break;
 
 
@@ -123,16 +123,16 @@ const openSpotlightForm = ()=>{
     // ######            etc              ############
 
     default:
-      modalPage = '';
+      dbCollection = '';
   }
   
   // ------------------------------------------------------------
     
-  // props.openModal(modalPage, id)
+  // props.openModal(dbCollection, id)
 
   dispatch(openModal({
     modalType: 'form',
-    modalPage: modalPage,
+    dbCollection: dbCollection,
     id: ''
 
   }))

@@ -137,7 +137,7 @@ function Parent(props) {
   let navigate = useNavigate()
   let match = useParams()
   const spotlightsArray = useSelector(selectSpotlights)
-  let matchId = match.detailId
+  let matchId = match.id
   let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
 
   console.log('[Parent - matchId - ', match)

@@ -13,8 +13,10 @@ export const spotlightsSlice = createSlice({
   reducers: {
 
     addSpotlightToStore: (state, action) => {
-      console.log('REDUCER #########################################')
+  
       let spotlight  = action.payload
+      let a = spotlight.endEst
+      console.log('REDUCER #########################################', typeof a)
       
       // {
       //   id: cuid(),

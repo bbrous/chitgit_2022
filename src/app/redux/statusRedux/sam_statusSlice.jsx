@@ -20,7 +20,7 @@ export const statusSlice = createSlice({
      
         modalDisplayed: false,
         modalType: '', // info or form
-        modalPage: '', // spotlight, twoParty, note, etc.
+        dbCollection: '', // spotlight, twoParty, note, etc.
         id: '',
       },
   
@@ -116,14 +116,14 @@ export const statusSlice = createSlice({
       let id = action.payload.id ? action.payload.id : ''
 
       state.modal.modalType = action.payload.modalType
-      state.modal.modalPage = action.payload.modalPage
+      state.modal.dbCollection = action.payload.dbCollection
       state.modal.id = id
       state.modal.modalDisplayed = true
     },
 
     closeModal: (state, action) => {
       state.modal.modalType = ''
-      state.modal.modalPage = ''
+      state.modal.dbCollection = ''
       state.modal.modalDisplayed = false
       state.modal.id = ''
 

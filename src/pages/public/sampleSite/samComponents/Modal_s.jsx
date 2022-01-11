@@ -116,9 +116,9 @@ console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props.mod
   // id is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...
   //         but for "help", id is a help page (ie. 'spotlights' or 'notes')
 
-let {modalType, modalPage, modalDisplayed, id} = useSelector(selectStatus).modal
+let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).modal
 
-console.log('[ modal ] modalPage ', modalPage);
+console.log('[ modal ] dbCollection ', dbCollection);
 
   return(
 <Fragment>
@@ -144,12 +144,12 @@ console.log('[ modal ] modalPage ', modalPage);
           } */}
 
      
-        {modalPage === 'spotlights' &&
+        {dbCollection === 'spotlights' &&
           <SpotlightForm id = {id} type = 'spotlights' />
 
         }
 
-        {modalPage === 'notes' &&
+        {dbCollection === 'notes' &&
           <NoteForm id = {id} type = 'notes'/>
 
         }
@@ -175,7 +175,7 @@ console.log('[ modal ] modalPage ', modalPage);
   
   </Fragment>
   
-  //   if(modalPage === 'workChit'){
+  //   if(dbCollection === 'workChit'){
   //     return(
   //       <Fragment>
   //       <WOChitDetail modalChitId = {displayChitId} />
@@ -183,7 +183,7 @@ console.log('[ modal ] modalPage ', modalPage);
   //     )
   //   }
 
-  //   if(modalPage === 'personalChit'){
+  //   if(dbCollection === 'personalChit'){
   //     return(
   //       <Fragment>
   //       <PEChitDetail modalChitId = {displayChitId} />
@@ -191,7 +191,7 @@ console.log('[ modal ] modalPage ', modalPage);
   //     )
   //   }
 
-  //   if(modalPage === 'twoPartyChit'){
+  //   if(dbCollection === 'twoPartyChit'){
   //     return(
   //       <Fragment>
   //       <TPChitDetail modalChitId = {displayChitId} />
@@ -199,7 +199,7 @@ console.log('[ modal ] modalPage ', modalPage);
   //     )
   //   }
 
-  //   if(modalPage === 'newChit'){
+  //   if(dbCollection === 'newChit'){
   //     return(
   //       <Fragment>
   //       <NewModalDisplay  />

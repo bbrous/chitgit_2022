@@ -228,7 +228,7 @@ function SpotlightDetail(props) {
  
   const match = useParams()
 
-  const matchId = match.detailId
+  const matchId = match.id
 
   const spotlightsArray = useSelector(selectSpotlights)
 

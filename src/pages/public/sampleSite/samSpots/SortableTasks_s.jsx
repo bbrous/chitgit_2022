@@ -72,7 +72,7 @@ function SortableTasks(props) {
 
   let allSpotlights = useSelector(selectSpotlights)
   let allTasks = useSelector(selectTasks)
-  let currentSpotlight = match.detailId
+  let currentSpotlight = match.id
 
 
   // 1 --- get current spotlight 
@@ -150,7 +150,7 @@ function SortableTasks(props) {
     const {active, over} = event;
 
     // --- get spotlight Id from URL in order to dispatch to Redux store
-    let spotlightId = match.detailId
+    let spotlightId = match.id
 
     // --- recreate the taskArray in the new order
     if (active.id !== over.id) {

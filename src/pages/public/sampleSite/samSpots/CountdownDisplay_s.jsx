@@ -119,7 +119,7 @@ const Minus= styled('span')({
 function CountdownDisplay(props) {
   const match = useParams()
 
-  const matchId = match.detailId
+  const matchId = match.id
    
   // (1) get parentId if exists in spotight from URL
   // const {endEst, } = props.spotlight.spotlight
