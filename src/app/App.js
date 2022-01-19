@@ -20,10 +20,10 @@ note: upon load, App determines if logged in
 
 
 
-import React, { Component, Fragment, useEffect, useState } from 'react';
+import React, {  Fragment, useEffect, useState } from 'react';
  
 import { useDispatch, useSelector } from 'react-redux'; 
-import { Route, Routes , Navigate, Link } from 'react-router-dom'
+import { Route, Routes , Navigate} from 'react-router-dom'
 
 
 import FirebaseAuthService from './firebase/FirebaseAuthService.js';

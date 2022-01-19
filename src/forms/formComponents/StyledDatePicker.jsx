@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/datePickerStyleOverrides.css'
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
+import { headerGrey } from "../../styles/colors";
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
@@ -15,11 +16,11 @@ const ReactDatePicker= styled(DatePicker)({
   border: '1px solid orange',
   borderRadius: '5px',
   // width: '80%', 
-
+color: headerGrey,
   width: '100%',
   backgroundColor: 'white',
   marginRight: '8px',
-  padding: '.5rem 0 .5rem .5rem',
+  padding: '.5rem 0 .5rem .85rem',
   
 
   '&:hover': {

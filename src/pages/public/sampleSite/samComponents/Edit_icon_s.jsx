@@ -1,17 +1,20 @@
 /* function editIcon_s -------------
      
  Opens edit form in Modal
+    - Receives from parent props: dbCollection + id
+    - adds prop type ('form')
+    - dispatches open Modal
   
 parent: Spotlight - pages/public/sampleSite/samSpots/Spotlight
 ------------------------------------*/
 
 
 import React from 'react'
-import {connect} from 'react-redux'
+import { useDispatch} from 'react-redux'
 import {useHistory, useRouteMatch, match} from 'react-router-dom'
 import{mediumLightGrey, chitOrange, } from '../../../../styles/colors'
-// import{changeLastSpotlightDisplayed,  openModal, closeModal} from '../../../../app/redux/statusRedux/sam_action_Status'
-// import{ selectPlans } from '../../../../app/redux/planRedux/sam_selectors_Plans'
+import { openModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
+
 
 
 // Material UI --------------------
@@ -64,38 +67,46 @@ const LightTooltip = withStyles({
 // ================================
 
 
-function handleClick(type, id){
-  console.log('[ EditIcon aa  ] props ', type, id);
-}
+
 
 
 function Edit(props) {
 
-  const {type, id} = props
 
-  // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const {dbCollection, id} = props
+  const dispatch = useDispatch()
 
-  // let passedId = id
-      let passedId = 'spot_1_task_1'
-
-  // let  passedType = type
-      let  passedType = 'spotlight'
-      
-  // let noteId = ''
-
-    // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  function handleClick(dbCollection, id){
+    console.log('[ EditIcon aa  ] props ', dbCollection, id);
+    dispatch(openModal({
+      modalType: 'form',
+      dbCollection: dbCollection,
+      id: id
+  
+    }))
+  }
 
   let titleMessage
   
-  switch (passedType) {
+  switch (dbCollection) {
 
-    case 'spotlight' : {
+    case 'spotlights' : {
       titleMessage = 'Edit Spotlight'
       break
     }
 
-    case 'chit' : {
+    case 'chits' : {
       titleMessage = 'Edit Chit'
+      break
+    }
+
+    case 'logs' : {
+      titleMessage = 'Edit Log'
+      break
+    }
+
+    case 'chronicles' : {
+      titleMessage = 'Edit Chronicle'
       break
     }
 
@@ -111,7 +122,7 @@ function Edit(props) {
       <Icon
 
 
-        onClick={handleClick(type, id)}
+        onClick={()=>handleClick(dbCollection, id)}
        
       />
       </LightTooltip  >

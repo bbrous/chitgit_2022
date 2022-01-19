@@ -28,13 +28,17 @@ import { string, object, array } from 'yup';
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 import{closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
-import { selectSpotlights, addSpotlightToStore, addT0TaskArray } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
+import { selectSpotlights, 
+        selectSpotlightFromArray,
+        addSpotlightToStore, 
+        addToTaskArray, 
+        updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
-import { StyledSelector } from '../../../../forms/formComponents/StyledSelector';
-
+import { StyledSelector } from '../../../../forms/formComponents/X_StyledSelector';
+import { StyledSelectMui } from '../../../../forms/formComponents/StyledSelectMui';
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -215,7 +219,8 @@ export default function SpotlightForm_s(props) {
   const dispatch = useDispatch()
 
   // retrieve spot id if passed from edit
-  let spotId = props.detailId
+  let spotId = props.id
+  console.log('[ Spotlight Form  00000000 ] spotId ', spotId);
 
 
   // --- set up react-select options and intial value-------------
@@ -226,7 +231,7 @@ export default function SpotlightForm_s(props) {
   // console.log('[ Spotlight Form ] REDUX store -  spotlightArray ', spotlightArray);
 
   let spotlightsOptionsArray = [
-    { value: '', label: 'none' }
+    { value: 'none', label: 'none' }
   ] //  defining an initial value in array
 
   let spotlightOption
@@ -241,18 +246,50 @@ export default function SpotlightForm_s(props) {
   
 
 
-  // console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
+  console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
 
 
 
   // --- Yup setup ----------
 
-  const defaultValues = {
-    title: "",
-    endEst: "",
-    parentId: spotlightsOptionsArray[0]
+  let defaultValues, initialSpotlightOption
 
-  };
+  if (!spotId) {
+    initialSpotlightOption = spotlightsOptionsArray[0]
+    defaultValues = {
+      title: "",
+      endEst: "",
+      parentId: 'spot_3'
+
+    };
+
+  } // end if !spotId
+
+  let spotlight = selectSpotlightFromArray(spotlightArray, spotId)
+
+
+
+  if (spotId) {
+
+    let parentId 
+
+    spotlight.parentId ? parentId = spotlight.parentId : parentId = ''
+
+    // - get index of spotlightsOptionArray === parentId
+    let initialSpotlightOption  = spotlightsOptionsArray.filter(option => option.value === parentId);
+    
+    console.log('[ S[pt;ogjtFpr,] ] ExistingParentId ', initialSpotlightOption[0].value);
+    
+    
+    defaultValues = {
+      title: spotlight.title,
+      // endEst: new Date(spotlight.endEst),
+      endEst: spotlight.endEst ? new Date(spotlight.endEst) : '',
+      parentId: initialSpotlightOption[0].value
+
+    };
+
+  }// end if spotId
 
 
   const methods = useForm({
@@ -264,8 +301,8 @@ export default function SpotlightForm_s(props) {
 
   const submitForm = async (data) => {
 
-    let a = data.endEst
-console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data.endEst ',  a);
+    let a = data 
+console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ',  a);
     // --- Join functions --- 
     try {
 
@@ -292,7 +329,7 @@ console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data.endEst ',  a);
         let newSpotlightData = {
           id: newSpotlightId,
           type: 'spotlight',
-          parentId: data.parentId.value,
+          parentId: data.parentId,
           currentTaskId: '',
           title: data.title,
           spotlightStatus: 'inactive',
@@ -319,7 +356,7 @@ console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data.endEst ',  a);
   // ####  await Firebase update spotlight.taskarray with parentId -- 
 
       // fetch spotlight with id = parentId
-       dispatch(addT0TaskArray(
+       dispatch(addToTaskArray(
          {spotId: data.parentId.value,
           id: newSpotlightId,  
          type: "spotlight"}
@@ -399,12 +436,13 @@ console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data.endEst ',  a);
             </ComponentName>
 
             <ComponentWrapper>
-              <StyledSelector
+              <StyledSelectMui
                 name={"parentId"}
                 control={control}
                 label={"Parent"}
                 options = {spotlightsOptionsArray}
-                initialValue = {spotlightsOptionsArray[0]}
+                defaultValue = {defaultValues.parentId}
+                 
               />
 
             </ComponentWrapper>

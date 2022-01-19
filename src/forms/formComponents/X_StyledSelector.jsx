@@ -12,7 +12,7 @@ NOTE * :  To set default value requires 2 steps:
 */
 
 
-import React from "react";
+import React, {useState, useEffect}  from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 
@@ -21,6 +21,7 @@ import TextField from "@mui/material/TextField";
 import ReactSelect from "react-select";
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
+ 
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
@@ -34,6 +35,12 @@ https://react-select.com/styles#provided-styles-and-state
 
 // -----------------------------------------------------------------
 export const StyledSelector = ({ name, control, label , options, initialValue}) => {
+
+  const [initalValue, setInitialValue] = useState(initialValue)
+
+  useEffect(()=>{
+    setInitialValue(initialValue)
+  },[initialValue])
 
   const customStyles = {
     control: (base, state) => ({
@@ -91,7 +98,7 @@ export const StyledSelector = ({ name, control, label , options, initialValue}) 
        
         {...field}
         options={options}
-        defaultValue = {initialValue}
+      
          
         styles={customStyles} 
       />

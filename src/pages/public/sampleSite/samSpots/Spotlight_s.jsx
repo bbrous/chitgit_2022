@@ -318,19 +318,27 @@ useEffect(()=>{
 
 
 }, [match])
-  const page = match.pageView
+
+ /* --- get url data ---
+ the url contains 2 pieces of info - pageView (spotlights, etc) and id
+ the open modal action wants to know which collection to search matching the id
+ dbCollection = pageView from URL
+ 
+
+ */
+  const dbCollection = match.pageView
   const matchId = match.id
   const dispatch = useDispatch()
   const spotlightsArray = useSelector(selectSpotlights)
-console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
+
   // --- get spotlight object from mapStateToProps selector---
   // let spotlightDisplayed = props.spotlight.spotlight
   let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
 
-  console.log('[spotlightDetail] ... whole spotlight object', spotlightDisplayed)
+ 
 
   // deconstruct spotlight object 
-  const { id, spotlightStatus, title, type, note } = spotlightDisplayed
+  const { id, spotlightStatus, title,  note } = spotlightDisplayed
 
 
   // ---change the lastVisit date in Store ----
@@ -364,7 +372,7 @@ console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
 
   useEffect(() => {
 
-    dispatch(changeSpotlightLastVisit({ spotId: id, visitedDate: now }))
+    dispatch(changeSpotlightLastVisit({ id: id, visitedDate: now }))
   }, [id, dispatch, now])
 
   const [spotlightState, setSpotlightState] = useState('')
@@ -382,7 +390,7 @@ console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
 
   const handleSpotlightCompletedStatus = (spotlightId) => {
 
-
+console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
 
     let newSpotlightCompletedStatus, newSpotlightCompletedTime
 
@@ -405,7 +413,7 @@ console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
 
     dispatch(changeSpotlightCompletedStatus(
       {
-        spotId: spotlightId,
+        id: spotlightId,
         spotlightStatus: newSpotlightCompletedStatus,
         completedTimeStamp: now
       }
@@ -456,10 +464,10 @@ console.log('[ Spotlight No SSSSSSSSSSSSSS ] page ', page);
               <LightTooltip title='Set target end' arrow>
                 <ClockIcon />
               </LightTooltip>
-              <NoteIcon id={id} type={type} />
-              <ChitIcon id={id} type={type} />
-              <DeleteIcon id={id} type={type} />
-              <EditIcon id={id} type={type} />
+              <NoteIcon id={id} dbCollection={dbCollection} />
+              <ChitIcon id={id} dbCollection={dbCollection} />
+              <DeleteIcon id={id} dbCollection={dbCollection} />
+              <EditIcon id={id} dbCollection={dbCollection} />
             </IconsWrapper>
 
           </BottomWrapper>
