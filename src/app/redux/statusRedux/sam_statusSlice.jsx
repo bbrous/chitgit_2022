@@ -112,9 +112,9 @@ export const statusSlice = createSlice({
 
   reducers: {
     openModal: (state, action) => {
-      console.log('REDUCER OpenModal here type: ', action.payload.modalType)
-      console.log('REDUCER OpenModal here dbCollection : ', action.payload.dbCollection)
-      console.log('REDUCER OpenModal here : id ', action.payload.modalType)
+      // console.log('REDUCER OpenModal here type: ', action.payload.modalType)
+      // console.log('REDUCER OpenModal here dbCollection : ', action.payload.dbCollection)
+      // console.log('REDUCER OpenModal here : id ', action.payload.modalType)
       let id = action.payload.id ? action.payload.id : ''
 
       state.modal.modalType = action.payload.modalType

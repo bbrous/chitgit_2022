@@ -113,7 +113,7 @@ function Spotlights(props) {
   const SpotlightPage = match.pageView
   const SpotlightId = match.id
 
-  console.log('=======[Spotlights_s]  match is', match)
+  // console.log('=======[Spotlights_s]  match is', match)
   let status = useSelector(selectStatus)
   let SpotlightsArray = useSelector(selectSpotlights)
 
@@ -122,7 +122,7 @@ function Spotlights(props) {
   const [spotlightView, setSpotlightView] = useState(status.view.spotlight.display)
 
 
-  console.log('[Spotlights_s]  spotlightView is', spotlightView)
+  // console.log('[Spotlights_s]  spotlightView is', spotlightView)
 
 
   useEffect(() => {

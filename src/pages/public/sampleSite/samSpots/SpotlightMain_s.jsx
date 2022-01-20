@@ -110,7 +110,7 @@ const TaskWrapper = styled('div')({
 
 function SpotlightMain(props) {
   let match = useParams()
-  console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
+  // console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
   return (
     <>
 

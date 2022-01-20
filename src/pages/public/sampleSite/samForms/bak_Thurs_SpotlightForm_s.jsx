@@ -33,10 +33,6 @@ import { selectSpotlights,
         addSpotlightToStore, 
         addToTaskArray, 
         updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
-
-
-        import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
-
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
@@ -219,7 +215,7 @@ const formSchema = object({
 // ==============================
 
 export default function SpotlightForm_s(props) {
-  const navigate = useNavigate()
+
   const dispatch = useDispatch()
 
   // retrieve spot id if passed from edit
@@ -256,36 +252,46 @@ export default function SpotlightForm_s(props) {
 
   // --- Yup setup ----------
 
-  //  default values conditioned on whether new or edit existing spotlight ===
-
   let defaultValues
-  let spotlight, id,title, endEst, parentId
 
-  !spotId ? spotlight = {} : spotlight = selectSpotlightFromArray(spotlightArray, spotId)
-  !spotId ? id = cuid()  : id =  spotId
-  !spotId ? title = ""  : title = spotlight.title
-  !spotId ? endEst = ""  : endEst = new Date(spotlight.endEst) 
-  !spotId ? parentId = "none"  : parentId = spotlight.parentId
-
-  console.log('[ Spotlight Form  00000000 ] spotlight ', spotlight);
- 
+  if (!spotId) {
     
     defaultValues = {
-      title: title,
-      endEst: endEst,
+      title: "",
+      endEst: "",
+      parentId: 'none'
+
+    };
+
+  } // end if !spotId
+
+  
+
+
+
+  if (spotId) {
+
+    let spotlight = selectSpotlightFromArray(spotlightArray, spotId)
+
+    let parentId
+
+    spotlight.parentId ? parentId = spotlight.parentId : parentId = ''
+
+    // - get index of spotlightsOptionArray === parentId
+    let initialSpotlightOption = spotlightsOptionsArray.filter(option => option.value === parentId);
+
+    console.log('[ S[pt;ogjtFpr,] ] spotlight.endEst ',spotlight.endEst);
+
+
+    defaultValues = {
+      title: spotlight.title,
+      // endEst: new Date(spotlight.endEst),
+      endEst: spotlight.endEst ? new Date(spotlight.endEst) : '',
       parentId: parentId
 
     };
 
-
-
-    // - get index of spotlightsOptionArray === parentId
-    // let initialSpotlightOption = spotlightsOptionsArray.filter(option => option.value === parentId);
- 
-
-
- 
-   
+  }// end if spotId
 
 
   const methods = useForm({
@@ -307,24 +313,24 @@ export default function SpotlightForm_s(props) {
       // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
 
-      
+      let newSpotlightId = cuid() // create new Id for Sample Site only
 
 
       // --- New SPOTLIGHT -----------set up all fields in FB -------
 
-      
+      if (newSpotlightId) {
 
         // --- parentId from form can be = 'none' or 'a spotlightId'
         // if parentId is none - dispatch '' to store...else ... form parentId
         let parentId
         data.parentId === 'none' ? parentId = '' : parentId = data.parentId
-        console.log('[ SPOTLGIHT FORM ] parentId ', parentId);
-        console.log('[ SPOTLGIHT FORM ] data.endEst ', data.endEst);
+
+        console.log('[ SPOTLGIHT FORM ] data.endEs ', data.endEs);
         let endDateEst
         data.endEst === undefined ? endDateEst = '' : endDateEst = data.endEst
 
         let newSpotlightData = {
-          id: id,
+          id: newSpotlightId,
           type: 'spotlight',
           parentId: parentId,
           currentTaskId: '',
@@ -345,16 +351,7 @@ export default function SpotlightForm_s(props) {
         // #### await Firebase  -- add + return newSpotlightId ############ 
         if(!spotId) {
         await dispatch(addSpotlightToStore(newSpotlightData))
-        navigate(`/sample/spotlights/${id}`)
-        dispatch(updateStatusView({
-          pageType: 'spotlight',
-          pageView: 'detail'
-        }))
-      
-
         }
-
-
         if(spotId) {
           await dispatch(updateEditedSpotlight(newSpotlightData))
           }
@@ -370,7 +367,7 @@ export default function SpotlightForm_s(props) {
           dispatch(addToTaskArray(
             {
               spotId: data.parentId,
-              id: id,
+              id: newSpotlightId,
               type: "spotlight"
             }
           ))
@@ -385,7 +382,7 @@ export default function SpotlightForm_s(props) {
 
         dispatch(changeLoadingStatus(false))
         reset()
-       
+      }// end if new spotlight
       //  FirebaseAuthService(data.email, data.password)
 
       reset(defaultValues)

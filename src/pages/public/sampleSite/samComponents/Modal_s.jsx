@@ -110,7 +110,7 @@ const Close = styled('div')({
 
 //======================================
 const Modal = (props) => {
-console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props);
+// console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props);
   const dispatch = useDispatch()
   // --- IMPORTANT -----------------------------------
   // id is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...
@@ -118,8 +118,8 @@ console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props);
 
 let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).modal
 
-console.log('[ modal ] dbCollection ', dbCollection);
-console.log('[ modal ] id ', id);
+// console.log('[ modal ] dbCollection ', dbCollection);
+// console.log('[ modal ] id ', id);
 
   return(
 <Fragment>
