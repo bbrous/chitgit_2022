@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createSelector } from 'reselect'
 import InitialStore from '../store/sampleStore/ex_spot_initialStore'
-import cuid from 'cuid';
-import {msToISO} from '../../../app/helpers/dateHelper'
-
+ 
 
 
 export const spotlightsSlice = createSlice({
@@ -67,11 +65,8 @@ export const spotlightsSlice = createSlice({
     let newEndEst = action.payload.endEst
     let newParentId = action.payload.parentId
 
-    console.log('[ updateEditedSpotlight ] GOTTTT MEEEEEE - spotId ', spotId);
-
-
     let spotIndex = state.findIndex(index => index.id === spotId)
-    console.log('[ updateEditedSpotlight ] GOTTTT MEEEEEE - spotIndex ', spotIndex);
+    
     state[spotIndex].title = newTitle
     state[spotIndex].endEst = newEndEst
     state[spotIndex].parentId = newParentId

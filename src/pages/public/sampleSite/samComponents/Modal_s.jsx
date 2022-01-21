@@ -78,8 +78,9 @@ const ModalDisplay = styled(Paper)({
   transform: 'translate(-50%)',
   zIndex: '166',
   
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('sm')] : {
     //  left: '.5rem',
+    
      top: '2.6rem',
      height: '93.5vh',
      width: '98vw'
@@ -110,7 +111,7 @@ const Close = styled('div')({
 
 //======================================
 const Modal = (props) => {
-// console.log('[ MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ] props ', props);
+
   const dispatch = useDispatch()
   // --- IMPORTANT -----------------------------------
   // id is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...

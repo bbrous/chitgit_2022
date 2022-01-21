@@ -2,19 +2,22 @@
    Creates new or edits existing Spotlight... depending on if 
    a detailId exists ... if yes - edit : if no - new
 
-
-   Contains children: 
-      ./formCompnents
+   Contains children:  input components from ./formCompnents
 
    parent: Modal.js  - src\pages\public\sampleSite\samComponents\Modal_s.jsx
-   detailId for edit passed from - 
-                      src\pages\public\sampleSite\samComponents\New_s.jsx
+
+   --- Edit map --- id and collection needed for update 
+
+      Spotlight_s get's id and db collection (page) from URL sends to -
+      Edit_s - sends id & dbCollection to -
+      Modal_s - sends id & dbCollection to - SpotlightForm_s (this)
+   
 */
 
-import React, { useState, useEffect } from 'react'
+import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { chitBlueLight, chitOrangeLight, } from '../../../../styles/colors'
+import { Link, useNavigate } from 'react-router-dom'
+ 
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -22,12 +25,14 @@ import cuid from 'cuid'  // #### for sample site only ####
 // --- React-hook-form imports ---------
 
 import { FormProvider, useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
+ 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { string, object, array } from 'yup';
+import { string, object  } from 'yup';
+
+// --- Redux slices imports
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
-import{closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
+import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import { selectSpotlights, 
         selectSpotlightFromArray,
         addSpotlightToStore, 
@@ -35,14 +40,15 @@ import { selectSpotlights,
         updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
 
-        import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
+ import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
-import { StyledSelector } from '../../../../forms/formComponents/X_StyledSelector';
 import { StyledSelectMui } from '../../../../forms/formComponents/StyledSelectMui';
+
+
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -50,7 +56,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
-import {withStyles} from '@mui/styles'
+
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // ---------------------------------------------
@@ -60,7 +66,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
     justifyContent: 'flex-start',
     alignItems: 'center',
     // zIndex: '95',
-    backgroundColor: 'white',
+    backgroundColor: 'none',
     width: '100%',
     height: '100%',
     overflow: 'auto',
@@ -78,6 +84,10 @@ const theme = createTheme(); // allows use of mui theme in styled component
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    padding: '.5rem 0 .5rem 0',
+    marginBottom: '.5rem',
+    borderBottom: '2px solid #CFD0D1',
+    boxShadow : '0 0 1px 0 #F6F7F8' ,
     // zIndex: '95',
 
     width: '100%',
@@ -89,8 +99,6 @@ const theme = createTheme(); // allows use of mui theme in styled component
   
   })
 
-
-
   const FormWrapper = styled('form')({
     position: 'relative',
     display: 'flex',
@@ -99,7 +107,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
     alignItems: 'center',
     width: '80%',
   
-   
+
   
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -199,8 +207,6 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
-
-
 //  -- Input requirements for user for each component (if any)
 
 const formSchema = object({
@@ -224,15 +230,13 @@ export default function SpotlightForm_s(props) {
 
   // retrieve spot id if passed from edit
   let spotId = props.id
-  console.log('[ Spotlight Form  00000000 ] spotId ', spotId);
 
 
-  // --- set up react-select options and intial value-------------
+  // --- set up options for the selector input (parentId) 
 
-  let spotlightArray = useSelector(selectSpotlights)
+  let spotlightArray = useSelector(selectSpotlights) // get all spotlights
   
-
-  // console.log('[ Spotlight Form ] REDUX store -  spotlightArray ', spotlightArray);
+  // --- initial and fill  the options 
 
   let spotlightsOptionsArray = [
     { value: 'none', label: 'none' }
@@ -250,25 +254,32 @@ export default function SpotlightForm_s(props) {
   
 
 
-  // console.log('[ Spotlight Form ] spotlightsOptionsArray ', spotlightsOptionsArray);
-
-
-
   // --- Yup setup ----------
 
-  //  default values conditioned on whether new or edit existing spotlight ===
+  //  --- default values conditioned on whether new or edit existing spotlight 
 
-  let defaultValues
-  let spotlight, id,title, endEst, parentId
+  let defaultValues, spotlight, id,title, endEst, parentId, headerMessage
+
+  !spotId ? headerMessage = 'Create New Spotlight'  : headerMessage = 'EditSpotlight'
 
   !spotId ? spotlight = {} : spotlight = selectSpotlightFromArray(spotlightArray, spotId)
   !spotId ? id = cuid()  : id =  spotId
   !spotId ? title = ""  : title = spotlight.title
-  !spotId ? endEst = ""  : endEst = new Date(spotlight.endEst) 
+
+
+  // --- react-datepicker logic
+  //  react-datepicker requires either "" or date
+  // tempEndEst is case when database provides a "" initial value
+
+  let tempEndEst
+  !spotlight.endEst ? tempEndEst = "" : tempEndEst = new Date(spotlight.endEst) 
+  !spotId ? endEst = ""  : endEst = tempEndEst
+
   !spotId ? parentId = "none"  : parentId = spotlight.parentId
 
   console.log('[ Spotlight Form  00000000 ] spotlight ', spotlight);
  
+
     
     defaultValues = {
       title: title,
@@ -277,51 +288,34 @@ export default function SpotlightForm_s(props) {
 
     };
 
-
-
-    // - get index of spotlightsOptionArray === parentId
-    // let initialSpotlightOption = spotlightsOptionsArray.filter(option => option.value === parentId);
- 
-
-
- 
-   
-
-
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(formSchema)
   });
 
-  const { handleSubmit, reset, control, watch } = methods;
-
   //======= SUBMIT =========================================================
+
+  const { handleSubmit, reset, control, watch } = methods;
 
   const submitForm = async (data) => {
 
-    let submitData = data
-    console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
+    // let submitData = data
+    // console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
 
     try {
 
       // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
 
-      
-
-
-      // --- New SPOTLIGHT -----------set up all fields in FB -------
-
-      
-
         // --- parentId from form can be = 'none' or 'a spotlightId'
         // if parentId is none - dispatch '' to store...else ... form parentId
-        let parentId
+
+        let parentId, endDateEst
+
         data.parentId === 'none' ? parentId = '' : parentId = data.parentId
-        console.log('[ SPOTLGIHT FORM ] parentId ', parentId);
-        console.log('[ SPOTLGIHT FORM ] data.endEst ', data.endEst);
-        let endDateEst
-        data.endEst === undefined ? endDateEst = '' : endDateEst = data.endEst
+        data.endEst === undefined ? endDateEst = '' : endDateEst = data.endEst.toString()
+
+        // --- new data to be passed to store (firebase)
 
         let newSpotlightData = {
           id: id,
@@ -333,7 +327,7 @@ export default function SpotlightForm_s(props) {
           completedTimeStamp: '',
           completed: false,
           lastVisit: new Date().toISOString(),
-          endEst: endDateEst.toString(),
+          endEst: endDateEst,
           note: '',
           chitId: '',
           taskArray: []
@@ -341,52 +335,53 @@ export default function SpotlightForm_s(props) {
         }
 
 
+      // #### await Firebase  -- add + return newSpotlightId ############ 
 
-        // #### await Firebase  -- add + return newSpotlightId ############ 
-        if(!spotId) {
+      // -- if no spotId -- form is for new - else form is for edit/update
+
+      if (!spotId) {
+
+        // --- create new spotlight ------------
         await dispatch(addSpotlightToStore(newSpotlightData))
+
+        // ---- change status so new spotlight is displayed ---
+
         navigate(`/sample/spotlights/${id}`)
         dispatch(updateStatusView({
           pageType: 'spotlight',
           pageView: 'detail'
         }))
-      
 
-        }
+      }
 
+      // --- edit/ update spotlight ------------
 
-        if(spotId) {
-          await dispatch(updateEditedSpotlight(newSpotlightData))
+      if (spotId) {
+        await dispatch(updateEditedSpotlight(newSpotlightData))
+      }
+
+      // --- if there is a parentId from form... add new spotlightId to
+      //     task array of the existing spotlight with the parentId
+
+      if (data.parentId !== 'none') {
+
+        dispatch(addToTaskArray(
+          {
+            spotId: data.parentId,
+            id: id,
+            type: "spotlight"
           }
+        ))
 
-        // --- if there is a parentId from form add new spotlightId to
-        //     task array of the existing spotlight with the parentId
-
-        if (data.parentId !== 'none') {
-
-
-
-          // fetch spotlight with id = parentId
-          dispatch(addToTaskArray(
-            {
-              spotId: data.parentId,
-              id: id,
-              type: "spotlight"
-            }
-          ))
-
-
-
-        }
+      }
 
 
         // --- end spinner + reset form ---
 
 
-        dispatch(changeLoadingStatus(false))
-        reset()
+      dispatch(changeLoadingStatus(false))
+      reset()
        
-      //  FirebaseAuthService(data.email, data.password)
 
       reset(defaultValues)
       dispatch(closeModal())
@@ -408,18 +403,14 @@ export default function SpotlightForm_s(props) {
 
   return (
     <Wrapper>
-      {!spotId && 
-      <HeaderWrapper> Create New Spotlight </HeaderWrapper>
-    }
-      {spotId && 
-      <HeaderWrapper> Edit Spotlight </HeaderWrapper>
-    }
-
+      
+      <HeaderWrapper> {headerMessage} </HeaderWrapper>
+   
     {/* --- Form -------------------------- */}
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
-          {/* ------Input Component  -------------------------- */}
+          {/* ------Input Component (title) -------------------------- */}
 
           <FormComponentWrapper>
           <ComponentName>
@@ -434,9 +425,7 @@ export default function SpotlightForm_s(props) {
 
           
 
-
-
-        {/* ------Input Component  -------------------------- */}
+        {/* ------Selector Component  (parentId) -------------------------- */}
 
         <FormComponentWrapper>
             <ComponentName>
@@ -456,7 +445,7 @@ export default function SpotlightForm_s(props) {
             </ComponentWrapper>
           </FormComponentWrapper>
 
-        {/* ------Input Component  -------------------------- */}
+        {/* ------DatePicker Component (endEst) -------------------------- */}
 
  
         <FormComponentWrapper>
