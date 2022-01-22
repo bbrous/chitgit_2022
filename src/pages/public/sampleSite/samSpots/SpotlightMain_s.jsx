@@ -19,7 +19,7 @@ import { useParams } from 'react-router'
 import Spotlight from './Spotlight_s'
 import Parent from './Parent_s'
 
-import SpotlightTaskForm_s from '../samForms/SpotlightTaskForm_s'
+import SpotlightTaskForm from '../samForms/SpotlightTaskForm_s'
 import SortableTasks from './SortableTasks_s'
 
 
@@ -124,7 +124,7 @@ function SpotlightMain(props) {
 
  
 
-          <SpotlightTaskForm_s />
+          <SpotlightTaskForm />
 
 
 

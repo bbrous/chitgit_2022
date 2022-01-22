@@ -16,9 +16,8 @@
 
 import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate } from 'react-router-dom'
+import {useNavigate, useParams } from 'react-router-dom'
  
-
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -39,7 +38,7 @@ import { selectSpotlights,
         addToTaskArray, 
         updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
-
+import { addTaskToStore } from '../../../../app/redux/taskRedux/sam_tasksSlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 // --- Form component imports ---------
@@ -245,14 +244,18 @@ const typeOptions = [
 
 // ==============================
 
-export default function SpotlightTaskForm_s(props) {
+export default function SpotlightTaskForm(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // retrieve spot id if passed from edit
-  let spotId = props.id
+  let match = useParams()
+ 
+
+  const ParentSpotlightId = match.id
 
 
+
+console.log('[ ================================================= ] ParentSpotlightId ', ParentSpotlightId);
   // --- set up options for the selector input (parentId) 
 
   let spotlightArray = useSelector(selectSpotlights) // get all spotlights
@@ -286,7 +289,7 @@ export default function SpotlightTaskForm_s(props) {
     
     defaultValues = {
       title: '',
-      type: ''
+      type: 'task'
 
     };
 
@@ -304,9 +307,111 @@ export default function SpotlightTaskForm_s(props) {
     // let submitData = data
     console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', data);
 
+    try {
+     // --- start the loading spinner ---
+     dispatch(changeLoadingStatus(true))
+
+
+     //--- if new task is added as a Spotlight ----
+
+     if(data.type === 'spotlight'){
+
+        // console.log('[ Task Form ] SPotlight yes ', data.type );
+
+              // --- new data to be passed to store (firebase)
+
+              // ##### for SampleSite only - create id
+              let newSpotId = cuid()
+
+              let newSpotlightData = {
+                id: newSpotId,
+                type: 'spotlight',
+                parentId: ParentSpotlightId,
+                currentTaskId: '',
+                title: data.title,
+                spotlightStatus: 'inactive',
+                completedTimeStamp: '',
+                completed: false,
+                lastVisit: new Date().toISOString(),
+                endEst: '',
+                note: '',
+                chitId: '',
+                taskArray: []
+      
+              }
+
+       // --- create new spotlight ------------
+       await dispatch(addSpotlightToStore(newSpotlightData))  
+       await       dispatch(addToTaskArray(
+        {
+          spotId: ParentSpotlightId,
+          id: newSpotId,
+          type: "spotlight"
+        }
+      ))      
+
+      // --- end spinner + reset form ---
+
+      dispatch(changeLoadingStatus(false))
+      reset()
+       
+     }
+
+     if(data.type === 'task'){
+
+      // ##### for SampleSite only - create id
+      let newTaskId = cuid()
+
+      console.log('[ Task Form ] Its a task  ', data.type );
+
+      let newTaskData = {
+        id: newTaskId,
+        type: 'task',
+        title: data.title,
+        completed: false,
+        currentTask: '',
+        note: '',
+        chitId: '',
+        attachTo: ''
+ 
+
+      }
+
+        // --- create new task ------------
+        await dispatch(addTaskToStore(newTaskData))  
+
+        await dispatch(addToTaskArray(
+          {
+            spotId: ParentSpotlightId,
+            id: newTaskId,
+            type: "task"
+          }
+        ))      
+
+      // --- end spinner + reset form ---
+
+      dispatch(changeLoadingStatus(false))
+      reset()
+       
+
+   }
+
+
+    }catch(error) {
+
+      // --- end spinner + reset form ---
+
+
+
+
+    }// end try - catch ----
    
 
-  } // end submitForm
+
+
+
+
+  } // end submitForm -----
     
   
        // --- Actual Form ---------------------------------------------

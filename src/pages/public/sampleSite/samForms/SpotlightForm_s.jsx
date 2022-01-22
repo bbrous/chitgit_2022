@@ -376,8 +376,7 @@ export default function SpotlightForm_s(props) {
       }
 
 
-        // --- end spinner + reset form ---
-
+        
 
       dispatch(changeLoadingStatus(false))
       reset()

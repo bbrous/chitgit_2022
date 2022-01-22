@@ -7,13 +7,27 @@ export const tasksSlice = createSlice({
   initialState: InitialStore,
 
   reducers: {
-    // addTask: state => {
-    //   ... do stuff here
-    // },
+    addTaskToStore: (state, action) => {
+  
+      let task  = action.payload
+ 
+      
+      // {
+      //   id: cuid(),
+      //   type: 'spotlight', 
+      //   parent: '',
+      //   title: action.payload.title,
+      //   spotlightStatus: 'inactive', 
+      //   completedTimeStamp: '',
+      //   completed: false,
+      //   endEst: action.payload.endEst,
+      //   note: '',
+      //   chitId: '',
+      //   taskArray: []
+      // }
 
-    // editTask: (state, action, id) =>{
-    //   ... do stuff here
-    // }
+      state.push(task)
+    },
 
   }, //end reducers
 
@@ -22,7 +36,12 @@ export const tasksSlice = createSlice({
 
 // --- Export actions ---------------------------------------------
 
-// export const { addTask, editTask } = TasksSlice.actions
+export const { 
+
+  addTaskToStore, 
+
+
+} = tasksSlice.actions
 
 
 
