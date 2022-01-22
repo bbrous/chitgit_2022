@@ -16,7 +16,7 @@
 
 import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
  
 
 // --- Firebase imports ---------
@@ -181,7 +181,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
   })
   
   const StyledButton= styled(Button)({
-    color: 'yellow'
+    color: 'white'
   
   })
 
@@ -393,7 +393,7 @@ export default function SpotlightForm_s(props) {
       dispatch(changeLoadingStatus(false))
 
       reset(defaultValues)
-    }
+    }// end try-catch
 
   } // end submitForm
     
@@ -473,7 +473,12 @@ export default function SpotlightForm_s(props) {
         {/* ------Submit ---------- -------------------------- */}
         <ButtonWrapper>
 
-          <StyledButton type="submit" variant="contained" color="primary">
+          <StyledButton 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+            style={{textTransform: 'none'}}
+            >
             Submit
           </StyledButton>
         </ButtonWrapper>

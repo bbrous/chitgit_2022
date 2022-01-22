@@ -295,7 +295,7 @@ function SpotlightNav(props)  {
 
   // --- displayId for setting background color of Nav Link ---
 
-  let displayId = match.detailId
+  let displayId = match.id
 
   
   //  --- get and update all Spotlights when new spotlight added  ---  

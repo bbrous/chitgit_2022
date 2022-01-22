@@ -28,20 +28,7 @@ import { Controller } from "react-hook-form";
 import { styled, createTheme  } from "@mui/material/styles"
 import { withStyles  } from "@mui/styles"
 
-const options = [
-  {
-    label: "As Task",
-    value: "task",
-  },
-  {
-    label: "As Spotlight",
-    value: "spotlight",
-  },
-  {
-    label: "As Chit",
-    value: "chit",
-  },
-];
+
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -91,6 +78,7 @@ export const StyledRadio = ({
   name,
   control,
   label,
+  options
 }) => {
   const generateRadioOptions = () => {
     return options.map((singleOption) => (

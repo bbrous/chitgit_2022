@@ -42,7 +42,7 @@ border: 'none',
 
 
 // -----------------------------------------------------------------
-export const StyledInput = ({ name, control, label, type } ) => {
+export const StyledInput = ({ name, control, label, type, placeholder } ) => {
   return (
     <Controller
       name={name}
@@ -62,6 +62,7 @@ export const StyledInput = ({ name, control, label, type } ) => {
           fullWidth
           type = {type}
           variant="outlined"
+          placeholder = {placeholder}
        
         />
       )}
