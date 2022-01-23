@@ -11,6 +11,11 @@
       Spotlight_s get's id and db collection (page) from URL sends to -
       Edit_s - sends id & dbCollection to -
       Modal_s - sends id & dbCollection to - SpotlightForm_s (this)
+
+   * note - creating a New spotlight changes the status in store to display a
+           new spotlight immediately - updating existing spotlight does not
+           change the status and keeps the spotlight being edited on display
+           after changes
    
 */
 

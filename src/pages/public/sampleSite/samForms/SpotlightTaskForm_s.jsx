@@ -1,17 +1,14 @@
-/*---- File - SpotlightForm_s.jsx 
-   Creates new or edits existing Spotlight... depending on if 
-   a detailId exists ... if yes - edit : if no - new
+/*---- File - SpotlightTaskForm_s.jsx 
+   Creates new task or new spotlight.. depending on  
+   user radio button input
 
    Contains children:  input components from ./formCompnents
 
-   parent: Modal.js  - src\pages\public\sampleSite\samComponents\Modal_s.jsx
+   parent: Modal.js  - src\pages\public\sampleSite\samSpots\SpotlightMain_s
 
-   --- Edit map --- id and collection needed for update 
-
-      Spotlight_s get's id and db collection (page) from URL sends to -
-      Edit_s - sends id & dbCollection to -
-      Modal_s - sends id & dbCollection to - SpotlightForm_s (this)
-   
+   *note - Where SpotlightForm changes the status in store to display a
+           new spotlight immediately - new spotlight created here stays
+           on existing spotlight.
 */
 
 import React  from 'react'
@@ -31,15 +28,14 @@ import { string, object  } from 'yup';
 // --- Redux slices imports
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
-import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
+
 import { selectSpotlights, 
-        selectSpotlightFromArray,
         addSpotlightToStore, 
         addToTaskArray, 
-        updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
+        } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
 import { addTaskToStore } from '../../../../app/redux/taskRedux/sam_tasksSlice';
- import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
+
 
 // --- Form component imports ---------
 
@@ -52,7 +48,6 @@ import { StyledRadio } from '../../../../forms/formComponents/StyledRadio';
 
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
 
@@ -188,21 +183,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
   
   })
   
-  const ButtonWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '60%',
-    margin: '.75rem',
-  
-    
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
+
   
   const StyledButton= styled(Button)({
     color: 'white',
@@ -211,11 +192,9 @@ const theme = createTheme(); // allows use of mui theme in styled component
   })
 
 
+//  ----end styling --------------------------------------------------
 
-
-
-
-//  -- Input requirements for user for each component (if any)
+//  -- setup functions - yup and radio button options
 
 const formSchema = object({
 
@@ -240,53 +219,23 @@ const typeOptions = [
 ];
 
 
-
-
 // ==============================
 
 export default function SpotlightTaskForm(props) {
-  const navigate = useNavigate()
+
   const dispatch = useDispatch()
 
   let match = useParams()
  
+  // id from URL is used for parentId of new spotlight or new task
 
   const ParentSpotlightId = match.id
 
 
-
-console.log('[ ================================================= ] ParentSpotlightId ', ParentSpotlightId);
-  // --- set up options for the selector input (parentId) 
-
-  let spotlightArray = useSelector(selectSpotlights) // get all spotlights
-  
-  // --- initial and fill  the options 
-
-  let spotlightsOptionsArray = [
-    { value: 'none', label: 'none' }
-  ] //  defining an initial value in array
-
-  let spotlightOption
-
-  spotlightArray.map((spotlight, index) => {
-    // code 
-    spotlightOption = { value: spotlight.id, label: spotlight.title }
-    spotlightsOptionsArray.push(spotlightOption)
-
-    return spotlightsOptionsArray
-  }) //end map
-  
-
-
-  // --- Yup setup ----------
-
-  //  --- default values conditioned on whether new or edit existing spotlight 
+  //  --- default for radio button is for task 
 
   let defaultValues
 
-
- 
-    
     defaultValues = {
       title: '',
       type: 'task'
@@ -305,7 +254,6 @@ console.log('[ ================================================= ] ParentSpotlig
   const submitForm = async (data) => {
 
     // let submitData = data
-    console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', data);
 
     try {
      // --- start the loading spinner ---
@@ -316,7 +264,7 @@ console.log('[ ================================================= ] ParentSpotlig
 
      if(data.type === 'spotlight'){
 
-        // console.log('[ Task Form ] SPotlight yes ', data.type );
+
 
               // --- new data to be passed to store (firebase)
 
@@ -342,13 +290,13 @@ console.log('[ ================================================= ] ParentSpotlig
 
        // --- create new spotlight ------------
        await dispatch(addSpotlightToStore(newSpotlightData))  
-       await       dispatch(addToTaskArray(
-        {
-          spotId: ParentSpotlightId,
-          id: newSpotId,
-          type: "spotlight"
-        }
-      ))      
+       await  dispatch(addToTaskArray(
+              {
+                spotId: ParentSpotlightId,
+                id: newSpotId,
+                type: "spotlight"
+              }
+            ))      
 
       // --- end spinner + reset form ---
 
@@ -381,12 +329,12 @@ console.log('[ ================================================= ] ParentSpotlig
         await dispatch(addTaskToStore(newTaskData))  
 
         await dispatch(addToTaskArray(
-          {
-            spotId: ParentSpotlightId,
-            id: newTaskId,
-            type: "task"
-          }
-        ))      
+              {
+                spotId: ParentSpotlightId,
+                id: newTaskId,
+                type: "task"
+              }
+            ))      
 
       // --- end spinner + reset form ---
 
@@ -394,21 +342,20 @@ console.log('[ ================================================= ] ParentSpotlig
       reset()
        
 
-   }
+      }//end dispatch
 
 
     }catch(error) {
 
-      // --- end spinner + reset form ---
+      // --- alert error + navigate + end spinner + reset form ---
+      alert(error.message)
+      dispatch(changeLoadingStatus(false))
 
-
+      reset(defaultValues)
 
 
     }// end try - catch ----
    
-
-
-
 
 
   } // end submitForm -----
