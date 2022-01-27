@@ -76,14 +76,19 @@ function Edit(props) {
   const {dbCollection, id} = props
   const dispatch = useDispatch()
 
-  function handleClick(dbCollection, id){
+  function handleClick(dbCollection, id) {
     console.log('[ EditIcon aa  ] props ', dbCollection, id);
-    dispatch(openModal({
-      modalType: 'form',
-      dbCollection: dbCollection,
-      id: id
-  
-    }))
+    dispatch(openModal(
+      {
+        modalParams: {
+          modalType: 'form',
+          dbCollection: dbCollection,
+          id: id
+
+        }
+      }
+
+    ))
   }
 
   let titleMessage

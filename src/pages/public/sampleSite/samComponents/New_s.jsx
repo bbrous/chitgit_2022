@@ -129,29 +129,30 @@ const openSpotlightForm = ()=>{
   // ------------------------------------------------------------
     
   // props.openModal(dbCollection, id)
+  
+  dispatch(openModal(
+    { modalParams: {
+          modalType: 'form',
+          dbCollection: dbCollection,
+          id: ''
+      }
+    }
 
-  dispatch(openModal({
-    modalType: 'form',
-    dbCollection: dbCollection,
-    id: ''
+  ))
 
-  }))
-
-
-
-}
+}// end openSpotlightForm
 
   return (
     <NewWrapper elevation={1}>
 
-  
-<LightTooltip title= {formattedPage} arrow>
-    <AddCircleIconWrapper 
-    onClick = {()=> openSpotlightForm(page, id)}
-     />
-</LightTooltip>
 
-  </NewWrapper>
+      <LightTooltip title={formattedPage} arrow>
+        <AddCircleIconWrapper
+          onClick={() => openSpotlightForm(page, id)}
+        />
+      </LightTooltip>
+
+    </NewWrapper>
   )
 }
 

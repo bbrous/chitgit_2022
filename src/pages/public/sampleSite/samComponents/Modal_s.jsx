@@ -8,6 +8,17 @@
  
 
       parent- Main - src/pages/public/sampleSite/Main
+
+      * modal is opened when status/modal/modalDisplayed in Store
+        is set to true
+
+        modal receives all props required to be passed 
+        status/modal/modalParams ... 
+
+        modalType = form or info which is used to determine which
+        group of pages are to be displayed.
+        
+
 */
 
 
@@ -113,14 +124,19 @@ const Close = styled('div')({
 const Modal = (props) => {
 
   const dispatch = useDispatch()
+
+
+
   // --- IMPORTANT -----------------------------------
   // id is the id for spotlight (ie. spot_1) or note (ie. note_1), etc...
   //         but for "help", id is a help page (ie. 'spotlights' or 'notes')
 
-let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).modal
+// let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).modal
+    let {modalParams, modalDisplayed } = useSelector(selectStatus).modal
+    let {modalType, dbCollection} = modalParams
 
-// console.log('[ modal ] dbCollection ', dbCollection);
-// console.log('[ modal ] id ', id);
+
+console.log('[ modal ] dbCollection ', dbCollection);
 
   return(
 <Fragment>
@@ -147,12 +163,13 @@ let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).mo
 
      
         {dbCollection === 'spotlights' &&
-          <SpotlightForm id = {id} type = 'spotlights' />
+          // <SpotlightForm id = {id} type = 'spotlights' />
+          <SpotlightForm params = {modalParams} />
 
         }
 
         {dbCollection === 'notes' &&
-          <NoteForm id = {id} type = 'notes'/>
+          <NoteForm params = {modalParams} />
 
         }
    <Close onClick = {()=>dispatch(closeModal())}>Close</Close>

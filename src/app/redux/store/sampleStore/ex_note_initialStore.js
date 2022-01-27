@@ -9,34 +9,32 @@ const SampleNotes =  [
 
   {
     
-    noteId: 'note_1',
+    id: 'note_1',
     
-    noteType: 'spotlight',
+    noteHolderType: 'spotlights',
     noteHolderId: 'spot_1',
-    association: '',
 
-    noteContent: "note-1 for spotlight 1 - Build backyard deck using Slice",
+    noteContent: "note-1 for spotlight 1 - Build backyard deck...  1 keyword -test",
 
-    date:  "2020-11-01T11:16:20.619Z",  // September 14
+    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['chit', 'test'],
+    noteKeywordArray: ['test'],
 
    
   },
 
   {
     
-    noteId: 'note_2',
+    id: 'note_2',
     
-    noteType: 'spotlight',
-    noteHolderId: 'spot_2',
-    association: '',
+    noteHolderType: 'spotlights',
+    noteHolderId: 'spot_4',
 
-    noteContent: "note-2 for spotlight 4 - Surprise vacation",
+    noteContent: "note-2 for spotlight 4 - Surprise vacation - > 2 keywords - family and idea",
 
-    date:  "2020-11-01T11:16:20.619Z",  // September 14
+    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['chit', 'test'],
+    noteKeywordArray: ['family', 'idea'],
 
    
   },
@@ -44,37 +42,54 @@ const SampleNotes =  [
 
   {
     
-    noteId: 'note_3',
+    id: 'note_3',
     
-    noteType: 'task',
+    noteHolderType: 'tasks',
     noteHolderId: 'spot_1_task_1',
-    association: '',
 
-    noteContent: "note-3 for spotlight 1, task 1 - build deck ",
+    noteContent: "note-3 for spotlight 1, task 1 - build deck - >  2 keywords test and idea",
 
-    date:  "2020-11-01T11:16:20.619Z",  // September 14
+    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['chit', 'test'],
+    noteKeywordArray: [ 'test', 'idea'],
 
    
   },
 
   {
     
-    noteId: 'note_4',
+    id: 'note_4',
     
-    noteType: 'task',
-    noteHolderId: 'spot_4_task_8',
-    association: '',
+    noteHolderType: 'spotlights',
+    noteHolderId: 'spot_2',
 
-    noteContent: "note-4 for spotlight 4, task 8 - plan and execute surprise ....",
+    noteContent: "note-4 for spotlight 2,  - Presentation - > 2 keywords , chit and test.",
 
-    date:  "2020-11-01T11:16:20.619Z",  // September 14
+    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: ['chit', 'test'],
 
    
   },
+
+  
+  {
+    
+    id: 'note_5',
+    
+    noteHolderType: 'spotlights',
+    noteHolderId: 'spot_1',
+
+    noteContent: 'spotlight 1,  - Build Backyard - no keywords ...etc.',
+
+    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+
+   
+  }
+
+  
  
  
  

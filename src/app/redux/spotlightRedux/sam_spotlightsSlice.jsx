@@ -119,7 +119,7 @@ let spotIndex = state.findIndex(index => index.id === spotId)
 
 addToTaskArray: (state, action) => {
 
-  let spotId = action.payload.spotId
+  let spotId = action.payload.id
   let id = action.payload.id
   let type = action.payload.type
    

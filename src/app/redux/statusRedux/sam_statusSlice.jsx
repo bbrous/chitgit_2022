@@ -19,9 +19,10 @@ export const statusSlice = createSlice({
       modal: {
      
         modalDisplayed: false,
-        modalType: '', // info or form
-        dbCollection: '', // spotlight, twoParty, note, etc.
-        id: '',
+        modalParams: {}
+        // modalType: '', // info or form
+        // dbCollection: '', // spotlight, twoParty, note, etc.
+        // id: '',
       },
   
       initialMessage: {
@@ -112,22 +113,28 @@ export const statusSlice = createSlice({
 
   reducers: {
     openModal: (state, action) => {
-      // console.log('REDUCER OpenModal here type: ', action.payload.modalType)
+      console.log('REDUCER OpenModal here type: ', action.payload)
       // console.log('REDUCER OpenModal here dbCollection : ', action.payload.dbCollection)
       // console.log('REDUCER OpenModal here : id ', action.payload.modalType)
-      let id = action.payload.id ? action.payload.id : ''
+      // let id = action.payload.id ? action.payload.id : ''
 
-      state.modal.modalType = action.payload.modalType
-      state.modal.dbCollection = action.payload.dbCollection
-      state.modal.id = id
+      // state.modal.modalType = action.payload.modalType
+      // state.modal.dbCollection = action.payload.dbCollection
+      // state.modal.id = id
+
+      state.modal.modalParams = action.payload.modalParams
       state.modal.modalDisplayed = true
+
+      
     },
 
     closeModal: (state, action) => {
-      state.modal.modalType = ''
-      state.modal.dbCollection = ''
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+      state.modal.modalParams = {}
       state.modal.modalDisplayed = false
-      state.modal.id = ''
 
     },
     

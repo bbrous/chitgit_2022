@@ -24,7 +24,8 @@ import taskReducer from '../taskRedux/sam_tasksSlice'
 import logReducer from '../logRedux/X_sam_reducers_Logs'
 
 import noteReducer from '../noteRedux/sam_notesSlice'
-
+import categoryReducer from '../categoryRedux/sam_categorySlice'
+import keywordReducer from '../keywordRedux/sam_keywordSlice'
 
 import peopleReducer from '../peopleRedux/X_sam_reducers_People'
 import orgReducer from '../orgRedux/X_sam_reducers_Orgs'
@@ -41,6 +42,8 @@ const sampleRootReducer = combineReducers({
     status : statusReducer,
     chits: chitReducer,
     chitLinks: chitLinkReducer,
+    categories: categoryReducer,
+    keywords: keywordReducer,
     tasks: taskReducer,
     logs: logReducer,
     notes: noteReducer,

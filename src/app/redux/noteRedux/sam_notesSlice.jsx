@@ -7,29 +7,57 @@ export const notesSlice = createSlice({
   initialState: InitialStore,
 
   reducers: {
-    // addNote: state => {
-    //   ... do stuff here
-    // },
 
-    // editNote: (state, action, id) =>{
-    //   ... do stuff here
-    // }
+    addNoteToStore: (state, action) => {
+  
+      let note  = action.payload
 
-  }, //end reducers
+
+      state.push(note)
+    },
+
+
+    updateEditedNote: (state, action) => {
+
+
+      let noteId = action.payload.id
+      let newNoteContent = action.payload.noteContent
+      let lastEdit = action.payload.lastEdit
+  
+      let noteIndex = state.findIndex(index => index.id === noteId)
+      
+      state[noteIndex].noteContent = newNoteContent
+      state[noteIndex].lastEdit = lastEdit
+
+  
+    }, // end updateEditedNote
+
+  }// end reducers
 
 }) // end slice notesSlice 
 
 
 // --- Export actions ---------------------------------------------
 
-// export const { addNote, editNote } = notesSlice.actions
+export const { 
+    addNoteToStore, 
+    updateEditedNote 
+} = notesSlice.actions
 
 
 
 // --- Export selectors ------------------------------------------
 
-export const allNotes = state => state.notes
+export const selectNotes = state => state.sample.notes
 
+export const selectNoteFromArray = (noteArray, id) => {
+
+  let note = noteArray.find(note => note.id === id) 
+
+  return note
+
+}
+ 
 
 
 

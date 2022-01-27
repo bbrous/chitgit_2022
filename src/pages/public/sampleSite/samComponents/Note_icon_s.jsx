@@ -1,24 +1,26 @@
-/* function noteIcon_s -------------
+/* function editIcon_s -------------
      
- Opens note form in Modal
+ Opens edit form in Modal
+    - Receives from parent props: dbCollection + id
+    - adds prop type ('form')
+    - dispatches open Modal
   
 parent: Spotlight - pages/public/sampleSite/samSpots/Spotlight
-        and TaskItem - pages/public/sampleSite/samSpots/TaskItem  
 ------------------------------------*/
 
-import React from 'react'
-import {useDispatch} from 'react-redux'
-import {useHistory, useRouteMatch, match} from 'react-router-dom'
-import{mediumLightGrey, chitBlueDull,chitMediumGreen } from '../../../../styles/colors'
 
-import{  openModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
-// import{ selectPlans } from '../../../../app/redux/planRedux/sam_selectors_Plans'
+import React from 'react'
+import { useDispatch} from 'react-redux'
+import {useHistory, useRouteMatch, match} from 'react-router-dom'
+import{mediumLightGrey, chitOrange,  chitMediumGreen} from '../../../../styles/colors'
+import { openModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
+
 
 
 // Material UI --------------------
+ 
 import Tooltip from '@mui/material/Tooltip';
 import NotesIcon from '@mui/icons-material/Notes';
-
 
 
 import { styled, createTheme} from "@mui/material/styles"
@@ -27,17 +29,37 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
-const Icon= styled(NotesIcon)({
+ 
+ 
+
+const IconGreen= styled(NotesIcon)({
+  backgroundColor: 'green',
+  borderRadius: '5px',
+  fontSize: '.8rem',
+  color: 'white',
+  margin: '0 .5rem .3rem 0',
+  cursor: 'pointer',
+ 
+  '&:hover': {
+    backgroundColor: mediumLightGrey
+    // backgroundColor: mediummediumLightGrey
+  },
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const IconOrange= styled(NotesIcon)({
   backgroundColor: 'orange',
   borderRadius: '5px',
   fontSize: '.8rem',
   color: 'white',
   margin: '0 .5rem .3rem 0',
   cursor: 'pointer',
-  
-  '&.green': {
-    backgroundColor: chitMediumGreen,
-  },
+ 
 
   '&:hover': {
     backgroundColor: mediumLightGrey
@@ -64,78 +86,79 @@ const LightTooltip = withStyles({
 // ================================
 
 
-function handleClick(passedId){
-  // console.log('[Note_icon - I be clicked')
-}
 
 
 
 function NoteIcon(props) {
-  let dispatch = useDispatch
-  const {type, id} = props
 
-  const openSpotlightForm = ()=>{
-  
+/* props passed from edit icon
+   - dbCollection =  noteHolderCollection passed to form from clicked icon
+  - id = noteHolderId passed to form
+   - noteId = id passed to form
+
+*/
+
+  const dispatch = useDispatch()
+
+  const {noteHolderCollection, noteHolderId, noteId} = props 
+
+  let passedNoteId, titleMessage
+  !noteId ? passedNoteId = '' : passedNoteId = noteId
+  !noteId ? titleMessage = 'Create Note' : titleMessage = 'Edit Note'
+
+  function handleClick(dbCollection, id) {
     
-    dispatch(openModal({type}, {id}))
-  
-      // console.log('[Plan NAV ] -  PlanId is  - ', planId)
-  
-  }
-  // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    console.log('[ EditIcon aa  ] props ', props);
+    dispatch(openModal(
+      {
+        modalParams: {
+          modalType: 'form',
+          dbCollection: 'notes', // dbCollection passed to modal
+          id: passedNoteId,
+          noteHolderCollection: noteHolderCollection, // dbCollection FROM icon clicked
+          noteHolderId: noteHolderId
 
-  let passedId = 'spot_1_task_1'
-  // let noteId = ''
-  let noteId = 'note_1'
+        }
+      }
+
+    ))
+  }
+
 
 
   return (
     <>
 
-      {!noteId && 
-      <LightTooltip   title = 'New Note'  arrow> 
-      <Icon
+    {noteId && 
+      <LightTooltip   title = {titleMessage}  arrow> 
+      <IconGreen
 
 
-        onClick={handleClick(passedId)}
+        onClick={()=>handleClick(noteHolderCollection, noteHolderId)}
        
       />
       </LightTooltip  >
-      }
+     }
 
-      {!noteId && <Icon
-
-    
-        onClick={handleClick(passedId)}
-
-      />
-
-      }
-
-{noteId && 
-      <LightTooltip   title = 'Edit Note'  arrow> 
-      <Icon
+{!noteId && 
+      <LightTooltip   title = {titleMessage}  arrow> 
+      <IconOrange
 
 
-        onClick={handleClick(passedId)}
-        className='green'
+        onClick={()=>handleClick(noteHolderCollection, noteHolderId)}
+       
       />
       </LightTooltip  >
-      }
+     }
 
-      {!noteId && <Icon
 
-    
-        onClick={handleClick(passedId)}
 
-      />
 
-      }
+
 
     </>
   )
 }
 
 
-// export default NoteIcon
-export default  NoteIcon
+export default NoteIcon

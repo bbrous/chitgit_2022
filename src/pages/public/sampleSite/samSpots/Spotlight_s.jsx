@@ -311,13 +311,13 @@ const LightTooltip = withStyles({
 
 function Spotlight(props) {
 let match = useParams()
-console.log('@@@ [spotlight_s]- params' , match)
+// console.log('@@@ [spotlight_s]- params' , match)
 
-useEffect(()=>{
-  console.log('@@@ [spotlight_s]- params' , match)
+// useEffect(()=>{
+//   // console.log('@@@ [spotlight_s]- params' , match)
 
 
-}, [match])
+// }, [match])
 
  /* --- get url data ---
  the url contains 2 pieces of info - pageView (spotlights, etc) and id
@@ -338,8 +338,8 @@ useEffect(()=>{
  
 
   // deconstruct spotlight object 
-  const { id, spotlightStatus, title,  note } = spotlightDisplayed
-
+  const { id, spotlightStatus, title,  noteId } = spotlightDisplayed
+  let spotlightNoteId = spotlightDisplayed.noteId
 
   // ---change the lastVisit date in Store ----
   // lastVisit used to reorder the spotlightNav side panel
@@ -464,7 +464,7 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
               <LightTooltip title='Set target end' arrow>
                 <ClockIcon />
               </LightTooltip>
-              <NoteIcon id={id} dbCollection={dbCollection} />
+              <NoteIcon noteHolderId={id} noteHolderCollection ={dbCollection} noteId = {spotlightNoteId} />
               <ChitIcon id={id} dbCollection={dbCollection} />
               <DeleteIcon id={id} dbCollection={dbCollection} />
               <EditIcon id={id} dbCollection={dbCollection} />

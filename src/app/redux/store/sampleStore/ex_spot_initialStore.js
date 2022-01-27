@@ -11,8 +11,7 @@ const SampleSpotlights =  [
     type: 'spotlight',
     
     parentId: '',
-    
-    currentTaskId: 'spot_1_task_2',
+   
     lastVisit: '2021-03-12T12:38:00.292Z',
     
 
@@ -27,7 +26,7 @@ const SampleSpotlights =  [
     
     // timeEst: 311418000, 
     endEst: "2021-10-22T02:33:20.619Z",  //--------
-    note: 'note_1',
+    noteId: 'note_1',
     chitId : '',
 
 
@@ -50,8 +49,7 @@ const SampleSpotlights =  [
   type: 'spotlight',
   
   parentId: '',
-  
-  currentTaskId: 'spot_2_task_3',
+
   lastVisit: '2021-03-12T12:37:00.292Z',
   title: 'Presentation for Executive Staff',
 
@@ -63,7 +61,7 @@ const SampleSpotlights =  [
   
   // timeEst: 311418000, 
   endEst: "2021-10-31T22:33:20.619Z",  //--------
-  note: 'note_4',
+  noteId: 'note_4',
   chitId : '',
 
 
@@ -89,8 +87,7 @@ const SampleSpotlights =  [
   type: 'spotlight',
   
   parentId: '',
-  
-  currentTaskId: 'spot_3_task_2',
+
   lastVisit: '2021-03-12T12:36:00.292Z',
   title: 'Wakeboard Flex design',
 
@@ -102,7 +99,7 @@ const SampleSpotlights =  [
   
   // timeEst: 311418000, 
   endEst: '',  //--------
-  note: '',
+  noteId: '',
   chitId : '',
 
 
@@ -131,7 +128,6 @@ const SampleSpotlights =  [
     
     parentId: '',
     
-    currentTaskId: '',
     lastVisit: '2021-03-12T12:35:00.292Z',
     title: 'Surprise Vacation',
   
@@ -143,7 +139,7 @@ const SampleSpotlights =  [
     
     // timeEst: 311418000, 
     endEst: "2021-10-03T22:33:20.619Z",  //--------
-    note: 'note_2',
+    noteId: 'note_2',
     chitId : '',
   
 
@@ -169,8 +165,7 @@ const SampleSpotlights =  [
       type: 'spotlight',
       
       parentId: 'spot_1',
-      
-      currentTaskId: 'spot_5_task_1',
+
       lastVisit: '2021-03-12T12:34:00.292Z',
   
       title: 'Design deck',
@@ -183,7 +178,7 @@ const SampleSpotlights =  [
       
       // timeEst: 311418000, 
       endEst: "2021-11-02T02:33:20.619Z",  //--------
-      note: '',
+      noteId: '',
       chitId : '',
   
   
@@ -206,8 +201,7 @@ const SampleSpotlights =  [
         type: 'spotlight',
         
         parentId: 'spot_1',
-        
-        currentTaskId: 'spot_6_task_2',
+
         lastVisit: '2021-03-12T12:33:00.292Z',
     
         title: 'Gather resources',
@@ -220,7 +214,7 @@ const SampleSpotlights =  [
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
-        note: '',
+        noteId: '',
         chitId : '',
     
     
@@ -244,8 +238,7 @@ const SampleSpotlights =  [
         type: 'spotlight',
         
         parentId: 'spot_6',
-        
-        currentTaskId: 'spot_7_task_0',
+
         lastVisit: '2021-03-12T12:32:00.292Z',
     
         title: 'Get materials',
@@ -258,7 +251,7 @@ const SampleSpotlights =  [
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
-        note: '',
+        noteId: '',
         chitId : '',
     
     
@@ -282,8 +275,7 @@ const SampleSpotlights =  [
         type: 'spotlight',
         
         parentId: 'spot_2',
-        
-        currentTaskId: 'spot_8_task_0',
+
         lastVisit: '2021-03-12T12:31:00.292Z',
     
         title: 'get status reports',
@@ -296,7 +288,7 @@ const SampleSpotlights =  [
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
-        note: '',
+        noteId: '',
         chitId : '',
     
     
@@ -320,8 +312,7 @@ const SampleSpotlights =  [
               type: 'spotlight',
               
               parentId: 'spot_4',
-              
-              currentTaskId: 'spot_8_task_0',
+
               lastVisit: '2021-03-12T12:30:00.292Z',
           
               title: 'Get date',
@@ -334,7 +325,7 @@ const SampleSpotlights =  [
               
               // timeEst: 311418000, 
               endEst: "2021-11-02T02:33:20.619Z",  //--------
-              note: '',
+              noteId: '',
               chitId : '',
           
           
@@ -357,8 +348,7 @@ const SampleSpotlights =  [
               type: 'spotlight',
               
               parentId: 'spot_4',
-              
-              currentTaskId: 'spot_8_task_0',
+
               lastVisit: '2021-03-12T12:30:00.292Z',
           
               title: 'Bookings',
@@ -371,7 +361,7 @@ const SampleSpotlights =  [
               
               // timeEst: 311418000, 
               endEst: "2021-11-02T02:33:20.619Z",  //--------
-              note: '',
+              noteId: '',
               chitId : '',
           
           

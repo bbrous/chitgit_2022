@@ -14,7 +14,7 @@ import "react-quill/dist/quill.snow.css";
 
 
 
-import './quillStyle_res.css'
+import './quillStyle.css'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -30,15 +30,15 @@ const QuillWrapper = styled(ReactQuill)({
 
 export function Editor(props) {
   const [theme, setTheme] = useState("snow");
-  const { id, value, inputRef, placeholder, onChange } = props;
-
+  const { id, value, inputRef, placeholder, onChange, IniitalValue } = props;
+console.log('[ Editor ] IniitalValue ', IniitalValue);
   return (
     <QuillWrapper
       id={id}
       ref={inputRef}
       theme={theme}
       onChange={onChange}
-      value={value}
+      defaultValue={IniitalValue}
       modules={{
         toolbar: {
           ...Editor.modules.toolbar,

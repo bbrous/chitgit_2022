@@ -8,7 +8,9 @@
      - name - in Component's passed props
   
    In this Component:
-     change options {label, and values}
+     change options [{label, value}, {label, value}...]
+     in the main form ... 2, 3, 4 etc... options 
+     will be mapped creating as many inputs as needed
 
     
 

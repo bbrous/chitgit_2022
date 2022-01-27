@@ -234,7 +234,7 @@ export default function SpotlightForm_s(props) {
   const dispatch = useDispatch()
 
   // retrieve spot id if passed from edit
-  let spotId = props.id
+  let spotId = props.params.id
 
 
   // --- set up options for the selector input (parentId) 
@@ -333,7 +333,7 @@ export default function SpotlightForm_s(props) {
           completed: false,
           lastVisit: new Date().toISOString(),
           endEst: endDateEst,
-          note: '',
+          noteId: '',
           chitId: '',
           taskArray: []
 
