@@ -71,12 +71,24 @@ export const spotlightsSlice = createSlice({
     state[spotIndex].endEst = newEndEst
     state[spotIndex].parentId = newParentId
 
+  }, // end updateEditedSpotlight
 
 
+  // ---------------
 
+  updateSpotlightNoteId: (state, action) => {
 
+console.log('[ updateSpotlightNoteId ] myVar ', action.payload.noteHolderId);
+    let spotId = action.payload.noteHolderId
+    let noteId = action.payload.noteId
+    
 
-  }, // end CHANGE_SPOTLIGHT_COMPLETED_STATUS 
+    let spotIndex = state.findIndex(index => index.id === spotId)
+    
+    state[spotIndex].noteId = noteId
+ 
+
+  }, // end updateSpotlightNoteId
 
 
   // ---------------
@@ -151,7 +163,8 @@ export const {
     changeSpotlightCompletedStatus,
     changeSpotlightLastVisit,
     updateTaskArray,
-    addToTaskArray
+    addToTaskArray,
+    updateSpotlightNoteId
 
   } = spotlightsSlice.actions
 

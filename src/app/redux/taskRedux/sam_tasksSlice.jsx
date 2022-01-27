@@ -29,6 +29,20 @@ export const tasksSlice = createSlice({
       state.push(task)
     },
 
+    updateTaskNoteId: (state, action) => {
+
+
+      let taskId = action.payload.noteHolderId
+      let noteId = action.payload.noteId
+      
+  
+      let taskIndex = state.findIndex(index => index.id === taskId)
+      
+      state[taskIndex].noteId = noteId
+   
+  
+    }, // end updateTaskNoteId
+
   }, //end reducers
 
 }) // end slice TasksSlice 
@@ -39,6 +53,7 @@ export const tasksSlice = createSlice({
 export const { 
 
   addTaskToStore, 
+  updateTaskNoteId
 
 
 } = tasksSlice.actions

@@ -31,15 +31,19 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { string, object  } from 'yup';
 
-// --- Redux slices imports
+// --- Redux slices imports ---------------------------------
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import { 
           selectNotes,
-          selectNoteFromArray
+          selectNoteFromArray,
+          addNoteToStore,
 
         } from '../../../../app/redux/noteRedux/sam_notesSlice';
+
+import { updateSpotlightNoteId } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice';
+import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice';
 
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -261,17 +265,17 @@ export default function NoteForm_s(props) {
 
 
 
-
+  // ----create default paramters if note exists
   let noteId = props.params.id
   !noteId ? id = cuid()  : id =  noteId
   !noteId ? note =  {} : note =  selectNoteFromArray(noteArray, noteId)
   !noteId ? noteContent = ''  : noteContent = note.noteContent
   !noteId ? defaultOptions = []  : defaultOptions = note.noteKeywordArray
+  !noteId ? noteHolderType = noteHolderCollection  : noteHolderType = note.noteHolderType
 
-  console.log('[ ----- NOTE FORM -------- ] defaultOptions ', defaultOptions);
+  !noteId ? newNoteHolderId = id  : newNoteHolderId = note.noteHolderId
   
     defaultValues = {
-  
     noteContent: noteContent,
     keywords: defaultOptions,
 
@@ -286,10 +290,93 @@ export default function NoteForm_s(props) {
   const submitForm = async (data) => {
     
     console.log('[Dispatch_Form]...data ', data)
+    let newNoteContent = data.noteContent
+    let newNoteKeywordArray = data.keyword
+
+    try{
+
+      // --- start the loading spinner ---
+      dispatch(changeLoadingStatus(true))
+
+      let newNoteData = {
+        id: id,
+        noteHolderType: noteHolderType,
+        noteHolderId: noteHolderId,
+        noteContent: newNoteContent,
+        lastEdit: new Date().toISOString(), 
+        noteKeywordArray: newNoteKeywordArray
+
+      }
+
+
+      // -- create new note if note does NOT exists
+      if (!noteId) {
+
+        await dispatch(addNoteToStore(newNoteData))
+
+        if(noteHolderType === 'spotlights'){
+        await dispatch( updateSpotlightNoteId(
+          {
+            noteId: id, 
+            noteHolderId: noteHolderId
+          }
+        ))
+        }
+
+        if(noteHolderType === 'tasks'){
+          await dispatch( updateTaskNoteId(
+            {
+              noteId: id, 
+              taskId: noteHolderId
+            }
+          ))
+          }
+
+
+
+
+
+
+
+      } // end !noteId
+
+      // -- update note if note  exists 
+      if (noteId) {
+
+
+
+
+
+
+
+
+
+      } // end !noteId
+
+      
+      dispatch(changeLoadingStatus(false))
+      reset()
+       
+      reset(defaultValues)
+      dispatch(closeModal())
+
+    }catch(error){
+
+      // --- alert error + navigate + end spinner + reset form ---
+      alert(error.message)
+      dispatch(changeLoadingStatus(false))
+
+  reset(defaultValues)
+
+
+    }// end try-catch
+
   
     reset(defaultValues)
 
   };
+
+  // ==== return - Form JSX  ======================================
 
   return (
     <Wrapper>
