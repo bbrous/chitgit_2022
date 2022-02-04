@@ -48,8 +48,6 @@ import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import { stripWhiteSpace } from '../../../../app/helpers/commonHelpers';
-
 // --- Form component imports ---------
 
 import { Editor } from '../../../../forms/formComponents/QuillEditor'
@@ -298,15 +296,10 @@ export default function NoteForm_s(props) {
   const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
 
   const submitForm = async (data) => {
-    console.log('[Dispatch_Form]...data ', data)
     
+    console.log('[Dispatch_Form]...data ', data)
     let newNoteContent = data.noteContent
     let newNoteKeywordArray = data.keyword
-    let newNoteCategory = stripWhiteSpace(data.categories.toLowerCase())
- 
-    
-
-    console.log('[Dispatch_Form]...Clean Category ', newNoteCategory)
 
     try{
 
@@ -323,8 +316,7 @@ export default function NoteForm_s(props) {
         noteHolderId: noteHolderId,
         noteContent: newNoteContent,
         lastEdit: new Date().toISOString(), 
-        noteKeywordArray: newNoteKeywordArray,
-        noteCategory: newNoteCategory
+        noteKeywordArray: newNoteKeywordArray
 
       }
 

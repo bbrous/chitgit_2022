@@ -1,3 +1,19 @@
+/*   Strip excess white spaces
+
+--------------------------------------
+const mySentence = '    My string with a    lot   of Whitespace.  '
+const cleanSentence = mySentence.replace(/\s+/g, ' ').trim()
+//  result --- 'My string with a lot of Whitespace.'
+
+--------------------------------------
+
+
+*/
+
+
+
+
+
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import Select from "@mui/material/Select";
@@ -5,7 +21,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 import Chip from '@mui/material/Chip';
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
@@ -24,7 +40,7 @@ const StyledWrapper= styled(Autocomplete)({
   // width: '80%', 
  textAlign: 'left',
   width: '100%',
-backgroundColor: '#F6F7F8',
+// backgroundColor: '#F6F7F8',
   
   // marginRight: '8px',
   boxShadow: 0,
@@ -39,79 +55,66 @@ backgroundColor: '#F6F7F8',
  
 
 },
+'& .MuiAutocomplete-endAdornment': {
+  backgroundColor: '#F6F7F8',
+  borderRadius: '50px'
+ 
 
+},
 
+'& 	.MuiAutocomplete-clearIndicator': {
+  color: 'blue'
+ 
 
-'& .MuiSelect-icon' : {
-  color:'#727376',
-  fontSize: '1.5rem'
-}
+},
+
+'& 	.MuiAutocomplete-hasClearIcon': {
+  backgroundColor: 'yellow'
+ 
+
+},
 
 })
 
 const StyledTextBox= styled(TextField)({
-  // border: '1px solid orange',
-  color: '#333333',
-  borderBottom: "4px solid red",
-'&:hover' : {
-  color:'#333333',
-  backgroundColor: '#FEEDE2'
-},
-
-'& input' : {
-  height: '50%',
-  fontSize: '.85rem',
-},
-
-'&:focus' : {
-  color:'white',
-  backgroundColor: '#606062',
-
-  '&:hover' : {
-    color:'white',
-    backgroundColor: '#606062'
-  },
-
-},
-})
-
-const StyledChip= styled(Chip)({
-  // border: '1px solid orange',
-  color: '#333333',
   border: 'none',
-  borderBottom: "2px solid #E6E7E8",
-  borderRadius: '3px',
-  backgroundColor: 'white',
-  fontSize: '.75rem',
+  // width: '80%', 
+ 
+  width: '100%',
   
-  '& .MuiChip-deleteIcon' : {
-    color: 'red',
-    fontSize: '.75rem'
+  marginRight: '8px',
+  boxShadow: 'none',
+
+  '& input' : 
+  {color: 'charcoal',
+  height: '1rem',
+  fontSize: '.85rem',
+  padding: '.4rem',
+  border: '1px solid orange',
+  borderRadius: '5px',
+  backgroundColor: 'white',
+  },
+  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    // borderColor: "yellow"
+    border: 'none'
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    // borderColor: "yellow",
+    border: 'none'
   }
- 
- 
+
+
 })
 
-// const optionCreator = (optionsArray) => {
 
-//    const optionsDisplay = optionsArray.map((option, index) => {
-//      let optionValue  = option.value
-//      let optionLabel = option.label
- 
-//   return (
-//     // <StyledMenu value={value} >{label}</StyledMenu>
-//     <StyledMenu key = {optionValue} value= {optionValue} >{optionLabel} </StyledMenu>
-//   )
-//   }
-//   ) //end optionCreator
-//   return optionsDisplay
-
-// }
+const filter = createFilterOptions();
 
 
 // -----------------------------------------------------------------
-export const StyledAutocomplete = ({ name, control, label, type, defaultValue, options } ) => {
- 
+export const StyledSelectMuiCreatable =({ name, control, label, type, defaultValue, options } ) => {
+
+  const [value, setValue] = React.useState(null);
+
   return (
     <Controller
       name={name}
@@ -128,34 +131,66 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
              
 
 
-          <StyledWrapper
-          autoSelect
-          filterSelectedOptions
-          fullWidth
-          size="small"
-          multiple
-          id="tags-filled"
-          options={options}
-          defaultValue={defaultValue}
-          freeSolo
-          renderTags={(value, getTagProps) =>
-            value.map((option, index) => (
-              <StyledChip variant="outlined" label={option} {...getTagProps({ index })} 
- 
-              
-              />
-            ))
-          }
-          renderInput={(params) => (
-            <StyledTextBox
-              {...params}
-              variant="standard"
-              // label="freeSolo"
-              placeholder="select or type keyword(s)"
+<StyledWrapper
+      value={value}
+      // onChange={(event, newValue) => {
+      //   if (typeof newValue === 'string') {
+      //     setValue({
+      //       title: newValue,
+      //     });
+      //   } else if (newValue && newValue.inputValue) {
+      //     // Create a new value from the user input
+      //     setValue({
+      //       title: newValue.inputValue,
+      //     });
+      //   } else {
+      //     setValue(newValue);
+      //   }
+      // }}
+      filterOptions={(options, params) => {
+        const filtered = filter(options, params);
 
-              InputProps={{...params.InputProps, disableUnderline: true}}
-            />
-          )}
+        const { inputValue } = params;
+        // Suggest the creation of a new value
+        const isExisting = options.some((option) => inputValue === option.title);
+        if (inputValue !== '' && !isExisting) {
+          filtered.push({
+            inputValue,
+            title: `${inputValue}`,
+          });
+        }
+
+        return filtered;
+      }}
+      selectOnFocus
+      popupIndicator
+      autoSelect
+      // clearOnBlur
+      handleHomeEndKeys
+      id="free-solo-with-text-demo"
+      options={top100Films}
+      getOptionLabel={(option) => {
+        // Value selected with enter, right from the input
+        if (typeof option === 'string') {
+          return option;
+        }
+        // Add "xxx" option created dynamically
+        if (option.inputValue) {
+          return option.inputValue;
+        }
+        // Regular option
+        return option.title;
+      }}
+      renderOption={(props, option) => <li {...props}>{option.title}</li>}
+      sx={{ width: '100% '}}
+      freeSolo
+      renderInput={(params) => (
+        <StyledTextBox {...params} 
+          variant = 'outlined'
+        
+        
+        />
+      )}
           onChange={(_, data) => field.onChange(data)}
         />
           
@@ -172,6 +207,7 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
       )}
     />
   );
+
 };
 
 

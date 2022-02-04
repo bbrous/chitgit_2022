@@ -7,14 +7,17 @@
 ------------------------------------*/
 
 import React from 'react'
-import {connect} from 'react-redux'
-import { useParams } from 'react-router-dom'
-
+ 
+import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
 import{ selectLogs } from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
 
 import LogMain from './LogMain_s'
+import PopoverModal from '../samComponents/PopoverModal'
+
+
+
 
 // -------Material UI 
 
@@ -68,38 +71,46 @@ const NoneMessage= styled('div')({
 function Logs(props) {
 
   let match = useParams()
-  
+  let navigate = useNavigate()
+
+  const LogPage = match.pageView
+  const LogId = match.id
+  // const displayPopoverModalMessage = status.initialMessage.spotlights
+
+// ###########  TEMP  ############## 
+let logsArray = [1]
+let logId = 'spectrum'
+let logSectionId = ''
+let displayPopoverModalMessage = false
  
-  // const logId = match.params.detailId 
-  // const logsArray = props.logsArray
-
-  // console.log('[logs_s] route logId is', logId)
-  // console.log('[logs_s] retrieved logs are', logsArray)
-
-
 
   return (
     <Wrapper>
-<LogMain />
-      {/* {logsArray.length === 0 &&
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={LogPage} />
+
+      }
+
+      {logsArray.length === 0 &&
         <NoneMessage>
           <div>You have no active or completed logs</div>
           <div>Create a new log</div>
         </NoneMessage>
 
-      } */}
+      }
 
-      {/* {logsArray.length > 0 && !logId &&
+      {logsArray.length > 0 && !logId &&
         <NoneMessage>
           <div>Choose a log to be displayed</div>
           <div>or</div>
           <div>Create a new log</div>
         </NoneMessage>
 
-      } */}
+      }
 
 
-      {/* {logId && logsArray.length > 0 && <LogsMain />} */}
+      {logId && logsArray.length > 0 && <LogMain />}
 
 
 
@@ -108,16 +119,6 @@ function Logs(props) {
   )
 }
 
-const actions = {
-  // changeLastLogDisplayed,  
-  // openModal, 
-  // closeModal
-}
 
-const mapState = state => ({
-  // display: state,
-  logsArray: selectLogs(state),
-  
-})
 
-export default connect(mapState, actions)(Logs)
+export default  Logs

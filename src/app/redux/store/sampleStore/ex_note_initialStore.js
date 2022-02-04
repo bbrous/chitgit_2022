@@ -14,12 +14,12 @@ const SampleNotes =  [
     noteHolderType: 'spotlights',
     noteHolderId: 'spot_1',
 
-    noteContent: "note-1 for spotlight 1 - Build backyard deck...  1 keyword -test",
+    noteContent: "<p>You tube how to :   <a href=\"https://www.youtube.com/watch?v=PkvKO8GchyE\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.youtube.com/watch?v=PkvKO8GchyE</a></p>",
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['test'],
-
+    noteKeywordArray: ['videos'],
+    noteCatgory : 'personal project'
    
   },
 
@@ -30,11 +30,12 @@ const SampleNotes =  [
     noteHolderType: 'spotlights',
     noteHolderId: 'spot_4',
 
-    noteContent: "note-2 for spotlight 4 - Surprise vacation - > 2 keywords - family and idea",
+    noteContent: "<p>Passport filing deadline - <u style=\"color: rgb(0, 102, 204);\">Tuesday</u></p>",
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['family', 'idea'],
+    noteKeywordArray: ['to do', 'vacation'],
+    noteCatgory : 'family'
 
    
   },
@@ -47,12 +48,12 @@ const SampleNotes =  [
     noteHolderType: 'tasks',
     noteHolderId: 'spot_1_task_1',
 
-    noteContent: "note-3 for spotlight 1, task 1 - build deck - >  2 keywords test and idea",
+    noteContent: "note-3 for task 1, task 1 - build deck - >  2 keywords test and idea",
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: [ 'test', 'idea'],
-
+    noteKeywordArray: [],
+    noteCatgory : 'personal project'
    
   },
 
@@ -63,12 +64,12 @@ const SampleNotes =  [
     noteHolderType: 'spotlights',
     noteHolderId: 'spot_2',
 
-    noteContent: "note-4 for spotlight 2,  - Presentation - > 2 keywords , chit and test.",
+    noteContent: "Get marketing projections from Cybil.",
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['chit', 'test'],
-
+    noteKeywordArray: ['marketing', 'to do'],
+    noteCatgory : 'product team'
    
   },
 
@@ -77,15 +78,15 @@ const SampleNotes =  [
     
     id: 'note_5',
     
-    noteHolderType: 'spotlights',
-    noteHolderId: 'spot_1',
+    noteHolderType: 'tasks',
+    noteHolderId: 'task_2',
 
     noteContent: 'spotlight 1,  - Build Backyard - no keywords ...etc.',
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: [],
-
+    noteCatgory : ''
    
   }
 

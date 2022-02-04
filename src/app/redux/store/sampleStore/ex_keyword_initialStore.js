@@ -10,14 +10,19 @@ const SampleKeywords =  [
   { 
     id: 'kw_1',
     kw: 'idea',
-    kwHolders: ['note_2', 'note_3'],
+    kwHolders: [
+      
+    ],
    
   },
 
   { 
     id: 'kw_2',
-    kw: 'family',
-    kwHolders: ['note_2'],
+    kw: 'to do',
+    kwHolders: [
+      {dbCollection: 'notes', id: 'note_2'},
+      {dbCollection: 'notes', id: 'note_4'}
+    ],
    
   },
 
@@ -37,17 +42,34 @@ const SampleKeywords =  [
 
   { 
     id: 'kw_5',
-    kw: 'chit',
-    kwHolders: ['note_4'],
+    kw: 'marketing',
+    kwHolders: [
+      {dbCollection: 'notes', id: 'note_4'},
+      
+    ],
    
   },
 
   { 
     id: 'kw_6',
-    kw: 'test two',
-    kwHolders: ['note_1', 'note_3', 'note_4'],
+    kw: 'vacation',
+    kwHolders: [
+      {dbCollection: 'notes', id: 'note_2'},
+    ],
    
   },
+
+  { 
+    id: 'kw_6',
+    kw: 'videos',
+    kwHolders: [
+      {dbCollection: 'notes', id: 'note_1'},
+ 
+
+    ],
+   
+  },
+ 
  
  
  

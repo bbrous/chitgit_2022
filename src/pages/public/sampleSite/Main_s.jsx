@@ -168,7 +168,7 @@ position: 'relative',
 
   [theme.breakpoints.down('sm')] : {
     // display: 'block'
-    marginLeft: '15rem',
+    marginLeft: '3rem',
   },
 
   [theme.breakpoints.down('xs')] : {
@@ -197,18 +197,20 @@ paddingBottom: '2rem',
   zIndex: '31',
 
 
-  // [theme.breakpoints.down('sm')] : {
+  [theme.breakpoints.down('sm')] : {
     
-  //   left: '3rem',
-  //   '&.hide' : {
-  //     left: '-15rem'
-  //   },
+    left: '3rem',
+    '&.hide' : {
+      left: '-15rem',
+      borderRight: '4px solid #CFD0D1'
+    },
   
-  //   '&.show' : {
-  //     left: '0rem'
-  //   },
+    '&.show' : {
+      left: '0rem',
+      borderRight: '2px solid #CFD0D1'
+    },
     
-  // },
+  },
 
   
   
@@ -236,13 +238,13 @@ const Handle = styled('div')({
   borderRadius: '0 5px 5px 0',
 
 
-  [theme.breakpoints.down('xs')]: {
+  [theme.breakpoints.down('sm')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     right: '-1.5rem',
-    top: '3rem',
+    top: '0',
 
 
 
@@ -266,9 +268,11 @@ const HeaderWrapper = styled('div')({
   backgroundColor: 'white',
   borderRadius: '0 0 15px 15px',
   margin: '0 auto 3px auto',
-  [theme.breakpoints.down('xs')]: {
-    // display: 'none', 
+
+  [theme.breakpoints.down('sm')]: {
+    borderRadius: 0
   }
+
 
 })
 

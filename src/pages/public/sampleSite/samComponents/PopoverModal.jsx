@@ -171,6 +171,21 @@ function PopoverModal(props) {
             <MoreInfo> Get detail info from <Info />  at top of spotlights page </MoreInfo>
           </Content>
         }
+
+{pageType === 'logs' &&
+          <Content>
+            <div> ChitGit <em>Logs</em> are designed to help you keep track of
+            interactions between you and another party or entity.
+            </div>
+            <div> For instance - document calls between you and a company about 
+              an issue... or exhanges between you and a neighbor or coworker.
+            </div>
+            <div> Chit Git logs can be timestamped.  In Chit Git a timestamped 
+               log, can not be edited once invoked ... a feature which can be useful in legal disputes.
+            </div>
+            <MoreInfo> Get detail info from <Info />  at top of logs page </MoreInfo>
+          </Content>
+        }
       </ModalDisplay>
     </>
   )

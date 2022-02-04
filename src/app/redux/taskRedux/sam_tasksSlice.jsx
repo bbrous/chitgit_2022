@@ -32,11 +32,11 @@ export const tasksSlice = createSlice({
     updateTaskNoteId: (state, action) => {
 
 
-      let taskId = action.payload.noteHolderId
+      let taskHolderId = action.payload.noteHolderId
       let noteId = action.payload.noteId
       
   
-      let taskIndex = state.findIndex(index => index.id === taskId)
+      let taskIndex = state.findIndex(index => index.id === taskHolderId)
       
       state[taskIndex].noteId = noteId
    

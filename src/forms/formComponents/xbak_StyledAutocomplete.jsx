@@ -129,7 +129,6 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
 
 
           <StyledWrapper
-          autoSelect
           filterSelectedOptions
           fullWidth
           size="small"
