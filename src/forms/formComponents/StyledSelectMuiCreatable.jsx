@@ -168,7 +168,8 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
       // clearOnBlur
       handleHomeEndKeys
       id="free-solo-with-text-demo"
-      options={top100Films}
+      options={options}
+      
       getOptionLabel={(option) => {
         // Value selected with enter, right from the input
         if (typeof option === 'string') {
@@ -187,7 +188,7 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
       renderInput={(params) => (
         <StyledTextBox {...params} 
           variant = 'outlined'
-        
+          placeholder="select or type new category"
         
         />
       )}

@@ -46,6 +46,7 @@ import { updateSpotlightNoteId } from '../../../../app/redux/spotlightRedux/sam_
 import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice';
 
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
+import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { stripWhiteSpace } from '../../../../app/helpers/commonHelpers';
@@ -254,11 +255,13 @@ export default function NoteForm_s(props) {
   
   const {dbCollection, noteHolderCollection, noteHolderId} = props.params
 
-  let defaultValues, headerMessage, id, note, noteHolderType, newNoteHolderId, noteContent, lastEdit, noteKeywordArray, keywordsArray, keywordOption, noteArray,
+  let defaultValues, headerMessage, id, note, noteHolderType, newNoteHolderId, noteContent, lastEdit, noteKeywordArray, keywordsArray, categoriesArray, keywordOption, categoryOption, noteArray,
   defaultOptions
 
   noteArray = useSelector(selectNotes) // get all notes
   keywordsArray = useSelector(selectKeywords) // get all keywords
+  categoriesArray = useSelector(selectCategories) // get all keywords
+
 
 
   // --- create options array for Autocomplete multi-selector 
@@ -272,6 +275,18 @@ export default function NoteForm_s(props) {
     return keywordsOptionsArray
   }) //end map
 
+    // --- create options array for Autocomplete multi-selector 
+    let categoryOptionsArray = []
+
+    categoriesArray.map((category, index) => {
+      // code 
+      categoryOption = {title: category.category}
+      categoryOptionsArray.push(categoryOption)
+  
+      return categoryOptionsArray
+    }) //end map
+
+  console.log('[ NoteForm **** ] categoryOptionsArray ', categoryOptionsArray);
 
 
   // ----create default paramters if note exists
@@ -287,7 +302,7 @@ export default function NoteForm_s(props) {
     defaultValues = {
     noteContent: noteContent,
     keywords: defaultOptions,
-    categories: 'Jeb'
+    categories: ''
 
   };
 
@@ -422,7 +437,7 @@ export default function NoteForm_s(props) {
               <StyledSelectMuiCreatable
                 name={'categories'}
                 control={control}
-                options={locationData}
+                options={categoryOptionsArray}
                 // defaultValue = {{ value: 'ge423', label: 'home'}}
                 defaultValue={defaultValues.categories}
 

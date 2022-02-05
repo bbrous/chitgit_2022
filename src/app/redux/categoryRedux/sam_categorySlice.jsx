@@ -63,7 +63,7 @@ export const {
 
 // --- Export selectors ------------------------------------------
 
-export const allcategories = state => state.categories
+export const selectCategories = state => state.sample.categories
 
 
 
