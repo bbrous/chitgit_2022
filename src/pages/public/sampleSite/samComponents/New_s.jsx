@@ -92,7 +92,48 @@ function New(props) {
 
   page = match.pageView // get URL view location
   id = match.id // get URL view location
+  let dbCollection, title
+  switch (page) {
+    case 'spotlights':
+      dbCollection = 'spotlights'
+      title = 'spotlight'
+      break;
+    
+    case 'notes':
+      dbCollection = 'notes'
+      title = 'note'
+      break;
 
+      case 'logs':
+        dbCollection = 'logs'
+        title = 'log'
+        break;
+
+      case 'chronicles':
+        dbCollection = 'chronicles'
+        title = 'chronicle'
+        break;
+
+      case 'twoParty':
+        dbCollection = 'chits'
+        title = 'chit'
+        break;
+
+      case 'personal':
+        dbCollection = 'chits'
+        title = 'chit'
+        break;
+  
+
+
+    // ######     Add Chit FORMS HERE     ############
+    // ######     Add Chron FORMS HERE    ############
+    // ######     Add Log FORMS HERE      ############
+    // ######            etc              ############
+
+    default:
+      dbCollection = '';
+  }
   // --- format which New button display -- new Chit, new Note, etc
 
   if(page === 'spotlights'){
@@ -106,25 +147,7 @@ const openSpotlightForm = ()=>{
   //  define which Form to open in Modal by passing
   //  dbCollection to Modal depending on pageView in browser URL 
 
-  let dbCollection
-  switch (page) {
-    case 'spotlights':
-      dbCollection = 'spotlights'
-      break;
-    
-    case 'notes':
-      dbCollection = 'notes'
-      break;
 
-
-    // ######     Add Chit FORMS HERE     ############
-    // ######     Add Chron FORMS HERE    ############
-    // ######     Add Log FORMS HERE      ############
-    // ######            etc              ############
-
-    default:
-      dbCollection = '';
-  }
   
   // ------------------------------------------------------------
     
@@ -145,7 +168,7 @@ const openSpotlightForm = ()=>{
   return (
     <NewWrapper elevation={1}>
 
-
+    <NewTitle> new {title} </NewTitle>
       <LightTooltip title={formattedPage} arrow>
         <AddCircleIconWrapper
           onClick={() => openSpotlightForm(page, id)}

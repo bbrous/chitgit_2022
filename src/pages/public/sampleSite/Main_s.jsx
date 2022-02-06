@@ -15,6 +15,7 @@
            chitsNav_s, 
            spotlightNav_s, 
            etc.
+       Colored Header with Info Icon
        Main Component Wrapper children
            notes_s,  
            chits_s, 

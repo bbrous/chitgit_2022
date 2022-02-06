@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
 
 import{ selectLogs
   // selectSpotlightTaskArray
@@ -49,7 +49,7 @@ const MainWrapper= styled('div')({
   width: '100%',
   height: '100%',
 
-overflow: 'auto',
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -57,7 +57,7 @@ overflow: 'auto',
 
 })
 
-const SortWrapper = styled('div')({
+const TopWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
@@ -78,7 +78,53 @@ const SortWrapper = styled('div')({
 
   },
 
+})
+
+const LeftTopWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  paddingLeft: '1%',
+  color: backgroundBlue,
+  fontSize: '1.2rem',
+// backgroundColor: 'yellow',
+  width: '33%',
+  height: '3rem',
  
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const RightTopWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+// backgroundColor: 'yellow',
+  width: '33%',
+  height: '3rem',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
 
 })
 
@@ -238,23 +284,27 @@ function LogMain(props) {
 
   return (
     <MainWrapper>
-      <SortWrapper>
+      <TopWrapper>
+
+        <LeftTopWrapper>Cybill</LeftTopWrapper>
         <SliderComponent
           handleSwitchState={handleSwitchState} //gets new state from child switch
           leftLabel='oldest first'
           rightLabel='latest first'
-        /></SortWrapper>
+        />
+        
+        <RightTopWrapper></RightTopWrapper>
+        </TopWrapper>
 
       <Container>
 
-      <NewWrapper> add New section <AddCircleIconWrapper/> </NewWrapper>
+      <NewWrapper> add  section <AddCircleIconWrapper/> </NewWrapper>
         <FormContainer>  <LogEntryForm />  </FormContainer>
        
         <SectionsContainer>
           <SectionWrapper>
-            
-            Section here
-            {/*  <Log/>  */}
+
+             <Log/> 
           </SectionWrapper>
 
         </SectionsContainer>

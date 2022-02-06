@@ -95,7 +95,7 @@ function handleClick(passedId){
 }
 
 
-function NoteIcon(props) {
+function ChitIcon(props) {
 
   const {type, id} = props
 
@@ -151,4 +151,4 @@ function NoteIcon(props) {
 }
 
 
-export default NoteIcon
+export default ChitIcon
