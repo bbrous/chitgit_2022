@@ -210,12 +210,13 @@ const SectionsContainer = styled('div')({
 const NewWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   
 // backgroundColor: 'yellow',
-  width: '100%',
+  width: '99%',
   height: '3rem',
+  paddingLeft: '2px',
  
   // minHeight: '10rem',
   // height: '90%',
