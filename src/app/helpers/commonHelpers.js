@@ -14,11 +14,26 @@ export function capitalizeFirstLetter(string) {
   @return array sorted 
 
 ---------------------*/
-export function descendSorter(arrayOfObjects, objectParameter){
+export function optionDescendSorter(array){
 
+  let  sortedArray  = array.sort((a, b) => (a > b ) ? 1 : -1)
+ 
+   return sortedArray
+ 
+ 
+ }
+
+ /* -- func descendSorter ------------------
+  @desc - sorts array of Objects by object parameter - ascending
+  @params array, parameter   
+  @return array sorted 
+
+---------------------*/
+export function descendSorter(arrayOfObjects, objectParameter){
+ 
   let  mutableArrayOfObjects = arrayOfObjects.slice()
  
-   mutableArrayOfObjects.sort((a, b) => (a.lastVisit > b.lastVisit) ? 1 : -1)
+   mutableArrayOfObjects.sort((a, b) => (a[objectParameter] > b[objectParameter]) ? 1 : -1)
  
    return mutableArrayOfObjects
  
@@ -36,7 +51,7 @@ export function descendSorter(arrayOfObjects, objectParameter){
    
    let  mutableArrayOfObjects = arrayOfObjects.slice()
  
-   mutableArrayOfObjects.sort((a, b) => (a.lastVisit > b.lastVisit) ? -1 : 1)
+   mutableArrayOfObjects.sort((a, b) => (a[objectParameter] > b[objectParameter]) ? -1 : 1)
  
    return mutableArrayOfObjects
  
@@ -59,3 +74,37 @@ export function descendSorter(arrayOfObjects, objectParameter){
   return cleanSentence
 
 }
+
+ /* -- func checkIfWordExists ------------------
+   @desc - compares category or keyword exists in array
+   @params array 
+   @return white space stripped string
+ 
+ ---------------------*/
+
+
+ 
+ export function checkIfWordExists(word, array, dbCollection){
+  let collection = dbCollection
+  let wordExists
+
+  // console.log('[ COMMON HELPERS checkIfWordExists] word ', word);
+  // console.log('[ COMMON HELPERS checkIfWordExists] array ', array);
+  // console.log('[ COMMON HELPERS checkIfWordExists] dbCollection ', dbCollection);
+  
+
+
+
+  if(collection === 'categories'){
+
+  wordExists = array.find( ({ category }) => category === word );
+
+  // console.log('[ COMMON HELPERS checkIfWordExists] FINAL FINAL ', wordExists);
+
+  return wordExists
+
+} // end if collection === category
+
+
+
+ }// end function checkIfWordExists

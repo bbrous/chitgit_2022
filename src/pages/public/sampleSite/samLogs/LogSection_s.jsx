@@ -188,6 +188,23 @@ const ContentWrapper= styled(Paper)({
 
 })
 
+const MetaWrapper= styled(Paper)({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.85rem',
+  width: '99%',
+  padding: '6px',
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
 const HeaderWrapper= styled('div')({
 
   display: 'flex',
@@ -330,7 +347,8 @@ export default function LogSection() {
       </SearchWrapper>
       <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
-        <HeaderWrapper> a Header here </HeaderWrapper>
+        <MetaWrapper>meta here</MetaWrapper>
+        {/* <HeaderWrapper> a Header here </HeaderWrapper> */}
         <Content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 

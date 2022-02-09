@@ -1,10 +1,11 @@
 /*   Strip excess white spaces
 
+--------------------------------------
 const mySentence = '    My string with a    lot   of Whitespace.  '
-
 const cleanSentence = mySentence.replace(/\s+/g, ' ').trim()
-
 //  result --- 'My string with a lot of Whitespace.'
+
+--------------------------------------
 
 
 */
@@ -18,7 +19,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import Select from "@mui/material/Select";
 import MenuItem from '@mui/material/MenuItem';
 
-
+import { descendSorter } from "../../app/helpers/commonHelpers";
 import Chip from '@mui/material/Chip';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -26,7 +27,7 @@ import Stack from '@mui/material/Stack';
 
 
 import { styled, createTheme} from "@mui/material/styles"
-import {withStyles} from '@mui/styles'
+import {makeStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
@@ -55,7 +56,8 @@ const StyledWrapper= styled(Autocomplete)({
 
 },
 '& .MuiAutocomplete-endAdornment': {
-  border: '1px solid green',
+  backgroundColor: '#F6F7F8',
+  borderRadius: '50px'
  
 
 },
@@ -101,9 +103,16 @@ const StyledTextBox= styled(TextField)({
     border: 'none'
   }
 
-
 })
 
+// ---styles the popup background
+const useStyles = makeStyles({
+  paper: {
+    backgroundColor: '#F6F7F8',
+    fontSize: '.85rem',
+    border: '1px solid #CFD0D1',
+  }
+});
 
 const filter = createFilterOptions();
 
@@ -112,7 +121,7 @@ const filter = createFilterOptions();
 export const StyledSelectMuiCreatable =({ name, control, label, type, defaultValue, options } ) => {
 
   const [value, setValue] = React.useState(null);
-
+  const classes = useStyles();
   return (
     <Controller
       name={name}
@@ -131,20 +140,7 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
 
 <StyledWrapper
       value={value}
-      // onChange={(event, newValue) => {
-      //   if (typeof newValue === 'string') {
-      //     setValue({
-      //       title: newValue,
-      //     });
-      //   } else if (newValue && newValue.inputValue) {
-      //     // Create a new value from the user input
-      //     setValue({
-      //       title: newValue.inputValue,
-      //     });
-      //   } else {
-      //     setValue(newValue);
-      //   }
-      // }}
+      classes={{ paper: classes.paper }}
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
 
@@ -152,20 +148,21 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
         // Suggest the creation of a new value
         const isExisting = options.some((option) => inputValue === option.title);
         if (inputValue !== '' && !isExisting) {
-          filtered.push({
-            inputValue,
-            title: `${inputValue}`,
-          });
+          filtered.push(
+            inputValue
+           );
         }
 
         return filtered;
       }}
       selectOnFocus
+      popupIndicator
       autoSelect
       // clearOnBlur
       handleHomeEndKeys
       id="free-solo-with-text-demo"
-      options={top100Films}
+      options={options}
+      
       getOptionLabel={(option) => {
         // Value selected with enter, right from the input
         if (typeof option === 'string') {
@@ -184,8 +181,8 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
       renderInput={(params) => (
         <StyledTextBox {...params} 
           variant = 'outlined'
-        
-        
+          placeholder="select or type new category"
+          required onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
         />
       )}
           onChange={(_, data) => field.onChange(data)}

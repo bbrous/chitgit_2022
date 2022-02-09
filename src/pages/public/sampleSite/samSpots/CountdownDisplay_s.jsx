@@ -130,8 +130,10 @@ function CountdownDisplay(props) {
   // let spotlightDisplayed = props.spotlight.spotlight
   const {endEst }= selectSpotlightFromArray(spotlightsArray, matchId)
 
+//  ########  TEMP DATE FOR SAMPLE ##############################
 
-  const [currentTime, setCurrentTime] = useState(Date.now());
+  // const [currentTime, setCurrentTime] = useState(Date.now()); 
+  const [currentTime, setCurrentTime] = useState(1615747644000); //Mar 14, 2021
 
   useEffect(() => {
 

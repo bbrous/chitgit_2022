@@ -20,6 +20,7 @@ import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
  
+import { descendSorter } from '../../../../app/helpers/commonHelpers'
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -49,7 +50,7 @@ import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSl
 import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import { stripWhiteSpace } from '../../../../app/helpers/commonHelpers';
+import { stripWhiteSpace, checkIfWordExists } from '../../../../app/helpers/commonHelpers';
 
 // --- Form component imports ---------
 
@@ -255,13 +256,20 @@ export default function NoteForm_s(props) {
   
   const {dbCollection, noteHolderCollection, noteHolderId} = props.params
 
+  
+
   let defaultValues, headerMessage, id, note, noteHolderType, newNoteHolderId, noteContent, lastEdit, noteKeywordArray, keywordsArray, categoriesArray, keywordOption, categoryOption, noteArray,
   defaultOptions
 
   noteArray = useSelector(selectNotes) // get all notes
   keywordsArray = useSelector(selectKeywords) // get all keywords
   categoriesArray = useSelector(selectCategories) // get all keywords
+  let sortedCategoriesArray = descendSorter(categoriesArray, 'category')
+  console.log('[ NoteForm **** ] categoryOptionsArray ', sortedCategoriesArray);
 
+  let a = checkIfWordExists('family', categoriesArray, 'categories')
+
+  console.log('[ NOTE form ] checkIfWordExists ', a);
 
 
   // --- create options array for Autocomplete multi-selector 
@@ -278,7 +286,7 @@ export default function NoteForm_s(props) {
     // --- create options array for Autocomplete multi-selector 
     let categoryOptionsArray = []
 
-    categoriesArray.map((category, index) => {
+    let categoryOptions = categoriesArray.map((category, index) => {
       // code 
       categoryOption = {title: category.category}
       categoryOptionsArray.push(categoryOption)
@@ -286,7 +294,9 @@ export default function NoteForm_s(props) {
       return categoryOptionsArray
     }) //end map
 
-  console.log('[ NoteForm **** ] categoryOptionsArray ', categoryOptionsArray);
+    let sortedCategoryOptions = descendSorter(categoryOptionsArray, 'title')
+
+  
 
 
   // ----create default paramters if note exists
@@ -317,12 +327,16 @@ export default function NoteForm_s(props) {
     
     let newNoteContent = data.noteContent
     let newNoteKeywordArray = data.keyword
-    let newNoteCategory = stripWhiteSpace(data.categories.toLowerCase())
+    let a = stripWhiteSpace('the       rain  in     spain')
  
-    
+    let newNoteCategory = data.categories
 
-    console.log('[Dispatch_Form]...Clean Category ', newNoteCategory)
+    console.log('[Dispatch_Form]... (1) Raw Category ', newNoteCategory)
+    let strippedNewNoteCategory = stripWhiteSpace(newNoteCategory)
+    let cleanCategory = strippedNewNoteCategory.toLowerCase()
 
+    console.log('[Dispatch_Form]...(2) No Category ', strippedNewNoteCategory)
+    console.log('[Dispatch_Form]...(3) Clean Category ', cleanCategory)
     try{
 
       // --- start the loading spinner ---
@@ -437,7 +451,7 @@ export default function NoteForm_s(props) {
               <StyledSelectMuiCreatable
                 name={'categories'}
                 control={control}
-                options={categoryOptionsArray}
+                options={sortedCategoryOptions}
                 // defaultValue = {{ value: 'ge423', label: 'home'}}
                 defaultValue={defaultValues.categories}
 

@@ -9,13 +9,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
-
+import { optionDescendSorter } from "../../app/helpers/commonHelpers";
 import { styled, createTheme} from "@mui/material/styles"
-import {withStyles} from '@mui/styles'
+import {makeStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
 const StyledWrapper= styled(Autocomplete)({
+  
  display: 'flex',
 
   // border: 'none',
@@ -107,11 +108,17 @@ const StyledChip= styled(Chip)({
 //   return optionsDisplay
 
 // }
-
+const useStyles = makeStyles({
+  paper: {
+    backgroundColor: '#F6F7F8',
+    fontSize: '.85rem',
+    border: '1px solid #CFD0D1',
+  }
+});
 
 // -----------------------------------------------------------------
 export const StyledAutocomplete = ({ name, control, label, type, defaultValue, options } ) => {
- 
+  const classes = useStyles();
   return (
     <Controller
       name={name}
@@ -131,11 +138,12 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
           <StyledWrapper
           autoSelect
           filterSelectedOptions
+          classes={{ paper: classes.paper }}
           fullWidth
           size="small"
           multiple
           id="tags-filled"
-          options={options}
+          options={optionDescendSorter(options)}
           defaultValue={defaultValue}
           freeSolo
           renderTags={(value, getTagProps) =>

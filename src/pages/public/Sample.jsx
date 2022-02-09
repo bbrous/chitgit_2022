@@ -32,7 +32,7 @@ import {  backgroundBlue, chitYellow,   chitOrangeVeryLight, chitRedDark,   ligh
 import Couple  from '../../images/sampleImages/couple.jpg'
 import Company  from '../../images/sampleImages/company_lg.jpg'
 import Meeting  from '../../images/sampleImages/meeting_lg.jpg'
-import Quinn  from '../../images/sampleImages/QuinnTerhore.jpg'
+import Cynthia from '../../images/sampleImages/QuinnTerhore.jpg'
 
 import BoardRoom  from '../../images/sampleImages/boardroom_lg.jpg'
 import Deck  from '../../images/sampleImages/deck_lg.jpg'
@@ -434,7 +434,7 @@ const Sample = () => {
 
               <SlideWrapper>
                 <SlideLeft>
-                  At work Bob leads a team tasked with the company’s next big product.  None of the team report directly to him, but team is responsible for creating
+                  At work Bob leads a team tasked with the company’s next big product.  None of the team report directly to him, but the team is responsible for creating
                   everything from design to production systems to market launch.
                 </SlideLeft>
                 <SlideRight>
@@ -463,11 +463,11 @@ const Sample = () => {
               <SlideWrapper>
                 <SlideLeft>
                   The team is doing well, but he is having problems with the teams&#39;s
-                  marketing member &#40;Quinn Terhore&#41;
+                  marketing member &#40;Cynthia Terhore&#41;
                 </SlideLeft>
                 <SlideRight>
                   <PictureStyle>
-                    <PhonePortraitStyle src={Quinn} alt="Phone Portrait" />
+                    <PhonePortraitStyle src={Cynthia} alt="Phone Portrait" />
                   </PictureStyle>
                 </SlideRight>
 

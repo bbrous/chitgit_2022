@@ -25,7 +25,7 @@ const SampleSpotlights =  [
     completed: false,
     
     // timeEst: 311418000, 
-    endEst: "2021-10-22T02:33:20.619Z",  //--------
+    endEst: "2021-03-27T17:33:20.000Z",  //--------
     noteId: 'note_1',
     chitId : '',
 
@@ -60,7 +60,7 @@ const SampleSpotlights =  [
   completed: false,
   
   // timeEst: 311418000, 
-  endEst: "2021-10-31T22:33:20.619Z",  //--------
+  endEst: "2021-03-16T14:00:00.619Z",  //--------
   noteId: 'note_4',
   chitId : '',
 
@@ -138,7 +138,7 @@ const SampleSpotlights =  [
     completed: false,
     
     // timeEst: 311418000, 
-    endEst: "2021-10-03T22:33:20.619Z",  //--------
+    endEst: "2021-05-01T22:33:20.619Z",  //--------
     noteId: 'note_2',
     chitId : '',
   
@@ -318,13 +318,13 @@ const SampleSpotlights =  [
               title: 'Get date',
           
           
-              spotlightStatus: 'begun', // inactive, begun, completed
+              spotlightStatus: 'completed', // inactive, begun, completed
               
               completedTimeStamp:  '', 
-              completed: false,
+              completed: true,
               
               // timeEst: 311418000, 
-              endEst: "2021-11-02T02:33:20.619Z",  //--------
+              endEst: "2021-01-24T02:33:20.619Z",  //--------
               noteId: '',
               chitId : '',
           
@@ -357,10 +357,10 @@ const SampleSpotlights =  [
               spotlightStatus: 'begun', // inactive, begun, completed
               
               completedTimeStamp:  '', 
-              completed: false,
+              completed: true,
               
               // timeEst: 311418000, 
-              endEst: "2021-11-02T02:33:20.619Z",  //--------
+              endEst: "2021-01-02T02:33:20.619Z",  //--------
               noteId: '',
               chitId : '',
           
