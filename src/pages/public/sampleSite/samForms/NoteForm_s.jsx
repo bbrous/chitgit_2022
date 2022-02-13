@@ -1,4 +1,7 @@
 /*---- File - NoteForm_s.jsx 
+
+   -- see NoteForm_info.md for logic detail 
+
    Creates new or edits existing Note... depending on if 
    a noteId exists ... if yes - edit : if no - new
 
@@ -13,14 +16,16 @@
       Modal_s - forwards all params to NoteForm
 
    * note - id and dbCollection var names are swapped 
-   
+
+
+  
 */
 
 import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
  
-import { descendSorter } from '../../../../app/helpers/commonHelpers'
+import { optionDescendSorter } from '../../../../app/helpers/commonHelpers'
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -40,6 +45,7 @@ import {
           selectNotes,
           selectNoteFromArray,
           addNoteToStore,
+          updateEditedNote
 
         } from '../../../../app/redux/noteRedux/sam_notesSlice';
 
@@ -50,7 +56,10 @@ import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSl
 import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import { stripWhiteSpace, checkIfWordExists } from '../../../../app/helpers/commonHelpers';
+import { 
+    stripWhiteSpace, 
+    checkIfWordExists, 
+    cleanOptions } from '../../../../app/helpers/commonHelpers';
 
 // --- Form component imports ---------
 
@@ -230,91 +239,70 @@ const formSchema = object({
 
 
 
-// const locationData = [
-//   { value: 'ocean', label: 'ocean'},
-//   { value: 'land', label: 'land'},
-//   { value: 'forest', label: 'forest'},
-//   { value: 'desert', label: 'desert'},
-
-// ];
-
-const locationData = [
-  'ocean', 'land', 'mountains'
-
-];
-
-
 
 // ==============================
 
 export default function NoteForm_s(props) {
 
-  
-
   const dispatch = useDispatch()
 
-  
+  // -- where the note originated ---
   const {dbCollection, noteHolderCollection, noteHolderId} = props.params
 
-  
+  // (1) ---Retrieve all needed collections from Redux store -------
 
-  let defaultValues, headerMessage, id, note, noteHolderType, newNoteHolderId, noteContent, lastEdit, noteKeywordArray, keywordsArray, categoriesArray, keywordOption, categoryOption, noteArray,
-  defaultOptions
+    let noteArray, keywordsArray, categoriesArray, keywordOption
 
-  noteArray = useSelector(selectNotes) // get all notes
-  keywordsArray = useSelector(selectKeywords) // get all keywords
-  categoriesArray = useSelector(selectCategories) // get all keywords
-  let sortedCategoriesArray = descendSorter(categoriesArray, 'category')
-  console.log('[ NoteForm **** ] categoryOptionsArray ', sortedCategoriesArray);
-
-  let a = checkIfWordExists('family', categoriesArray, 'categories')
-
-  console.log('[ NOTE form ] checkIfWordExists ', a);
+    noteArray = useSelector(selectNotes) // get all notes
+    keywordsArray = useSelector(selectKeywords) // get all keywords
+    categoriesArray = useSelector(selectCategories) // get all keywords
 
 
-  // --- create options array for Autocomplete multi-selector 
-  let keywordsOptionsArray = []
-
-  keywordsArray.map((keyword, index) => {
-    // code 
-    keywordOption = keyword.kw
-    keywordsOptionsArray.push(keywordOption)
-
-    return keywordsOptionsArray
-  }) //end map
+  // (2) --- Create form Options ---------------------------------------
 
     // --- create options array for Autocomplete multi-selector 
-    let categoryOptionsArray = []
 
-    let categoryOptions = categoriesArray.map((category, index) => {
-      // code 
-      categoryOption = {title: category.category}
-      categoryOptionsArray.push(categoryOption)
+      let keywordsOptionsArray = []
+
+      keywordsArray.map((keyword, index) => {
+        // code 
+        keywordOption = keyword.kw
+        keywordsOptionsArray.push(keywordOption)
+
+        return keywordsOptionsArray
+      }) //end map
+
+    // --- create options array for Autocomplete multi-selector 
+
+      let categoryOptionsArray = categoriesArray.map(category => category.category);
+      let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
   
-      return categoryOptionsArray
-    }) //end map
+  
+  
+  // (3) ----create default paramters if note exists ---------------------
 
-    let sortedCategoryOptions = descendSorter(categoryOptionsArray, 'title')
+    let defaultValues, headerMessage, id, note, noteHolderType, formNoteHolderId, noteContent,  noteKeywordArray,    defaultOptions
 
   
+    let noteId = props.params.id
+    !noteId ? id = cuid()  : id =  noteId   // ##### Sample only  ###########
 
+    !noteId ? note =  {} : note =  selectNoteFromArray(noteArray, noteId)
 
-  // ----create default paramters if note exists
-  let noteId = props.params.id
-  !noteId ? id = cuid()  : id =  noteId
-  !noteId ? note =  {} : note =  selectNoteFromArray(noteArray, noteId)
-  !noteId ? noteContent = ''  : noteContent = note.noteContent
-  !noteId ? defaultOptions = []  : defaultOptions = note.noteKeywordArray
-  !noteId ? noteHolderType = noteHolderCollection  : noteHolderType = note.noteHolderType
+    !noteId ? noteContent = ''  : noteContent = note.noteContent
+    !noteId ? defaultOptions = []  : defaultOptions = note.noteKeywordArray
+    !noteId ? noteHolderType = noteHolderCollection  : noteHolderType = note.noteHolderType
 
-  !noteId ? newNoteHolderId = id  : newNoteHolderId = note.noteHolderId
-  
-    defaultValues = {
-    noteContent: noteContent,
-    keywords: defaultOptions,
-    categories: ''
+    
+    !noteId ? formNoteHolderId = id  : formNoteHolderId = note.noteHolderId
+    
+      defaultValues = {
+      noteContent: noteContent,
+      keywords: defaultOptions,
+      categories: ''
 
-  };
+    };
+// ===========  FORM  ==================================================
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -324,24 +312,77 @@ export default function NoteForm_s(props) {
 
   const submitForm = async (data) => {
     console.log('[Dispatch_Form]...data ', data)
+
+
+
+  // (4) --- retrieve data from form ---------------------------
     
     let newNoteContent = data.noteContent
-    let newNoteKeywordArray = data.keyword
-    let a = stripWhiteSpace('the       rain  in     spain')
- 
     let newNoteCategory = data.categories
+    let passedKeyWordArray = data.keywords
+ 
+  
+    // (4 a, b) --- clean the form data  - strip of white space, capitalize
+    let cleanCategory = cleanOptions(newNoteCategory, 'categories')
 
-    console.log('[Dispatch_Form]... (1) Raw Category ', newNoteCategory)
-    let strippedNewNoteCategory = stripWhiteSpace(newNoteCategory)
-    let cleanCategory = strippedNewNoteCategory.toLowerCase()
+    console.log('[ NoteForm ] passedKeyWordArray ', passedKeyWordArray);
+    let cleanKeywordArray =  []
 
-    console.log('[Dispatch_Form]...(2) No Category ', strippedNewNoteCategory)
-    console.log('[Dispatch_Form]...(3) Clean Category ', cleanCategory)
-    try{
+    passedKeyWordArray.map((keyword, index) => {
+      cleanKeywordArray.push(cleanOptions(keyword, 'keywords'))
 
-      // --- start the loading spinner ---
+    return cleanKeywordArray
+    }
+    ) //end map
+    // console.log('[ NoteForm ] XXX cleanKeywordArray XXX ', cleanKeywordArray);
+
+
+
+
+
+
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    // ---  check if data category already exists in category Collection or new
+
+    let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+
+    let categoryId 
+
+// -- existent category 
+    if(categoryExists) { 
+
+      categoryId = categoryExists.id
+      // set note.category =  cleanedCategory  
+      // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
+    }
+//--- newly created category
+    if(!categoryExists) { 
+
+      // create new category 
+      categoryId = cuid() // ##############   temp ####################
+
+      let newCategoryData = {
+        id: categoryId,
+        category: cleanCategory,
+        categoryHolders: [{dbCollection: 'notes', noteHolderId}]
+
+      }
+
+      // get categoryId
+      // set note.category =  cleanedCategory  
+      // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
+    }
+
+
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+ // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
 
+    try{
 
       // === create new note if note does NOT exists ====================
       
@@ -352,8 +393,8 @@ export default function NoteForm_s(props) {
         noteHolderId: noteHolderId,
         noteContent: newNoteContent,
         lastEdit: new Date().toISOString(), 
-        noteKeywordArray: newNoteKeywordArray,
-        noteCategory: newNoteCategory
+        noteKeywordArray: cleanKeywordArray,
+        noteCategory: cleanCategory
 
       }
 
@@ -396,10 +437,10 @@ export default function NoteForm_s(props) {
 
       if (noteId) {
 
+        
 
 
-
-
+        await dispatch(updateEditedNote(newNoteData))
 
 
 

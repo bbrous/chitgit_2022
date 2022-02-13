@@ -16,6 +16,8 @@ export function capitalizeFirstLetter(string) {
 ---------------------*/
 export function optionDescendSorter(array){
 
+  // console.log('[ optionDescendSorter ] m Array ', array);
+
   let  sortedArray  = array.sort((a, b) => (a > b ) ? 1 : -1)
  
    return sortedArray
@@ -75,9 +77,35 @@ export function descendSorter(arrayOfObjects, objectParameter){
 
 }
 
+
+
+  /* -- func stripWhiteSpace ------------------
+   @desc - removes excess spaces from a string - replaces with a single space
+           between each word
+
+           then decides if it is keyword --> then all lower case
+                        if category or topic ---> first word capitalized
+   @params array, dbCollection 
+   @return white space stripped string (first word capitalized or all lower case)
+ 
+ ---------------------*/
+ export function cleanOptions(stringArray, dbCollection){
+
+  let strippedString, formattedStrippedArray, cleanOptions 
+  // strip array of white space
+
+  strippedString = stripWhiteSpace(stringArray).toLowerCase()
+  formattedStrippedArray = strippedString.charAt(0).toUpperCase() + strippedString.slice(1)
+
+
+  dbCollection === 'keywords' ? cleanOptions = strippedString  : cleanOptions = formattedStrippedArray
+  return cleanOptions
+
+}
+
  /* -- func checkIfWordExists ------------------
    @desc - compares category or keyword exists in array
-   @params array 
+   @params wordString, array, dbCollection 
    @return white space stripped string
  
  ---------------------*/

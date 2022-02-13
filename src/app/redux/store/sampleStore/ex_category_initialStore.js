@@ -6,7 +6,7 @@ const SampleCategories =  [
 
   { 
     id: 'cat_1',
-    category: 'to do',
+    category: 'To do',
     categoryHolders: [
       {dbCollection: 'chronicles', id: 'chron_3' }   
     
@@ -17,31 +17,43 @@ const SampleCategories =  [
 
   { 
     id: 'cat_2',
-    category: 'work',
+    category: 'Work',
     categoryHolders: []
    
   },
 
   { 
     id: 'cat_3',
-    category: 'family',
+    category: 'Family',
     categoryHolders: [{dbCollection: 'notes', id: 'note_2' } ],
    
   },
   
   { 
     id: 'cat_4',
-    category: 'product team',
+    category: 'Product team',
     categoryHolders: [ {dbCollection: 'notes', id: 'note_4' } ],
    
   },
 
   { 
     id: 'cat_5',
-    category: 'personal project',
+    category: 'Personal project',
     categoryHolders: [
       {dbCollection: 'notes', id: 'note_1' }  , 
       {dbCollection: 'notes', id: 'note_3' }
+      
+    
+    ]
+   
+  },
+
+  
+  { 
+    id: 'cat_6',
+    category: 'Fun',
+    categoryHolders: [
+    
       
     
     ]

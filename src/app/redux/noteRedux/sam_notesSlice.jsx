@@ -23,11 +23,16 @@ export const notesSlice = createSlice({
       let noteId = action.payload.id
       let newNoteContent = action.payload.noteContent
       let lastEdit = action.payload.lastEdit
+      let noteKeywordArray = action.payload.noteKeywordArray
+      let noteCategory = action.payload.noteCategory
   
       let noteIndex = state.findIndex(index => index.id === noteId)
       
       state[noteIndex].noteContent = newNoteContent
+      state[noteIndex].noteKeywordArray = noteKeywordArray
+      state[noteIndex].noteCategory = noteCategory
       state[noteIndex].lastEdit = lastEdit
+
 
   
     }, // end updateEditedNote
