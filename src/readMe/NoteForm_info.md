@@ -61,20 +61,33 @@ Handles create and updates for 3 collections
 
       6. Update category collection
          
-         a. check if category form data submitted is
+         a. check if category form data submitted is                        x
             different from default
 
           ... This section only executes if category has changed ...
 
-           if new submitted category different from default
-         
-              b. check if category form data exists already or is new
-              c. update category
+              if new submitted category different from default
+
+              first test if the defaultCategory was blank or prefilled
+              if it was prefilled and will now be changed, - then 
+              the noteHolderArray of the defaultCategory must remove
+              the reference to the noteId
+              
+
+              if defaultCategory !== '' then -
+                 b. find defaultCategory index and delete noteId form   
+                    it's noteHolders array
+
+              if default value is === '' then no delete execution
+
+              c. check if category form data exists already or is new
+              d. update category
                  if existant category - add noteId to noteHolders
-                 if new categor 
+                 if new category 
                     - add new category to Category collection
                       with noteId as first noteHolder in noteHolderArray
 
+          ...                   .....                      ...
            if new submitted category the same as default
               do nothing           
 

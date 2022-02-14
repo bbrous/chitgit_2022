@@ -8,12 +8,15 @@ const People =  [
  
     {
       id: 'person_1',
-      name: 'Shawn Donnell',
+      firstName: 'Shawn ',
+      lastName:  'Donnell',
+      identifier: '',
+      
       email: 'ShawnD@gmail.com',
+      group: 'friends',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -23,12 +26,15 @@ const People =  [
 
     {
       id: 'person_2',
-      name: 'Mark Hedelson',
+      firstName: 'Mark',
+      lastName:  'Hedelson',
+      identifier: '',
+      
       email: 'MarkH@gmail.com',
+      group: 'unaffiliated',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -37,12 +43,15 @@ const People =  [
     },
     {
       id: 'person_3',
-      name: 'Don Burbank',
+      firstName: 'Don',
+      lastName:  'Burbank',
+      identifier: '',
+      
       email: 'DonB@gmail.com',
+      group: 'unaffiliated',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -52,12 +61,15 @@ const People =  [
     
     {
       id: 'person_4',
-      name: 'Jackie Rauter',
+      firstName: 'Jackie',
+      lastName:  'Rauder',
+      identifier: '',
+      
       email: 'JackieR@gmail.com',
+      group: 'unaffiliated',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -67,12 +79,15 @@ const People =  [
     
     {
       id: 'person_5',
-      name: 'Randi Gelbwaks',
+      firstName: 'Randi',
+      lastName:  'Gelbwaks',
+      identifier: '',
+      
       email: 'RandiG@gmail.com',
+      group: 'unaffiliated',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -82,12 +97,15 @@ const People =  [
     
     {
       id: 'person_6',
-      name: 'Peter Stein',
-      email: 'PeterS@gmail.com',
+      firstName: 'Peter',
+      lastName:  'Westkaemper',
+      identifier: '',
+      
+      email: 'PeterW@gmail.com',
+      group: 'coworkers',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -97,12 +115,15 @@ const People =  [
     
     {
       id: 'person_7',
-      name: 'Jeff Doninger',
+      firstName: 'Jeff',
+      lastName:  'Doninger',
+      identifier: '',
+      
       email: 'JeffD@gmail.com',
+      group: 'unaffiliated',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -113,12 +134,15 @@ const People =  [
     
     {
       id: 'person_8',
-      name: 'Beth Joseph',
+      firstName: 'Beth',
+      lastName:  'Joseph',
+      identifier: '',
+      
       email: 'BethJ@gmail.com',
+      group: 'friends',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -128,12 +152,15 @@ const People =  [
 
     {
       id: 'person_9',
-      name: 'Yin Terhort',
-      email: 'YinT@gmail.com',
+      firstName: 'Cyn ',
+      lastName:  'Terhor',
+      identifier: '',
+      
+      email: 'CynT@gmail.com',
+      group: 'project team',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -144,12 +171,15 @@ const People =  [
 
     {
       id: 'person_10',
-      name: 'Kelly Caren',
-      email: 'KellyC@gmail.com',
+      firstName: 'Shelly',
+      lastName:  'C',
+      identifier: 'Karen',
+      
+      email: 'ShellyC@gmail.com',
+      group: 'neighbors',
       phone: '',
       address: '',
-      whoThisIs: '',
-
+      
       chitsArray: [],
       logsArray: [],
       notesArray: [],
@@ -157,6 +187,133 @@ const People =  [
       
     },
 
+    {
+      id: 'person_11',
+      firstName: 'Jerry',
+      lastName:  'G',
+      identifier: '',
+      
+      email: 'JerryG@gmail.com',
+      group: 'friends',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+    {
+      id: 'person_12',
+      firstName: 'Billy',
+      lastName:  '',
+      identifier: '',
+      
+      email: '',
+      group: 'friends',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+    {
+      id: 'person_13',
+      firstName: 'Linda',
+      lastName:  '',
+      identifier: 'software',
+      
+      email: '',
+      group: 'project team',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+    {
+      id: 'person_14',
+      firstName: 'Mark',
+      lastName:  'D',
+      identifier: 'engineer',
+      
+      email: '',
+      group: 'project team',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+    
+    {
+      id: 'person_15',
+      firstName: 'Steve',
+      lastName:  '',
+      identifier: 'finance',
+      
+      email: '',
+      group: 'project team',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+        
+    {
+      id: 'person_16',
+      firstName: 'Mary',
+      lastName:  'B',
+      identifier: 'wife',
+      
+      email: '',
+      group: 'family',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
+
+    {
+      id: 'person_17',
+      firstName: 'Simi',
+      lastName:  'B',
+      identifier: 'sister',
+      
+      email: '',
+      group: 'family',
+      phone: '',
+      address: '',
+      
+      chitsArray: [],
+      logsArray: [],
+      notesArray: [],
+
+      
+    },
 
 ]// end People
 

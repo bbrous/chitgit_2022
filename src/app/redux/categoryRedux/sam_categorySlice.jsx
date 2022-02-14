@@ -9,11 +9,25 @@ export const categoriesSlice = createSlice({
   reducers: {
 
     addCategoryToStore: (state, action) => {
-  
-      let category  = action.payload
 
+      let categoryId = action.payload.categoryId
+      let category = action.payload.category
+      let categoryHolder = action.payload.categoryHolder
+      let dbCollection = action.payload.dbCollection
+      let newCategoryHolder = {dbCollection: dbCollection, id: categoryHolder}
 
-      state.push(category)
+      let categoryObject = {
+        id: categoryId,
+        category: category,
+        categoryHolders: [newCategoryHolder]
+      }
+
+      console.log('===============================================================')
+      console.log('[ sam_categorySlice ] categoryId ', categoryId)
+      console.log('[ sam_categorySlice ] newCategoryHolder ', newCategoryHolder)
+      console.log('[ sam_categorySlice ] dbCollection ', dbCollection)
+
+      state.push(categoryObject)
     },
 
 
@@ -42,10 +56,7 @@ export const categoriesSlice = createSlice({
     let dbCollection = action.payload.dbCollection
     let newCategoryHolder = {dbCollection: dbCollection, id: categoryHolder}
     
-    console.log('===============================================================')
-console.log('[ sam_categorySlice ] categoryId ', categoryId)
-console.log('[ sam_categorySlice ] newCategoryHolder ', newCategoryHolder)
-console.log('[ sam_categorySlice ] dbCollection ', dbCollection)
+
 
 
     let categoryIndex = state.findIndex(index => index.id === categoryId)

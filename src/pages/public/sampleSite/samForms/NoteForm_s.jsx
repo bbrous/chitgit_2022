@@ -417,13 +417,18 @@ export default function NoteForm_s(props) {
 
     console.log('[ NoteForm ] noteCategory ', noteCategory);
     console.log('[ NoteForm ] cleanCategory ', cleanCategory);
+    let categoryId 
+
+    let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
 
     if(hasCategoryChanged) {
 
-      let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+      
 
-    let categoryId 
+    
+ // // -- existent category 
 
+    if(categoryExists) { 
       let newCategoryData = {
         categoryId: categoryExists.id,
         categoryHolder: id,
@@ -437,46 +442,31 @@ export default function NoteForm_s(props) {
       await dispatch(addCategoryHolder(newCategoryData))
 
 
+    }// end if categoryExists
 
+      if (!categoryExists) {
 
-      
-    }
+        // create new category 
+        categoryId = cuid() // ##############   temp ####################
+
+        let newCategoryData = {
+          id: categoryId,
+          category: cleanCategory,
+          categoryHolders: [{ dbCollection: 'notes', id }]
+
+        } // end newCategoryData
+        
+        // await dispatch(addCategoryHolder(newCategoryData))
+
+      } // end if categoryExists
+
+    } // end hasCategoryChanged
+    
     
 
 
 
-      
-  //   // (6b)  check if data category already exists in category Collection or new
 
-  //   let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
-
-  //   let categoryId 
-
-  // // -- existent category 
-
-  //   if(categoryExists) { 
-
-  //     categoryId = categoryExists.id
-  //     // set note.category =  cleanedCategory  
-  //     // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
-  //   }
-  // //--- newly created category
-  //     if(!categoryExists) { 
-
-  //     // create new category 
-  //     categoryId = cuid() // ##############   temp ####################
-
-  //     let newCategoryData = {
-  //       id: categoryId,
-  //       category: cleanCategory,
-  //       categoryHolders: [{dbCollection: 'notes', noteHolderId}]
-
-  //     }
-
-  //     // get categoryId
-  //     // set note.category =  cleanedCategory  
-  //     // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
-  //   }
 
 
       // --- update keywords 
