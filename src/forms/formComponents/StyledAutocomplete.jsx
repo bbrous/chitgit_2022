@@ -175,7 +175,7 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
           )}
           name={name}
           control={control}
-          defaultValue = {defaultValue}
+           
         />
       )}
     />

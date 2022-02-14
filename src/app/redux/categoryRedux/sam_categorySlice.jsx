@@ -7,6 +7,7 @@ export const categoriesSlice = createSlice({
   initialState: InitialStore,
 
   reducers: {
+
     addCategoryToStore: (state, action) => {
   
       let category  = action.payload
@@ -15,7 +16,7 @@ export const categoriesSlice = createSlice({
       state.push(category)
     },
 
-  }, //end reducers
+
 
   updateEditedCategory: (state, action) => {
 
@@ -36,16 +37,26 @@ export const categoriesSlice = createSlice({
   addCategoryHolder: (state, action) => {
 
 
-    let categoryId = action.payload.id
-    let newCategoryHolder = action.payload.category
+    let categoryId = action.payload.categoryId
+    let categoryHolder = action.payload.categoryHolder
+    let dbCollection = action.payload.dbCollection
+    let newCategoryHolder = {dbCollection: dbCollection, id: categoryHolder}
     
-    
+    console.log('===============================================================')
+console.log('[ sam_categorySlice ] categoryId ', categoryId)
+console.log('[ sam_categorySlice ] newCategoryHolder ', newCategoryHolder)
+console.log('[ sam_categorySlice ] dbCollection ', dbCollection)
+
 
     let categoryIndex = state.findIndex(index => index.id === categoryId)
+
+    console.log('[ sam_categorySlice ] categoryIndex ', categoryIndex)   
     
     state[categoryIndex].categoryHolders.push(newCategoryHolder)
    
   }, // end addCategoryHolder
+
+}
 
 }) // end slice categorysSlice 
 

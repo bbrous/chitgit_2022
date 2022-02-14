@@ -1,6 +1,7 @@
 /*---- File - NoteForm_s.jsx 
 
    -- see NoteForm_info.md for logic detail 
+   -- Comment #'s here correspond to NoteForm_info
 
    Creates new or edits existing Note... depending on if 
    a noteId exists ... if yes - edit : if no - new
@@ -53,7 +54,7 @@ import { updateSpotlightNoteId } from '../../../../app/redux/spotlightRedux/sam_
 import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice';
 
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
-import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
+import { selectCategories, addCategoryHolder } from '../../../../app/redux/categoryRedux/sam_categorySlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { 
@@ -281,7 +282,7 @@ export default function NoteForm_s(props) {
   
   // (3) ----create default paramters if note exists ---------------------
 
-    let defaultValues, headerMessage, id, note, noteHolderType, formNoteHolderId, noteContent,  noteKeywordArray,    defaultOptions
+    let defaultValues, headerMessage, id, note, noteHolderType, formNoteHolderId, noteContent,  noteKeywordArray,    defaultOptions, noteCategory
 
   
     let noteId = props.params.id
@@ -292,14 +293,14 @@ export default function NoteForm_s(props) {
     !noteId ? noteContent = ''  : noteContent = note.noteContent
     !noteId ? defaultOptions = []  : defaultOptions = note.noteKeywordArray
     !noteId ? noteHolderType = noteHolderCollection  : noteHolderType = note.noteHolderType
-
+    !noteId ? noteCategory = ''  : noteCategory = note.noteCategory
     
-    !noteId ? formNoteHolderId = id  : formNoteHolderId = note.noteHolderId
+    // !noteId ? formNoteHolderId = id  : formNoteHolderId = note.noteHolderId
     
       defaultValues = {
       noteContent: noteContent,
       keywords: defaultOptions,
-      categories: ''
+      categories: noteCategory
 
     };
 // ===========  FORM  ==================================================
@@ -342,42 +343,6 @@ export default function NoteForm_s(props) {
 
 
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    // ---  check if data category already exists in category Collection or new
-
-    let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
-
-    let categoryId 
-
-// -- existent category 
-    if(categoryExists) { 
-
-      categoryId = categoryExists.id
-      // set note.category =  cleanedCategory  
-      // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
-    }
-//--- newly created category
-    if(!categoryExists) { 
-
-      // create new category 
-      categoryId = cuid() // ##############   temp ####################
-
-      let newCategoryData = {
-        id: categoryId,
-        category: cleanCategory,
-        categoryHolders: [{dbCollection: 'notes', noteHolderId}]
-
-      }
-
-      // get categoryId
-      // set note.category =  cleanedCategory  
-      // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
-    }
-
-
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
  // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
@@ -398,7 +363,7 @@ export default function NoteForm_s(props) {
 
       }
 
-      // --- No note ---
+      // (5a) --- No note - create new note---
       if (!noteId) {
 
         await dispatch(addNoteToStore(newNoteData))
@@ -424,7 +389,7 @@ export default function NoteForm_s(props) {
           ))
           }
 
-      // --- update keywords 
+
 
 
 
@@ -433,20 +398,88 @@ export default function NoteForm_s(props) {
 
       } // end !noteId
 
-      // === UPDATE note if note exists =======================
+
+      // (5b) --- Note Exists - update existent note ---
 
       if (noteId) {
 
-        
-
-
         await dispatch(updateEditedNote(newNoteData))
-
-
-
 
       } // end !noteId
 
+
+
+
+    // (6) create new or update category in categories collection ---
+
+    // (6a) is form category different than default category
+    let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
+
+    console.log('[ NoteForm ] noteCategory ', noteCategory);
+    console.log('[ NoteForm ] cleanCategory ', cleanCategory);
+
+    if(hasCategoryChanged) {
+
+      let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+
+    let categoryId 
+
+      let newCategoryData = {
+        categoryId: categoryExists.id,
+        categoryHolder: id,
+        dbCollection: 'notes'
+
+      }
+      console.log('[ NoteForm ] has Category Changed -yes ', hasCategoryChanged);
+
+
+
+      await dispatch(addCategoryHolder(newCategoryData))
+
+
+
+
+      
+    }
+    
+
+
+
+      
+  //   // (6b)  check if data category already exists in category Collection or new
+
+  //   let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+
+  //   let categoryId 
+
+  // // -- existent category 
+
+  //   if(categoryExists) { 
+
+  //     categoryId = categoryExists.id
+  //     // set note.category =  cleanedCategory  
+  //     // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
+  //   }
+  // //--- newly created category
+  //     if(!categoryExists) { 
+
+  //     // create new category 
+  //     categoryId = cuid() // ##############   temp ####################
+
+  //     let newCategoryData = {
+  //       id: categoryId,
+  //       category: cleanCategory,
+  //       categoryHolders: [{dbCollection: 'notes', noteHolderId}]
+
+  //     }
+
+  //     // get categoryId
+  //     // set note.category =  cleanedCategory  
+  //     // dispatch (update categoryId) categoryCollection.categoryHolders with noteId 
+  //   }
+
+
+      // --- update keywords 
       
       dispatch(changeLoadingStatus(false))
       reset()

@@ -144,7 +144,7 @@ const CategoryWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   // backgroundColor: 'aqua',
-  width: '25%',
+  width: '30%',
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -161,7 +161,7 @@ const KeyWordWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   // backgroundColor: 'orange',
-  width: '25%',
+  width: '70%',
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -175,12 +175,13 @@ const ContentWrapper= styled(Paper)({
 
   display: 'flex',
   position: 'relative',
-  flexDirection: 'column',
+  flexDirection: 'row',
   justifyContent: 'flex-start',
-  alignItems: 'center',
-  // backgroundColor: 'pink',
+  alignItems: 'flex-start',
+  backgroundColor: veryLightGrey,
   width: '99%',
-  padding: '6px',
+  marginTop:'6px',
+   
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -188,16 +189,18 @@ const ContentWrapper= styled(Paper)({
 
 })
 
-const MetaWrapper= styled(Paper)({
+const MetaWrapper= styled('div')({
 
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
   justifyContent: 'flex-start',
-  alignItems: 'center',
-  fontSize: '.85rem',
-  width: '99%',
+  alignItems: 'flex-start',
+  fontSize: '.75rem',
+  width: '30%',
+ 
   padding: '6px',
+  backgroundColor: veryLightGrey,
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -214,7 +217,7 @@ const HeaderWrapper= styled('div')({
   alignItems: 'center',
   color: chitBlueDull,
   width: '99%',
-  padding: '6px',
+  padding: '6px 0',
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -227,13 +230,16 @@ const Content= styled('div')({
 
   display: 'flex',
   position: 'relative',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.85rem',
-  width: '99%',
-  padding: '6px',
+  width: '70%',
 
+  padding: '6px',
+  borderLeft: '1px solid #E6E7E8',
+  backgroundColor: 'white',
+  borderRadius: '0 5px 5px 0',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -347,9 +353,14 @@ export default function LogSection() {
       </SearchWrapper>
       <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
-        <MetaWrapper>meta here</MetaWrapper>
+        <MetaWrapper>
+        rep: Karen Karen <br/>
+        number: x98fy
+     
+        </MetaWrapper>
         {/* <HeaderWrapper> a Header here </HeaderWrapper> */}
         <Content>
+          <HeaderWrapper> This is about what?</HeaderWrapper>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
         </Content>

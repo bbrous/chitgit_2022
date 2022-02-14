@@ -1,6 +1,33 @@
 
 
-## ---- File - NoteForm_s.jsx -- Sample Site
+##  File - NoteForm_s.jsx -- Sample Site
+<br>
+###  -- overview --
+
+
+The note form handles both create-new and edit-update functions.
+<br>
+It consists of 4 parts
+
+- wysiwyg - content -  string of html
+- catgory - string
+- keyword - array of strings
+- last edit date - in ISO format
+
+<br>
+
+Both the category and keywords have their own collections.
+So both require a consistent input string structure ...
+without white space and all lower case.  
+
+Categories have the additional step of capitalizing 
+the first workd in the string.
+
+
+<br><br>
+
+###  -- Form decompositions --
+<br>
 
 Logic used to submit the Noteform to the redux store.
 Consists of 2 major actions :  
@@ -10,8 +37,11 @@ Consists of 2 major actions :
 Handles create and updates for 3 collections
 - notes
 - categories
-- keywords
+- keywords  
 
+---
+
+<img src="elements/test.svg" width="160">
 ---
 
       1.  retrieve from Redux store - notes, categories, keywords           X
@@ -25,14 +55,16 @@ Handles create and updates for 3 collections
           a.  clean the category data                                       x
           b.  clean the keyword data                                        x
 
-      5. Dispatch the note data to Redux store
+      5. Dispatch the note data to Redux store                              x
          a. if new - add to note collection                                 x
-         b. if edit - update note in note collection                   r
+         b. if edit - update note in note collection                        x
 
       6. Update category collection
          
          a. check if category form data submitted is
             different from default
+
+          ... This section only executes if category has changed ...
 
            if new submitted category different from default
          

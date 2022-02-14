@@ -144,7 +144,7 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
 
 <StyledWrapper
  selectOnFocus
- 
+ value = {defaultValue}
  autoSelect
         freeSolo
         id="free-solo-2-demo"
@@ -171,7 +171,7 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
           )}
           name={name}
           control={control}
-          defaultValue = {defaultValue}
+          
         />
       )}
     />
