@@ -58,7 +58,7 @@ import SpotlightNav from '../../navComponents/publicNav/sampleNav/sideBarNav/Spo
 // import WorkNav from '../../navComponents/publicNav/sampleNav/sideBarNav/WorkNav_s'
 
 // import NoteNav from '../../navComponents/publicNav/sampleNav/sideBarNav/NoteNav_s'
-// import LogNav from '../../navComponents/publicNav/sampleNav/sideBarNav/LogNav_s'
+import LogNav from '../../navComponents/publicNav/sampleNav/sideBarNav/LogNav_s'
 
 import Modal from './samComponents/Modal_s.jsx'
 
@@ -406,7 +406,7 @@ function Main_s(props) {
             <New />
 
             {page === 'spotlights' && <SpotlightNav />}
-
+            {page === 'logs' &&  <LogNav/>  }
 
 
           </SidePanelWrapper>

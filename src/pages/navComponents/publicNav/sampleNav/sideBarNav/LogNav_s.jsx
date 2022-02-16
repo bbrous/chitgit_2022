@@ -1,18 +1,18 @@
 import React from 'react'
-import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,mutedBackgroundBlue, chitAquaBlue} from '../../../../../styles/colors'
+import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,darkGrey, chitAquaBlue, chitGold} from '../../../../../styles/colors'
 
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import Paper from '@material-ui/core/Paper'; 
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import Paper from '@mui/material/Paper'
+import TreeView from '@mui/lab/TreeView';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import TreeItem from '@mui/lab/TreeItem';
 
 
+import { makeStyles  } from "@mui/styles"
+import { styled, createTheme  } from "@mui/material/styles"
+const theme = createTheme(); // allows use of mui theme in styled component
 
-import {styled, createMuiTheme, makeStyles}  from '@material-ui/core/styles'
-
-const theme = createMuiTheme(); // allows use of mui theme in styled component
 
 
 // -------------------------------
@@ -21,7 +21,7 @@ const Wrapper= styled('div')({
 
   display: 'block',
   position: 'relative',
-  backgroundColor: lightGrey,
+  backgroundColor: 'white',
   // backgroundColor: 'orange',
 
   [theme.breakpoints.down('xs')] : {
@@ -51,57 +51,7 @@ const HeaderWrapper= styled(Paper)({
 
 })
 
-const Header= styled('div')({
 
-  display: 'block',
-  fontSize: '1.2rem',
-  
-  color: chitRedDark
-  
-
-
-
-})
-
-const NewWrapper= styled(Paper)({
-
-  display: 'flex',
-  justifyContent: 'flex-end',
-  alignItems: 'center',
-  
-  height: '2rem',
-  backgroundColor: 'white',
-  borderRadius: '0',
-  marginBottom: '2px',
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', s
-  }
-
-})
-
-const AddCircleIconWrapper= styled(AddCircleIcon)({
-
-  color: chitOrange,
-  fontSize : '1.7rem',
-  
-  '&:hover' : {
-    backgroundColor: chitOrangeLight,
-    borderRadius: '50px',
-  },
-
-})
-
-const New= styled('div')({
-
-  display: 'block',
-  marginRight: '6px',
-  
-  color: mutedBackgroundBlue,
-  // fontWeight: 'bold'
-  
-
-})
 
 
 const useStyles = makeStyles({
@@ -159,7 +109,7 @@ const CategoryContainer= styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  backgroundColor: 'white',
+  backgroundColor: 'red',
   width: '100%',
   margin: '5px auto',
   height: '100%' ,
@@ -185,13 +135,37 @@ padding: '10px',
 
 })
 
+const HeaderItemWrapper= styled(TreeItem)({
+
+
+  // backgroundColor: 'green',
+
+
+'& 	.MuiTreeItem-label' :{
+  fontFamily: 'Roboto',
+  fontSize: '.9rem',
+  color: darkGrey
+},
+
+margin: '.1rem 0',
+  [theme.breakpoints.down('xs')] : {
+    // display: 'none', 
+  }
+
+})
+
 const ItemWrapper= styled(TreeItem)({
 
 
   // backgroundColor: 'green',
 
-fontFamily: 'Roboto',
- 
+
+'& 	.MuiTreeItem-label' :{
+  fontFamily: 'Roboto',
+  fontSize: '.9rem',
+  color: 'red'
+},
+
 margin: '.1rem 0',
   [theme.breakpoints.down('xs')] : {
     // display: 'none', 
@@ -207,25 +181,9 @@ function LogNav() {
   const classes = useStyles();
   return (
     <Wrapper>
-      <HeaderWrapper elevation={3}>
-        <Header> Logs   </Header>
+ 
 
-      </HeaderWrapper>
-      <NewWrapper elevation={1}>
-        <New> new Log </New>
-
-        <AddCircleIconWrapper />
-      </NewWrapper>
-
-
-      <FilterWrapper  >
-
-        <Filter> Categories</Filter>
-        <Filter> Key words</Filter>
-
-      </FilterWrapper>
-
-      <CategoryContainer>
+  
 
         <TreeWrapper
           className={classes.root}
@@ -236,13 +194,19 @@ function LogNav() {
 
 
 
-          <ItemWrapper style={{ color: mutedBackgroundBlue }} nodeId="1" label="People (8)">
+          <HeaderItemWrapper  nodeId="11" label="People (8)">
+            <ItemWrapper style={{ color: 'red' }} nodeId="2" label="Kelly House" />
+            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Cybill" />
+
+          </HeaderItemWrapper>
+
+          <HeaderItemWrapper  nodeId="12" label="Companies (2)">
             <ItemWrapper style={{ color: 'black' }} nodeId="2" label="Kelly House" />
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Lynn" />
+            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="ATT" />
 
-          </ItemWrapper>
+          </HeaderItemWrapper>
 
-          <ItemWrapper style={{ color: mutedBackgroundBlue }} nodeId="6" label="Organizations  (12) ">
+          <HeaderItemWrapper  nodeId="16" label="Groups  (12) ">
             <ItemWrapper style={{ color: 'black' }} nodeId="7" label="IRS">
               <ItemWrapper style={{ color: 'black' }} nodeId="8" label="2002 Taxes" />
               <ItemWrapper style={{ color: 'black' }} nodeId="9" label="Mom Refund" />
@@ -251,15 +215,24 @@ function LogNav() {
               <ItemWrapper style={{ color: 'black' }} nodeId="8" label="insurance" />
               <ItemWrapper style={{ color: 'black' }} nodeId="9" label="dog" />
             </ItemWrapper>
-          </ItemWrapper>
+          </HeaderItemWrapper>
 
-          <ItemWrapper style={{ color: mutedBackgroundBlue }} nodeId="1" label="Topics/Stories (8)">
+          <HeaderItemWrapper  nodeId="15" label="Organizations (8)">
             <ItemWrapper style={{ color: 'black' }} nodeId="2" label="ChitaBit" />
             <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Wakeboard Boot" />
 
-          </ItemWrapper>
+          </HeaderItemWrapper>
 
+          <HeaderItemWrapper  nodeId="17" label="Topics/Stories (8)">
+            <ItemWrapper style={{ color: 'black' }} nodeId="2" label="ChitaBit" />
+            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Wakeboard Boot" />
 
+          </HeaderItemWrapper>
+
+          <HeaderItemWrapper  nodeId="19" label="Other(0)">
+           
+
+          </HeaderItemWrapper>
 
 
 
@@ -269,7 +242,7 @@ function LogNav() {
 
 
         </TreeWrapper>
-      </CategoryContainer>
+    
     </Wrapper>
   )
 }

@@ -8,15 +8,18 @@ const SampleLogs =  [
  
     {
       id: 'log_1',
-      title: '',
-      context: '',
-      content: '',
-      date: "2020-11-01T11:16:20.619Z",
+      metaContent: '',
+      headline: '',
+      logContent: '',
+  
+      noteKeywordArray: [],
+      noteCatgory : 'personal project',
+
+      date: "2020-11-01T11:16:20.619Z",  // date input by user
+      lastEdit:  "2020-11-01T11:16:20.619Z",  // last edit date
+      timeStamp:  "2020-11-01T11:16:20.619Z",  // if exists - not editable
+    
       chitId: '',
-
-      timeStamp:  true,  // not editable
-
-
     },
     {
 

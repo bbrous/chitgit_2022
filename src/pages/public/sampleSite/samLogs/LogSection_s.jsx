@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull} from '../../../../styles/colors'
+import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
 import{ selectLogs
   // selectSpotlightTaskArray
@@ -31,6 +31,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AttachmentIcon from '@mui/icons-material/Attachment';
  
 import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -77,6 +78,7 @@ const TopWrapper= styled('div')({
 
 })
 
+// Date input by user
 const DateWrapper= styled('div')({
 
   display: 'flex',
@@ -97,6 +99,8 @@ const DateWrapper= styled('div')({
 
 
 })
+
+
 
 const IconWrapper= styled('div')({
 
@@ -124,12 +128,14 @@ const SearchWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  backgroundColor: veryLightGrey,
-  width: '100%',
-  padding: '2px 6px',
-
+  // backgroundColor: veryLightGrey,
+  width: '99%',
+  padding: '2px 0',
+  marginBottom: '3px',
+// backgroundColor: veryLightGrey,
   fontSize: '.6rem',
   height: '.8rem',
+  color: mediumGrey,
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -176,12 +182,14 @@ const ContentWrapper= styled(Paper)({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
+
   backgroundColor: veryLightGrey,
   width: '99%',
-  marginTop:'6px',
-   
+  // marginTop:'6px',
+  margin: 'auto',
+  
+  
+  
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -189,18 +197,23 @@ const ContentWrapper= styled(Paper)({
 
 })
 
-const MetaWrapper= styled('div')({
 
+const MetaWrapper= styled('div')({
+ 
   display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
+ 
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   alignItems: 'flex-start',
   fontSize: '.75rem',
   width: '30%',
+  minHeight: '100%',
  
   padding: '6px',
   backgroundColor: veryLightGrey,
+
+ 
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -208,7 +221,29 @@ const MetaWrapper= styled('div')({
 
 })
 
-const HeaderWrapper= styled('div')({
+// Date Times 
+const TimesWrapper= styled('div')({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+
+  width: '100%',
+  padding: '2px 6px',
+
+  fontSize: '.65rem',
+  color: mediumGrey,
+
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
+const HeadlineWrapper= styled('div')({
 
   display: 'flex',
   position: 'relative',
@@ -227,7 +262,7 @@ const HeaderWrapper= styled('div')({
 })
 
 const Content= styled('div')({
-
+  flexGrow: 1,
   display: 'flex',
   position: 'relative',
   flexDirection: 'column',
@@ -315,6 +350,29 @@ const StyledDeleteIcon= styled(DeleteIcon)({
 })
 
 
+const StyledAttachmentIcon= styled(AttachmentIcon)({
+  backgroundColor: 'white',
+  borderRadius: '5px',
+  fontSize: '.95rem',
+  color: chitOrange,
+  margin: '0 .5rem .3rem .5rem',
+  cursor: 'pointer',
+  transform: 'rotate(90deg)' ,
+
+
+  '&:hover': {
+    color: mediumLightGrey
+    // backgroundColor: mediumLightGrey
+  },
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
 const LightTooltip = withStyles({
   tooltip: {
     color: "grey",
@@ -323,6 +381,11 @@ const LightTooltip = withStyles({
     border: '1px solid grey',
   }
 })(Tooltip);
+
+
+
+
+
 //  =====================================================================
 
 export default function LogSection() {
@@ -341,6 +404,10 @@ export default function LogSection() {
             <StyledLockClockIcon />
           </LightTooltip>
 
+          <LightTooltip title='Attachment' arrow>
+            <StyledAttachmentIcon />
+          </LightTooltip>
+
           <LightTooltip title='Delete' arrow>
             <StyledDeleteIcon />
           </LightTooltip>
@@ -353,20 +420,28 @@ export default function LogSection() {
       </SearchWrapper>
       <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
+
         <MetaWrapper>
-        rep: Karen Karen <br/>
-        number: x98fy
-     
+        <div> type: phone con (meeting, thought, action, activity, other) </div>
+          <div>  rep: Karen Karen <br />  number: x98fy </div>
+          <TimesWrapper>
+            <div> timestamp:  none </div>
+            <div> last edit:  Feb 2, 2021 </div>
+            <div> created:  Feb 2, 2021 </div>
+          </TimesWrapper>
         </MetaWrapper>
-        {/* <HeaderWrapper> a Header here </HeaderWrapper> */}
+        
+     
         <Content>
-          <HeaderWrapper> This is about what?</HeaderWrapper>
+          <HeadlineWrapper> This is about what?</HeadlineWrapper>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
         </Content>
 
 
       </ContentWrapper>
+
+
 
     </MainWrapper>
   )

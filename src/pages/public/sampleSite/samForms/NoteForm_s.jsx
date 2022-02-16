@@ -363,104 +363,131 @@ export default function NoteForm_s(props) {
 
       }
 
-      // (5a) --- No note - create new note---
-      if (!noteId) {
+      // (5a) --- No note - create new note--------------------------
+        if (!noteId) {
 
-        await dispatch(addNoteToStore(newNoteData))
+          await dispatch(addNoteToStore(newNoteData))
 
 
-      // ---  update noteHolder if holder is a task or a spotlight -------
+        // ---  update noteHolder if holder is a task or a spotlight -------
 
-        if(noteHolderType === 'spotlights'){
-        await dispatch( updateSpotlightNoteId(
-          {
-            noteId: id, 
-            noteHolderId: noteHolderId
+          if (noteHolderType === 'spotlights') {
+            await dispatch(updateSpotlightNoteId(
+              {
+                noteId: id,
+                noteHolderId: noteHolderId
+              }
+            ))
           }
-        ))
-        }
 
-        if(noteHolderType === 'tasks'){
-          await dispatch( updateTaskNoteId(
+        if (noteHolderType === 'tasks') {
+          await dispatch(updateTaskNoteId(
             {
-              noteId: id, 
+              noteId: id,
               taskHolderId: noteHolderId
             }
           ))
-          }
+        }
+
+      } // end !noteId ---------------------------------------------
 
 
-
-
-
-
-
-
-      } // end !noteId
-
-
-      // (5b) --- Note Exists - update existent note ---
+      // (5b) --- Note Exists - update existent note ---------------
 
       if (noteId) {
 
         await dispatch(updateEditedNote(newNoteData))
 
-      } // end !noteId
+      } // end !noteId -------------------------------------------
 
 
 
 
-    // (6) create new or update category in categories collection ---
+    // (6) --- create new or update category in categories collection ---
 
-    // (6a) is form category different than default category
-    let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
+    // (6a) is form category different than default category  -----------------------
+    //      if yes - then execute all category related functions --------------------
+    //      if no - do nothing                               ------------------------
 
-    console.log('[ NoteForm ] noteCategory ', noteCategory);
-    console.log('[ NoteForm ] cleanCategory ', cleanCategory);
-    let categoryId 
-
-    let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
-
-    if(hasCategoryChanged) {
-
+      let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
       
+      if(hasCategoryChanged) {
 
-    
- // // -- existent category 
+            
+        let categoryId 
+        let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
 
-    if(categoryExists) { 
-      let newCategoryData = {
-        categoryId: categoryExists.id,
-        categoryHolder: id,
-        dbCollection: 'notes'
+        // --- test if default category (noteCategory) === '' or ==== 'something'
+        //                 if === '' do nothing -  procede to add new category
+        //                 if === 'something'  first delete note ID from 'something'
+ 
+        if(noteCategory !== ''){
 
-      }
-      console.log('[ NoteForm ] has Category Changed -yes ', hasCategoryChanged);
-
-
-
-      await dispatch(addCategoryHolder(newCategoryData))
+          console.log('[ NoteForm  ****DELETE  noteCategory *******] ', noteCategory);
 
 
-    }// end if categoryExists
 
-      if (!categoryExists) {
 
-        // create new category 
-        categoryId = cuid() // ##############   temp ####################
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
 
-        let newCategoryData = {
-          id: categoryId,
-          category: cleanCategory,
-          categoryHolders: [{ dbCollection: 'notes', id }]
 
-        } // end newCategoryData
-        
-        // await dispatch(addCategoryHolder(newCategoryData))
 
-      } // end if categoryExists
 
-    } // end hasCategoryChanged
+
+
+ 
+        }
+
+
+
+
+
+          // --- category from form already exists ---------------------------------
+
+          if(categoryExists) { 
+            let updatedCategoryData = {
+              categoryId: categoryExists.id,
+              categoryHolder: id,
+              dbCollection: 'notes'
+
+            }
+          // console.log('[ NoteForm ] has Category Changed -yes ', hasCategoryChanged);
+
+
+
+            await dispatch(addCategoryHolder(updatedCategoryData))
+
+
+          }// end if categoryExists 
+
+          // --- category from form is new  -----------------------------------------
+
+          if (!categoryExists) {
+
+            // create new category 
+            categoryId = cuid() // #####   temp ############
+
+            let newCategoryData = {
+              id: categoryId,
+              category: cleanCategory,
+              categoryHolders: [{ dbCollection: 'notes', id }]
+
+            } // end newCategoryData
+
+
+            
+            // await dispatch(addCategoryHolder(newCategoryData))
+
+
+
+
+
+
+
+          } // end if categoryExists
+
+    } // end hasCategoryChanged---------------------------------------
     
     
 
