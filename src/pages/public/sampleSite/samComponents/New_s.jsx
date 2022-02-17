@@ -1,5 +1,5 @@
 /* New.jsx
-    New Button for all app components 
+    New Button for all app components EXCEPT "chronicles"
     Has Icon that Opens Modal with app specific form (ie spotlight, note, etc)
     gets page type from URL ... 
     then  passes it to OpenModal action - in - redux/statusRedux/sam_statusSlice
@@ -166,7 +166,11 @@ const openSpotlightForm = ()=>{
 }// end openSpotlightForm
 
   return (
+    <> 
+    {dbCollection !== 'chronicles' && 
     <NewWrapper elevation={1}>
+
+    
 
     <NewTitle> new {title} </NewTitle>
       <LightTooltip title={formattedPage} arrow>
@@ -174,8 +178,17 @@ const openSpotlightForm = ()=>{
           onClick={() => openSpotlightForm(page, id)}
         />
       </LightTooltip>
-
+ 
     </NewWrapper>
+
+  } 
+
+{dbCollection === 'chronicles' && 
+  <NewWrapper></NewWrapper>
+
+  } 
+
+</>
   )
 }
 

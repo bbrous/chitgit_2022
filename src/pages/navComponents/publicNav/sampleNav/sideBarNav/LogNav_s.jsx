@@ -21,8 +21,7 @@ const Wrapper= styled('div')({
 
   display: 'block',
   position: 'relative',
-  backgroundColor: 'white',
-  // backgroundColor: 'orange',
+
 
   [theme.breakpoints.down('xs')] : {
     // display: 'none',
@@ -125,9 +124,9 @@ const CategoryContainer= styled('div')({
 const TreeWrapper= styled(TreeView)({
 
 
-  // backgroundColor: 'green',
 fontFamily: 'Roboto',
-height: '90%',
+height: '100%',
+width: '90%',
 padding: '10px',
   [theme.breakpoints.down('xs')] : {
     // display: 'none', 
@@ -180,9 +179,9 @@ function LogNav() {
 
   const classes = useStyles();
   return (
-    <Wrapper>
  
-
+ 
+<>
   
 
         <TreeWrapper
@@ -242,8 +241,8 @@ function LogNav() {
 
 
         </TreeWrapper>
-    
-    </Wrapper>
+        </>
+ 
   )
 }
 

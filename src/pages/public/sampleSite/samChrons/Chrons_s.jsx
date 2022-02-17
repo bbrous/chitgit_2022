@@ -1,20 +1,23 @@
 /* function Chrons(props) -------------------
   Chooses Plan display options
-  a) if no Chrons --  message 1
-  b) if Chrons but no detailId  in route --  message 2
-  c) if  Chrons AND detailId  in route--  show Plan page
+  a) if no chrons --  message 1
+  b) if chrons but no detailId  in route --  message 2
+  c) if  chrons AND detailId  in route--  show Plan page
 
 ------------------------------------*/
 
 import React from 'react'
-import {connect} from 'react-redux'
-import { useParams } from 'react-router-dom'
-
+ 
+import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectChrons } from '../../../../app/redux/chronRedux/sam_selectors_Chrons'
+// import{ selectChrons } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
 
 import ChronMain from './ChronMain_s'
+import PopoverModal from '../samComponents/PopoverModal'
+
+
+
 
 // -------Material UI 
 
@@ -23,7 +26,6 @@ import { styled, createTheme, withStyles  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
-
 const Wrapper= styled('div')({
 
   display: 'flex',
@@ -69,38 +71,46 @@ const NoneMessage= styled('div')({
 function Chrons(props) {
 
   let match = useParams()
-  
+  let navigate = useNavigate()
+
+  const ChronPage = match.pageView
+  const ChronId = match.id
+  // const displayPopoverModalMessage = status.initialMessage.spotlights
+
+// ###########  TEMP  ############## 
+let chronsArray = [1]
+let chronId = 'spectrum'
+let chronSectionId = ''
+let displayPopoverModalMessage = false
  
-  // const ChronId = match.params.detailId 
-  // const ChronsArray = props.ChronsArray
-
-  // console.Chron('[Chrons_s] route ChronId is', ChronId)
-  // console.Chron('[Chrons_s] retrieved Chrons are', ChronsArray)
-
-
 
   return (
     <Wrapper>
-<ChronMain />
-      {/* {ChronsArray.length === 0 &&
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={ChronPage} />
+
+      }
+
+      {chronsArray.length === 0 &&
         <NoneMessage>
-          <div>You have no active or completed Chrons</div>
-          <div>Create a new Chron</div>
+          <div>You have no active or completed chrons</div>
+          <div>Create a new chron</div>
         </NoneMessage>
 
-      } */}
+      }
 
-      {/* {ChronsArray.length > 0 && !ChronId &&
+      {chronsArray.length > 0 && !chronId &&
         <NoneMessage>
-          <div>Choose a Chron to be displayed</div>
+          <div>Choose a chron to be displayed</div>
           <div>or</div>
-          <div>Create a new Chron</div>
+          <div>Create a new chron</div>
         </NoneMessage>
 
-      } */}
+      }
 
 
-      {/* {ChronId && ChronsArray.length > 0 && <ChronsMain />} */}
+      {chronId && chronsArray.length > 0 && <ChronMain />}
 
 
 
@@ -109,16 +119,6 @@ function Chrons(props) {
   )
 }
 
-const actions = {
-  // changeLastChronDisplayed,  
-  // openModal, 
-  // closeModal
-}
 
-const mapState = state => ({
-  // display: state,
-  ChronsArray: selectChrons(state),
-  
-})
 
-export default connect(mapState, actions)(Chrons)
+export default  Chrons

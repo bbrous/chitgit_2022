@@ -82,7 +82,7 @@ const NavButtonDisabled= styled(Button)({
   },
 
   '& :hover': {
-    backgroundColor: veryLightGrey,
+    backgroundColor: 'veryLightGrey',
   },
    
   [theme.breakpoints.down('sm')] : {

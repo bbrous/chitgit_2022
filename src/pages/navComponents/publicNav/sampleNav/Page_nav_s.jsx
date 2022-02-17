@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 // import{setPage} from '../../../app/redux/actions/landingActions'
 
 // import {getPage} from '../../../app/helpers/locationHelper'
-import{backgroundBlue, bodyBlue, chitOrange, chitOrangeVeryLight, darkGrey, highlightGrey, lightGrey, shadowBlue, veryLightGrey} from '../../../../styles/colors'
+import{backgroundBlue, bodyBlue, chitBlueLight, chitOrange, chitOrangeVeryLight, chitSkyBlue, darkGrey, highlightGrey, lightGrey, shadowBlue, veryLightGrey} from '../../../../styles/colors'
 
 
 
@@ -67,7 +67,7 @@ const NavButton= styled('div')({
   paddingLeft: '10px',
   
   '&:hover': {
-    backgroundColor: veryLightGrey,
+    color: chitBlueLight,
     boxShadow: 'none',
  
   },
@@ -99,7 +99,7 @@ const NavButtonDisabled= styled('div')({
   fontWeight: '400',
   paddingRight: '10px',
   paddingLeft: '10px',
-  backgroundColor: veryLightGrey,
+  // backgroundColor: veryLightGrey,
 
   '& :hover': {
     backgroundColor: veryLightGrey,

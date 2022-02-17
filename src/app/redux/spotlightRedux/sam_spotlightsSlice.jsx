@@ -191,35 +191,35 @@ export const selectSpotlight = (state, id) => {
 
 }
 
-export const selectFilteredParentSpotlights = (state, status) => {
+export const selectFilteredParentSpotlights = (state, array) => {
   let spotlights = selectSpotlights(state)
   let filteredSpotlights = spotlights.filter(spotlight => spotlight.parentId === '') 
   return filteredSpotlights
 
 }
 
-export const selectFilteredInactiveSpotlights = (state, status) => {
+export const selectFilteredInactiveSpotlights = (state, array) => {
   let spotlights = selectSpotlights(state)
   let filteredSpotlights = spotlights.filter(spotlight => spotlight.spotlightStatus === 'inactive') 
   return filteredSpotlights
 
 }
 
-export const selectFilteredBegunSpotlights = (state, status) => {
+export const selectFilteredBegunSpotlights = (state, array) => {
   let spotlights = selectSpotlights(state)
   let filteredSpotlights = spotlights.filter(spotlight => spotlight.spotlightStatus === 'begun') 
   return filteredSpotlights
 
 }
 
-export const selectFilteredUnCompletedSpotlights = (state, status) => {
+export const selectFilteredUnCompletedSpotlights = (state, array) => {
   let spotlights = selectSpotlights(state)
   let filteredSpotlights = spotlights.filter(spotlight => spotlight.spotlightStatus !== 'completed') 
   return filteredSpotlights
 
 }
 
-export const selectFilteredCompletedSpotlights = (state, status) => {
+export const selectFilteredCompletedSpotlights = (state, array) => {
   let spotlights = selectSpotlights(state)
   let filteredSpotlights = spotlights.filter(spotlight => spotlight.spotlightStatus === 'completed') 
   return filteredSpotlights

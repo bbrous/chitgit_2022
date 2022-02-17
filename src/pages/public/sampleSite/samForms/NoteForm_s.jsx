@@ -54,7 +54,11 @@ import { updateSpotlightNoteId } from '../../../../app/redux/spotlightRedux/sam_
 import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice';
 
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
-import { selectCategories, addCategoryHolder } from '../../../../app/redux/categoryRedux/sam_categorySlice';
+import { 
+        selectCategories, 
+        addCategoryHolder,
+        deleteCategoryHolder
+      } from '../../../../app/redux/categoryRedux/sam_categorySlice';
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { 
@@ -418,20 +422,27 @@ export default function NoteForm_s(props) {
         let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
 
         // --- test if default category (noteCategory) === '' or ==== 'something'
-        //                 if === '' do nothing -  procede to add new category
-        //                 if === 'something'  first delete note ID from 'something'
+        //                 if === '' - do nothing -  procede to add new category
+        //                 if === 'something' - first delete note ID from 'something'
  
         if(noteCategory !== ''){
 
           console.log('[ NoteForm  ****DELETE  noteCategory *******] ', noteCategory);
 
 
+          let categoryToBeDeleted = noteCategory
+
+          let categoryToBeDeletedData = {
+            category : categoryToBeDeleted,
+            categoryHolder: id,
+            id: noteId
+          }
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
 
-
+await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
 
 
 

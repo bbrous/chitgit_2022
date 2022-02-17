@@ -59,7 +59,7 @@ import SpotlightNav from '../../navComponents/publicNav/sampleNav/sideBarNav/Spo
 
 // import NoteNav from '../../navComponents/publicNav/sampleNav/sideBarNav/NoteNav_s'
 import LogNav from '../../navComponents/publicNav/sampleNav/sideBarNav/LogNav_s'
-
+import ChronNav from '../../navComponents/publicNav/sampleNav/sideBarNav/ChronNav_s'
 import Modal from './samComponents/Modal_s.jsx'
 
 // -------Material UI 
@@ -407,7 +407,7 @@ function Main_s(props) {
 
             {page === 'spotlights' && <SpotlightNav />}
             {page === 'logs' &&  <LogNav/>  }
-
+            {page === 'chronicles' &&  <ChronNav/>  }
 
           </SidePanelWrapper>
 

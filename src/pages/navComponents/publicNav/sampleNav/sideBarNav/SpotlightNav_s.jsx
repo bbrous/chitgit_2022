@@ -61,11 +61,11 @@ const Wrapper= styled('div')({
 const FilterWrapper= styled('div')({
 
   display: 'flex',
-  flexDirection: 'space-between',
-  justifyContent: 'center',
-  alignItems: 'flex-end',
-
-  height: '1.6rem',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  marginBottom: '16px',
+  // height: '1.6rem',
   width: '100%',
   borderRadius: '0',
   margin: '7px 0 0 0',

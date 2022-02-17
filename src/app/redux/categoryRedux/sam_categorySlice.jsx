@@ -61,11 +61,28 @@ export const categoriesSlice = createSlice({
 
     let categoryIndex = state.findIndex(index => index.id === categoryId)
 
-    console.log('[ sam_categorySlice ] categoryIndex ', categoryIndex)   
+    console.log('[ sam_categorySlice >>>>>>>] categoryIndex ', state[categoryIndex].categoryHolders)   
     
     state[categoryIndex].categoryHolders.push(newCategoryHolder)
    
   }, // end addCategoryHolder
+
+
+  deleteCategoryHolder: (state, action) => {
+
+
+    let category = action.payload.category
+    let categoryHolder = action.payload.categoryHolder
+ 
+ 
+
+    let categoryIndex = state.findIndex(index => index.category === category)
+
+  
+
+    state[categoryIndex].categoryHolders = state[categoryIndex].categoryHolders.filter(item => item.id !== categoryHolder)
+
+  }, // end deleteCategoryHolder
 
 }
 
@@ -77,7 +94,8 @@ export const categoriesSlice = createSlice({
 export const { 
   addCategoryToStore, 
   updateEditedCategory,
-  addCategoryHolder 
+  addCategoryHolder,
+  deleteCategoryHolder 
 
 } = categoriesSlice.actions
 

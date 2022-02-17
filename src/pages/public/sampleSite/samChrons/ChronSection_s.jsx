@@ -1,7 +1,7 @@
-/* function Log(props) -------------------
-       parent: ./LogMain
+/* function Chron(props) -------------------
+       parent: ./ChronMain
 
-  Holds Logs, Section Form and sections ... includes  
+  Holds Chrons, Section Form and sections ... includes  
   (a) info icon - to get help
   (a) Header - to get help
    
@@ -18,10 +18,10 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
-import{ selectLogs
-  // selectSpotlightTaskArray
+// import{ selectChrons
+//   // selectSpotlightTaskArray
   
-} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
+// } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  
@@ -29,10 +29,10 @@ import ChitIcon from '../samComponents/Chit_icon_s'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
-import LockClockIcon from '@mui/icons-material/LockClock';
+ 
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
- 
+import ConvertIcon from '@mui/icons-material/Cached';
 import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -198,50 +198,8 @@ const ContentWrapper= styled(Paper)({
 })
 
 
-const MetaWrapper= styled('div')({
- 
-  display: 'flex',
- 
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
-  fontSize: '.75rem',
-  width: '30%',
-  minHeight: '100%',
- 
-  padding: '6px',
-  backgroundColor: veryLightGrey,
-
- 
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
 
 
-})
-
-// Date Times 
-const TimesWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-
-  width: '100%',
-  padding: '2px 6px',
-
-  fontSize: '.65rem',
-  color: mediumGrey,
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
 
 const HeadlineWrapper= styled('div')({
 
@@ -305,7 +263,7 @@ const StyledEditIcon= styled(EditIcon)({
   },
 })
 
-const StyledLockClockIcon= styled(LockClockIcon)({
+const StyledConvertIcon= styled(ConvertIcon)({
   backgroundColor: 'white',
   borderRadius: '5px',
   fontSize: '1.1rem',
@@ -350,27 +308,6 @@ const StyledDeleteIcon= styled(DeleteIcon)({
 })
 
 
-const StyledAttachmentIcon= styled(AttachmentIcon)({
-  backgroundColor: 'white',
-  borderRadius: '5px',
-  fontSize: '.95rem',
-  color: chitOrange,
-  margin: '0 .5rem .3rem .5rem',
-  cursor: 'pointer',
-  transform: 'rotate(90deg)' ,
-
-
-  '&:hover': {
-    color: mediumLightGrey
-    // backgroundColor: mediumLightGrey
-  },
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
 
 
 const LightTooltip = withStyles({
@@ -388,7 +325,7 @@ const LightTooltip = withStyles({
 
 //  =====================================================================
 
-export default function LogSection() {
+export default function ChronSection() {
   return (
     <MainWrapper>
       <TopWrapper>
@@ -400,14 +337,11 @@ export default function LogSection() {
           </LightTooltip>
 
           <ChitIcon />
-          <LightTooltip title='ChitGit timestamp' arrow>
-            <StyledLockClockIcon />
+          <LightTooltip title='Convert to Log' arrow>
+            <StyledConvertIcon />
           </LightTooltip>
 
-          <LightTooltip title='Attachment' arrow>
-            <StyledAttachmentIcon />
-          </LightTooltip>
-
+         
           <LightTooltip title='Delete' arrow>
             <StyledDeleteIcon />
           </LightTooltip>
@@ -421,15 +355,7 @@ export default function LogSection() {
       <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
 
-        <MetaWrapper>
-        <div> type: phone con (meeting, incident, thought, action, activity, other) </div>
-          <div>  rep: Karen Karen <br />  number: x98fy </div>
-          <TimesWrapper>
-            <div> timestamp:  none </div>
-            <div> last edit:  Feb 2, 2021 </div>
-            <div> created:  Feb 2, 2021 </div>
-          </TimesWrapper>
-        </MetaWrapper>
+
         
      
         <Content>
