@@ -56,6 +56,7 @@ import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
 import { 
         selectCategories, 
+        addCategoryToStore,
         addCategoryHolder,
         deleteCategoryHolder
       } from '../../../../app/redux/categoryRedux/sam_categorySlice';
@@ -207,7 +208,8 @@ const theme = createTheme(); // allows use of mui theme in styled component
   })
   
   const StyledButton= styled(Button)({
-    color: 'white'
+    color: 'white',
+    margin: '0 8px'
   
   })
 
@@ -421,11 +423,11 @@ export default function NoteForm_s(props) {
         let categoryId 
         let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
 
-        // --- test if default category (noteCategory) === '' or ==== 'something'
+        // (6b) test if default category (noteCategory) === '' or ==== 'something'
         //                 if === '' - do nothing -  procede to add new category
         //                 if === 'something' - first delete note ID from 'something'
  
-        if(noteCategory !== ''){
+        if (noteCategory !== '') {
 
           console.log('[ NoteForm  ****DELETE  noteCategory *******] ', noteCategory);
 
@@ -433,28 +435,21 @@ export default function NoteForm_s(props) {
           let categoryToBeDeleted = noteCategory
 
           let categoryToBeDeletedData = {
-            category : categoryToBeDeleted,
+            category: categoryToBeDeleted,
             categoryHolder: id,
             id: noteId
           }
 
-
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@   CREATE DELETE SLICE   HERE     @@@@@@@@@@@@
-
-await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
+          await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
 
 
-
-
- 
-        }
+        } // end if neoteCategoryy !== ''
 
 
 
 
 
-          // --- category from form already exists ---------------------------------
+          // (6c) category from form already exists ------------------------
 
           if(categoryExists) { 
             let updatedCategoryData = {
@@ -486,17 +481,9 @@ await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
 
             } // end newCategoryData
 
+            await dispatch(addCategoryToStore(newCategoryData))
 
-            
-            // await dispatch(addCategoryHolder(newCategoryData))
-
-
-
-
-
-
-
-          } // end if categoryExists
+          } // end if !categoryExists
 
     } // end hasCategoryChanged---------------------------------------
     
@@ -540,7 +527,7 @@ await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
    
     {/* --- Form -------------------------- */}
     <FormProvider {...methods}>
-      <FormWrapper onSubmit={handleSubmit(submitForm)}>
+      <FormWrapper onSubmit={handleSubmit(submitForm) } >
 
           {/* ------select Creatable (categories) -------------------------- */}
 
@@ -627,6 +614,17 @@ await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
             >
             Submit
           </StyledButton>
+
+          <StyledButton 
+             
+            variant="contained" 
+            color="primary"
+            style={{textTransform: 'none'}}
+            onClick = {()=>dispatch(closeModal())}
+            >
+            Cancel
+          </StyledButton> 
+
         </ButtonWrapper>
       </FormWrapper>
 

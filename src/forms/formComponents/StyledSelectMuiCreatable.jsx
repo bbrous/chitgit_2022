@@ -28,6 +28,7 @@ import Stack from '@mui/material/Stack';
 
 import { styled, createTheme} from "@mui/material/styles"
 import {makeStyles} from '@mui/styles'
+import { chitBlueDull } from "../../styles/colors";
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
@@ -63,7 +64,7 @@ const StyledWrapper= styled(Autocomplete)({
 },
 
 '& 	.MuiAutocomplete-clearIndicator': {
-  color: 'blue'
+  color: chitBlueDull
  
 
 },
@@ -144,15 +145,17 @@ export const StyledSelectMuiCreatable =({ name, control, label, type, defaultVal
 
 <StyledWrapper
  selectOnFocus
- value = {defaultValue}
+ value = {value}
  autoSelect
+ 
         freeSolo
-        id="free-solo-2-demo"
-        disableClearable
+        id="mui_autocomplete_creatable"
+        // disableClearable
         options={options.map((option) => option)}
         renderInput={(params) => (
           <StyledTextBox
             {...params}
+            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
             placeholder="select or type new category"
             InputProps={{
               ...params.InputProps,

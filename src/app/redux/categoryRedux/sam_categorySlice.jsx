@@ -12,7 +12,7 @@ export const categoriesSlice = createSlice({
 
       let categoryId = action.payload.categoryId
       let category = action.payload.category
-      let categoryHolder = action.payload.categoryHolder
+      let categoryHolder = action.payload.categoryHolders
       let dbCollection = action.payload.dbCollection
       let newCategoryHolder = {dbCollection: dbCollection, id: categoryHolder}
 
