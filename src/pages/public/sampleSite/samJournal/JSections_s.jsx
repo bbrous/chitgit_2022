@@ -1,11 +1,11 @@
-/* function Chron(props) -------------------
+/* function Jsections(props) -------------------
 
-    maps the Chron sections for a specified Chron
+    maps the journal sections  
 
 
-  Children: ./ChronSection
+  Children: ./JSection
  
-    parent: ./ChronMain
+    parent: ./JMain
 ------------------------------------*/
 
 
@@ -15,12 +15,8 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
 
-// import{ selectChrons
-//   // selectSpotlightTaskArray
-  
-// } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
 
-import ChronSection from './ChronSection_s'
+import JSection from './JSection_s'
  
 //  ---- Material Ui ------------------
  
@@ -49,15 +45,15 @@ overflow: 'auto',
 
 })
 
-export default function Chron() {
+export default function JSections() {
   return (
     <Wrapper>
 
-        <ChronSection/>
-        <ChronSection/>
-        <ChronSection/>
-        <ChronSection/>
-        <ChronSection/>
+        <JSection/>
+        <JSection/>
+        <JSection/>
+        <JSection/>
+        <JSection/>
     </Wrapper>
   )
 }

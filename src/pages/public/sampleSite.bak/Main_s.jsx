@@ -43,7 +43,7 @@ import New from './samComponents/New_s'
 import Chits from './samChits/Chits_s'
 
 import Notes from './samNotes/Notes_s'
-import Chrons from './samChrons/Chrons_s'
+import Journal from './samJournal/Journal_s'
 import Logs from './samLogs/Logs_s'
 import Inspire from './samInspires/Inspires_s'
 import Spotlights from './samSpots/Spotlights_s'
@@ -326,7 +326,7 @@ function Main_s(props) {
     if (page === 'chits') { background = chitDullYellow }
 
     if (page === 'logs') { background = chitLightPink }
-    if (page === 'chronicles') { background = chitLightGreen }
+    if (page === 'journal') { background = chitLightGreen }
     if (page === 'notes') { background = chitLightBlueDull }
     if (page === 'inspire') { background = chitLightLavendar }
 
@@ -412,8 +412,8 @@ function Main_s(props) {
               <Notes />
             }
 
-            {page === 'chronicles' &&
-              <Chrons />
+            {page === 'journal' &&
+              <Journal/>
             }
 
             {page === 'logs' &&

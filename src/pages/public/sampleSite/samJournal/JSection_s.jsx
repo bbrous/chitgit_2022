@@ -1,7 +1,7 @@
-/* function Chron(props) -------------------
-       parent: ./ChronMain
+/* function JSection(props) -------------------
+       parent: ./JournalMain
 
-  Holds Chrons, Section Form and sections ... includes  
+  Holds  Section Form and sections ... includes  
   (a) info icon - to get help
   (a) Header - to get help
    
@@ -18,10 +18,10 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
-// import{ selectChrons
+// import{ selectJSections
 //   // selectSpotlightTaskArray
   
-// } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
+// } from '../../../../app/redux/journalRedux/sam_selectors_Journal'
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  
@@ -325,7 +325,7 @@ const LightTooltip = withStyles({
 
 //  =====================================================================
 
-export default function ChronSection() {
+export default function JSection() {
   return (
     <MainWrapper>
       <TopWrapper>

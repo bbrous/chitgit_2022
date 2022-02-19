@@ -1,7 +1,7 @@
-/* function ChronMain(props) -------------------
+/* function JournalMain(props) -------------------
        parent: sampleSite/Plans_s
 
-  Holds Chrons, Section Form and sections ... includes  
+  Holds Journal sections, Section Form and sections ... includes  
   (a) info icon - to get help
   (a) Header - to get help
    
@@ -18,13 +18,10 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
 
-// import{ selectChrons
-//   // selectSpotlightTaskArray
-  
-// } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
 
-import Chron from './Chron_s'
-// import ChronEntryForm from '../samForms/ChronEntryForm_s'
+
+import JSections from './JSections_s'
+// import JournalEntryForm from '../samForms/JournalEntryForm_s'
 
 import SliderComponent from '../../../../common_components/SliderComponent'
 //  ---- Material Ui ------------------
@@ -275,7 +272,7 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 
 // ===========================================
 
-function ChronMain(props) {
+function JournalMain(props) {
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {
@@ -300,13 +297,13 @@ function ChronMain(props) {
       <Container>
 
       <NewWrapper> add  section <AddCircleIconWrapper/> </NewWrapper>
-        {/* <FormContainer>  <ChronEntryForm />  </FormContainer> */}
-        <FormContainer>  ChronEntryFormHere  </FormContainer>
+        {/* <FormContainer>  <JournalEntryForm />  </FormContainer> */}
+        <FormContainer>  EntryFormHere  </FormContainer>
        
         <SectionsContainer>
           <SectionWrapper>
 
-             <Chron/> 
+             <JSections/> 
           </SectionWrapper>
 
         </SectionsContainer>
@@ -319,4 +316,4 @@ function ChronMain(props) {
   )
 }
 
-export default  ChronMain
+export default  JournalMain

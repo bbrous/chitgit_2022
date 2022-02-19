@@ -1,8 +1,8 @@
-/* function Chrons(props) -------------------
+/* function Journal(props) -------------------
   Chooses Plan display options
-  a) if no chrons --  message 1
-  b) if chrons but no detailId  in route --  message 2
-  c) if  chrons AND detailId  in route--  show Plan page
+  a) if no Jsection --  message 1
+  b) if Jsection but no detailId  in route --  message 2
+  c) if  Jsection AND detailId  in route--  show Plan page
 
 ------------------------------------*/
 
@@ -11,9 +11,9 @@ import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-// import{ selectChrons } from '../../../../app/redux/chronRedux/X_sam_selectors_Chrons'
+// import{ selectJurnal } from '../../../../app/redux/journalRedux/X_sam_selectors_Journal'
 
-import ChronMain from './ChronMain_s'
+import JournalMain from './JournalMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
 
@@ -68,19 +68,19 @@ const NoneMessage= styled('div')({
 
 
 // ====================================
-function Chrons(props) {
+function Journal(props) {
 
   let match = useParams()
   let navigate = useNavigate()
 
-  const ChronPage = match.pageView
-  const ChronId = match.id
+  const JournalPage = match.pageView
+  const JournalId = match.id
   // const displayPopoverModalMessage = status.initialMessage.spotlights
 
 // ###########  TEMP  ############## 
-let chronsArray = [1]
+let jSectionsArray = [1]
 let chronId = 'spectrum'
-let chronSectionId = ''
+let jSectionId = ''
 let displayPopoverModalMessage = false
  
 
@@ -88,29 +88,20 @@ let displayPopoverModalMessage = false
     <Wrapper>
 
 {displayPopoverModalMessage &&
-        <PopoverModal pageType={ChronPage} />
+        <PopoverModal pageType={JournalPage} />
 
       }
 
-      {chronsArray.length === 0 &&
+      {jSectionsArray.length === 0 &&
         <NoneMessage>
-          <div>You have no active or completed chrons</div>
-          <div>Create a new chron</div>
-        </NoneMessage>
-
-      }
-
-      {chronsArray.length > 0 && !chronId &&
-        <NoneMessage>
-          <div>Choose a chron to be displayed</div>
-          <div>or</div>
-          <div>Create a new chron</div>
+          <div>You have no active or completed journal sections</div>
+          <div>Create a new journal section</div>
         </NoneMessage>
 
       }
 
 
-      {chronId && chronsArray.length > 0 && <ChronMain />}
+      {jSectionsArray.length > 0 && <JournalMain />}
 
 
 
@@ -121,4 +112,4 @@ let displayPopoverModalMessage = false
 
 
 
-export default  Chrons
+export default  Journal

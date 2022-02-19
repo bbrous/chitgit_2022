@@ -78,8 +78,8 @@ function MainPage_NavButtons_s(props) {
             <NavButton> Notes </NavButton>
       </StyledLink>
  
-      <StyledLink to="/sample/chronicles" >
-            <NavButton> Chronicles </NavButton>
+      <StyledLink to="/sample/journal" >
+            <NavButton> Journal </NavButton>
       </StyledLink>
 
       <StyledLink to="/sample/logs" >

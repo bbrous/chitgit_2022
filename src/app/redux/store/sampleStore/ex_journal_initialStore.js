@@ -1,7 +1,7 @@
 // Samp Spotlights
 
 
-const SampleLogs =  [
+const SampleJournal =  [
 
 
   // Begin log_1 ------------------------- >>
@@ -25,4 +25,4 @@ const SampleLogs =  [
     }
 ]// end SampleLogs
 
-export default SampleLogs
+export default SampleJournal

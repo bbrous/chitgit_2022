@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectChrons } from '../../../../app/redux/chronRedux/sam_selectors_Chrons'
+import{ selectChrons } from '../../../../app/redux/journalRedux/sam_selectors_Journal'
 
 import ChronMain from './ChronMain_s'
 

@@ -21,7 +21,7 @@ import{chitOrange, chitLightPink, veryLightGrey} from '../../../../styles/colors
 import{ selectChrons
   // selectSpotlightTaskArray
   
-} from '../../../../app/redux/chronRedux/sam_selectors_Chrons'
+} from '../../../../app/redux/journalRedux/sam_selectors_Journal'
 
 import Chron from './Chron_s'
 

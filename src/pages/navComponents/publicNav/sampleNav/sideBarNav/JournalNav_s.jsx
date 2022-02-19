@@ -169,7 +169,7 @@ const CheckBoxLabel= styled('div')({
 
 // =========================================
 
-function ChronNav() {
+function JournalNav() {
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   
@@ -279,4 +279,4 @@ function ChronNav() {
   )
 }
 
-export default ChronNav
+export default JournalNav

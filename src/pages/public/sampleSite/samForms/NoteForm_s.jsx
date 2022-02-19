@@ -332,7 +332,7 @@ export default function NoteForm_s(props) {
     // (4 a, b) --- clean the form data  - strip of white space, capitalize
     let cleanCategory = cleanOptions(newNoteCategory, 'categories')
 
-    console.log('[ NoteForm ] passedKeyWordArray ', passedKeyWordArray);
+    // console.log('[ NoteForm ] passedKeyWordArray ', passedKeyWordArray);
     let cleanKeywordArray =  []
 
     passedKeyWordArray.map((keyword, index) => {
@@ -416,12 +416,16 @@ export default function NoteForm_s(props) {
     //      if no - do nothing                               ------------------------
 
       let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
-      
+
+
       if(hasCategoryChanged) {
 
             
         let categoryId 
         let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+
+        console.log('[ NoteForm  **** Does category *******] ', categoryExists);
+      
 
         // (6b) test if default category (noteCategory) === '' or ==== 'something'
         //                 if === '' - do nothing -  procede to add new category
@@ -429,7 +433,7 @@ export default function NoteForm_s(props) {
  
         if (noteCategory !== '') {
 
-          console.log('[ NoteForm  ****DELETE  noteCategory *******] ', noteCategory);
+          
 
 
           let categoryToBeDeleted = noteCategory
@@ -477,7 +481,8 @@ export default function NoteForm_s(props) {
             let newCategoryData = {
               id: categoryId,
               category: cleanCategory,
-              categoryHolders: [{ dbCollection: 'notes', id }]
+              dbCollection: 'notes',
+              categoryHolder:  id 
 
             } // end newCategoryData
 
