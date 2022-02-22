@@ -123,12 +123,14 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
     <Controller
       name={name}
       control={control}
+      
       render={({
         field: { onChange, value },
         fieldState: { error },
         formState,
       }) => (
         <Controller
+        
           render={({ field }) => (
             
             
@@ -144,7 +146,7 @@ export const StyledAutocomplete = ({ name, control, label, type, defaultValue, o
           multiple
           id="tags-filled"
           options={optionDescendSorter(options)}
-          defaultValue={defaultValue}
+          value = {value}
           freeSolo
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (

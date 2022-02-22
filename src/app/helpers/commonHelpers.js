@@ -121,8 +121,6 @@ export function descendSorter(arrayOfObjects, objectParameter){
   // console.log('[ COMMON HELPERS checkIfWordExists] dbCollection ', dbCollection);
   
 
-
-
   if(collection === 'categories'){
 
   wordExists = array.find( ({ category }) => category === word );
@@ -136,3 +134,44 @@ export function descendSorter(arrayOfObjects, objectParameter){
 
 
  }// end function checkIfWordExists
+
+
+ /* --- func isArrayDifferent -------------
+  @desc - compares 2 arrays and outputs what of array1 is not
+          in array2
+  
+   @params array1 items - type string, array2 items - type string
+   @return  array of strings - if empty array - the same
+          
+
+ ---------------------*/
+
+ export function isArrayDifferent(arrA, arrB) {
+
+  let difference = arrA
+                 .filter(x => !arrB.includes(x))
+                 .concat(arrB.filter(x => !arrA.includes(x)));
+
+  return difference
+
+
+ } // end findArrayDifference
+
+  /* --- func isArrayDifferent -------------
+  @desc - compares 2 arrays and outputs what of array1 is not
+          in array2
+  
+   @params array1 items - type string, array2 items - type string
+   @return  array of strings - if empty array - the same
+          
+
+ ---------------------*/
+
+ export function doesArrayIncludeItem(item, array) {
+
+  let included =  array.includes(item)
+
+  return included
+
+
+ } // end findArrayDifference

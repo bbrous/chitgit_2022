@@ -96,27 +96,36 @@ Handles create and updates for 3 collections
               c. check if category form data exists already or is new        x
               
               d. update category
-                 if existant category - add noteId to categoryHolders
+                 if existant category - add noteId to categoryHolders        x
                  if new category 
-                    - add new category to Category collection
-                      with noteId as first noteHolder in noteHolderArray
+                    - add new category to Category collection                x
+                      with noteId as first noteHolder in noteHolderArray     
 
         
 
       7. Update keyword collection
-          a. check if keyword form data submitted is
-            different from default
+          a. check if keyword form data submitted is                         x
+            different from default 
+         
+            if isArrayDifferent(default, form) = [] ...                      x
+               then arrays same  - do nothing
 
-            if new submitted keyword array the same as default
-               do nothing
-
-            if new submitted keyword array different from defualt
-               create array of new-different-keywords
+            if isArrayDifferent(default, form) = [...someItems] ...          x
                note:  These are the only keywords that have to be
                changed in database or store
 
-              b.  find out which new-differnt-keywords exist or are new
-                  next step is done with a map
+             b. map through different-keywords                               x
+
+                (1) determine if keyword was deleted from default            x
+                      or added to default
+
+                      if kw deleted from default ... delete note Id
+                          from kwHoldersArray 
+
+                      if kw added to default  - go to -(2)
+
+                (2)  find out which new-differnt-keywords exist or are new
+                   
 
                   - if new-differnt-keywords does NOT exist
                     c. add new-differnt-keyword  to keyword Collection with

@@ -25,7 +25,7 @@ export const categoriesSlice = createSlice({
 
 
       state.push(categoryObject)
-    },
+    },// end addCategoryToStore
 
 
 
@@ -84,7 +84,7 @@ export const categoriesSlice = createSlice({
 
   }, // end deleteCategoryHolder
 
-}
+} //----- end reducers
 
 }) // end slice categorysSlice 
 

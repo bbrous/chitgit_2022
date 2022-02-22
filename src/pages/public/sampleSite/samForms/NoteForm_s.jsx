@@ -26,7 +26,15 @@ import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
  
-import { optionDescendSorter } from '../../../../app/helpers/commonHelpers'
+import { 
+
+        checkIfWordExists, 
+        cleanOptions ,
+        optionDescendSorter,
+        isArrayDifferent,
+        doesArrayIncludeItem
+
+      } from '../../../../app/helpers/commonHelpers'
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -53,19 +61,23 @@ import {
 import { updateSpotlightNoteId } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice';
 import { updateTaskNoteId } from '../../../../app/redux/taskRedux/sam_tasksSlice';
 
-import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
+import {
+       selectKeywords,
+       addKeywordToStore, 
+       addKeywordHolder,
+       deleteKeywordHolder
+      } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
 import { 
         selectCategories, 
         addCategoryToStore,
         addCategoryHolder,
         deleteCategoryHolder
       } from '../../../../app/redux/categoryRedux/sam_categorySlice';
+
+
  import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import { 
-    stripWhiteSpace, 
-    checkIfWordExists, 
-    cleanOptions } from '../../../../app/helpers/commonHelpers';
+
 
 // --- Form component imports ---------
 
@@ -273,13 +285,13 @@ export default function NoteForm_s(props) {
 
       keywordsArray.map((keyword, index) => {
         // code 
-        keywordOption = keyword.kw
+        keywordOption = keyword.keyword
         keywordsOptionsArray.push(keywordOption)
 
         return keywordsOptionsArray
       }) //end map
 
-    // --- create options array for Autocomplete multi-selector 
+    // --- create options array for StledSelectMuiCreatable (category options)
 
       let categoryOptionsArray = categoriesArray.map(category => category.category);
       let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
@@ -288,7 +300,7 @@ export default function NoteForm_s(props) {
   
   // (3) ----create default paramters if note exists ---------------------
 
-    let defaultValues, headerMessage, id, note, noteHolderType, formNoteHolderId, noteContent,  noteKeywordArray,    defaultOptions, noteCategory
+    let defaultValues, headerMessage, id, note, noteHolderType, formNoteHolderId, noteContent,  noteKeywordArray,    defaultKeywordOptions, noteCategory
 
   
     let noteId = props.params.id
@@ -297,7 +309,7 @@ export default function NoteForm_s(props) {
     !noteId ? note =  {} : note =  selectNoteFromArray(noteArray, noteId)
 
     !noteId ? noteContent = ''  : noteContent = note.noteContent
-    !noteId ? defaultOptions = []  : defaultOptions = note.noteKeywordArray
+    !noteId ? defaultKeywordOptions = []  : defaultKeywordOptions = note.noteKeywordArray
     !noteId ? noteHolderType = noteHolderCollection  : noteHolderType = note.noteHolderType
     !noteId ? noteCategory = ''  : noteCategory = note.noteCategory
     
@@ -305,7 +317,7 @@ export default function NoteForm_s(props) {
     
       defaultValues = {
       noteContent: noteContent,
-      keywords: defaultOptions,
+      keywords: defaultKeywordOptions,
       categories: noteCategory
 
     };
@@ -318,8 +330,24 @@ export default function NoteForm_s(props) {
   const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
 
   const submitForm = async (data) => {
+
+    
     console.log('[Dispatch_Form]...data ', data)
 
+
+
+
+
+    
+      // let a = async()=>{console.log('hi')
+      // dispatch(addNoteToStore('hi'))
+      // }
+      // await a()
+ 
+
+
+
+      
 
 
   // (4) --- retrieve data from form ---------------------------
@@ -491,15 +519,109 @@ export default function NoteForm_s(props) {
           } // end if !categoryExists
 
     } // end hasCategoryChanged---------------------------------------
+
+ 
     
+    // 7. update keywords  ------------------------------------------
+    
+    let defaultKeywordArray = defaultKeywordOptions
+    let formKeywordArray   = data.keywords
+
+  // a. check if keyword form data submitted is different from default 
+
+    let kewwordArrayDifference = await  isArrayDifferent(defaultKeywordArray, formKeywordArray)
+
+    // --- only update keywords if keywordArrayDifference === [... someItems] ---
+  
+    if(kewwordArrayDifference.length > 0) {
+
+      
+
+      // map each keyword in the keyword difference array
+
+      kewwordArrayDifference.map((item, index) => {
+
+        //  7a. check if each keyword form data submitted is  different from default 
+
+        let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+
+
+        if(arrayItemInludedInDefault) {  // then it was deleted
+
+          // delete noteId from keyword item
+
+          console.log('[Dispatch_Form]...... arrayItemInluded ...... DELETE noteId ')
+          console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
+          console.log('[Dispatch_Form].----------------------------------------' )
+
+           
+
+          let keywordHolderToBeDeleted = {
+            keyword: item,
+            keywordHolder: id,
+            id: noteId
+          }
+
+
+
+
+
+// XXXXXXXXXXXXX  problem here - ASYNC  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
+
+
+            // ASYNC dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+
+
+
+
+// XXXXXXXXXXXXX  problem here XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
+        }  // end if arrayItemInludedInDefault
+
+        if(!arrayItemInludedInDefault) {  // then it was added
+
+          // delete noteId from keyword item
+
+          console.log('[Dispatch_Form]...... arrayItemInluded ...... DECIDE -- ADD new KEYWORD or Update KEYWORD HOLDER')
+          console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
+          console.log('[Dispatch_Form].----------------------------------------' )
+
+          // if NOT new = update
+
+
+
+          // if new
+          //    // (4 a, b) --- clean the form data  - strip of white space, capitalize
+          // let cleanKeyword = cleanOptions(newNoteKeyword, 'keywords')
+
+
+                    //
+                    //
+                    //
+                    //
+
+        }  // end if arrayItemInludedInDefault
+
+       }
+       ) // end map kewwordArrayDifference
+
+
+
+
+
     
 
+      
 
 
-
-
-
-      // --- update keywords 
+      
+    } // end if kewwordArrayDifference --- 
       
       dispatch(changeLoadingStatus(false))
       reset()

@@ -70,26 +70,32 @@ function MainPage_NavButtons_s(props) {
 
   return (
     <>
-      <StyledLink to="/sample/chits" >
-            <NavButton> Chits </NavButton>
-      </StyledLink>
 
-      <StyledLink to="/sample/notes" >
-            <NavButton> Notes </NavButton>
-      </StyledLink>
- 
-      <StyledLink to="/sample/journal" >
-            <NavButton> Journal </NavButton>
+  
+      <StyledLink to="/sample/chits" >
+        <NavButton> Chits </NavButton>
       </StyledLink>
 
       <StyledLink to="/sample/logs" >
-            <NavButton> Logs </NavButton>
+        <NavButton> Logs </NavButton>
       </StyledLink>
 
-      <StyledLink to="/sample/spotlights" >
-            <NavButton> Spotlights </NavButton>
+
+      <StyledLink to="/sample/journal" >
+        <NavButton> Journal </NavButton>
       </StyledLink>
- 
+
+
+
+      <StyledLink to="/sample/notes" >
+        <NavButton> Notes </NavButton>
+      </StyledLink>
+
+
+
+      <StyledLink to="/sample/spotlights" >
+        <NavButton> Spotlights </NavButton>
+      </StyledLink>
 
     </>
   )

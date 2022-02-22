@@ -9,43 +9,79 @@ export const keywordsSlice = createSlice({
   reducers: {
     addKeywordToStore: (state, action) => {
   
-      let keyword  = action.payload
+      let keywordId = action.payload.id
+      let keyword = action.payload.keyword
+      let keywordHolder = action.payload.keywordHolder
+      let dbCollection = action.payload.dbCollection
+      let newKeywordHolder = {dbCollection: dbCollection, id: keywordHolder}
+
+      let keywordObject = {
+        id: keywordId,
+        keyword: keyword,
+        keywordHolders: [newKeywordHolder]
+      }
 
 
-      state.push(keyword)
-    },
 
-  }, //end reducers
-
-  updateEditedKeyword: (state, action) => {
+      state.push(keywordObject)
+    }, // end addKeywordToStore
 
 
-    let keywordId = action.payload.id
-    let newkeyword = action.payload.keyword
-    
-    
+    updateEditedKeyword: (state, action) => {
 
-    let keywordIndex = state.findIndex(index => index.id === keywordId)
-    
-    state[keywordIndex].keyword  = newkeyword
+
+      let keywordId = action.payload.id
+      let newKeyword = action.payload.keyword
+      
+      
+  
+      let keywordIndex = state.findIndex(index => index.id === keywordId)
+      
+      state[keywordIndex].keyword  = newKeyword
+     
+  
+  
+    }, // end updateEditedKeyword
+
+    addKeywordHolder: (state, action) => {
+
+
+      let keywordId = action.payload.keywordId
+      let keywordHolder = action.payload.keywordHolder
+      let dbCollection = action.payload.dbCollection
+      let newKeywordHolder = {dbCollection: dbCollection, id: keywordHolder}
+
+  
+  
+      let keywordIndex = state.findIndex(index => index.id === keywordId)
+  
+       
+      state[keywordIndex].keywordHolders.push(newKeywordHolder)
+     
+    }, // end addKeywordHolder
+
+
+    deleteKeywordHolder: (state, action) => {
+
+
+      let keyword = action.payload.keyword
+      let keywordHolder = action.payload.keywordHolder
    
-
-
-  }, // end updateEditedkeyword
-
-  addKeywordHolder: (state, action) => {
-
-
-    let keywordId = action.payload.id
-    let newkeywordHolder = action.payload.keyword
-    
-    
-
-    let keywordIndex = state.findIndex(index => index.id === keywordId)
-    
-    state[keywordIndex].keywordHolders.push(newkeywordHolder)
    
-  }, // end addkeywordHolder
+  
+      let keywordIndex = state.findIndex(index => index.keyword === keyword)
+  
+    
+  
+      state[keywordIndex].keywordHolders = state[keywordIndex].keywordHolders.filter(item => item.id !== keywordHolder)
+  
+    }, // end deleteKeywordHolder
+
+
+
+
+
+  }, //----- end reducers
  
 
 }) // end slice keywordsSlice 
@@ -56,7 +92,8 @@ export const keywordsSlice = createSlice({
 export const { 
   addKeywordToStore, 
   updateEditedKeyword,
-  addKeywordHolder
+  addKeywordHolder,
+  deleteKeywordHolder
 
 } = keywordsSlice.actions
 
