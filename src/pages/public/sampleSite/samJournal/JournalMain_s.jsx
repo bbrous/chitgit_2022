@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey} from '../../../../styles/colors'
 
 
 
@@ -46,7 +46,7 @@ const MainWrapper= styled('div')({
   width: '100%',
   height: '100%',
 
-
+overflow: 'auto',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -56,16 +56,142 @@ const MainWrapper= styled('div')({
 
 const TopWrapper = styled('div')({
   display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+// backgroundColor: 'red',
+  width: '100%',
+  // height: '3rem',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const FilterWrapper = styled('div')({
+   position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+  height: '2rem',
+  color: darkGrey,
+  fontSize: '.8rem',
+backgroundColor: 'yellow',
+ marginBottom: '1rem',
+  // height: '3rem',
+  marginTop: '6px',
+  
+overflow: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+const FilterHeader = styled('div')({
+ position: 'relative',
+  color: chitAquaBlue,
+  fontWeight: 'bold',
+  fontSize: '.85rem',
+  minWidth: '4rem',
+
+
+  
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+const CategoryWrapper = styled('div')({
+  position: 'relative' ,
+  display: 'flex',
+  minWidth: '25%',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  marginRight: '1.5rem',
+  // backgroundColor: 'orange',
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const KeywordWrapper = styled('div')({
+  position: 'relative' ,
+  display: 'flex',
+  maxWidth: '50%',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  marginRight: '1.5rem',
+  // backgroundColor: 'orange',
+
+ overflow: 'hidden',
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const FilterLabel = styled('span')({
+ minWidth: '5rem',
+ color: headerGrey,
+ fontWeight: 'bold',
+})
+
+const Filter = styled('span')({
+
+/* 
+only works with Display: block not flex
+*/
+
+position: 'relative' ,
+  display: 'block',
+  overflow: 'hidden',
+      
+  minWidth: 0,
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+const SliderWrapper = styled('div')({
+  display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   
 // backgroundColor: 'yellow',
   width: '100%',
-  height: '3rem',
- 
-  // minHeight: '10rem',
-  // height: '90%',
+  
+ marginTop: '16px',
 
   
   // overflowY: 'hidden',
@@ -77,40 +203,16 @@ const TopWrapper = styled('div')({
 
 })
 
-const LeftTopWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  paddingLeft: '1%',
-  color: backgroundBlue,
-  fontSize: '1.2rem',
-// backgroundColor: 'yellow',
-  width: '33%',
-  height: '3rem',
- 
-  // minHeight: '10rem',
-  // height: '90%',
-
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const RightTopWrapper = styled('div')({
+const NewWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
   
-// backgroundColor: 'yellow',
-  width: '33%',
-  height: '3rem',
+// backgroundColor: 'grey',
+  width: '99%',
+  
+  paddingLeft: '2px',
  
   // minHeight: '10rem',
   // height: '90%',
@@ -123,8 +225,9 @@ const RightTopWrapper = styled('div')({
 
   },
 
-})
+ 
 
+})
 const Container= styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
@@ -137,7 +240,7 @@ const Container= styled(Paper)({
 
   // minHeight: '10rem',
   // height: '90%',
-  margin: '0 0 5% 0',
+  margin: '6px 0 5% 0',
 
   // overflowY: 'hidden',
 
@@ -204,31 +307,7 @@ const SectionsContainer = styled('div')({
 
 })
 
-const NewWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-// backgroundColor: 'yellow',
-  width: '99%',
-  height: '3rem',
-  paddingLeft: '2px',
- 
-  // minHeight: '10rem',
-  // height: '90%',
 
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
- 
-
-})
 
 const SectionWrapper = styled('div')({
   display: 'flex',
@@ -282,21 +361,40 @@ function JournalMain(props) {
 
   return (
     <MainWrapper>
-      <TopWrapper>
 
-        <LeftTopWrapper>Cybill</LeftTopWrapper>
-        <SliderComponent
-          handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='oldest first'
-          rightLabel='latest first'
-        />
-        
-        <RightTopWrapper></RightTopWrapper>
-        </TopWrapper>
 
       <Container>
+        <TopWrapper>
+          <SliderWrapper>
+            <SliderComponent
+              handleSwitchState={handleSwitchState} //gets new state from child switch
+              leftLabel='oldest first'
+              rightLabel='latest first'
+            />
+          </SliderWrapper>
 
-      <NewWrapper> add  section <AddCircleIconWrapper/> </NewWrapper>
+
+
+          <FilterWrapper>
+            <FilterHeader>Filters</FilterHeader>
+
+            <CategoryWrapper>
+
+              <FilterLabel>Category :  </FilterLabel>
+              <Filter>Work</Filter>
+            </CategoryWrapper>
+
+            <KeywordWrapper>
+              <FilterLabel>Keywords :  </FilterLabel>
+              <Filter>deck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projects</Filter>
+            </KeywordWrapper>
+
+          </FilterWrapper>
+
+
+
+        </TopWrapper>
+     
         {/* <FormContainer>  <JournalEntryForm />  </FormContainer> */}
         <FormContainer>  EntryFormHere  </FormContainer>
        

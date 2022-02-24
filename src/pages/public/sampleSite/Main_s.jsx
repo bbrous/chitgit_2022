@@ -17,7 +17,7 @@
            etc.
        Colored Header with Info Icon
        Main Component Wrapper children
-           notes_s,  
+           people_s,  
            chits_s, 
            spotlights_s, etc
 
@@ -29,7 +29,7 @@ import React, { useState }  from 'react'
 import { useParams } from 'react-router-dom'
 import {useSelector, useDispatch,} from 'react-redux'
 
-import {chitLightLavendar, chitOrangeMedium,veryLightGrey, chitLightGreen, chitLightBlueDull, chitLightPink, chitDullYellow, mediumGrey, lightGrey} from '../../../styles/colors'
+import {chitLightLavendar, chitOrangeMedium,veryLightGrey, chitLightGreen, chitBright, chitLightPink, chitDullYellow, mediumGrey, lightGrey} from '../../../styles/colors'
 
 import {capitalizeFirstLetter} from '../../../app/helpers/commonHelpers'
 import{  openModal, selectStatus} from '../../../app/redux/statusRedux/sam_statusSlice'
@@ -43,7 +43,7 @@ import New from './samComponents/New_s'
 import InfoIcon from './samComponents/Info_s'
 import Chits from './samChits/Chits_s'
 
-import Notes from './samNotes/Notes_s'
+import People from './samPeople/People_s'
 import Journal from './samJournal/Journal_s'
 import Logs from './samLogs/Logs_s'
 import Inspire from './samInspires/Inspires_s'
@@ -332,8 +332,8 @@ function Main_s(props) {
     if (page === 'chits') { background = chitDullYellow }
 
     if (page === 'logs') { background = chitLightPink }
-    if (page === 'Journalicles') { background = chitLightGreen }
-    if (page === 'notes') { background = chitLightBlueDull }
+    if (page === 'journal') { background = chitLightGreen }
+    if (page === 'people') { background = chitBright }
     if (page === 'inspire') { background = chitLightLavendar }
 
     if (page === 'spotlights') { background = chitOrangeMedium }
@@ -419,8 +419,8 @@ function Main_s(props) {
               <Chits />
             }
 
-            {page === 'notes' &&
-              <Notes />
+            {page === 'people' &&
+              <People />
             }
 
             {page === 'journal' &&

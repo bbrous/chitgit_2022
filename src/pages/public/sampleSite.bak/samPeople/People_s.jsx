@@ -14,7 +14,7 @@ import {veryLightGrey} from '../../../../styles/colors'
 
 import{ selectNotes } from '../../../../app/redux/noteRedux/X_sam_selectors_Notes'
 
-import NoteMain from './NoteMain_s'
+import PeopleMain from './PeopleMain_s'
 
 // -------Material UI 
 
@@ -65,22 +65,17 @@ const NoneMessage= styled('div')({
 
 
 // ====================================
-function Notes(props) {
+export default function People(props) {
 
   let match = useParams()
   
  
-  // const NoteId = match.params.detailId 
-  // const NotesArray = props.NotesArray
-
-  // console.Note('[Notes_s] route NoteId is', NoteId)
-  // console.Note('[Notes_s] retrieved Notes are', NotesArray)
 
 
 
   return (
     <Wrapper>
-<NoteMain />
+<PeopleMain />
       {/* {NotesArray.length === 0 &&
         <NoneMessage>
           <div>You have no active or completed Notes</div>
@@ -108,16 +103,4 @@ function Notes(props) {
   )
 }
 
-const actions = {
-  // changeLastNoteDisplayed,  
-  // openModal, 
-  // closeModal
-}
 
-const mapState = state => ({
-  // display: state,
-  NotesArray: selectNotes(state),
-  
-})
-
-export default connect(mapState, actions)(Notes)

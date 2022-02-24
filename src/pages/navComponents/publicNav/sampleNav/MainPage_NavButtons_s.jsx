@@ -87,12 +87,6 @@ function MainPage_NavButtons_s(props) {
 
 
 
-      <StyledLink to="/sample/notes" >
-        <NavButton> Notes </NavButton>
-      </StyledLink>
-
-
-
       <StyledLink to="/sample/spotlights" >
         <NavButton> Spotlights </NavButton>
       </StyledLink>

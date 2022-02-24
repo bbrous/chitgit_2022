@@ -211,6 +211,26 @@ function JournalNav() {
 
         <CategorySelectWrapper>
 
+          <Title> Filter by Person</Title>
+
+          <StyledSelectField name="filters" id="filters"
+          // onChange={(evt) => changeFilter(evt)}
+          >
+            <option value="uncompleted" >Joi Me</option>
+            <option value="topLevel" >Steve - Starbucks</option>
+            <option value="begun">Jill S</option>
+            <option value="inactive">Mark Hedelson</option>
+       
+          </StyledSelectField>
+
+
+        </CategorySelectWrapper>
+
+
+
+
+        <CategorySelectWrapper>
+
           <Title> Filter by Category</Title>
 
           <StyledSelectField name="filters" id="filters"

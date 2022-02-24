@@ -15,7 +15,7 @@
 import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
-
+import ReactHtmlParser from 'react-html-parser'
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
 // import{ selectJSections
@@ -187,6 +187,12 @@ const ContentWrapper= styled(Paper)({
   width: '99%',
   // marginTop:'6px',
   margin: 'auto',
+
+  '& p' : {
+
+    margin : '0 0 0 0',
+    padding: 0
+  },
   
   
   
@@ -321,11 +327,22 @@ const LightTooltip = withStyles({
 
 
 
-
+var stringToHTML = function (str) {
+	var parser = new DOMParser();
+	var doc = parser.parseFromString(str, 'text/html');
+	return doc.body;
+};
 
 //  =====================================================================
 
-export default function JSection() {
+export default function JSection(props) {
+   
+
+  const {id, key, title, date, content, dateCreated, chitId, timeStamp , keywordArray ,category ,people  
+  }  = props
+
+  console.log('[ JSection ] JSection ', content);
+
   return (
     <MainWrapper>
       <TopWrapper>
@@ -359,8 +376,8 @@ export default function JSection() {
         
      
         <Content>
-          <HeadlineWrapper> This is about what?</HeadlineWrapper>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <HeadlineWrapper> {title} </HeadlineWrapper>
+          {ReactHtmlParser(content)}
 
         </Content>
 

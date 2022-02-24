@@ -329,7 +329,7 @@ export default function NoteForm_s(props) {
   });
   const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
 
-  const submitForm = async (data) => {
+  const submitForm = (data) => {
 
     
     console.log('[Dispatch_Form]...data ', data)
@@ -400,13 +400,13 @@ export default function NoteForm_s(props) {
       // (5a) --- No note - create new note--------------------------
         if (!noteId) {
 
-          await dispatch(addNoteToStore(newNoteData))
+           dispatch(addNoteToStore(newNoteData))
 
 
         // ---  update noteHolder if holder is a task or a spotlight -------
 
           if (noteHolderType === 'spotlights') {
-            await dispatch(updateSpotlightNoteId(
+             dispatch(updateSpotlightNoteId(
               {
                 noteId: id,
                 noteHolderId: noteHolderId
@@ -415,7 +415,7 @@ export default function NoteForm_s(props) {
           }
 
         if (noteHolderType === 'tasks') {
-          await dispatch(updateTaskNoteId(
+           dispatch(updateTaskNoteId(
             {
               noteId: id,
               taskHolderId: noteHolderId
@@ -430,7 +430,7 @@ export default function NoteForm_s(props) {
 
       if (noteId) {
 
-        await dispatch(updateEditedNote(newNoteData))
+         dispatch(updateEditedNote(newNoteData))
 
       } // end !noteId -------------------------------------------
 
@@ -472,7 +472,7 @@ export default function NoteForm_s(props) {
             id: noteId
           }
 
-          await dispatch(deleteCategoryHolder(categoryToBeDeletedData))
+           dispatch(deleteCategoryHolder(categoryToBeDeletedData))
 
 
         } // end if neoteCategoryy !== ''
@@ -494,7 +494,7 @@ export default function NoteForm_s(props) {
 
 
 
-            await dispatch(addCategoryHolder(updatedCategoryData))
+             dispatch(addCategoryHolder(updatedCategoryData))
 
 
           }// end if categoryExists 
@@ -514,7 +514,7 @@ export default function NoteForm_s(props) {
 
             } // end newCategoryData
 
-            await dispatch(addCategoryToStore(newCategoryData))
+             dispatch(addCategoryToStore(newCategoryData))
 
           } // end if !categoryExists
 
@@ -529,7 +529,7 @@ export default function NoteForm_s(props) {
 
   // a. check if keyword form data submitted is different from default 
 
-    let kewwordArrayDifference = await  isArrayDifferent(defaultKeywordArray, formKeywordArray)
+    let kewwordArrayDifference =   isArrayDifferent(defaultKeywordArray, formKeywordArray)
 
     // --- only update keywords if keywordArrayDifference === [... someItems] ---
   
@@ -551,6 +551,8 @@ export default function NoteForm_s(props) {
           // delete noteId from keyword item
 
           console.log('[Dispatch_Form]...... arrayItemInluded ...... DELETE noteId ')
+
+          
           console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
           console.log('[Dispatch_Form].----------------------------------------' )
 
@@ -572,7 +574,7 @@ export default function NoteForm_s(props) {
 
 
 
-            // ASYNC dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+            // dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
 
 
 

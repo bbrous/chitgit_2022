@@ -68,8 +68,8 @@ const SampleNotes =  [
 
     lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
-    noteKeywordArray: ['marketing', 'to do'],
-    noteCatgory : 'product team'
+    noteKeywordArray: ['marketing', 'to do', 'project team'],
+    noteCatgory : 'work'
    
   },
 

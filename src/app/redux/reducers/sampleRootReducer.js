@@ -22,6 +22,7 @@ import statusReducer from '../statusRedux/sam_statusSlice'
 
 import taskReducer from '../taskRedux/sam_tasksSlice'
 import logReducer from '../logRedux/X_sam_reducers_Logs'
+import journalReducer from '../journalRedux/sam_journalSlice'
 
 import noteReducer from '../noteRedux/sam_notesSlice'
 import categoryReducer from '../categoryRedux/sam_categorySlice'
@@ -46,6 +47,7 @@ const sampleRootReducer = combineReducers({
     keywords: keywordReducer,
     tasks: taskReducer,
     logs: logReducer,
+    journal: journalReducer,
     notes: noteReducer,
     topics: topicReducer,
     organizations: orgReducer,

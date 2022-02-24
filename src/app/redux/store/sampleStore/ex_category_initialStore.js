@@ -14,11 +14,13 @@ const SampleCategories =  [
    
   },
 
-
   { 
     id: 'cat_2',
     category: 'Work',
-    categoryHolders: []
+    categoryHolders: [
+      {dbCollection: 'journal', id: 'jsection_3' },
+      {dbCollection: 'notes', id: 'note_4' }
+    ]
    
   },
 
@@ -29,39 +31,37 @@ const SampleCategories =  [
    
   },
   
-  { 
-    id: 'cat_4',
-    category: 'Product team',
-    categoryHolders: [ {dbCollection: 'notes', id: 'note_4' } ],
-   
-  },
 
   { 
     id: 'cat_5',
     category: 'Personal project',
     categoryHolders: [
       {dbCollection: 'notes', id: 'note_1' }  , 
-      {dbCollection: 'notes', id: 'note_3' }
-      
-    
-    ]
+      {dbCollection: 'notes', id: 'note_3' } ,
+      {dbCollection: 'journal', id: 'jsection_5' } 
+       ]
    
   },
-
-  
-  { 
-    id: 'cat_6',
-    category: 'Fun',
-    categoryHolders: [
-    
-      
-    
-    ]
-   
-  },
-
 
  
+  { 
+    id: 'cat_8',
+    category: 'Self improvement',
+    categoryHolders: [
+      {dbCollection: 'journal', id: 'jsection_4' } 
+    ]
+   
+  },
+
+ 
+  { 
+    id: 'cat_9',
+    category: 'Goals',
+    categoryHolders: [
+      {dbCollection: 'journal', id: 'jsection_2' } 
+    ]
+   
+  },
  
  
  

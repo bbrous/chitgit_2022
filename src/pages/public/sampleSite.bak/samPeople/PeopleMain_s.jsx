@@ -23,7 +23,7 @@ import{ selectNotes
   
 } from '../../../../app/redux/noteRedux/X_sam_selectors_Notes'
 
-import Note from './Note_s'
+import Person from './Person_s'
 
 //  ---- Material Ui ------------------
 
@@ -86,15 +86,15 @@ backgroundColor: veryLightGrey,
  
 // ===========================================
 
-function NoteMain(props) {
+function PeopleMain(props) {
 
 
   return (
     <MainWrapper>
  
       <Container>
-        NotesMain Here
-        <Note/>
+        PeoplMain
+        <Person/>
  
         
       </Container>
@@ -103,4 +103,4 @@ function NoteMain(props) {
   )
 }
 
-export default  NoteMain
+export default  PeopleMain

@@ -342,22 +342,22 @@ const id = open ? 'simple-popover' : undefined;
 
 
 </StyledLink>
-<StyledLink to="/sample/notes" >
+<StyledLink to="/sample/people" >
 
-{page !== 'notes' && 
+{page !== 'people' && 
   <NavButton
-    id = 'notes' 
+    id = 'people' 
     onClick = {handleClose}
   
-  >Notes </NavButton>
+  >People </NavButton>
 }
 
-{page === 'notes' && 
+{page === 'people' && 
   <NavButtonDisabled disabled
-    id = 'notes' 
+    id = 'people' 
     // onClick = {handleClose}
   
-  >Notes </NavButtonDisabled>
+  >People </NavButtonDisabled>
 }
 
 

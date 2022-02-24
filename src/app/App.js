@@ -48,7 +48,8 @@ import PasswordReset from '../pages/public/PasswordReset'
 
 
 // import Try from '../pages/sandBox/aTry'
-// import Notes from '../pages/private/Notes'
+// import Journal from '../pages/private/Journal'
+// import People from '../pages/private/People'
 // import Spotlights from '../pages/private/spotlightElements/SpotlightsMain'
 // 
 

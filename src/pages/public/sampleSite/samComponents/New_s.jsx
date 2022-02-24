@@ -99,9 +99,9 @@ function New(props) {
       title = 'spotlight'
       break;
     
-    case 'notes':
-      dbCollection = 'notes'
-      title = 'note'
+    case 'people':
+      dbCollection = 'people'
+      title = 'person'
       break;
 
       case 'logs':
@@ -109,9 +109,9 @@ function New(props) {
         title = 'log'
         break;
 
-      case 'chronicles':
-        dbCollection = 'chronicles'
-        title = 'chronicle'
+      case 'journal':
+        dbCollection = 'journal'
+        title = ' section'
         break;
 
       case 'twoParty':
@@ -172,7 +172,7 @@ const openSpotlightForm = ()=>{
 
     
 
-    <NewTitle> new {title} </NewTitle>
+    <NewTitle> add {title} </NewTitle>
       <LightTooltip title={formattedPage} arrow>
         <AddCircleIconWrapper
           onClick={() => openSpotlightForm(page, id)}

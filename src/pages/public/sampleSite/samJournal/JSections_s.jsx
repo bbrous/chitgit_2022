@@ -10,11 +10,11 @@
 
 
 import React , {useState} from 'react'
-import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+import {useParams} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
-
+import {selectAllJournalSections } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
  
@@ -45,15 +45,47 @@ overflow: 'auto',
 
 })
 
+
+ 
+// ============================================
+
+ 
+const journalSections = (journalArray) => 
+
+
+ 
+  journalArray.map((section, index) => {
+   // code 
+  return (
+    <JSection
+      id = {section.id}
+      key = {section.id}
+      title = {section.title}
+      date = {section.date}
+      content = {section.content}
+      dateCreated = {section.dateCreated}
+      chitId = {section.chitId}
+      timeStamp = {section.timeStamp}
+      keywordArray = {section.keywordArray}
+      category = {section.category}
+      people = {section.people}
+     
+    />
+  )
+  }
+  ) //end map
+ 
+
+
 export default function JSections() {
+
+  const allJournalSelections = useSelector(selectAllJournalSections)
+  // console.log('[ JSections ]  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ', allJournalSelections);
+
   return (
     <Wrapper>
 
-        <JSection/>
-        <JSection/>
-        <JSection/>
-        <JSection/>
-        <JSection/>
+   {journalSections(allJournalSelections)}
     </Wrapper>
   )
 }

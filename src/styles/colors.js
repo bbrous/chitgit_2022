@@ -26,6 +26,7 @@ export const chitAquaBlue = '#096E99'
 export const chitSkyBlue = '#0098DA'
 export const chitBlueLight = '#8293B8'
 export const chitBlueBrightLight ='#CAE8F6'
+export const chitBright = '#97D8EF'
 
 // -- Reds  ----------
 
