@@ -131,7 +131,15 @@ export function descendSorter(arrayOfObjects, objectParameter){
 
 } // end if collection === category
 
+if(collection === 'keywords'){
 
+  wordExists = array.find( ({ keyword }) => keyword === word );
+
+  // console.log('[ COMMON HELPERS checkIfWordExists] FINAL FINAL ', wordExists);
+
+  return wordExists
+
+} // end if collection === category
 
  }// end function checkIfWordExists
 

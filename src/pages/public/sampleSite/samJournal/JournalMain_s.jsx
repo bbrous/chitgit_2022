@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey, mediumLightGrey, chitLightGreen} from '../../../../styles/colors'
 
 
 
@@ -59,7 +59,7 @@ const TopWrapper = styled('div')({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  
+ 
 // backgroundColor: 'red',
   width: '100%',
   // height: '3rem',
@@ -87,7 +87,8 @@ const FilterWrapper = styled('div')({
   height: '2rem',
   color: darkGrey,
   fontSize: '.8rem',
-backgroundColor: 'yellow',
+// backgroundColor: 'yellow',
+paddingLeft: '6px',
  marginBottom: '1rem',
   // height: '3rem',
   marginTop: '6px',
@@ -286,7 +287,8 @@ const SectionsContainer = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  
+  backgroundColor: mediumLightGrey,
+  paddingTop: '6px',
 
   width: '100%',
   minHeight: '13rem',
@@ -395,13 +397,14 @@ function JournalMain(props) {
 
         </TopWrapper>
      
-        {/* <FormContainer>  <JournalEntryForm />  </FormContainer> */}
-        <FormContainer>  EntryFormHere  </FormContainer>
+        
+     
        
         <SectionsContainer>
           <SectionWrapper>
 
              <JSections/> 
+             <>  EntryFormHere Button  </>
           </SectionWrapper>
 
         </SectionsContainer>

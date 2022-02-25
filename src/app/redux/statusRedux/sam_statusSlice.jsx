@@ -31,7 +31,7 @@ export const statusSlice = createSlice({
         twoParty: true,
         spotlights: true,
         logs: true,
-        chronicles: true,
+        journal: true,
         notes: true,
   
   
@@ -83,11 +83,11 @@ export const statusSlice = createSlice({
         
       },
   
-      // for Chronicles.jsx ----------------------------------
+      // for journal.jsx ----------------------------------
   
-      chron: {
+      journal: {
   
-        chronId: '',  // if no chronId -- all else chronId stuff
+        journalId: '',  // if no journalId -- all else journalId stuff
       },
   
       // for Notes.jsx ----------------------------------
@@ -153,6 +153,28 @@ export const statusSlice = createSlice({
       state.view[action.payload.pageType].display = action.payload.pageView
                    
     },
+
+    closeJournalForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.journal.journalId = ''
+
+    },
+
+    openJournalForm: (state, action) => {
+      
+      let newJournalId = action.payload
+
+      console.log('[ sam_StatusSlice ] sectionId ', newJournalId);
+      state.view.journal.journalId = newJournalId
+
+    },
+
+
+
   }, //end reducers
 
 }) // end slice statusSlice 
@@ -167,6 +189,8 @@ export const {
   changeStatusInitialMessage, 
   changeLastSpotlightDisplayed,
   updateStatusView,
+  closeJournalForm,
+  openJournalForm
 
   } = statusSlice.actions
 

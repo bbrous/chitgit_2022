@@ -12,16 +12,21 @@
 ------------------------------------*/
 
 
-import React , {useState} from 'react'
+import React , {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
 import ReactHtmlParser from 'react-html-parser'
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
-// import{ selectJSections
-//   // selectSpotlightTaskArray
-  
-// } from '../../../../app/redux/journalRedux/sam_selectors_Journal'
+import JournalForm from '../samForms/JournalForm_s'
+
+import { selectStatus,
+  openJournalForm
+
+
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
+
+
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  
@@ -53,6 +58,8 @@ const MainWrapper= styled('div')({
   marginBottom: '6px',
   paddingBottom: '6px',
 overflow: 'auto',
+
+backgroundColor: 'white',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -70,7 +77,7 @@ const TopWrapper= styled('div')({
   // backgroundColor: 'green',
   width: '100%',
   marginTop: '6px',
-
+ 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -336,21 +343,37 @@ var stringToHTML = function (str) {
 //  =====================================================================
 
 export default function JSection(props) {
-   
+  let dispatch = useDispatch()
+  const [showForm, setShowForm] = useState(false)
 
-  const {id, key, title, date, content, dateCreated, chitId, timeStamp , keywordArray ,category ,people  
+  // const[sectionId, setSectionId] = useState('')
+
+  let journalViewId = useSelector(selectStatus).view.journal.journalId
+
+ 
+
+  const handleClick = (id)=>{
+    let sectionId = id
+   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+    dispatch(openJournalForm(sectionId))
+    
+  }
+
+  const {id,  title, date, content, dateCreated, chitId, timeStamp , keywordArray ,category ,people  
   }  = props
 
-  console.log('[ JSection ] JSection ', content);
-
+ 
   return (
+<>
+    {journalViewId !== id && 
     <MainWrapper>
+    
       <TopWrapper>
         <DateWrapper>Date</DateWrapper>
         <IconWrapper>
 
           <LightTooltip title='Edit' arrow>
-            <StyledEditIcon />
+            <StyledEditIcon id = {id} onClick={()=>handleClick(id)}/>
           </LightTooltip>
 
           <ChitIcon />
@@ -382,10 +405,25 @@ export default function JSection(props) {
         </Content>
 
 
+
+ 
+        <Content>
+          <HeadlineWrapper> {title} </HeadlineWrapper>
+          {ReactHtmlParser(content)}
+
+        </Content>
+ 
+
+
       </ContentWrapper>
 
-
-
     </MainWrapper>
+    } 
+
+{journalViewId === id  && 
+<JournalForm/>
+}
+
+    </>
   )
 }

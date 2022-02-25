@@ -525,7 +525,7 @@ export default function NoteForm_s(props) {
     // 7. update keywords  ------------------------------------------
     
     let defaultKeywordArray = defaultKeywordOptions
-    let formKeywordArray   = data.keywords
+    let formKeywordArray   = passedKeyWordArray // cleaned keyword array from form
 
   // a. check if keyword form data submitted is different from default 
 
@@ -539,11 +539,91 @@ export default function NoteForm_s(props) {
 
       // map each keyword in the keyword difference array
 
-      kewwordArrayDifference.map((item, index) => {
+      kewwordArrayDifference.forEach((item) => {
 
         //  7a. check if each keyword form data submitted is  different from default 
 
         let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+
+
+// ==========================================
+
+if(!arrayItemInludedInDefault) {  // then it was added
+
+  let keywordExists = checkIfWordExists(item, keywordsArray , 'keywords')
+
+  console.log('[ where ]DOES KEYWORD EXIST _ item ', item);
+  console.log('[ where ]DOES KEYWORD EXIST _ keywordsArray ', keywordsArray);
+
+console.log('[ where ]DOES KEYWORD EXIST _ GIVE ITS ID ', keywordExists);
+  // --- keyword from form is new  -----------------------------------------
+
+  if (!keywordExists) {
+
+    // create new keyword 
+    let keywordId = cuid() // #####   temp ############
+
+    let newKeywordData = {
+      id: keywordId,
+      keyword: item,
+      dbCollection: 'notes',
+      keywordHolder:  id 
+
+  }
+  dispatch(addKeywordToStore(newKeywordData))
+
+} // end newKeywordData
+
+
+
+if(keywordExists) { 
+  let updatedKeywordData = {
+    keywordId: keywordExists.id,
+    keywordHolder: id,
+    dbCollection: 'notes'
+
+  }
+// console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+
+
+
+   dispatch(addKeywordHolder(updatedKeywordData))
+
+
+}// end if keywordExists 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}  // end if arrayItemInludedInDefault
+
 
 
         if(arrayItemInludedInDefault) {  // then it was deleted
@@ -574,7 +654,7 @@ export default function NoteForm_s(props) {
 
 
 
-            // dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+            dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
 
 
 
@@ -586,32 +666,9 @@ export default function NoteForm_s(props) {
 
         }  // end if arrayItemInludedInDefault
 
-        if(!arrayItemInludedInDefault) {  // then it was added
-
-          // delete noteId from keyword item
-
-          console.log('[Dispatch_Form]...... arrayItemInluded ...... DECIDE -- ADD new KEYWORD or Update KEYWORD HOLDER')
-          console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
-          console.log('[Dispatch_Form].----------------------------------------' )
-
-          // if NOT new = update
 
 
-
-          // if new
-          //    // (4 a, b) --- clean the form data  - strip of white space, capitalize
-          // let cleanKeyword = cleanOptions(newNoteKeyword, 'keywords')
-
-
-                    //
-                    //
-                    //
-                    //
-
-        }  // end if arrayItemInludedInDefault
-
-       }
-       ) // end map kewwordArrayDifference
+       }) // end map kewwordArrayDifference
 
 
 

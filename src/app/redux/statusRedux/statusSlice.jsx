@@ -30,7 +30,7 @@ export const statusSlice = createSlice({
         twoParty: true,
         spotlights: true,
         logs: true,
-        chronicles: true,
+        journal: true,
         notes: true,
   
   
@@ -84,9 +84,9 @@ export const statusSlice = createSlice({
   
       // for Chronicles.jsx ----------------------------------
   
-      chron: {
+      journal: {
   
-        chronId: '',  // if no chronId -- all else chronId stuff
+        journalId: '',  // if no chronId -- all else chronId stuff
       },
   
       // for Notes.jsx ----------------------------------
