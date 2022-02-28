@@ -31,6 +31,9 @@ import { ISOtoTraditional } from '../../../../app/helpers/dateHelper'
 import ChitIcon from '../samComponents/Chit_icon_s'
  
 //  ---- Material Ui ------------------
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
+
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
@@ -102,7 +105,7 @@ const DateWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   // backgroundColor: 'green',
-  width: '50%',
+  // width: '50%',
   padding: '2px 6px',
 
   fontSize: '.8rem',
@@ -117,6 +120,7 @@ const DateWrapper= styled('div')({
 
 
 
+
 const IconWrapper= styled('div')({
 
   display: 'flex',
@@ -125,7 +129,7 @@ const IconWrapper= styled('div')({
   justifyContent: 'flex-end',
   alignItems: 'center',
   // backgroundColor: 'green',
-  width: '50%',
+  // width: '50%',
   padding: '2px 6px',
 
   [theme.breakpoints.down('sm')] : {
@@ -144,9 +148,9 @@ const SearchWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   // backgroundColor: veryLightGrey,
-  width: '99%',
-  padding: '2px 0',
-  marginBottom: '3px',
+  width: '97%',
+  
+  margin: '5px 0 0 8px',
 // backgroundColor: veryLightGrey,
   fontSize: '.6rem',
   height: '.8rem',
@@ -157,6 +161,8 @@ const SearchWrapper= styled('div')({
 
 
 })
+
+
 const CategoryWrapper= styled('div')({
 
   display: 'flex',
@@ -166,6 +172,24 @@ const CategoryWrapper= styled('div')({
   alignItems: 'center',
   // backgroundColor: 'aqua',
   width: '30%',
+
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
+const PeopleWrapper= styled('div')({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // backgroundColor: 'aqua',
+  width: '30%',
+
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -261,6 +285,25 @@ const Content= styled('div')({
   },
 
 })
+
+const JournalFormWrapper= styled('div')({
+
+  display: 'block',
+
+  width: '100%',
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+  textAlign: 'left',
+  '& p' : {
+
+    margin : '0 0 0 0',
+    padding: 0,
+    textAlign: 'left'
+  },
+
+})
+
 
 // -------------
 const StyledEditIcon= styled(EditIcon)({
@@ -370,12 +413,25 @@ export default function JSection(props) {
  
 
   const handleClick = (id)=>{
-    setOpen(true);
+ 
     let sectionId = id
    console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
     dispatch(openJournalForm(sectionId))
     
   }
+ 
+
+   
+
+  const handleClickAway = () => {
+    setOpen(true);
+  };
+
+
+
+
+
+
 
   const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
   }  = props
@@ -431,10 +487,13 @@ Cancel
     
       <TopWrapper>
         <DateWrapper>{formattedDate}</DateWrapper>
+        
         <IconWrapper>
 
           <LightTooltip title='Edit' arrow>
-            <StyledEditIcon id = {id} onClick={()=>handleClick(id)}/>
+            <StyledEditIcon id = {id} 
+            onClick={()=>handleClick(id)}
+            />
           </LightTooltip>
 
           <ChitIcon />
@@ -448,11 +507,7 @@ Cancel
           </LightTooltip>
         </IconWrapper>
       </TopWrapper>
-      <SearchWrapper>
-        <CategoryWrapper>category: aaaa</CategoryWrapper>
-        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
-
-      </SearchWrapper>
+      
       <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
 
@@ -466,12 +521,30 @@ Cancel
 
 
       </ContentWrapper>
+      <SearchWrapper>
+      <PeopleWrapper>People: Joi Me</PeopleWrapper>
+        <CategoryWrapper>category: aaaa</CategoryWrapper>
+        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
+      </SearchWrapper>
     </MainWrapper>
     } 
 
 {journalViewId === id  && 
+ <ClickAwayListener 
+ onClickAway={handleClickAway}
+ mouseEvent="onMouseDown"
+ touchEvent="onTouchStart"
+ >
+
+<JournalFormWrapper>  
+
 <JournalForm id="submit-form"/>
+
+</JournalFormWrapper>
+
+</ClickAwayListener>
+
 }
 
     </>
