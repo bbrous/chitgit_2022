@@ -189,6 +189,15 @@ export function msToISO(milSeconds){
 
 }
 
+export function ISOtoTraditional(date){
+  let inputDate = new Date(date)
+  let msDate = inputDate.getTime()
+  let formattedDate = UTCtoDateTradional(msDate)
+
+  return formattedDate
+  
+}
+
 
 export function unformattedUTCtoDate(milSeconds){
   /* func unformattedUTCtoDate

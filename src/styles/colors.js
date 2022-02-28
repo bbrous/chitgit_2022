@@ -33,6 +33,7 @@ export const chitBright = '#97D8EF'
 export const chitPink = '#F7ADAF'
 export const chitDarkPink = '#F285B5'
 export const chitLightPink = '#F2B5D0'
+export const chitBurgandy ='#B02E29'
 
 // -- Purples ----------
 

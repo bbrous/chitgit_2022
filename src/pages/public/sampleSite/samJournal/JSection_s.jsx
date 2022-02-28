@@ -12,21 +12,21 @@
 ------------------------------------*/
 
 
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect, useRef} from 'react'
 import {connect} from 'react-redux'
 import {useSelector, useDispatch} from 'react-redux'
 import ReactHtmlParser from 'react-html-parser'
-import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
+import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey} from '../../../../styles/colors'
 
 import JournalForm from '../samForms/JournalForm_s'
-
+import JournalFormAlert from './JournalFormAlert'
 import { selectStatus,
   openJournalForm
 
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-
+import { ISOtoTraditional } from '../../../../app/helpers/dateHelper'
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  
@@ -38,6 +38,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import ConvertIcon from '@mui/icons-material/Cached';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
 import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -195,11 +203,6 @@ const ContentWrapper= styled(Paper)({
   // marginTop:'6px',
   margin: 'auto',
 
-  '& p' : {
-
-    margin : '0 0 0 0',
-    padding: 0
-  },
   
   
   
@@ -221,7 +224,7 @@ const HeadlineWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  color: chitBlueDull,
+  color: chitBurgandy,
   width: '99%',
   padding: '6px 0',
 
@@ -238,7 +241,7 @@ const Content= styled('div')({
   position: 'relative',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   fontSize: '.85rem',
   width: '70%',
 
@@ -249,7 +252,13 @@ const Content= styled('div')({
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
+  textAlign: 'left',
+  '& p' : {
 
+    margin : '0 0 0 0',
+    padding: 0,
+    textAlign: 'left'
+  },
 
 })
 
@@ -344,7 +353,15 @@ var stringToHTML = function (str) {
 
 export default function JSection(props) {
   let dispatch = useDispatch()
-  const [showForm, setShowForm] = useState(false)
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // const[sectionId, setSectionId] = useState('')
 
@@ -353,23 +370,67 @@ export default function JSection(props) {
  
 
   const handleClick = (id)=>{
+    setOpen(true);
     let sectionId = id
    console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
     dispatch(openJournalForm(sectionId))
     
   }
 
-  const {id,  title, date, content, dateCreated, chitId, timeStamp , keywordArray ,category ,people  
+  const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
   }  = props
-
  
+  let formattedDate = ISOtoTraditional(dateCreated)
   return (
 <>
+<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You have a section currently being edited. 
+            Would you like to save your changes to that section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <button
+  form="submit-form"
+  variant="contained"
+  color="primary"
+  type="submit"
+  onClick={handleClose}
+>
+Save Edits
+</button>
+
+<button
+  form="submit-form"
+  variant="contained"
+  color="primary"
+ 
+  onClick={handleClose}
+>
+Cancel
+</button>
+
+        </DialogActions>
+      </Dialog>
+
+
+
     {journalViewId !== id && 
     <MainWrapper>
+
+
     
       <TopWrapper>
-        <DateWrapper>Date</DateWrapper>
+        <DateWrapper>{formattedDate}</DateWrapper>
         <IconWrapper>
 
           <LightTooltip title='Edit' arrow>
@@ -396,23 +457,12 @@ export default function JSection(props) {
       <ContentWrapper>
 
 
-        
-     
         <Content>
           <HeadlineWrapper> {title} </HeadlineWrapper>
           {ReactHtmlParser(content)}
 
         </Content>
 
-
-
- 
-        <Content>
-          <HeadlineWrapper> {title} </HeadlineWrapper>
-          {ReactHtmlParser(content)}
-
-        </Content>
- 
 
 
       </ContentWrapper>
@@ -421,7 +471,7 @@ export default function JSection(props) {
     } 
 
 {journalViewId === id  && 
-<JournalForm/>
+<JournalForm id="submit-form"/>
 }
 
     </>

@@ -66,7 +66,7 @@ Editor.modules = {
     // [{ size: [] }],
     // [{ size: ["small", false, "large" ] }], // custom dropdown
     // [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline", "strike"],
+    ["bold", "italic", "underline"],
 
     ["link", 
     // "image",
@@ -76,14 +76,13 @@ Editor.modules = {
     [{ color: [] } ], // dropdown with defaults from theme
     // ["clean"],
  
-    [{ size: ["small", false, "large" ] },
-      // { font: [] },
-      { align: [] },
-      { list: "ordered" },
-      { list: "bullet" },
-      
+    [{ size: ["small", false, "large" ] }],
+ 
+      [{ align: [] }],
+     
+     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
     ],
-  ],
+  
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false,
@@ -102,6 +101,7 @@ Editor.formats = [
   "underline",
   "strike",
   "blockquote",
+  "align",
   "list",
   "bullet",
   "indent",

@@ -265,7 +265,7 @@ export default function JournalForm_s(props) {
      
 
 <FormProvider>
-<FormWrapper>
+<FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm) } >
 
 <div>  Journal Form Here </div>
   
