@@ -29,7 +29,7 @@ import React, { useState }  from 'react'
 import { useParams } from 'react-router-dom'
 import {useSelector, useDispatch,} from 'react-redux'
 
-import {chitLightLavendar, chitOrangeMedium,veryLightGrey, chitLightGreen, chitBright, chitLightPink, chitDullYellow, mediumGrey, lightGrey} from '../../../styles/colors'
+import {chitDarkLavendar, chitOrangeMedium,veryLightGrey, chitLightGreen, chitBright, chitLightPink, chitDullYellow, mediumGrey, lightGrey} from '../../../styles/colors'
 
 import {capitalizeFirstLetter} from '../../../app/helpers/commonHelpers'
 import{  openModal, selectStatus} from '../../../app/redux/statusRedux/sam_statusSlice'
@@ -317,10 +317,33 @@ function Main_s(props) {
   const status = useSelector(selectStatus)
   const modalShow = status.modal.modalDisplayed
   let page, formattedPage
+  page = match.pageView
+
+  switch(page){
+
+    case 'personalChits' : 
+      formattedPage = 'Personal Chits'
+      break
+
+      case 'twoPartyChits' : 
+      formattedPage = 'Two Party Chits'
+      break
+
+      case 'workChits' : 
+      formattedPage = 'Work Chits'
+      break
+      
+      
+    default: formattedPage = capitalizeFirstLetter(page)
+  }
 
   console.log('MAIN S -- params ', match )
-  page = match.pageView
-  formattedPage = capitalizeFirstLetter(page)
+  
+
+
+
+  
+
 
 /*
    --- each page (chits, logs etc) has a different header color
@@ -329,14 +352,35 @@ function Main_s(props) {
 */
   const headerColor = (page) => {
     let background
-    if (page === 'chits') { background = chitDullYellow }
+     
+    if (page === 'personal') { 
+       background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'twoPartyChits') {
+      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'personalChits') {
+      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+      if (page === 'workChits') {
+        background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'logs') { 
+      background =
+      {backgroundColor: chitLightPink, fontColor: 'black'} }
 
-    if (page === 'logs') { background = chitLightPink }
-    if (page === 'journal') { background = chitLightGreen }
-    if (page === 'people') { background = chitBright }
-    if (page === 'inspire') { background = chitLightLavendar }
+    if (page === 'journal') { 
+      background =
+          {backgroundColor: chitLightGreen, fontColor: 'black'} }
+    if (page === 'people') { 
+      background =
+          {backgroundColor: chitBright, fontColor: 'black'} }
 
-    if (page === 'spotlights') { background = chitOrangeMedium }
+    if (page === 'inspire') {
+      background =
+          {backgroundColor: chitDullYellow, fontColor: 'black'} }
+
+    if (page === 'spotlights') { 
+      
+      background =
+          {backgroundColor: chitOrangeMedium, fontColor: 'black'} }
+
 
     return background
   }
@@ -362,7 +406,10 @@ function Main_s(props) {
 
       <MainWrapper>
 
-        <HeaderWrapper style={{ backgroundColor: headerColor(page) }}>
+        <HeaderWrapper style={{ 
+          backgroundColor: headerColor(page).backgroundColor, 
+          color: headerColor(page).fontColor
+          }}>
           <Header> {formattedPage}   </Header>
 <InfoIconWrapper>
 
@@ -415,7 +462,15 @@ function Main_s(props) {
 
           <ContentArea>
 
-            {page === 'chits' &&
+          {page === 'twoPartyChits' &&
+              <Chits />
+            }
+
+            {page === 'workChits' &&
+              <Chits />
+            }
+
+            {page === 'personalChits' &&
               <Chits />
             }
 

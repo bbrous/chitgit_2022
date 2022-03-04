@@ -59,6 +59,7 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
   '&:hover' : {
     backgroundColor: 'lightGrey',
     borderRadius: '50px',
+    cursor: 'pointer'
   },
 
 })
@@ -114,12 +115,12 @@ function New(props) {
         title = ' section'
         break;
 
-      case 'twoParty':
+      case 'twoPartyChits':
         dbCollection = 'chits'
         title = 'chit'
         break;
 
-      case 'personal':
+      case 'personalChits':
         dbCollection = 'chits'
         title = 'chit'
         break;

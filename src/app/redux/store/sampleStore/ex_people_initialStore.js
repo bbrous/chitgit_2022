@@ -8,125 +8,53 @@ const People =  [
  
     {
       id: 'person_1',
-      firstName: 'Shawn ',
-      lastName:  'Donnell',
-      identifier: '',
+
+      name: "Shawn O'Donnel",
+      meta: '',
+   
+
       
-      email: 'ShawnD@gmail.com',
-      group: 'friends',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
 
-    {
-      id: 'person_2',
-      firstName: 'Mark',
-      lastName:  'Hedelson',
-      identifier: '',
-      
-      email: 'MarkH@gmail.com',
-      group: 'unaffiliated',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
-
-      
-    },
-    {
-      id: 'person_3',
-      firstName: 'Don',
-      lastName:  'Burbank',
-      identifier: '',
-      
-      email: 'DonB@gmail.com',
-      group: 'unaffiliated',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
-
-      
-    },
-    
+ 
     {
       id: 'person_4',
-      firstName: 'Jackie',
-      lastName:  'Rauder',
-      identifier: '',
       
-      email: 'JackieR@gmail.com',
+      name: "Jackie Rauder",
+      meta: '',
+
       group: 'unaffiliated',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
     
     {
       id: 'person_5',
-      firstName: 'Randi',
-      lastName:  'Gelbwaks',
-      identifier: '',
       
-      email: 'RandiG@gmail.com',
+      name: "Randi Gelbwaks",
+      meta: '',
+
       group: 'unaffiliated',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
-    
-    {
-      id: 'person_6',
-      firstName: 'Peter',
-      lastName:  'Westkaemper',
-      identifier: '',
-      
-      email: 'PeterW@gmail.com',
-      group: 'coworkers',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
 
-      
-    },
     
     {
       id: 'person_7',
-      firstName: 'Jeff',
-      lastName:  'Doninger',
-      identifier: '',
-      
-      email: 'JeffD@gmail.com',
+      name: "Jeff Donninger",
+      meta: '',
+
       group: 'unaffiliated',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
@@ -134,36 +62,26 @@ const People =  [
     
     {
       id: 'person_8',
-      firstName: 'Beth',
-      lastName:  'Joseph',
-      identifier: '',
+      name: "Beth Joseph",
+      meta: '',
+
+      group: 'unaffiliated',
       
-      email: 'BethJ@gmail.com',
-      group: 'friends',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
 
     {
       id: 'person_9',
-      firstName: 'Cyn ',
-      lastName:  'Terhor',
-      identifier: '',
-      
-      email: 'CynT@gmail.com',
+      name: "Cyn Terhor",
+      meta: '',
+
       group: 'project team',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: [
+        {dbCollection: 'journal', id: 'jsection_3' },
+      ]
 
       
     },
@@ -171,90 +89,64 @@ const People =  [
 
     {
       id: 'person_10',
-      firstName: 'Shelly',
-      lastName:  'C',
-      identifier: 'Karen',
+      name: "Shelly - neighbor",
+      meta: '',
+
+      group: 'unaffiliated',
       
-      email: 'ShellyC@gmail.com',
-      group: 'neighbors',
-      phone: '',
-      address: '',
-      
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
 
     {
       id: 'person_11',
-      firstName: 'Jerry',
-      lastName:  'G',
-      identifier: '',
-      
-      email: 'JerryG@gmail.com',
+      name: "Jerry G",
+      meta: '',
+
       group: 'friends',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
 
     {
       id: 'person_12',
-      firstName: 'Billy',
-      lastName:  '',
-      identifier: '',
-      
-      email: '',
+      name: "Billy",
+      meta: "Jerry's brother",
+
       group: 'friends',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: [
+        {dbCollection: 'journal', id: 'jsection_6' }, 
+      ]
 
       
     },
 
     {
       id: 'person_13',
-      firstName: 'Linda',
-      lastName:  '',
-      identifier: 'software',
-      
-      email: '',
+      name: "Linda",
+      meta: 'software girl',
+
       group: 'project team',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
 
     {
       id: 'person_14',
-      firstName: 'Mark',
-      lastName:  'D',
-      identifier: 'engineer',
-      
-      email: '',
+      name: "Mark D",
+      meta: 'engineer genius',
+
       group: 'project team',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: [
+        {dbCollection: 'journal', id: 'jsection_3' },
+      ]
 
       
     },
@@ -262,18 +154,12 @@ const People =  [
     
     {
       id: 'person_15',
-      firstName: 'Steve',
-      lastName:  '',
-      identifier: 'finance',
-      
-      email: '',
+      name: "Steve",
+      meta: 'finance guy',
+
       group: 'project team',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },
@@ -281,36 +167,28 @@ const People =  [
         
     {
       id: 'person_16',
-      firstName: 'Mary',
-      lastName:  'B',
-      identifier: 'wife',
-      
-      email: '',
+      name: "Mary B",
+      meta: 'wife',
+
       group: 'family',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: [
+        {dbCollection: 'journal', id: 'jsection_2' }, 
+        {dbCollection: 'journal', id: 'jsection_6' },
+        {dbCollection: 'journal', id: 'jsection_4' },
+      ]
 
       
     },
 
     {
       id: 'person_17',
-      firstName: 'Simi',
-      lastName:  'B',
-      identifier: 'sister',
-      
-      email: '',
+      name: "Simi B",
+      meta: 'my sister',
+
       group: 'family',
-      phone: '',
-      address: '',
       
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
+      peopleHolders: []
 
       
     },

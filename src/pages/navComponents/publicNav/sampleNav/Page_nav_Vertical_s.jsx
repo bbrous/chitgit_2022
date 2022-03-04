@@ -3,6 +3,7 @@ import React from "react"
 
 import {NavLink, useLocation} from 'react-router-dom'
 import {useHistory, useParams, match} from 'react-router-dom'
+import { useSelector } from "react-redux"
 import {connect} from 'react-redux'
 // import{setPage} from '../../../app/redux/actions/landingActions'
 
@@ -165,15 +166,17 @@ const Submenu = styled('div')({
 function PageNav(props) {
   let match = useParams()
 
+
+
 //   let location = useLocation()
 //   let page = getPage(location)
 let handleClose = props.handleClose
 let page
 
-  if(!match.pageView){page = 'twoParty'}else{page = match.pageView}
+  if(!match.pageView){page = 'twoPartyChits'}else{page = match.pageView}
 
 console.log('[PageNav ] - page location : ', page)
-// let page = 'twoParty'
+// let page = 'twoPartyChits'
 
 // Popover ---------
 const [anchorEl, setAnchorEl] = React.useState(null);
@@ -225,18 +228,18 @@ const id = open ? 'simple-popover' : undefined;
 
        
 
-            <StyledLink to="/sample/chits/twoParty" >
-              {page !== 'twoParty' &&
+            <StyledLink to="/sample/chits/twoPartyChits" >
+              {page !== 'twoPartyChits' &&
                 <NavButton
-                  id='twoParty'
+                  id='twoPartyChits'
                   onClick={handleClose}
 
                 >Two Party Chits </NavButton>
               }
 
-              {page === 'twoParty' &&
+              {page === 'twoPartyChits' &&
                 <NavButtonDisabled disabled
-                  id='twoParty'
+                  id='twoPartyChits'
                 // onClick = {handleClose}
 
                 >Two Party Chits </NavButtonDisabled>
@@ -245,40 +248,40 @@ const id = open ? 'simple-popover' : undefined;
             </StyledLink>
 
 
-            <StyledLink to="/sample/chits/personal" >
-              {page !== 'personal' &&
+            <StyledLink to="/sample/chits/personalChits" >
+              {page !== 'personalChits' &&
                 <NavButton
-                  id='personal'
+                  id='personalChits'
                   onClick={handleClose}
 
-                >Personal Chits </NavButton>
+                >PersonalChits Chits </NavButton>
               }
 
-              {page === 'personal' &&
+              {page === 'personalChits' &&
                 <NavButtonDisabled disabled
-                  id='personal'
+                  id='personalChits'
                 // onClick = {handleClose}
 
-                >Personal Chits </NavButtonDisabled>
+                >PersonalChits Chits </NavButtonDisabled>
               }
 
             </StyledLink>
 
-            <StyledLink to="/sample/chits/work" >
-              {page !== 'work' &&
+            <StyledLink to="/sample/chits/workChits" >
+              {page !== 'workChits' &&
                 <NavButton
-                  id='work'
+                  id='workChits'
                   onClick={handleClose}
 
-                >Work Chits </NavButton>
+                >WorkChits Chits </NavButton>
               }
 
-              {page === 'work' &&
+              {page === 'workChits' &&
                 <NavButtonDisabled disabled
-                  id='work'
+                  id='workChits'
                 // onClick = {handleClose}
 
-                >Work Chits </NavButtonDisabled>
+                >WorkChits Chits </NavButtonDisabled>
               }
 
             </StyledLink>

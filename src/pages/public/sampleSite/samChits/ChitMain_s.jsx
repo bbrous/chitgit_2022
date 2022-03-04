@@ -7,14 +7,17 @@
    
   (sec c) Section Form()
   (sec d) Sections
- 
+
+   children: ./personal/personalMain_s
+            ./twoParty/twoPartyMain_s
+            ./work/workMain_s
 
 ------------------------------------*/
 
 
-import React from 'react'
-import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import {useSelector} from 'react-redux'
+import {useParams} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey} from '../../../../styles/colors'
 
@@ -22,9 +25,12 @@ import{ selectChits
   // selectSpotlightTaskArray
   
 } from '../../../../app/redux/chitRedux/X_sam_selectors_Chits'
+import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import Chit from './Chit_s'
-
+import PersonalMain from './personal/PersonalMain_s'
+import TwoPartyMain from './twoParty/TwoPartyMain_s'
+import WorkMain from './work/WorkMain_s'
 //  ---- Material Ui ------------------
 
 import InfoIcon from '@mui/icons-material/Info';
@@ -57,48 +63,27 @@ overflow: 'auto',
 
 })
 
-const Container= styled(Paper)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
 
-  color: chitOrange,
-  width: '90%',
-
-  // minHeight: '10rem',
-  // height: '90%',
-  margin: '3px 0 5% 0',
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-backgroundColor: veryLightGrey,
-
-
-})
 
  
 
 // ===========================================
 
 function ChitMain(props) {
-
-
+  let match = useParams()
+  // let chitPage = useSelector(selectStatus).view.chit.type
+  let chitPage = match.pageView
+console.log('[ ChitMain ] chitPage ', chitPage);
+console.log('[ ChitMain ] match ', match);
   return (
     <MainWrapper>
  
-      <Container>
-        ChitsMain Here
-        <Chit/>
- 
+  
+        {chitPage === 'personalChits' && <PersonalMain/> }
+        {chitPage === 'twoPartyChits' && <TwoPartyMain/>}
         
-      </Container>
+        {chitPage === 'workChits' && <WorkMain/>}
+
       
     </MainWrapper>
   )

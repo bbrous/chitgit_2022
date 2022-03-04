@@ -30,7 +30,8 @@ const SampleKeywords =  [
     id: 'keyword_3',
     keyword: 'diet',
     keywordHolders: [
-      {dbCollection: 'journal', id: 'jsection_4' } 
+      {dbCollection: 'journal', id: 'jsection_4' } ,
+      {dbCollection: 'journal', id: 'jsection_6' },
 
     ],
    
@@ -40,7 +41,8 @@ const SampleKeywords =  [
     id: 'keyword_4',
     keyword: 'exercise',
     keywordHolders: [
-      {dbCollection: 'journal', id: 'jsection_4' } 
+      {dbCollection: 'journal', id: 'jsection_4' },
+      {dbCollection: 'journal', id: 'jsection_6' }, 
     ],
    
   },
@@ -91,7 +93,9 @@ const SampleKeywords =  [
     id: 'keyword_7',
     keyword: 'deck',
     keywordHolders: [
-      {dbCollection: 'journal', id: 'jsection_5' } 
+      {dbCollection: 'journal', id: 'jsection_5' },
+      {dbCollection: 'journal', id: 'jsection_6' },
+       
  
 
     ],

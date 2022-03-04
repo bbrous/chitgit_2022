@@ -37,8 +37,10 @@ export const chitBurgandy ='#B02E29'
 
 // -- Purples ----------
 
-export const chitLavendar = '#F266B5'
+export const chitLavendarLight = '#F266B5'
+export const chitLavendar = '#B7B0ED'
 export const chitLightLavendar ='#D6D3ED'
+export const chitDarkLavendar = '#A49AED'
 
 // -- Greens ----------
 

@@ -1,21 +1,34 @@
 /* function Chits (props) -------------------
-  Chooses Plan display options
-  a) if no Chits --  message 1
-  b) if Chits but no detailId  in route --  message 2
-  c) if  Chits AND detailId  in route--  show Plan page
+
+  contains 3 subcomponents 
+  (1) if (initialMessage) from store - display chits explanation
+                                  in PopoverModal
+  (2) if (no initialMessage) - display ChitMain_s
+  (3) Links to: PersonalMain, TwoPartyMain, and WorkMain
+
+
+
+  children: ./chitMain
 
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
 
 import React from 'react'
-import {connect} from 'react-redux'
-import { useParams } from 'react-router-dom'
-
+import { useSelector} from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import ChitPageView from '../../../navComponents/publicNav/sampleNav/Chit_Page_nav_s'
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectChits } from '../../../../app/redux/chitRedux/X_sam_selectors_Chits'
 
+import{ 
+  selectStatus,
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import ChitMain from './ChitMain_s'
+import PopoverModal from '../samComponents/PopoverModal'
+
+
+
+
 
 // -------Material UI 
 
@@ -63,6 +76,30 @@ const NoneMessage= styled('div')({
   },
   
 })
+
+const ViewNavWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+marginBottom: '8px',
+  position: 'relative',
+ 
+
+
+  height: '2rem',
+  color: 'white',
+
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+
+})
 //=======
 
 
@@ -72,8 +109,16 @@ const NoneMessage= styled('div')({
 function Chits(props) {
 
   let match = useParams()
-  
- 
+  let navigate = useNavigate()
+
+  const ChitPage = match.pageView
+
+  let status = useSelector(selectStatus)
+  const displayPopoverModalMessage = status.initialMessage.personalChits
+
+  console.log('[ Chits_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
+  // console.log('[ Chits_s ] match params', match.params);
+
   // const ChitId = match.params.detailId 
   // const ChitsArray = props.ChitsArray
 
@@ -84,26 +129,21 @@ function Chits(props) {
 
   return (
     <Wrapper>
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={ChitPage} />
+ 
+      }
+
+<ViewNavWrapper>
+<ChitPageView/>
+</ViewNavWrapper>
+
 <ChitMain />
-      {/* {ChitsArray.length === 0 &&
-        <NoneMessage>
-          <div>You have no active or completed Chits</div>
-          <div>Create a new Chit</div>
-        </NoneMessage>
-
-      } */}
-
-      {/* {ChitsArray.length > 0 && !ChitId &&
-        <NoneMessage>
-          <div>Choose a Chit to be displayed</div>
-          <div>or</div>
-          <div>Create a new Chit</div>
-        </NoneMessage>
-
-      } */}
 
 
-      {/* {ChitId && ChitsArray.length > 0 && <ChitsMain />} */}
+
+
 
 
 
@@ -112,16 +152,6 @@ function Chits(props) {
   )
 }
 
-const actions = {
-  // changeLastChitDisplayed,  
-  // openModal, 
-  // closeModal
-}
 
-const mapState = state => ({
-  // display: state,
-  ChitsArray: selectChits(state),
-  
-})
 
-export default connect(mapState, actions)(Chits)
+export default Chits

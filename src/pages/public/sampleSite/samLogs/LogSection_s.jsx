@@ -400,7 +400,7 @@ export default function LogSection() {
           </LightTooltip>
 
           <ChitIcon />
-          <LightTooltip title='ChitGit timestamp' arrow>
+          <LightTooltip title='Content Time Lock' arrow>
             <StyledLockClockIcon />
           </LightTooltip>
 

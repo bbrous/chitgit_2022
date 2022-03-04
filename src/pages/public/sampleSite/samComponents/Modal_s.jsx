@@ -34,7 +34,8 @@ import{ closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import{selectStatus} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import MainHelp from '../samHelp/Main_help_s'
-import HelpSpotlights from '../../sampleSite.bak/samHelp/Help_spotlights_s'
+import HelpSpotlights from '../../sampleSite/samHelp/Help_spotlights_s'
+import HelpChits from '../../sampleSite/samHelp/Help_chits_s'
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
 
@@ -132,11 +133,11 @@ const Modal = (props) => {
   //         but for "help", id is a help page (ie. 'spotlights' or 'notes')
 
 // let {modalType, dbCollection, modalDisplayed, id} = useSelector(selectStatus).modal
-    let {modalParams, modalDisplayed } = useSelector(selectStatus).modal
-    let {modalType, dbCollection} = modalParams
+    let {modalParams } = useSelector(selectStatus).modal
+    let {modalType, dbCollection, modalPage} = modalParams
 
 
-console.log('[ modal ] dbCollection ', dbCollection);
+console.log('[ modal ] modalPage ', modalPage);
 
   return(
 <Fragment>
@@ -178,11 +179,17 @@ console.log('[ modal ] dbCollection ', dbCollection);
          
 } 
 
-{modalType === 'info' && <ModalDisplay >        
+{modalType === 'info' && <ModalDisplay>        
 
 <Close onClick = {()=>dispatch(closeModal())}>Close</Close>
+   
+   {modalPage === 'spotlights'  &&
    <HelpSpotlights/>
+}
 
+   {modalPage === 'chits'  &&
+   <HelpChits/>
+}
 </ModalDisplay>
 } 
        

@@ -29,6 +29,7 @@ import Paper from '@mui/material/Paper';
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
+import { chitLightBlueDull } from '../../../../styles/colors'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
@@ -53,12 +54,13 @@ const InfoWrapper= styled(Paper)({
 
 const InfoIconWrapper= styled(InfoIcon)({
 
-  color: 'grey',
-  fontSize : '1.7rem',
+  color: 'white',
+  fontSize : '1.6rem',
   
   '&:hover' : {
-    backgroundColor: 'lightGrey',
+    backgroundColor: chitLightBlueDull,
     borderRadius: '50px',
+    cursor: 'pointer'
   },
 
 })
@@ -93,6 +95,11 @@ function Info(props) {
   page = match.pageView // get URL view location
   id = match.id // get URL view location
 
+
+  console.log('[ INFO ] match ', match);
+  console.log('[ INFO ] match params', match.params);
+
+
   // --- format which Info button display -- Info Chit, Info Note, etc
 
   if(page === 'spotlights'){
@@ -116,11 +123,19 @@ const openInfoModal = ()=>{
       modalPage = 'notes'
       break;
 
+      case 'personalChits':
+        modalPage = 'chits'
+        break;
 
-    // ######     Add Chit FORMS HERE     ############
-    // ######     Add Chron FORMS HERE    ############
-    // ######     Add Log FORMS HERE      ############
-    // ######            etc              ############
+        case 'twoPartyChits':
+          modalPage = 'chits'
+          break;
+
+          case 'workChits':
+            modalPage = 'chits'
+            break;
+
+ 
 
     default:
       modalPage = '';
@@ -130,16 +145,20 @@ const openInfoModal = ()=>{
     
   // props.openModal(modalPage, id)
 
-  dispatch(openModal({
-    modalType: 'info',
-    modalPage: modalPage,
-    id: ''
 
-  }))
+  dispatch(openModal(
+    { modalParams: {
+      modalType: 'info',
+      modalPage: modalPage,
+      id: ''
+      }
+    }
 
+  ))
 
 
 }
+
 
   return (
      

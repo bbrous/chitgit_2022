@@ -27,8 +27,8 @@ export const statusSlice = createSlice({
   
       initialMessage: {
      
-        personal: true,
-        twoParty: true,
+        personalChits: true,
+        twoPartyChits: true,
         spotlights: true,
         logs: true,
         journal: true,
@@ -41,27 +41,15 @@ export const statusSlice = createSlice({
   
       // for Chits.jsx ----------------------------------
   
-      personal: {
+      chit: {
   
-        personalType: '',  // personal, work, twoParty
-        personalFilter: '',  // for personal - topic
-        // for two party - all or person
-        // for work - all or person or topic
-        display: 'ledger'  // ledger or calendar
-        // TBD when you do notes ! 
+        type: 'personalChits',  // personalChits, workChits, twoPartyChits
+        display: 'ledger',  // ledger or calendar
+        chitId:  ''
       },
   
-      twoParty: {
-  
-        twoPartyType: '',  // personal, work, twoParty
-        twoPartyFilter: '',  // for personal - topic
-        // for two party - all or person
-        // for work - all or person or topic
-        display: 'ledger'  // ledger or calendar
-        // TBD when you do notes ! 
-      },
-  
-  
+   // for Spotlights.jsx ----------------------------------
+
       spotlight: {
   
         spotId : '',

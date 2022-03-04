@@ -9,11 +9,13 @@
 
 import React from 'react'
  
-import {connect} from 'react-redux'
-import {NavLink, match } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {NavLink, useParams } from 'react-router-dom'
 
 
 import{highlightGrey } from '../../../../styles/colors'
+
+import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
 import Button from '@mui/material/Button'
@@ -67,12 +69,18 @@ function MainPage_NavButtons_s(props) {
 //  Spotlight Id resides in status reducer
 
 
+const status = useSelector(selectStatus)
+const chitView = status.view.chit.type
+const chitLink = `/sample/${chitView}`
+
+console.log('[ MainPage_NavButtons_s ] status ', status);
+
 
   return (
     <>
 
   
-      <StyledLink to="/sample/chits" >
+      <StyledLink to={chitLink}>
         <NavButton> Chits </NavButton>
       </StyledLink>
 
@@ -95,35 +103,4 @@ function MainPage_NavButtons_s(props) {
   )
 }
 
-// export default MainPage_NavButtons_s
-const actions = {
-  // setPage 
-}
-const mapState = state => ({
-  
-});
-
-export default connect(mapState, actions)(MainPage_NavButtons_s)
-
-
-// const makeMapStateToProps = () => {
-//   const getSpotlight = makeGetSpotlight()
-//   const spotlights = makeSelectSpotlights();
-//   const taskArray = selectSpotlightTaskArray();
-//   const tasks = selectTasks();
- 
-//   return (state, ownProps) => 
-//      {
-//        const matchid = ownProps.match.params.itemId
-//        return {
-//          spotlights: spotlights(state),
-//          spotlight: getSpotlight(state, matchid),
-//          taskArray: taskArray(state, matchid),
-//          taskObjects: tasks(state, matchid)
-     
-//      }}
- 
-  
-//  };
-
-// export default  connect(makeMapStateToProps)(MainPage_NavButtons_s)
+export default MainPage_NavButtons_s

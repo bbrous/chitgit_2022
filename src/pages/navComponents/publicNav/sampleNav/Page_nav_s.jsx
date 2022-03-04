@@ -3,13 +3,13 @@ import React from "react"
 
 import {NavLink,  useLocation} from 'react-router-dom'
 import { useParams, match} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {useSelector} from 'react-redux'
 // import{setPage} from '../../../app/redux/actions/landingActions'
 
 // import {getPage} from '../../../app/helpers/locationHelper'
 import{backgroundBlue, bodyBlue, chitBlueLight, chitOrange, chitOrangeVeryLight, chitSkyBlue, darkGrey, highlightGrey, lightGrey, shadowBlue, veryLightGrey} from '../../../../styles/colors'
 
-
+import { selectStatus } from "../../../../app/redux/statusRedux/sam_statusSlice"
 
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
@@ -167,6 +167,9 @@ const Submenu = styled('div')({
 function PageNav(props) {
   let match = useParams()
 
+  const status = useSelector(selectStatus)
+const chitView = status.view.chit.type
+const chitLink = `/sample/${chitView}`
 //   let location = useLocation()
 //   let page = getPage(location)
 let handleClose = props.handleClose
@@ -174,7 +177,7 @@ let page
 
   if(!match.pageView){page = 'twoParty'}else{page = match.pageView}
 
-// console.log('[PageNav ] - page location : ', page)
+console.log('[PageNav ] - page location : ', page)
 // let page = 'twoParty'
 
 // Popover ---------
@@ -224,50 +227,24 @@ const id = open ? 'simple-popover' : undefined;
 
 {/* ========================================================= */}
 
-<StyledLink to="/sample/chits" >
-
+<StyledLink to= {chitLink}>
+{page !== 'personalChits' && 
 <NavButton
       aria-describedby={id} variant="contained" onClick={handleClick}
 
     >Chits </NavButton>
-    
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClosePopper}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-          <div>     
+}
 
-            Chits
-
-
-        </div>
-
-      </Popover>
-
-
-
-
-  {/* {page !== 'chits' &&
-    <NavButton
-      id='chits'
-    onClick = {handleClose}
-
-    >Chits </NavButton>
-  }
-
-  {page === 'chits' &&
-    <NavButtonDisabled disabled
-      id='chits'
+{page === 'personalChits' && 
+  <NavButtonDisabled disabled
+    id = 'spotlights' 
     // onClick = {handleClose}
+  
+  >Chits </NavButtonDisabled>
+}
 
-    >Chits </NavButtonDisabled>
-  } */}
+
+
 
 
 </StyledLink>
@@ -395,13 +372,5 @@ const id = open ? 'simple-popover' : undefined;
   );
 }
 
-const actions = {
-  // setPage 
-}
 
-const mapState = state => ({
-  page: state,
-
-});
-
-export default connect(mapState, actions)(PageNav)
+export default PageNav

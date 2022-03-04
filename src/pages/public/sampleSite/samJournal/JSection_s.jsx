@@ -16,7 +16,7 @@ import React , {useState, useEffect, useRef} from 'react'
 import {connect} from 'react-redux'
 import {useSelector, useDispatch} from 'react-redux'
 import ReactHtmlParser from 'react-html-parser'
-import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey} from '../../../../styles/colors'
+import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
 
 import JournalForm from '../samForms/JournalForm_s'
 import JournalFormAlert from './JournalFormAlert'
@@ -26,7 +26,7 @@ import { selectStatus,
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import { ISOtoTraditional } from '../../../../app/helpers/dateHelper'
+import { ISOtoTraditionalWithDay } from '../../../../app/helpers/dateHelper'
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  
@@ -104,7 +104,7 @@ const DateWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  // backgroundColor: 'green',
+  color: chitDarkGreen,
   // width: '50%',
   padding: '2px 6px',
 
@@ -436,7 +436,7 @@ export default function JSection(props) {
   const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
   }  = props
  
-  let formattedDate = ISOtoTraditional(dateCreated)
+  let formattedDate = ISOtoTraditionalWithDay(dateCreated)
   return (
 <>
 <Dialog

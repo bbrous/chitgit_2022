@@ -4,7 +4,7 @@
 const SampleJournalSections =  [
 
 
-  // Begin log_1 ------------------------- >>
+  // Begin journal_1 ------------------------- >>
  
     {
       id: 'jsection_1',
@@ -15,7 +15,6 @@ const SampleJournalSections =  [
       dateCreated: "2021-01-03T16:21:33.000Z",
       chitId: '',
 
-      timeStamp:  false,  // not editable
       peopleArray: [],
       keyWordArray: [],
       category:'' 
@@ -25,14 +24,13 @@ const SampleJournalSections =  [
       id: 'jsection_2',
       title: 'New Year',
       
-      content: "<p>&nbsp;</p><p>This year I’d like to balance my life more…. spend more time with Mary… This year we will definitely take that vacation together that I postponed twice because of work.</p><p>&nbsp;</p><p>Although my job is good, and I like my boss and most my coworkers -- I really would like to do something out of the medical industry… maybe something in sports.&nbsp;</p><p>&nbsp;</p><p>When I started my career I thought medical would be great because it helps people and makes money… but in the I’ve realized that all medical companies are <strong><u>only </u></strong>about the money.&nbsp;Helping people is secondary or worse still - not even on the agenda.&nbsp;My last company was&nbsp;like that - the product actually didn’t work - but they forged ahead anyway.</p><p>&nbsp;</p><p>Hope to move into the new house by summer.&nbsp;When we bought it 6 months ago it looked bad, but I thought it would only take a few months to fix it up.&nbsp;But still looks like it’ll take another 6 months before it’s livable.&nbsp;But the savings gains by doing the work myself and along with the value increases from the improvements we’re making make it worthwhile.&nbsp;PS.&nbsp;Mary is taking on landscaping herself - she’s amazing.</p><p>&nbsp;</p><p>Also this year, one of my goals will be to put some <strong style=\"color: rgb(230, 0, 0);\">savings in the bank … at least $10k</strong>.&nbsp;Tired of living without a cushion.</p>",
+      content: "<p>&nbsp;</p><p>This year I’d like to balance my life more…. spend more time with Mary… This year we will definitely take that vacation together that I postponed twice last year because of work.</p><p>&nbsp;</p><p>Although my job is good, and I like my boss and most my coworkers -- I really would like to do something out of the medical industry… maybe something in sports.&nbsp;</p><p>&nbsp;</p><p>When I started my career I thought medical would be great because it helps people and makes money… but in the I’ve realized that all medical companies are <strong><u>only </u></strong>about the money.&nbsp;Helping people is secondary or worse still - not even on the agenda.&nbsp;My last company was&nbsp;like that - the product actually didn’t work - but they forged ahead anyway.</p><p>&nbsp;</p><p>Hope to move into the new house by summer.&nbsp;When we bought it 6 months ago it looked bad, but I thought it would only take a few months to fix it up.&nbsp;But still looks like it’ll take another 6 months before it’s livable.&nbsp;But the savings gains by doing the work myself and along with the value increases from the improvements we’re making make it worthwhile.&nbsp;PS.&nbsp;Mary is taking on landscaping herself - she’s amazing.</p><p>&nbsp;</p><p>Also this year, one of my goals will be to put some <strong style=\"color: rgb(230, 0, 0);\">savings in the bank … at least $10k</strong>.&nbsp;Tired of living without a cushion.</p>",
 
       
       dateCreated: "2021-01-03T16:21:33.000Z",
       chitId: '',
 
-      timeStamp:  false,  // not editable
-      peopleArray: [],
+      peopleArray: ['Mary B'],
       keyWordArray: [],
       category:'Goals' 
 
@@ -47,8 +45,7 @@ const SampleJournalSections =  [
       dateCreated: "2021-01-03T16:26:33.000Z",
       chitId: '',
 
-      timeStamp:  false,  // not editable
-      peopleArray: [],
+      peopleArray: ['Cyn Terhor', 'Mark D'],
       keyWordArray: ['Product team'],
       category:'Work' 
 
@@ -63,8 +60,7 @@ const SampleJournalSections =  [
       dateCreated: "2021-01-03T16:31:33.000Z",
       chitId: '',
 
-      timeStamp:  false,  // not editable
-      peopleArray: [],
+      peopleArray: ['Mary B'],
       keyWordArray: ['diet' ,'exercise', 'vacation'],
       category:'Personal' 
 
@@ -81,12 +77,52 @@ const SampleJournalSections =  [
       dateCreated: "2021-01-03T16:36:33.000Z",
       chitId: '',
 
-      timeStamp:  false,  // not editable
       peopleArray: [],
       keyWordArray: ['deck'],
       category:'Projects' 
 
     },
+
+
+  // Begin journal Jan 6 ------------------------- >>
+ 
+  {
+    id: 'jsection_6',
+    title: '',
+    
+    content: "<p>Worked out and dieted for the last 3 days… so far so good.</p><p>&nbsp;</p><p>Found a great video on you tube on how to build a deck.&nbsp;The design is not what I want - but the rest of it works well. <a href=\"https://www.youtube.com/watch?v=PkvKO8GchyE\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.youtube.com/watch?v=PkvKO8GchyE</a></p><p>&nbsp;</p><p>Told Jerry about the deck… he offered to help and his little brother’s.&nbsp;I was going to ask Billy’s help anyway because he’s the builder in the family.&nbsp;Jerry is more entertainer than worker… :-)</p><p>&nbsp;</p><p>Regarding the vacation - my boss let me block out the first week in May.&nbsp;Would have liked to make it 2 weeks, but just don’t have that much time.&nbsp;Now I have to talk to Mary’s boss.</p>",
+
+    dateCreated: "2021-01-06T16:21:33.000Z",
+    chitId: '',
+
+    peopleArray: ['Mary', 'Jerry'],
+    keyWordArray: ['diet', 'exercise'],
+    category:'Personal project' 
+
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ]// end SampleLogs
