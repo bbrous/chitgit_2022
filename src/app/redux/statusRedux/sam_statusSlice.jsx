@@ -27,8 +27,8 @@ export const statusSlice = createSlice({
   
       initialMessage: {
      
-        personalChits: true,
-        twoPartyChits: true,
+        personalChits: false,
+        twoPartyChits: false,
         spotlights: true,
         logs: true,
         journal: true,
@@ -139,6 +139,8 @@ export const statusSlice = createSlice({
 
     updateStatusView: (state, action) => {
       state.view[action.payload.pageType].display = action.payload.pageView
+      state.view[action.payload.pageType].type = action.payload.type
+      
                    
     },
 

@@ -154,7 +154,8 @@ function ChitViewNav(props) {
 
     dispatch(updateStatusView({
       pageType: 'chit',
-      pageView: evt.target.id
+      pageView: 'ledger',
+      type: evt.target.id
     }))
 
   }

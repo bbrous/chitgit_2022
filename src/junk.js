@@ -1,18 +1,5 @@
-<FilterWrapper>
-<FilterHeader>Filters</FilterHeader>
 
-          <CategoryWrapper>
-            
-            <FilterLabel>Category :  </FilterLabel>
-            <Filter>Work</Filter>
-          </CategoryWrapper>
 
-          <KeywordWrapper>
-            <FilterLabel>Keywords :  </FilterLabel>
-            <Filter>deck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projects</Filter>
-          </KeywordWrapper>
-          
-        </FilterWrapper>
 
 
 

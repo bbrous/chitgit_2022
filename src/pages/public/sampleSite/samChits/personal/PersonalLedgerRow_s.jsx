@@ -11,20 +11,24 @@ import PropTypes from 'prop-types';
 
 import {veryLightGrey} from '../../../../../styles/colors'
 
- 
+ import { Paper } from '@mui/material';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 
-const Wrapper= styled('div')({
+const Wrapper= styled(Paper)({
 color: 'red',
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
   justifyContent: 'flex-start',
+
+  border: '1px solid lightgrey',
+  height: '45px',
+  width: '100%',
 //   alignItems: 'center',
 //   backgroundColor: veryLightGrey,
 //   width: '100%',
@@ -42,7 +46,7 @@ color: 'red',
 export default function PersonalLedgerRow(props) {
   return (
     <Wrapper>
-      <div> Chit</div>
+      <div> Chit - personal ledger row</div>
       <div> Message</div>
       <div> Edit links, etc</div>
 

@@ -10,7 +10,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import {veryLightGrey} from '../../../../../styles/colors'
-
+import PersonalLedgerRow from './PersonalLedgerRow_s';
  
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -44,8 +44,9 @@ export default function PersonalLedger(props) {
     <Wrapper>
       <div> PersonalLedger_s</div>
 
-      <div> PersonalLedgerRowHere </div>
-      <div> PersonalLedgerRowHere </div>
+      <PersonalLedgerRow/>
+      <PersonalLedgerRow/>
+      <PersonalLedgerRow/>
       
     </Wrapper>
   );

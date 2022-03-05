@@ -23,22 +23,24 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 const Wrapper= styled('div')({
 
+  backgroundColor: 'pink',
+
   display: 'flex',
   position: 'relative',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  color: 'pink'
-//   alignItems: 'center',
+  alignItems: 'center',
 //   backgroundColor: veryLightGrey,
-//   width: '100%',
-//   height: '100%',
-// overflow: 'hidden',
+  width: '100%',
+  height: '100%',
+  overflowY: 'auto',
 
 //   [theme.breakpoints.down('sm')] : {
 //     // width: '100%'
 //   },
 
 })
+
 
 
 
