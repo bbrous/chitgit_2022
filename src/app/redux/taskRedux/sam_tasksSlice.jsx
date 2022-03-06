@@ -11,7 +11,7 @@ export const tasksSlice = createSlice({
   
       let task  = action.payload
  
-      
+      console.log('[ addTaskToStore ] task ', task);
       // {
       //   id: cuid(),
       //   type: 'spotlight', 

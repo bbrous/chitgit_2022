@@ -45,14 +45,14 @@ export const statusSlice = createSlice({
   
         type: 'personalChits',  // personalChits, workChits, twoPartyChits
         display: 'ledger',  // ledger or calendar
-        chitId:  ''
+        id:  ''
       },
   
    // for Spotlights.jsx ----------------------------------
 
       spotlight: {
   
-        spotId : '',
+        id : '',
         spotFilter: 'all',  // all or active or completed (from sidebar Nav)
         display: 'tree'  // tree or detail
   
@@ -67,7 +67,7 @@ export const statusSlice = createSlice({
   
       log: {
   
-        logId: '',  // if no logId -- all else logId stuff
+        id: '',  // if no logId -- all else logId stuff
         
       },
   
@@ -75,7 +75,7 @@ export const statusSlice = createSlice({
   
       journal: {
   
-        journalId: '',  // if no journalId -- all else journalId stuff
+        id: '',  // if no journalId -- all else journalId stuff
       },
   
       // for Notes.jsx ----------------------------------
@@ -92,7 +92,7 @@ export const statusSlice = createSlice({
       inspire: {
           
           inspireFilter: 'story' , // quote or last (chit + log + etc) or picture or story
-          inspireId: ''
+          id: ''
         // TBD when you do inspiration ! 
       },
   

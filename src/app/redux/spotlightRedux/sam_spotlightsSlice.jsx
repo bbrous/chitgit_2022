@@ -78,7 +78,7 @@ export const spotlightsSlice = createSlice({
 
   updateSpotlightNoteId: (state, action) => {
 
-console.log('[ updateSpotlightNoteId ] myVar ', action.payload.noteHolderId);
+// console.log('[ updateSpotlightNoteId ] myVar ', action.payload.noteHolderId);
     let spotId = action.payload.noteHolderId
     let noteId = action.payload.noteId
     
@@ -130,18 +130,18 @@ let spotIndex = state.findIndex(index => index.id === spotId)
   // ---------------
 
 addToTaskArray: (state, action) => {
-
-  let spotId = action.payload.id
+ 
+  let spotId = action.payload.spotId
   let id = action.payload.id
   let type = action.payload.type
    
-  
+
  
 
 //  get the index of the spotlight Object in store Spotlights Array
 let spotIndex = state.findIndex(index => index.id === spotId)
 
-
+console.log('[ addToTaskArray *************************** ] action.payload.id ', action.payload);
   // state[spotIndex].taskArray.push = {id: id, type: type}
   state[spotIndex].taskArray.push({id: id, type: type})
 
