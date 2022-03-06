@@ -10,7 +10,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 import { veryLightGrey, lightGrey } from '../../../../../styles/colors'
-
+import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 // ---MUI ------
 import { Paper } from '@mui/material';
@@ -216,15 +216,33 @@ const LessIcon = styled(ExpandLessIcon)({
 export default function TwoPartyLedgerRow(props) {
   let dispatch = useDispatch()
   // let passedId = props.id
-  let passedId = cuid()
+  let passedId = props.id
+  let status = useSelector(selectStatus)
+  let accordionId = status.accordionDisplay.id
 
+  let displayDetail 
+  if(passedId === accordionId){displayDetail = true}
   // const [showId, setShowId] = useState(false)
-  // useEffect(()=>{
+  useEffect(()=>{
+
+    console.log('[ TwoPartyLedgerRow @@@@@@@@@@@ ] accordionId ', accordionId);
+    
 
 
-  // },[])
 
-  let displayDetail = true
+  },[accordionId, passedId])
+
+  const openDetailPanel = (passedId)=>{
+    dispatch(updateAccordionDisplay({id: passedId}))
+
+  }
+
+  const closeDetailPanel = (passedId)=>{
+    dispatch(updateAccordionDisplay({id: ''}))
+
+  }
+
+
 
 // passedId === showId ? displayDetail = true : displayDetail = false
   return (
@@ -239,11 +257,15 @@ export default function TwoPartyLedgerRow(props) {
       </HeaderWrapper>
       <AccordionWrapper>
       {!displayDetail && 
-        <MoreIcon /> 
+        <MoreIcon 
+        onClick = {()=> openDetailPanel(passedId)}
+        /> 
       }
 
         {displayDetail && 
-        <LessIcon />
+        <LessIcon 
+        onClick = {()=> closeDetailPanel(passedId)}
+        />
 }
         <AccordionTopWrapper >
           {passedId} in top

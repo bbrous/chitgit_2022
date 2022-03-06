@@ -60,77 +60,44 @@ const FilterWrapper= styled('div')({
   
   })
 
+  const tempArray = [
+    {id: 'xChit_1', title: 'xChit_1 title here'},
+    {id: 'xChit_2', title: 'xChit_2 title here'},
+    {id: 'xChit_3', title: 'xChit_3 title here'},
+    {id: 'xChit_4', title: 'xChit_4 title here'},
+  ]
+
 // ===================================================================
 
 export default function TwoPartyLedger(props) {
+
+  const chitRows = (tempArray) => 
+
+
+ 
+  tempArray.map((item, index) => {
+   // code 
+  return (
+    <TwoPartyLedgerRow
+      id = {item.id}
+      key = {item.id}
+      title = {item.title}
+
+     
+    />
+  )
+  }
+  ) //end map
+
+
+
   return (
     <Wrapper>
       <FilterWrapper> David Anderson </FilterWrapper>
 
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
+      {chitRows(tempArray)}
 
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
-      <TwoPartyLedgerRow/>
-
-      <TwoPartyLedgerRow/>
+      
 
       
     </Wrapper>

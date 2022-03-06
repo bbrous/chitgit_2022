@@ -24,6 +24,14 @@ export const statusSlice = createSlice({
         // dbCollection: '', // spotlight, twoParty, note, etc.
         // id: '',
       },
+
+      accordionDisplay: {
+     
+        id: ''
+        // modalType: '', // info or form
+        // dbCollection: '', // spotlight, twoParty, note, etc.
+        // id: '',
+      },
   
       initialMessage: {
      
@@ -101,7 +109,7 @@ export const statusSlice = createSlice({
 
   reducers: {
     openModal: (state, action) => {
-      console.log('REDUCER OpenModal here type: ', action.payload)
+      // console.log('REDUCER OpenModal here type: ', action.payload)
       // console.log('REDUCER OpenModal here dbCollection : ', action.payload.dbCollection)
       // console.log('REDUCER OpenModal here : id ', action.payload.modalType)
       // let id = action.payload.id ? action.payload.id : ''
@@ -144,6 +152,13 @@ export const statusSlice = createSlice({
                    
     },
 
+    updateAccordionDisplay: (state, action) => {
+      state.accordionDisplay.id = action.payload.id
+    
+      
+                   
+    },
+
     closeJournalForm: (state, action) => {
       // state.modal.modalType = ''
       // state.modal.dbCollection = ''
@@ -158,7 +173,7 @@ export const statusSlice = createSlice({
       
       let newJournalId = action.payload
 
-      console.log('[ sam_StatusSlice ] sectionId ', newJournalId);
+      // console.log('[ sam_StatusSlice ] sectionId ', newJournalId);
       state.view.journal.journalId = newJournalId
 
     },
@@ -180,7 +195,8 @@ export const {
   changeLastSpotlightDisplayed,
   updateStatusView,
   closeJournalForm,
-  openJournalForm
+  openJournalForm,
+  updateAccordionDisplay
 
   } = statusSlice.actions
 
