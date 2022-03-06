@@ -5,8 +5,8 @@
 */
 
 import React  from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {Link, useNavigate} from 'react-router-dom'
+ 
 import{setPage} from '../../../app/redux/actions/X_landingActions'
 
 
@@ -277,17 +277,111 @@ const ListStyle = styled('ul' )({
 
 
 
-const Notice= styled('a')({
+const Notice= styled('div')({
 
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
   width: '90%',
-  textAlign: 'center',
+  // backgroundColor: 'orange',
   marginTop: '2rem',
   color: chitDullYellow,
-  textDecoration: 'underline',
-  fontSize: '1.1rem',
+  
+  fontSize: '1rem',
   fontWeight: '400',
 
+    [theme.breakpoints.down('sm')] : {
+       
+      fontSize: '.75rem'
+      
+    },
+
+    [theme.breakpoints.down('xs')] : {
+       
+      fontSize: '.95rem',
+      padding: '0 15% 0 5%',
+      
+      
+    }
+   
+
+})
+const NoticeForm = styled('div')({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+  // backgroundColor: 'red',
+
+  color: chitDullYellow,
+  
+  fontSize: '1rem',
+  fontWeight: '400',
+  marginTop: '6px',
+  marginLeft: '22px',
+    [theme.breakpoints.down('sm')] : {
+       
+      fontSize: '.75rem'
+      
+    },
+
+    [theme.breakpoints.down('xs')] : {
+       
+      fontSize: '.95rem',
+      padding: '0 15% 0 5%',
+      
+      
+    }
+   
+
+})
+
+const GoButton = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+ 
+ border: '1px solid white',
+ borderRadius: '50px',
+backgroundColor: 'none',
+ 
+  
+  fontSize: '.6rem',
+  width: '1.2rem',
+  height: '1.2rem',
+  padding: '3px',
+  fontWeight: '400',
+marginLeft: '6px',
+cursor: 'pointer',
+    [theme.breakpoints.down('sm')] : {
+       
+      fontSize: '.75rem'
+      
+    },
+
+    [theme.breakpoints.down('xs')] : {
+       
+      fontSize: '.95rem',
+      padding: '0 15% 0 5%',
+      
+      
+    }
+   
+
+})
+
+const StyledInput= styled('input')({
+
+ 
+  
+  fontSize: '.75rem',
+  fontWeight: '400',
+width: '10rem',
     [theme.breakpoints.down('sm')] : {
        
       fontSize: '.75rem'
@@ -455,12 +549,18 @@ const Free= styled('div')({
 // ==============================
 
 const Landing_page = (props) => {
-
+  let navigate = useNavigate()
   const handlePageChange = (evt) => {
     evt.persist()
     console.log('I BE CLICKED in TP :: ', evt.currentTarget.id)
     props.setPage(evt.currentTarget.id) //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+  }
+
+  const handleSubmit = (code)=>{
+
+    navigate(`/chitPreview/${code}`)
+    // alert('[ Landing_page ] I submitted ');
   }
 
   return (
@@ -492,8 +592,9 @@ const Landing_page = (props) => {
 
           <ListWrapper>
             <ListStyle>
-              <li> get  better  performance reviews </li>
+              
               <li> appreciate someone for their help </li>
+              <li> get  better  performance reviews </li>
               <li> resolve ongoing conflicts in your favor </li>
               <li> establish legal ownership of your ideas </li>
               <li> improve your personal work flow </li>
@@ -509,7 +610,13 @@ const Landing_page = (props) => {
 
 
 
-          <Notice href="/notification">  I received a chit notice </Notice>
+          <Notice >  
+            <div> I received a chit notice</div>
+            <NoticeForm> 
+              <StyledInput placeHolder = 'enter code ' /> 
+              <GoButton onClick = {()=> handleSubmit('bullah')} >Go</GoButton> 
+              </NoticeForm>
+            </Notice>
 
         </LeftSide>
 
@@ -538,7 +645,7 @@ const Landing_page = (props) => {
 
           <Description>
 
-            Keep a record of:
+            Keep records of:
           </Description>
 
           <ListWrapper>
@@ -574,12 +681,6 @@ const Landing_page = (props) => {
 
 
 
-const actions = {
-  setPage 
-}
+ 
 
-const mapState = state => ({
-  page: state
-});
-
-export default connect(mapState, actions)(Landing_page)
+export default Landing_page

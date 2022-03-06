@@ -44,6 +44,7 @@ import Home from '../pages/private/Home'
 import Main from '../pages/private/Main'
 import Join from '../pages/public/Join'
 import Login from '../pages/public/Login'
+import ChitPreview from '../pages/public/ChitPreview'
 import PasswordReset from '../pages/public/PasswordReset'
 
 
@@ -121,6 +122,8 @@ const App = () => {
 
             <Route path='/join' element={<Join/>} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/chitPreview/:code' element={<ChitPreview/>} />
+            <Route path='/chitPreview' element={<ChitPreview/>} />
             <Route path='/resetPassword' element={<PasswordReset/>} />
 
 <Route path='/features' element={<Features />} /> 
