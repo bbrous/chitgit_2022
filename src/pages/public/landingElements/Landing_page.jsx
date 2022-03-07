@@ -4,13 +4,12 @@
    parent: /src/public/Landing
 */
 
-import React  from 'react'
+import React, {useState, useEffect}  from 'react'
 import {Link, useNavigate} from 'react-router-dom'
- 
-import{setPage} from '../../../app/redux/actions/X_landingActions'
 
+import { stripWhiteSpace } from '../../../app/helpers/commonHelpers'
 
-import{ chitDullYellow, backgroundBlue, chitYellow, chitSkyBlue } from '../../../styles/colors'
+import{ chitDullYellow, backgroundBlue, chitYellow, chitBlueDull } from '../../../styles/colors'
 
 import Logo from '../../../images/ChitPro_logo.svg'
 
@@ -358,6 +357,7 @@ backgroundColor: 'none',
   fontWeight: '400',
 marginLeft: '6px',
 cursor: 'pointer',
+'&:hover': {backgroundColor: chitBlueDull},
     [theme.breakpoints.down('sm')] : {
        
       fontSize: '.75rem'
@@ -415,7 +415,7 @@ const JoinButton = styled(Button)({
   padding: '0 2.5rem',
   
   '&:hover' : {
-    // backgroundColor: chitSkyBlue,
+    // backgroundColor: chitBlueDull,
     textDecoration: 'none',
     border: '1px solid #A8BEED' ,
     color: '#A8BEED'
@@ -557,9 +557,17 @@ const Landing_page = (props) => {
 
   }
 
-  const handleSubmit = (code)=>{
 
-    navigate(`/chitPreview/${code}`)
+  const [chitInput, setChitInput] = useState('')
+
+  const handleInput = (evt) =>{
+    console.log('[Landing_page ] Input form value ', evt.target.value);
+    setChitInput(evt.target.value)
+  }
+
+  const handleSubmit = (code)=>{
+    let cleanCode = stripWhiteSpace(code).toLowerCase()
+    navigate(`/chitPreview/${cleanCode}`)
     // alert('[ Landing_page ] I submitted ');
   }
 
@@ -611,10 +619,12 @@ const Landing_page = (props) => {
 
 
           <Notice >  
-            <div> I received a chit notice</div>
+            <div> I received a chit </div>
             <NoticeForm> 
-              <StyledInput placeHolder = 'enter code ' /> 
-              <GoButton onClick = {()=> handleSubmit('bullah')} >Go</GoButton> 
+              <StyledInput placeholder = 'enter code ' 
+               onChange = {(evt)=> handleInput(evt)}
+              /> 
+              <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
               </NoticeForm>
             </Notice>
 
