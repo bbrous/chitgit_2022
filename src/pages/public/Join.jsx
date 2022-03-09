@@ -13,7 +13,7 @@ links from:  src\pages\public\landingElements\Landing_page.jsx
 
 import React  from 'react'
 import {backgroundBlue } from '../../styles/colors'
- 
+import {  useParams } from 'react-router-dom'
 import JoinForm from '../../forms/JoinForm.jsx'
 
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
@@ -179,6 +179,20 @@ const JoinBox= styled(Paper)({
 // ================================================
 
 const Join = () => {
+
+
+
+
+  // --- if come to Join from shared chit ---
+  // make shared chit info available after join --------
+
+  let match = useParams()
+
+  console.log('[ Join ] params ', match.sharedChitId);
+
+  //  ---------------------------------------
+
+
   return (
     <BodyWrapper>
       <HeaderPublic />
@@ -193,6 +207,17 @@ const Join = () => {
 
       <ContentWrapper>
 
+
+
+
+      <div> temporary - shared chit passed is : {match.sharedChitId} </div>
+
+
+
+
+
+
+      
         <JoinBox>
           <JoinForm  mark = 'mike' />
         </JoinBox>

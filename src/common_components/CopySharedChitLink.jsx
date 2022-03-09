@@ -1,20 +1,47 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
+import { chitVeryLightBlue } from '../styles/colors';
 import Button from '@mui/material/Button';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+
+
+
+
+
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // ------
+const Wrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 
 
-const StyledButton = styled(Button)({
+ 
+  [theme.breakpoints.down('xs')] : {
+ 
+  
+ }
+})
+
+const StyledButton = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   color: 'orange',
-  fontSize: '.5rem',
+  fontSize: '.65rem',
+  height: '1.3rem',
+  width: '1.3rem',
+  cursor: 'pointer',
 border: 'none',
-'&:hover': {border: 'none'},
+'&:hover': {
+  backgroundColor: chitVeryLightBlue,
+  borderRadius: '5px'
+
+},
   [theme.breakpoints.down('xs')] : {
  
   
@@ -23,10 +50,7 @@ border: 'none',
 
 const CopySharedChitLink = (props) => {
   let chitLink = props.chitLink
-  // state = {
-  //   value: 'http://www.visitell.com/1234',
-  //   copied: false,
-  // };
+   
 
   let initialState = {
     value: chitLink,
@@ -37,8 +61,8 @@ const CopySharedChitLink = (props) => {
  
 
     return (
-      <div>
-        <input type = 'hidden' value={state.value}
+      <Wrapper>
+        <input type = 'hidden' value={state.value || ''}
           onChange={({target: {value}}) =>setState({value, copied: false})} />
 
      
@@ -48,15 +72,15 @@ const CopySharedChitLink = (props) => {
           <StyledButton 
           size = 'small' 
           variant="outlined" 
-          startIcon={<ContentCopyIcon />}
+          
            
           >
-        Copy
+        <ContentCopyIcon sx = {{fontSize: '.95rem'}}/>
       </StyledButton>
-        </CopyToClipboard>
+        </CopyToClipboard >
 
         {state.copied ? <span style={{color: 'red'}}>Copied.</span> : null}
-      </div>
+      </Wrapper>
     );
   }
 

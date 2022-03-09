@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
-import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey } from '../../styles/colors'
+import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey } from '../../styles/colors'
+
 import SilverChit from '../../images/chitCoins/silver_standard.svg'
+import LinkCode from '../../images/linkCode.svg'
+
+
 import { useParams, useNavigate } from 'react-router-dom'
 import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
 import { stripWhiteSpace } from '../../app/helpers/commonHelpers'
@@ -8,7 +12,8 @@ import { stripWhiteSpace } from '../../app/helpers/commonHelpers'
 import CopySharedChitLink from '../../common_components/CopySharedChitLink';
 
 //--- MUI
-
+import Popover from '@mui/material/Popover';
+import Info from '@mui/icons-material/Info';
 import Paper from '@mui/material/Paper';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -80,7 +85,7 @@ const HeadWrapper= styled('div')({
     marginLeft: '6px',
 
     fontSize: '.9rem',
- 
+   
     
    
   
@@ -96,9 +101,10 @@ const HeadWrapper= styled('div')({
  
     color: 'white',
     fontSize: '.7rem',
-    marginLeft: '6px',
+    marginLeft: '16px',
     textDecoration: 'underline',
-   
+    cursor:'pointer',
+    height: '1rem',
   
     [theme.breakpoints.down('xs')] : {
       overflow: 'auto',
@@ -147,7 +153,7 @@ const HeadWrapper= styled('div')({
   const SubHeader= styled('div')({
 
     display: 'flex',
-    
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
 
@@ -179,7 +185,7 @@ const HeadWrapper= styled('div')({
     position: 'relative',
   
     width: '45rem',
-    height: '25rem',
+
     
   
  
@@ -193,6 +199,166 @@ const HeadWrapper= styled('div')({
 
   
   })
+
+  const SummaryWrapper= styled('div')({
+
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const SummaryTop= styled('div')({
+
+
+    marginRight: '6px',
+    fontStyle: 'italic',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  
+  const SummaryBottom= styled('div')({
+
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const DateWrapper= styled('div')({
+
+
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const DateLeft= styled('div')({
+
+
+    marginRight: '6px',
+    fontStyle: 'italic',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  
+  const DateRight= styled('div')({
+
+
+    
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+    const ActionWrapper= styled('div')({
+
+
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const ActionLeft= styled('div')({
+
+
+    marginRight: '6px',
+    fontStyle: 'italic',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  
+  const ActionRight= styled('div')({
+
+
+    
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const MessageWrapper= styled('div')({
+
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  const MessageTop= styled('div')({
+
+
+    marginRight: '6px',
+    fontStyle: 'italic',
+ 
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+  
+  const MessageBottom= styled('div')({
+
+
+    [theme.breakpoints.down('xs')] : {
+     
+    }
+  
+  })
+
+
 // -----------------------------------------
   const ChitBox= styled('div')({
 
@@ -207,7 +373,7 @@ const HeadWrapper= styled('div')({
     height: '80%',
     marginTop: '8px',
   
-    backgroundColor: 'white' ,
+    // backgroundColor: 'red' ,
     borderRadius: '20px',
   
   
@@ -228,7 +394,8 @@ const HeadWrapper= styled('div')({
     alignItems: 'center',
     width: '100%',
     // backgroundColor: 'red',
-  border: '1px solid red',
+  background: veryLightGrey,
+  marginTop: '1rem',
 
       [theme.breakpoints.down('xs')] : {
          
@@ -248,7 +415,7 @@ const HeadWrapper= styled('div')({
     alignItems: 'center',
     width: '100%',
     // backgroundColor: 'red',
-  border: '1px solid red',
+ 
 
       [theme.breakpoints.down('xs')] : {
          
@@ -331,8 +498,8 @@ const HeadWrapper= styled('div')({
     justifyContent: 'flex-start',
     fontSize: '.7rem',
     color: mediumGrey,
-    bottom: '10px',
-    left: '16px',
+    top: '10px',
+    right: '16px',
 
       [theme.breakpoints.down('xs')] : {
          
@@ -346,10 +513,11 @@ const HeadWrapper= styled('div')({
   })
 
   const ResendWrapper = styled('div')({
-    position: 'absolute',
+    // position: 'absolute',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     fontSize: '.7rem',
     color: mediumGrey,
     bottom: '10px',
@@ -368,6 +536,11 @@ const HeadWrapper= styled('div')({
   const StyledChitImage= styled('img')({
 
     height: '5rem',
+  
+  })
+  const StyledLinkImage= styled('img')({
+
+    height: '1rem',
   
   })
   // ---------------------------
@@ -490,12 +663,60 @@ const HeadWrapper= styled('div')({
   
   })
 
+  const InfoIconWrapper= styled(Info)({
+
+    color: mediumLightGrey,
+    fontSize : '1rem',
+    marginLeft: '8px',
+ 
   
+  })
+
+  const HomeLink = styled('div')({
+    position: 'absolute',
+    bottom: '1rem',
+    display: 'block',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    fontSize: '.9rem',
+
+    marginTop: '3rem',
+    textDecoration: 'underline',
+  color: 'blue',
+   
+  cursor: 'pointer',
+
+      [theme.breakpoints.down('xs')] : {
+         
+        fontSize: '.95rem',
+        padding: '0 15% 0 5%',
+        
+        
+      }
+     
+  
+  })
 // ============================
 const ChitPreview = (props) => {
   let match = useParams()
   let navigate = useNavigate()
   let codeId = match.code
+
+
+// --- popover functions ----
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+// ---end popover functions ---
 
   
   const [chitInput, setChitInput] = useState('')
@@ -511,36 +732,71 @@ const ChitPreview = (props) => {
     // alert('[ Landing_page ] I submitted ');
   }
 
+  const goToHome = ()=>{
+     
+    navigate(`/`)
+    // alert('[ Landing_page ] I submitted ');
+  }
+
   let ChitPreviewDisplay = (codeId)=>{
+
+   let chitLinkMessage =  `www.ChitGit.com/sharedChit/${codeId}`
+
+  
+
+
+
     if(codeId === 'shelby'){
       return(
         <>
         <ContentBox>
-        <SentDate> date sent: Mar 14, 2022</SentDate>
-        <ResendWrapper>
-        <div>if you would like to show this chit to someone else</div>
-          <div>Brad is cool</div>
-          <CopySharedChitLink chitLink = 'Brad is cool'/>
+        <SentDate> shared: Mar 14, 2022</SentDate>
 
-        </ResendWrapper>
-        <SubHeader>A chit has been sent to you by Brad Brous</SubHeader>
+        <SubHeader>
+          <div>  This chit has been sent to Mike Forry </div>
+          <div >from Brad Brous  </div>
+          </SubHeader>
         <ChitBox>
         <StyledChitImage src= {SilverChit} alt = 'silver coin' />
         
-        <div> Chit Summary:  Cris created a massive spreadsheet for me</div>
+        <SummaryWrapper>
+                <SummaryTop>Summary:   </SummaryTop>
+                <SummaryBottom> Cris created a massive spreadsheet for me</SummaryBottom>
+             
+          </SummaryWrapper>
 
         <div>
        
-            <div> action performed by:  you </div>
-            <div> date performed: Mar 14, 2022</div>
+ 
+
+            <ActionWrapper>
+                <ActionLeft>action performed by: </ActionLeft>
+                <ActionRight>you </ActionRight>
+             
+          </ActionWrapper>
+
+
+            <DateWrapper>
+                <DateLeft>chit date :   </DateLeft>
+                <DateRight>  Mar 8, 2022</DateRight>
+             
+          </DateWrapper>
+
+ 
         </div>
 
         <div>Message from Brad: </div>
         <div> Thank you for your help</div>
 
+        <MessageWrapper>
+                <MessageTop>Message from Brad:    </MessageTop>
+                <MessageBottom> Thank you for your help</MessageBottom>
+             
+          </MessageWrapper>
+
         <AddWrapper>
           <AddHeader>
-            Add chit to your rep
+            Add this chit to your repo
           </AddHeader>
 
           <AddLinks>
@@ -563,7 +819,14 @@ const ChitPreview = (props) => {
 
 
 
+        <ResendWrapper>
 
+        <div>If you would like to show this chit to someone else</div>
+          <div>Click icon to copy link and paste in IM or email</div>
+          
+          <CopySharedChitLink chitLink = {chitLinkMessage}/>
+
+        </ResendWrapper>
 
 
         </ChitBox>
@@ -576,14 +839,48 @@ const ChitPreview = (props) => {
       return(
         <>
          <ErrorBox>
-          <div>You've enterd an invalid chit code - try again</div>
+          <div>Invalid chit code - enter code*  
+          
+ 
+
+
+            <InfoIconWrapper
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            />
+<Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'lcentereft',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+       <StyledLinkImage src= {LinkCode} alt = 'chit Link' />
+            </Popover>
+             
+          </div>
+        
           <NoticeForm> 
               <StyledInput placeholder = 'enter code ' 
                onChange = {(evt)=> handleInput(evt)}
               /> 
               <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
               </NoticeForm>
-           
+             
+              <HomeLink onClick = {()=> goToHome()}> return to home page </HomeLink>
         </ErrorBox>
         </>
       )
@@ -597,10 +894,10 @@ const ChitPreview = (props) => {
       <NavSpacer />
       
       <HeadWrapper> 
-        <div>  Chit Git - </div>
+         
        
-        <HeaderMsg> all your deeds, dealings and doings in one place </HeaderMsg>
-        <HeaderLink>Learn more </HeaderLink>
+        <HeaderMsg> ChitGit - a repository for all your deeds, dealings and doings </HeaderMsg>
+        <HeaderLink onClick = {()=> goToHome()}>Learn more </HeaderLink>
 
         </HeadWrapper>
 

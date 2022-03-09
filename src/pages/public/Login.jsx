@@ -13,7 +13,7 @@ links from:  src\pages\public\landingElements\Landing_page.jsx
 
 import React  from 'react'
 import {backgroundBlue } from '../../styles/colors'
-
+import {  useParams } from 'react-router-dom'
 import LoginForm from '../../forms/LoginForm.jsx'
 
 
@@ -172,11 +172,20 @@ const LoginBox= styled(Paper)({
 
 const Login = (props) => {
 
+    // --- if come to Join from shared chit --- 
+    // make shared chit info available after login --------
 
+    let match = useParams()
+
+    console.log('[ Login ] params ', match.sharedChitId);
+    
+    //  ---------------------------------------
+ 
   return (
 
 
     <BodyWrapper>
+      
       <HeaderPublic />
       <NavSpacer />
       <HeadWrapper>
@@ -186,6 +195,17 @@ const Login = (props) => {
           <span>not a member  </span> <JoinButtonSmall /> </SubHeader>
       </HeadWrapper>
       <ContentWrapper>
+
+
+
+
+        
+
+      <div> temporary - shared chit passed is : {match.sharedChitId} </div>
+
+
+
+
         <LoginBox>
           <LoginForm />
 

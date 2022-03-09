@@ -120,7 +120,9 @@ const App = () => {
 
 {/* --- not logged in ---- */}
 
+            <Route path='/join/:sharedChitId' element={<Join/>} />
             <Route path='/join' element={<Join/>} />
+            <Route path='/login/:sharedChitId' element={<Login/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/chitPreview/:code' element={<ChitPreview/>} />
             <Route path='/chitPreview' element={<ChitPreview/>} />

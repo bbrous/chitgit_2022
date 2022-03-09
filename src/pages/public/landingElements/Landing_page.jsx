@@ -286,7 +286,8 @@ const Notice= styled('div')({
   // backgroundColor: 'orange',
   marginTop: '2rem',
   color: chitDullYellow,
-  
+  textDecoration: 'underline',
+  cursor: 'pointer',
   fontSize: '1rem',
   fontWeight: '400',
 
@@ -619,13 +620,18 @@ const Landing_page = (props) => {
 
 
           <Notice >  
-            <div> I received a chit </div>
-            <NoticeForm> 
+            {/* <div > I received a chit </div> */}
+            {/* <NoticeForm> 
               <StyledInput placeholder = 'enter code ' 
                onChange = {(evt)=> handleInput(evt)}
               /> 
               <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
-              </NoticeForm>
+              </NoticeForm> */}
+
+<div onClick = {()=> handleSubmit('shelby')}> I received a chit </div>
+        
+
+
             </Notice>
 
         </LeftSide>
