@@ -6,13 +6,14 @@ import LinkCode from '../../images/linkCode.svg'
 
 
 import { useParams, useNavigate } from 'react-router-dom'
-import HeaderPublic from '../../pages/public/landingElements/Header_public.jsx'
+import HeaderPublic from './landingElements/Header_public.jsx'
 import { stripWhiteSpace } from '../../app/helpers/commonHelpers'
 
 import CopySharedChitLink from '../../common_components/CopySharedChitLink';
 
 //--- MUI
 import Popover from '@mui/material/Popover';
+import Button from '@mui/material/Button'
 import Info from '@mui/icons-material/Info';
 import Paper from '@mui/material/Paper';
 import { styled, createTheme  } from "@mui/material/styles"
@@ -25,7 +26,7 @@ const BodyWrapper= styled('div')({
   display: 'block',
   
   height: '100vh',
-  overflowY: 'hidden',
+  overflowY: 'auto',
   overflowX: 'hidden',
   fontFamily: 'Lato, sans-serif',
   backgroundColor: backgroundBlue ,
@@ -64,8 +65,8 @@ const HeadWrapper= styled('div')({
     width: '100%',
     color: 'yellow',
  
-    height: '6rem',
-    padding: '1rem 0 1.5rem 0',
+    margin: '1rem 0 .25rem 0',
+    padding: '0 0 1.5rem 0',
   
  
   
@@ -81,14 +82,9 @@ const HeadWrapper= styled('div')({
 
    
     color: 'yellow',
- 
     marginLeft: '6px',
-
     fontSize: '.9rem',
-   
-    
-   
-  
+
     [theme.breakpoints.down('xs')] : {
       overflow: 'auto',
     }
@@ -135,7 +131,7 @@ const HeadWrapper= styled('div')({
     paddingBottom: '1rem 0',
     backgroundColor: backgroundBlue,
     overflow: 'hidden',
-    fontFamily: 'Lato, sans-serif',
+ 
 
   
   
@@ -150,30 +146,7 @@ const HeadWrapper= styled('div')({
   
   })
 
-  const SubHeader= styled('div')({
 
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-
-    width: 'calc(100%-16px)',
-
-    color: chitBurgandy,
-    fontSize: '1rem',
-    marginTop: '8px',
-    
-   
-  
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
-    }
-  
-  
-  
-  // backgroundColor: testColors.testGreen
-  
-  })
 
   const ContentBox= styled(Paper)({
 
@@ -199,15 +172,16 @@ const HeadWrapper= styled('div')({
 
   
   })
-
+// --- Summary --------
   const SummaryWrapper= styled('div')({
-
+ 
 
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
- 
+    alignItems: 'center',
+ width: '75%',
+ padding: '6px',
 
     [theme.breakpoints.down('xs')] : {
      
@@ -217,10 +191,9 @@ const HeadWrapper= styled('div')({
 
   const SummaryTop= styled('div')({
 
-
     marginRight: '6px',
     fontStyle: 'italic',
- 
+    fontSize: '.9rem',
 
     [theme.breakpoints.down('xs')] : {
      
@@ -228,7 +201,6 @@ const HeadWrapper= styled('div')({
   
   })
 
-  
   const SummaryBottom= styled('div')({
 
 
@@ -238,14 +210,40 @@ const HeadWrapper= styled('div')({
   
   })
 
-  const DateWrapper= styled('div')({
+  const SubHeader= styled('div')({
+    // backgroundColor: 'green',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    
+        width: '100$',
+    
+        color: chitBurgandy,
+        fontSize: '1rem',
+        marginTop: '8px',
+        
+       
+      
+        [theme.breakpoints.down('xs')] : {
+          overflow: 'auto',
+        }
+      
+      
+      })
 
+
+  // --- detail section -----
+
+  const DetailWrapper= styled('div')({
+// backgroundColor: 'red',
 
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
- 
+    margin: ' .5rem 3rem',
+ width: 'calc(75% - 6rem)',
 
     [theme.breakpoints.down('xs')] : {
      
@@ -253,41 +251,28 @@ const HeadWrapper= styled('div')({
   
   })
 
-  const DateLeft= styled('div')({
+  const StyledChitImage= styled('img')({
 
+    margin: '0 1.5rem',
+    height: '5rem',
+      })
 
-    marginRight: '6px',
-    fontStyle: 'italic',
  
-
-    [theme.breakpoints.down('xs')] : {
-     
-    }
-  
-  })
-
-  
-  const DateRight= styled('div')({
-
-
+      const StyledLinkImage= styled('img')({
     
- 
-
-    [theme.breakpoints.down('xs')] : {
-     
-    }
-  
-  })
+        height: '1rem',
+      
+      })
 
     const ActionWrapper= styled('div')({
-
-
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
  
-
+// width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'space-between',
+    fontSize: '.85rem',
+   
     [theme.breakpoints.down('xs')] : {
      
     }
@@ -296,7 +281,10 @@ const HeadWrapper= styled('div')({
 
   const ActionLeft= styled('div')({
 
-
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     marginRight: '6px',
     fontStyle: 'italic',
  
@@ -309,25 +297,28 @@ const HeadWrapper= styled('div')({
 
   
   const ActionRight= styled('div')({
-
-
-    
- 
-
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    fontSize: '.85rem',
     [theme.breakpoints.down('xs')] : {
      
     }
   
   })
 
-  const MessageWrapper= styled('div')({
+  
+// --- Message ---------
 
+  const MessageWrapper= styled('div')({
+ 
 
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
- 
+    alignItems: 'center',
+    width: '75%',
 
     [theme.breakpoints.down('xs')] : {
      
@@ -337,8 +328,14 @@ const HeadWrapper= styled('div')({
 
   const MessageTop= styled('div')({
 
-
-    marginRight: '6px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    
+    margin: '6px 0 6px 0 ',
+    width: 'calc(100% - 12px)',
+    fontSize: '.9rem',
     fontStyle: 'italic',
  
 
@@ -349,9 +346,17 @@ const HeadWrapper= styled('div')({
   })
 
   
-  const MessageBottom= styled('div')({
-
-
+  const MessageBottom= styled(Paper)({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    border: '1px solid #E6E7E8',
+    borderRadius: '5px',
+    padding: '6px',
+    width: 'calc(100% - 12px)',
+    fontSize: '.9rem',
+    minHeight: '5rem',
     [theme.breakpoints.down('xs')] : {
      
     }
@@ -385,6 +390,7 @@ const HeadWrapper= styled('div')({
   
   })
 
+  // --- Add this chit ------------
 
   const AddWrapper = styled('div')({
 
@@ -393,8 +399,9 @@ const HeadWrapper= styled('div')({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
-    // backgroundColor: 'red',
-  background: veryLightGrey,
+    fontSize: '.8rem',
+borderTop: '1px solid #CFD0D1',
+borderBottom: '1px solid #CFD0D1',
   marginTop: '1rem',
 
       [theme.breakpoints.down('xs')] : {
@@ -414,8 +421,9 @@ const HeadWrapper= styled('div')({
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
-    // backgroundColor: 'red',
- 
+    color: chitBurgandy,
+    background: veryLightGrey,
+ paddingBottom: '5px',
 
       [theme.breakpoints.down('xs')] : {
          
@@ -432,11 +440,11 @@ const HeadWrapper= styled('div')({
 
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // backgroundColor: 'red',
-  border: '1px solid red',
+    backgroundColor: 'white',
+    margin: '.3rem 0 .6rem 0',
 
       [theme.breakpoints.down('xs')] : {
          
@@ -452,11 +460,11 @@ const HeadWrapper= styled('div')({
   const AddLeft = styled('div')({
 
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: '50%',
-    backgroundColor: 'red',
+    width: '30%',
+     
   
 
       [theme.breakpoints.down('xs')] : {
@@ -473,11 +481,11 @@ const HeadWrapper= styled('div')({
   const AddRight = styled('div')({
 
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: '50%',
-    backgroundColor: 'pink',
+    width: '30%',
+   
   
 
       [theme.breakpoints.down('xs')] : {
@@ -490,6 +498,32 @@ const HeadWrapper= styled('div')({
      
   
   })
+
+  const LinkButton = styled(Button)({
+
+ 
+
+    display: 'block',
+    textTransform: 'none',
+    
+    border: '1px solid #2D259C' ,
+    color: '#2D259C',
+    fontWeight: 'normal',
+    fontSize: '.85rem',
+    padding: '0 1.5rem',
+    marginTop: '.5rem',
+    // '&:hover' : {
+    //   // backgroundColor: chitBlueDull,
+    //   textDecoration: 'none',
+    //   border: '1px solid #A8BEED' ,
+    //   color: '#3B30CC'
+  
+    // }
+  
+  
+  })
+
+  // --- end Add this chit -----
 
   const SentDate = styled('div')({
     position: 'absolute',
@@ -522,6 +556,7 @@ const HeadWrapper= styled('div')({
     color: mediumGrey,
     bottom: '10px',
     right: '16px',
+    margin: '8px 0 6px 0',
 
       [theme.breakpoints.down('xs')] : {
          
@@ -533,14 +568,28 @@ const HeadWrapper= styled('div')({
      
   
   })
-  const StyledChitImage= styled('img')({
 
-    height: '5rem',
-  
-  })
-  const StyledLinkImage= styled('img')({
+  const Resend = styled('div')({
+ 
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+     border: '1px solid grey',
+     borderRadius: '5px',
+     padding: '2px 5px',
+     width: '100%',
+ 
+     
 
-    height: '1rem',
+      [theme.breakpoints.down('xs')] : {
+         
+        fontSize: '.95rem',
+        padding: '0 15% 0 5%',
+        
+        
+      }
+     
   
   })
   // ---------------------------
@@ -697,8 +746,11 @@ const HeadWrapper= styled('div')({
      
   
   })
+
+
+
 // ============================
-const ChitPreview = (props) => {
+const SharedChit = (props) => {
   let match = useParams()
   let navigate = useNavigate()
   let codeId = match.code
@@ -718,6 +770,11 @@ const ChitPreview = (props) => {
   const open = Boolean(anchorEl);
 // ---end popover functions ---
 
+const handleClick = (evt, code) =>{
+  console.log('[Landing_page ] Input form value ', evt.target.id);
+  let page = evt.target.id
+  navigate(`/${page}/${code}`)
+}
   
   const [chitInput, setChitInput] = useState('')
 
@@ -728,7 +785,7 @@ const ChitPreview = (props) => {
 
   const handleSubmit = (code)=>{
     let cleanCode = stripWhiteSpace(code).toLowerCase()
-    navigate(`/chitPreview/${cleanCode}`)
+    navigate(`/sharedChit/${cleanCode}`)
     // alert('[ Landing_page ] I submitted ');
   }
 
@@ -738,7 +795,7 @@ const ChitPreview = (props) => {
     // alert('[ Landing_page ] I submitted ');
   }
 
-  let ChitPreviewDisplay = (codeId)=>{
+  let SharedChitDisplay = (codeId)=>{
 
    let chitLinkMessage =  `www.ChitGit.com/sharedChit/${codeId}`
 
@@ -753,11 +810,33 @@ const ChitPreview = (props) => {
         <SentDate> shared: Mar 14, 2022</SentDate>
 
         <SubHeader>
-          <div>  This chit has been sent to Mike Forry </div>
-          <div >from Brad Brous  </div>
+            This chit has been sent to Mike Forry 
+           from Brad Brous    
           </SubHeader>
         <ChitBox>
-        <StyledChitImage src= {SilverChit} alt = 'silver coin' />
+
+         
+        <DetailWrapper>
+
+        <ActionWrapper>
+    <ActionLeft>chit date :   </ActionLeft>
+    <ActionRight>  Mar 8, 2022</ActionRight>
+ 
+</ActionWrapper>
+
+<StyledChitImage src= {SilverChit} alt = 'silver coin' />
+
+<ActionWrapper>
+    <ActionLeft>performed by: </ActionLeft>
+    <ActionRight>Mike Borak Borak </ActionRight>
+ 
+</ActionWrapper>
+
+
+
+
+
+</DetailWrapper>
         
         <SummaryWrapper>
                 <SummaryTop>Summary:   </SummaryTop>
@@ -765,32 +844,15 @@ const ChitPreview = (props) => {
              
           </SummaryWrapper>
 
-        <div>
-       
- 
-
-            <ActionWrapper>
-                <ActionLeft>action performed by: </ActionLeft>
-                <ActionRight>you </ActionRight>
-             
-          </ActionWrapper>
-
-
-            <DateWrapper>
-                <DateLeft>chit date :   </DateLeft>
-                <DateRight>  Mar 8, 2022</DateRight>
-             
-          </DateWrapper>
 
  
-        </div>
-
-        <div>Message from Brad: </div>
-        <div> Thank you for your help</div>
 
         <MessageWrapper>
                 <MessageTop>Message from Brad:    </MessageTop>
-                <MessageBottom> Thank you for your help</MessageBottom>
+                <MessageBottom> 
+                  Thank you for your help
+                  Thank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your help
+                </MessageBottom>
              
           </MessageWrapper>
 
@@ -802,13 +864,20 @@ const ChitPreview = (props) => {
           <AddLinks>
 
           <AddLeft>
-            <div> already a member - sign in </div>
-            <div> form </div>
+            <div> already a member  </div>
+            <LinkButton 
+            id = 'login'
+            onClick = {(evt)=> handleClick(evt, 'shelby')}
+            >Login
+            </LinkButton>
           </AddLeft>
 
           <AddRight>
             <div> not a member </div>
-            <div> Join </div>
+            <LinkButton 
+            id = 'join'
+            onClick = {(evt)=> handleClick(evt, 'shelby')}
+            >Join</LinkButton>
           </AddRight>
           </AddLinks>
         </AddWrapper>
@@ -823,12 +892,13 @@ const ChitPreview = (props) => {
 
         <div>If you would like to show this chit to someone else</div>
           <div>Click icon to copy link and paste in IM or email</div>
-          
-          <CopySharedChitLink chitLink = {chitLinkMessage}/>
-
+          <Resend> 
+          <div> {chitLinkMessage}  </div>
+          <CopySharedChitLink chitLink = {chitLinkMessage}/> 
+          </Resend>
         </ResendWrapper>
 
-
+        
         </ChitBox>
        
 
@@ -902,10 +972,10 @@ const ChitPreview = (props) => {
         </HeadWrapper>
 
       <ContentWrapper>
-        {ChitPreviewDisplay(codeId)}
+        {SharedChitDisplay(codeId)}
       </ContentWrapper>
     </BodyWrapper>
   );
 }
 
-export default ChitPreview
+export default SharedChit

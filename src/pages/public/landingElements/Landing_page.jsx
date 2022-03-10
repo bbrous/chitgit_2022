@@ -568,7 +568,7 @@ const Landing_page = (props) => {
 
   const handleSubmit = (code)=>{
     let cleanCode = stripWhiteSpace(code).toLowerCase()
-    navigate(`/chitPreview/${cleanCode}`)
+    navigate(`/sharedChit/${cleanCode}`)
     // alert('[ Landing_page ] I submitted ');
   }
 
