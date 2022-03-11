@@ -275,9 +275,6 @@ const id = open ? 'simple-popover' : undefined;
 
 
 
-
-
-
 <StyledLink to="/sample/logs" >
 
 {page !== 'logs' &&
@@ -294,6 +291,28 @@ const id = open ? 'simple-popover' : undefined;
   // onClick = {handleClose}
 
   >Logs </NavButtonDisabled>
+}
+
+
+</StyledLink>
+
+
+<StyledLink to="/sample/sagas" >
+
+{page !== 'sagas' &&
+  <NavButton
+    id='sagas'
+  onClick = {handleClose}
+
+  >Sagas </NavButton>
+}
+
+{page === 'sagas' &&
+  <NavButtonDisabled disabled
+    id='sagas'
+  // onClick = {handleClose}
+
+  >Sagas </NavButtonDisabled>
 }
 
 

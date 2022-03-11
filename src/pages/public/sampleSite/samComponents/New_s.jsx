@@ -110,6 +110,12 @@ function New(props) {
         title = 'log'
         break;
 
+        case 'sagas':
+          dbCollection = 'sagas'
+          title = 'saga'
+          break;
+
+
       case 'journal':
         dbCollection = 'journal'
         title = ' section'
@@ -143,7 +149,7 @@ function New(props) {
     formattedPage = 'New' + capitalizeFirstLetter(page).substring(0, page.length - 1) 
   }
 
-const openSpotlightForm = ()=>{
+const openForm = ()=>{
 
   //  define which Form to open in Modal by passing
   //  dbCollection to Modal depending on pageView in browser URL 
@@ -164,11 +170,11 @@ const openSpotlightForm = ()=>{
 
   ))
 
-}// end openSpotlightForm
+}// end openForm
 
   return (
     <> 
-    {dbCollection !== 'chronicles' && 
+    {dbCollection !== 'journal' && 
     <NewWrapper elevation={1}>
 
     
@@ -176,7 +182,7 @@ const openSpotlightForm = ()=>{
     <NewTitle> add {title} </NewTitle>
       <LightTooltip title={formattedPage} arrow>
         <AddCircleIconWrapper
-          onClick={() => openSpotlightForm(page, id)}
+          onClick={() => openForm(page, id)}
         />
       </LightTooltip>
  
@@ -184,7 +190,7 @@ const openSpotlightForm = ()=>{
 
   } 
 
-{dbCollection === 'chronicles' && 
+{dbCollection === 'journal' && 
   <NewWrapper></NewWrapper>
 
   } 

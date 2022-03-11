@@ -183,9 +183,15 @@ function HelpChronicles() {
       <HeaderWrapper name="intro"> Introduction</HeaderWrapper>
 
 
-        <div><em> Journal, Logs and Sagas are </em>  all chronicles of your activities and thoughts. Logs and Sagas can be thought of as being a more specific type of Journal, each with a different focus.  
+        <div><em> Journal, Logs and Sagas are </em>  similar, but each with a different focus.  They are designed for you to chronicle your activities, your thoughts, your challenges, etc. 
+        <p/>
+        Most importantly, ChitGit's Journal, Logs and Sagas are designed to help you find and recall things you've chronicled.  ChitGit's ability to help you find what you've written about becomes even more useful the more you write. 
+        <p/>
+        Logs and Sagas can be thought of as being more  narrowly defined types of Journal, each with a different focus.  
         
          <p/>
+        They are designed to work together.  So, if you are unsure which chronicle app to use -  start with the Journal... because ... Journal parts can be easily converted into a Log or a Saga.
+
          <em>Similiarities</em>
          <br/>
         All three apps are made up of segmented content called sections.  
@@ -245,6 +251,9 @@ function HelpChronicles() {
       
       <p/>The main reason to create a log is to document conversations, or accumulate information to make a case. For instance, create a log for a difficult coworker or neighbor should you need it later in a dispute resolution.
 
+      <p/>Remember - Log sections can be time-locked and converted to chits.
+
+
 
       </div>
       
@@ -253,13 +262,16 @@ function HelpChronicles() {
       {/* -------- Sagas -------------------------------- */}
       
       <HeaderWrapper name="sagaApp"> Sagas</HeaderWrapper>
- 
       <div>
-      Use Sagas to chronicle topic related stories.
+      <p/>
+      Use Sagas to chronicle topic related stories.  Think of Sagas as personal blogs.
+      <p/>
+     
+      For instance - say you start a new exercise routine or you want to start a new company... create a Saga.   Or maybe if you want to collect ideas for a podcast or a book - create a saga.  
+
+      <p/>Remember - Saga sections can be time-locked and/or converted to chits.  They can also be tagged with people who are involved in your saga.
+     
       </div>
-
-
-
 
       {/* -------- createNew -------------------------------- */}
       

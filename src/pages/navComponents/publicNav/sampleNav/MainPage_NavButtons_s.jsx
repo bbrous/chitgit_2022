@@ -88,6 +88,9 @@ console.log('[ MainPage_NavButtons_s ] status ', status);
         <NavButton> Logs </NavButton>
       </StyledLink>
 
+      <StyledLink to="/sample/sagas" >
+        <NavButton> Sagas </NavButton>
+      </StyledLink>
 
       <StyledLink to="/sample/journal" >
         <NavButton> Journal </NavButton>

@@ -1,3 +1,10 @@
+/*---- File - SharedChit.jsx 
+    
+status = layout only
+see Read me -SharedChit.md   for details how to implement
+
+*/
+
 import React, {useState} from 'react';
 import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey } from '../../styles/colors'
 
