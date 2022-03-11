@@ -828,7 +828,7 @@ const handleClick = (evt, code) =>{
 
 <ActionWrapper>
     <ActionLeft>performed by: </ActionLeft>
-    <ActionRight>Mike Borak Borak </ActionRight>
+    <ActionRight>Mike Forry </ActionRight>
  
 </ActionWrapper>
 

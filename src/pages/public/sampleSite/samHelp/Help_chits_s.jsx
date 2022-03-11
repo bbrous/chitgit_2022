@@ -88,6 +88,9 @@ const LinkWrapper= styled('div')({
   height: '100%',
   fontSize: '.65rem',
 
+  '& a': {color: backgroundBlue},
+  '& a:visited': {color: backgroundBlue},
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -164,15 +167,15 @@ function HelpChits() {
     <MainWrapper>
 
       <LinkWrapper>
-        <div> <a href="#intro">Introduction  </a></div>
+         <a href="#intro">Introduction  </a>
 
 
-        <div> <a href="#twoPartyChits">Two party chits</a></div>
-        <div> <a href="#personalChits">Personal chits</a></div>
-        <div> <a href="#workChits">Work chits</a></div>
-        <div> <a href="#createNew">Creating new chits  </a></div>
-        <div> <a href="#chitWeights">Chit Weights</a></div>
-        <div> <a href="#timeLocks">Time locks</a></div>
+         <a href="#twoPartyChits">Two party chits</a>
+         <a href="#personalChits">Personal chits</a>
+         <a href="#workChits">Work chits</a>
+         <a href="#createNew">Creating new chits  </a>
+         <a href="#chitWeights">Chit Weights</a>
+         <a href="#timeLocks">Time locks</a>
       </LinkWrapper>
       <ContentWrapper>
 

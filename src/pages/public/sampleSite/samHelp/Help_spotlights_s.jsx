@@ -88,6 +88,9 @@ const LinkWrapper= styled('div')({
   height: '100%',
   fontSize: '.65rem',
 
+  '& a': {color: backgroundBlue},
+  '& a:visited': {color: backgroundBlue},
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -164,10 +167,10 @@ function HelpSpotlights() {
     <MainWrapper>
 
     <LinkWrapper>
-    <div> <a href="#intro">Introduction  </a></div>
-      <div> <a href="#createNew">Creating new spotlights  </a></div>
-      <div> <a href="#delete">Deleting</a></div>
-      <div> <a href="#complete">Completing</a></div>
+     <a href="#intro">Introduction  </a>
+       <a href="#createNew">Creating new spotlights  </a>
+       <a href="#delete">Deleting</a>
+       <a href="#complete">Completing</a>
 </LinkWrapper>
 <ContentWrapper>
 <HeaderWrapper name="intro"> Introduction</HeaderWrapper>

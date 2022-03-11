@@ -118,24 +118,34 @@ const openInfoModal = ()=>{
     case 'spotlights':
       modalPage = 'spotlights'
       break;
-    
+
     case 'notes':
       modalPage = 'notes'
       break;
 
-      case 'personalChits':
-        modalPage = 'chits'
+    case 'personalChits':
+      modalPage = 'chits'
+      break;
+
+    case 'twoPartyChits':
+      modalPage = 'chits'
+      break;
+
+    case 'workChits':
+      modalPage = 'chits'
+      break;
+
+      case 'journal':
+        modalPage = 'chronicles'
         break;
-
-        case 'twoPartyChits':
-          modalPage = 'chits'
-          break;
-
-          case 'workChits':
-            modalPage = 'chits'
-            break;
-
- 
+  
+      case 'logs':
+        modalPage = 'chronicles'
+        break;
+  
+      case 'workChisagasts':
+        modalPage = 'chronicles'
+        break;
 
     default:
       modalPage = '';

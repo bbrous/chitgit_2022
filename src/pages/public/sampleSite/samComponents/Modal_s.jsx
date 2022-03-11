@@ -36,6 +36,7 @@ import{selectStatus} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import MainHelp from '../samHelp/Main_help_s'
 import HelpSpotlights from '../../sampleSite/samHelp/Help_spotlights_s'
 import HelpChits from '../../sampleSite/samHelp/Help_chits_s'
+import HelpChronicles from '../../sampleSite/samHelp/Help_chronicles_s'
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
 
@@ -190,6 +191,11 @@ console.log('[ modal ] modalPage ', modalPage);
    {modalPage === 'chits'  &&
    <HelpChits/>
 }
+
+{modalPage === 'chronicles'  &&
+   <HelpChronicles/>
+}
+
 </ModalDisplay>
 } 
        
