@@ -46,7 +46,7 @@ import Chits from './samChits/Chits_s'
 import People from './samPeople/People_s'
 import Journal from './samJournal/Journal_s'
 import Logs from './samLogs/Logs_s'
-import Sagas from './samSagas/Sagas_s'
+import Topicals from './samTopicals/Topicals_s'
 import Inspire from './samInspires/Inspires_s'
 import Spotlights from './samSpots/Spotlights_s'
 
@@ -373,7 +373,7 @@ function Main_s(props) {
       background =
           {backgroundColor: chitBright, fontColor: 'black'} }
 
-    if (page === 'sagas') {
+    if (page === 'topicals') {
       background =
           {backgroundColor: chitDullYellow, fontColor: 'black'} }
 
@@ -486,8 +486,8 @@ function Main_s(props) {
             {page === 'logs' &&
               <Logs />
             }
-            {page === 'sagas' &&
-              <Sagas />
+            {page === 'topicals' &&
+              <Topicals />
             }
             {/* 
 {page === 'inspire' &&

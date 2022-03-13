@@ -1,8 +1,8 @@
-/* function sagas(props) -------------------
+/* function Topicals(props) -------------------
   Chooses Plan display options
-  a) if no sagas --  message 1
-  b) if sagas but no detailId  in route --  message 2
-  c) if  sagas AND detailId  in route--  show Plan page
+  a) if no topicals --  message 1
+  b) if topicals but no detailId  in route --  message 2
+  c) if  topicals AND detailId  in route--  show Plan page
 
 ------------------------------------*/
 
@@ -11,9 +11,9 @@ import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectSagas } from '../../../../app/redux/sagaRedux/sam_sagaSlice'
+import{ selectTopicals } from '../../../../app/redux/topicalRedux/sam_topicalsSlice'
 
-import SagaMain from './SagaMain_s'
+import TopicalsMain from './TopicalsMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
 
@@ -68,19 +68,19 @@ const NoneMessage= styled('div')({
 
 
 // ====================================
-function Sagas(props) {
+function topicals(props) {
 
-  let match = useParams()
-  let navigate = useNavigate()
+  // let match = useParams()
+  // let navigate = useNavigate()
 
-  const sagaPage = match.pageView
-  // const sagaId = match.id
+  // const topicalPage = match.pageView
+  // const topicalId = match.id
   // const displayPopoverModalMessage = status.initialMessage.spotlights
 
 // ###########  TEMP  ############## 
-let sagasArray = [1,3]
-let sagaId = 'wrw'
-let sagaSectionId = 'spectrum'
+let topicalsArray = [1,3]
+let topicalId = 'wrw'
+ 
 let displayPopoverModalMessage = false
  
 
@@ -88,31 +88,34 @@ let displayPopoverModalMessage = false
     <Wrapper>
 
 {displayPopoverModalMessage &&
-        <PopoverModal pageType={sagaPage} />
+        // <PopoverModal pageType={topicalPage} />
+        <div> Popover Page here</div>
 
       }
 
-      {sagasArray.length === 0 &&
+      {topicalsArray.length === 0 &&
         <NoneMessage>
-          <div>You have no active or completed sagas</div>
-          <div>Create a new saga</div>
+          <div>You have no active or completed topicals</div>
+          <div>Create a new topical</div>
         </NoneMessage>
 
       }
 
-      {sagasArray.length > 0 && !sagaId &&
+      {topicalsArray.length > 0 && !topicalId &&
         <NoneMessage>
-          <div>Choose a saga to be displayed</div>
+          <div>Choose a topical to be displayed</div>
           <div>or</div>
-          <div>Create a new saga</div>
+          <div>Create a new topical</div>
         </NoneMessage>
 
       }
 
 
-      {sagaId && sagasArray.length > 0 && 
-      
-      <SagaMain />
+      {topicalId && topicalsArray.length > 0 && 
+
+      // <div> Put Topical Main Here</div>
+            
+      <TopicalsMain />
       
       }
 
@@ -125,4 +128,4 @@ let displayPopoverModalMessage = false
 
 
 
-export default  Sagas
+export default  topicals

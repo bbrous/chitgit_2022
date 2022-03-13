@@ -1,40 +1,326 @@
-if(!arrayItemInludedInDefault) {  // then it was added
+/* function TopicalsMain(props) -------------------
+       parent: sampleSite/Plans_s
 
-  // (6c) keyword from form already exists ------------------------
+  Holds Topicals, Section Form and sections ... includes  
+  (a) info icon - to get help
+  (a) Header - to get help
+   
+  (sec c) Section Form()
+  (sec d) Sections
+ 
 
-  let keywordId 
-  let keywordExists = checkIfWordExists(item, keywordsArray , 'keywords')
-
-  if(keywordExists) { 
-    let updatedKeywordData = {
-      keywordId: keywordExists.id,
-      keywordHolder: id,
-      dbCollection: 'notes'
-
-    }
-  // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+------------------------------------*/
 
 
+import React , {useState} from 'react'
+import {connect} from 'react-redux'
+import {useHistory,   withRouter} from 'react-router-dom'
 
-     dispatch(addKeywordHolder(updatedKeywordData))
+import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
+
+// import{ 
+//   selectTopicals
+//   // selectSpotlightTaskArray
+  
+// } from '../../../../app/redux/TopicalRedux/sam_TopicalSlice'
+
+// import Topicals from './Topicals_s'
+// import TopicalEntryForm from '../samForms/TopicalEntryForm_s'
+
+import SliderComponent from '../../../../common_components/SliderComponent'
+//  ---- Material Ui ------------------
+
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import Paper from '@mui/material/Paper'
+
+import { styled, createTheme  } from "@mui/material/styles"
+const theme = createTheme(); // allows use of mui theme in styled component
+
+// -----------------------------------------------------------------
+//--- STYLES begin --------------------------
+
+const MainWrapper= styled('div')({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // backgroundColor: 'green',
+  width: '100%',
+  height: '100%',
 
 
-  }// end if keywordExists 
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
 
-  // --- keyword from form is new  -----------------------------------------
 
-  if (!keywordExists) {
+})
 
-    // create new keyword 
-    keywordId = cuid() // #####   temp ############
+const TopWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+// backgroundColor: 'yellow',
+  width: '100%',
+  height: '3rem',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
 
-    let newKeywordData = {
-      id: keywordId,
-      keyword: item,
-      dbCollection: 'notes',
-      keywordHolder:  id 
+  
+  // overflowY: 'hidden',
 
-  }} // end newKeywordData
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
 
-}  // end if !arrayItemInludedInDefault
+  },
 
+})
+
+const LeftTopWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  paddingLeft: '1%',
+  color: backgroundBlue,
+  fontSize: '1.2rem',
+// backgroundColor: 'yellow',
+  width: '33%',
+  height: '3rem',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const RightTopWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+// backgroundColor: 'yellow',
+  width: '33%',
+  height: '3rem',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const Container= styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+
+
+  color: 'charcoal',
+  width: '90%',
+
+  // minHeight: '10rem',
+  // height: '90%',
+  margin: '0 0 5% 0',
+
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+  backgroundColor: 'white',
+
+
+})
+
+
+const FormContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+
+  width: '100%',
+  minHeight: '13rem',
+  backgroundColor: 'lightGrey',
+
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+const SectionsContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+
+  width: '100%',
+  minHeight: '13rem',
+  // backgroundColor: 'yellow',
+
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+const NewWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+// backgroundColor: 'yellow',
+  width: '99%',
+  height: '3rem',
+  paddingLeft: '2px',
+ 
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+const SectionWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+
+  width: '100%',
+  minHeight: '13rem',
+  // backgroundColor: 'orange',
+
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+
+const AddCircleIconWrapper= styled(AddCircleIcon)({
+
+  color: 'grey',
+  fontSize : '1.7rem',
+  
+  '&:hover' : {
+    backgroundColor: 'lightGrey',
+    borderRadius: '50px',
+  },
+
+})
+ 
+
+// ===========================================
+
+function TopicalsMain(props) {
+  const [arrayOrder, setArrayOrder] = useState(false)
+
+  const handleSwitchState = (newState) => {
+    setArrayOrder(newState)
+    console.log('[Inside Spotlight Nav] new state is', newState)
+  }
+
+  return (
+    <MainWrapper>
+      <TopWrapper>
+
+        <LeftTopWrapper>Left Top Wrapper here </LeftTopWrapper>
+        <SliderComponent
+          handleSwitchState={handleSwitchState} //gets new state from child switch
+          leftLabel='oldest first'
+          rightLabel='latest first'
+        />
+        
+        <RightTopWrapper></RightTopWrapper>
+        </TopWrapper>
+
+      <Container>
+
+      <NewWrapper> add  section <AddCircleIconWrapper/> </NewWrapper>
+        <FormContainer>  
+          {/* <TopicalEntryForm />  */}
+          Form Here
+           </FormContainer>
+       
+        <SectionsContainer>
+          <SectionWrapper>
+ <div>  Topical main here   </div>
+             {/* <Topical/>  */}
+            
+          </SectionWrapper>
+
+        </SectionsContainer>
+
+
+
+      </Container>
+
+    </MainWrapper>
+  )
+}
+
+export default  TopicalsMain

@@ -94,6 +94,8 @@ const SampleJournalSections =  [
 
     dateCreated: "2021-01-06T16:21:33.000Z",
     chitId: '',
+    topicalSectionId: '',
+    logSectionId: '',
 
     peopleArray: ['Mary', 'Jerry'],
     keyWordArray: ['diet', 'exercise'],

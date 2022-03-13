@@ -940,7 +940,7 @@ const handleClick = (evt, code) =>{
         }}
         transformOrigin={{
           vertical: 'bottom',
-          horizontal: 'lcentereft',
+          horizontal: 'centerleft',
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus

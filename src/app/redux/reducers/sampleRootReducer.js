@@ -30,11 +30,11 @@ import keywordReducer from '../keywordRedux/sam_keywordSlice'
 import groupReducer from '../groupRedux/sam_groupSlice'
 import peopleReducer from '../peopleRedux/X_sam_reducers_People'
 import orgReducer from '../orgRedux/X_sam_reducers_Orgs'
-import topicReducer from '../topicRedux/X_sam_reducers_Topics'
+// import topicReducer from '../topicRedux/X_sam_reducers_Topics'
 import chitReducer from  '../chitRedux/X_sam_reducers_Chits'
 import chitLinkReducer from  '../chitRedux/X_sam_reducers_ChitLinks'
 import spotlightReducer from '../spotlightRedux/sam_spotlightsSlice'
-
+import topicalReducer from '../topicalRedux/sam_topicalsSlice'
 
 const sampleRootReducer = combineReducers({
   // data: homeReducer,
@@ -49,7 +49,7 @@ const sampleRootReducer = combineReducers({
     logs: logReducer,
     journal: journalReducer,
     notes: noteReducer,
-    topics: topicReducer,
+    // topics: topicReducer,
     organizations: orgReducer,
     people: peopleReducer,
     groups: groupReducer,
