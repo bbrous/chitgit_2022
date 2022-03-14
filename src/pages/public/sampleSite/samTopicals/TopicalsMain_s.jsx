@@ -32,10 +32,8 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
-
-
-const Container = styled(Paper)({
-  display: 'block',
+const Container = styled('div')({
+  display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
@@ -47,8 +45,33 @@ position: 'relative',
   // minHeight: '10rem',
   // height: '90%',
  width: '100%',
+ height: '100%',
+ overflow: 'hidden',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+
+})
+
+
+const MainWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+position: 'relative',
+
+  backgroundColor: 'white',
  
-  overflowY: 'hidden',
+
+  // minHeight: '10rem',
+  // height: '90%',
+ width: '100%',
+ height: '100%',
+ overflow: 'auto',
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -65,7 +88,7 @@ const FilterWrapper = styled('div')({
   alignItems: 'center',
   
 // backgroundColor: 'yellow',
-  width: '90%',
+  width: '95%',
   padding: '0 12px',
   // height: '3rem',
   margin: '.5rem  0 .5rem 0',
@@ -82,28 +105,7 @@ const FilterWrapper = styled('div')({
 
 })
 
-const Filters = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  
-// backgroundColor: 'orange',
-  // width: '50%',
-  height: '3rem',
- 
-  // minHeight: '10rem',
-  // height: '90%',
 
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
 
 const SliderWrapper = styled('div')({
   display: 'flex',
@@ -135,8 +137,9 @@ const FormWrapper = styled('div')({
   alignItems: 'center',
   
 backgroundColor: 'lightgrey',
-  width: '90%',
+  width: '95%',
   height: '8rem',
+  paddingBottom: '6rem',
  
 
 
@@ -166,11 +169,11 @@ function TopicalsMain(props) {
 
 
   return (
-    <>
-
-      <Container>
+    <Container>
+    <TopicalHeader/>
+      <MainWrapper>
     
-          <TopicalHeader/>
+      
 
         <FilterWrapper> 
          <TopicalFilters/>
@@ -194,8 +197,8 @@ function TopicalsMain(props) {
 
 
 
-      </Container>
-    </>
+      </MainWrapper>
+    </Container>
   )
 }// end func TopicalsMain
 

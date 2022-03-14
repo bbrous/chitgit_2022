@@ -85,10 +85,13 @@ const TopWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  // backgroundColor: 'green',
-  width: '100%',
+  backgroundColor: veryLightGrey,
+  width: '99%',
   marginTop: '6px',
- 
+  borderRadius: '5px 5px 0 0',
+  borderLeft: '1px solid #CFD0D1',
+  borderTop: '1px solid #CFD0D1',
+  borderRight: '1px solid #CFD0D1',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -220,7 +223,7 @@ const ContentWrapper= styled(Paper)({
 
   display: 'flex',
   position: 'relative',
-  flexDirection: 'row',
+  flexDirection: 'column',
 
   backgroundColor: veryLightGrey,
   width: '99%',
@@ -267,7 +270,7 @@ const Content= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   fontSize: '.85rem',
-  width: '70%',
+  width: '100%',
 
   padding: '6px',
   borderLeft: '1px solid #E6E7E8',
@@ -307,7 +310,7 @@ const JournalFormWrapper= styled('div')({
 
 // -------------
 const StyledEditIcon= styled(EditIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '.9rem',
   color: chitOrange,
@@ -329,7 +332,7 @@ const StyledEditIcon= styled(EditIcon)({
 })
 
 const StyledConvertIcon= styled(ConvertIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '1.1rem',
   color: chitOrange,
@@ -351,7 +354,7 @@ const StyledConvertIcon= styled(ConvertIcon)({
 })
 
 const StyledDeleteIcon= styled(DeleteIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '.95rem',
   color: chitOrange,
@@ -518,15 +521,15 @@ Cancel
 
         </Content>
 
-
-
-      </ContentWrapper>
-      <SearchWrapper>
+        <SearchWrapper>
       <PeopleWrapper>People: Joi Me</PeopleWrapper>
         <CategoryWrapper>category: aaaa</CategoryWrapper>
         <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
       </SearchWrapper>
+
+      </ContentWrapper>
+
     </MainWrapper>
     } 
 

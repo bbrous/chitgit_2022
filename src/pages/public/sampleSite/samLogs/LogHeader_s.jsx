@@ -1,10 +1,10 @@
-/*---- File - TopicalHeader.jsx
-     Displays details about Topical retrieved from Redux store
+/*---- File - LogHeader.jsx
+     Displays details about Log retrieved from Redux store
      
     Contains children: 
         CountdownDisplay_s'
 
-      parent: TopicalMain -./TopicalsMain
+      parent: LogMain -./LogsMain
 */
 
 import React  from 'react'
@@ -13,8 +13,8 @@ import {useParams} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
 
-import Edit_icon from '../samComponents/Edit_icon_s'
-import Delete_icon from '../samComponents/Delete_icon_s'
+import EditIcon from '../samComponents/Edit_icon_s'
+import DeleteIcon from '../samComponents/Delete_icon_s'
 
 //  ---- Material Ui ------------------
 
@@ -33,11 +33,11 @@ const Wrapper = styled(Paper)({
   flexDirection: 'column',
   // justifyContent: 'flex-start',
   // alignItems: 'center',
-  margin: '1rem  .5rem .5rem .5rem',
+  margin: '1rem  0 .5rem 0',
   paddingBottom: '.5rem',
 
-   
-  width: '90%',
+
+  width: '95%',
  
 
 
@@ -195,7 +195,7 @@ const IconWrapper= styled('div')({
 
 
 // ================================================
-function TopicalHeader(props) {
+function LogHeader(props) {
  
   const match = useParams()
 
@@ -204,21 +204,21 @@ function TopicalHeader(props) {
 return (
 <Wrapper>
     <TitleWrapper>
-      <TitleLabel> Topic : </TitleLabel>
+      
       <Title>
-        Layout
+        Cybill
       </Title>
     </TitleWrapper>
     <BottomWrapper>
       <ButtonWrapper>
 
         <FormButton startIcon={<AddIcon />}> add Section</FormButton>
-        <FormButton startIcon={<AddIcon />}> add Note</FormButton>
+  
       </ButtonWrapper>
 
       <IconWrapper> 
-        <Delete_icon/>
-        <Edit_icon/>
+        <DeleteIcon/>
+        <EditIcon/>
 
 
       </IconWrapper>
@@ -230,7 +230,7 @@ return (
 
 
 
-  )}// end func TopicalDetail
+  )}// end func LogDetail
 
  
-export default TopicalHeader
+export default LogHeader

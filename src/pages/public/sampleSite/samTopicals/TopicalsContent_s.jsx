@@ -29,14 +29,14 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
-const Wrapper = styled(Paper)({
+const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  // justifyContent: 'flex-start',
+  justifyContent: 'flex-start',
   // alignItems: 'center',
   // marginLeft: '2.5rem',
 flexWrap: 'wrap',
-  width: '90%',
+  width: '95%',
   // backgroundColor: 'yellow',
 
 
@@ -50,12 +50,12 @@ const SectionWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
 
-  margin: '1rem 0 ',
+  // margin: '1rem 0 ',
   padding: '.5rem',
    
   width: '100%',
 
-  height: '8rem',
+  // height: '8rem',
  
 
 
@@ -69,7 +69,7 @@ const NoteWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 
-  margin: '1rem',
+  margin: '.25rem',
   padding: '.5rem',
    
   width: '10rem',

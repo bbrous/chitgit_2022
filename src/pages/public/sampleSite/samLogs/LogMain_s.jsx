@@ -25,7 +25,7 @@ import{ selectLogs
 
 import Log from './Log_s'
 import LogEntryForm from '../samForms/LogEntryForm_s'
-
+import LogHeader from './LogHeader_s'
 import SliderComponent from '../../../../common_components/SliderComponent'
 //  ---- Material Ui ------------------
 
@@ -36,8 +36,31 @@ import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
-//--- STYLES begin --------------------------
 
+
+const OuterContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+position: 'relative',
+
+  backgroundColor: 'white',
+ 
+
+  // minHeight: '10rem',
+  // height: '90%',
+ width: '100%',
+ height: '100%',
+ overflow: 'hidden',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+
+})
 const MainWrapper= styled('div')({
 
   display: 'flex',
@@ -49,7 +72,7 @@ const MainWrapper= styled('div')({
   width: '100%',
   height: '100%',
 
-
+overflow: 'auto',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -57,17 +80,18 @@ const MainWrapper= styled('div')({
 
 })
 
-const TopWrapper = styled('div')({
+const FilterWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   
 // backgroundColor: 'yellow',
-  width: '100%',
-  height: '3rem',
+  width: '90%',
+  padding: '0 12px',
+  // height: '3rem',
+  margin: '.5rem  0 .5rem 0',
  
-  // minHeight: '10rem',
   // height: '90%',
 
   
@@ -128,7 +152,7 @@ const RightTopWrapper = styled('div')({
 
 })
 
-const Container= styled(Paper)({
+const Container= styled('div')({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -136,7 +160,7 @@ const Container= styled(Paper)({
 
 
   color: 'charcoal',
-  width: '90%',
+  width: '95%',
 
   // minHeight: '10rem',
   // height: '90%',
@@ -284,22 +308,24 @@ function LogMain(props) {
   }
 
   return (
+    <OuterContainer> 
+      <LogHeader/>
+
     <MainWrapper>
-      <TopWrapper>
+      
+ 
+<FilterWrapper> 
 
-        <LeftTopWrapper>Cybill</LeftTopWrapper>
-        <SliderComponent
-          handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='oldest first'
-          rightLabel='latest first'
-        />
-        
-        <RightTopWrapper></RightTopWrapper>
-        </TopWrapper>
-
+<SliderComponent
+  handleSwitchState={handleSwitchState} //gets new state from child switch
+  leftLabel='oldest first'
+  rightLabel='latest first'
+/>
+</FilterWrapper>
+ 
       <Container>
 
-      <NewWrapper> add  section <AddCircleIconWrapper/> </NewWrapper>
+
         <FormContainer>  <LogEntryForm />  </FormContainer>
        
         <SectionsContainer>
@@ -315,6 +341,7 @@ function LogMain(props) {
       </Container>
 
     </MainWrapper>
+    </OuterContainer>
   )
 }
 

@@ -67,10 +67,13 @@ const TopWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  // backgroundColor: 'green',
+  backgroundColor: veryLightGrey,
   width: '100%',
-  marginTop: '6px',
-
+  margin: '3px 0',
+  borderRadius: '5px 5px 0 0',
+  borderLeft: '1px solid #CFD0D1',
+  borderTop: '1px solid #CFD0D1',
+  borderRight: '1px solid #CFD0D1',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -128,10 +131,10 @@ const SearchWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  // backgroundColor: veryLightGrey,
+  backgroundColor: veryLightGrey,
   width: '99%',
   padding: '2px 0',
-  marginBottom: '3px',
+  margin: '3px 0',
 // backgroundColor: veryLightGrey,
   fontSize: '.6rem',
   height: '.8rem',
@@ -142,6 +145,26 @@ const SearchWrapper= styled('div')({
 
 
 })
+const OuterContentWrapper= styled(Paper)({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'Column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // backgroundColor: 'aqua',
+  width: '100%',
+  borderLeft: '1px solid #CFD0D1',
+  borderRight: '1px solid #CFD0D1',
+
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
+
 const CategoryWrapper= styled('div')({
 
   display: 'flex',
@@ -177,14 +200,14 @@ const KeyWordWrapper= styled('div')({
 })
 
 // ----------------------------------
-const ContentWrapper= styled(Paper)({
+const ContentWrapper= styled('div')({
 
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
 
   backgroundColor: veryLightGrey,
-  width: '99%',
+  width: '100%',
   // marginTop:'6px',
   margin: 'auto',
   
@@ -284,7 +307,7 @@ const Content= styled('div')({
 
 // -------------
 const StyledEditIcon= styled(EditIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '.9rem',
   color: chitOrange,
@@ -306,7 +329,7 @@ const StyledEditIcon= styled(EditIcon)({
 })
 
 const StyledLockClockIcon= styled(LockClockIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '1.1rem',
   color: chitOrange,
@@ -328,7 +351,7 @@ const StyledLockClockIcon= styled(LockClockIcon)({
 })
 
 const StyledDeleteIcon= styled(DeleteIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '.95rem',
   color: chitOrange,
@@ -351,7 +374,7 @@ const StyledDeleteIcon= styled(DeleteIcon)({
 
 
 const StyledAttachmentIcon= styled(AttachmentIcon)({
-  backgroundColor: 'white',
+  backgroundColor: veryLightGrey,
   borderRadius: '5px',
   fontSize: '.95rem',
   color: chitOrange,
@@ -413,12 +436,9 @@ export default function LogSection() {
           </LightTooltip>
         </IconWrapper>
       </TopWrapper>
-      <SearchWrapper>
-        <CategoryWrapper>category: aaaa</CategoryWrapper>
-        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+  
+    <OuterContentWrapper> 
 
-      </SearchWrapper>
-      <CategoryWrapper></CategoryWrapper>
       <ContentWrapper>
 
         <MetaWrapper>
@@ -440,7 +460,12 @@ export default function LogSection() {
 
 
       </ContentWrapper>
+      <SearchWrapper>
+        <CategoryWrapper>category: aaaa</CategoryWrapper>
+        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
+      </SearchWrapper>
+      </OuterContentWrapper>
 
 
     </MainWrapper>
