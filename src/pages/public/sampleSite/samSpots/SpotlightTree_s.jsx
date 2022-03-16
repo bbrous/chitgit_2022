@@ -17,6 +17,8 @@ import {useHistory, useParams} from 'react-router-dom'
 
 import{backgroundBlue, chitOrange, chitOrangeVeryLight, veryLightGrey} from '../../../../styles/colors'
 
+import ViewNav from '../../../../pages/navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
+
 import{ selectSpotlights, 
   makeSelectSpotlights,
   selectTasks,
@@ -25,8 +27,7 @@ import{ selectSpotlights,
   
 } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
-import ViewNav from '../../../../pages/navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
-
+ 
 
 
 // ####################################################################################
@@ -67,31 +68,9 @@ const MainWrapper= styled('div')({
 
 })
 
-const Container= styled(Paper)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
 
-  color: chitOrange,
-  width: '90%',
+ 
 
-  // minHeight: '10rem',
-  // height: '90%',
-  margin: '2.5rem 0 5% 0',
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-backgroundColor: 'white',
-
-
-})
 
 const ViewNavWrapper= styled('div')({
   display: 'flex',
@@ -116,35 +95,7 @@ const ViewNavWrapper= styled('div')({
   },
 
 
-
-
 })
-
-
-const ViewLink= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-  margin: '0 1rem 0 0',
- 
-  textDecoration: 'underline',
-  height: '2rem',
-  color: backgroundBlue,
-
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-
-
-
-})
-
 
 
 
@@ -201,10 +152,15 @@ function SpotlightTree(props) {
 
   return (
     <MainWrapper>
-        <ViewNavWrapper>
-          <ViewNav/>
-        </ViewNavWrapper>
-        hellow tree
+
+      <ViewNavWrapper>
+        <ViewNav />
+      </ViewNavWrapper>
+
+      <ViewNavWrapper>
+        <ViewNav />
+      </ViewNavWrapper>
+      hellow tree
     </MainWrapper>
   )
 }

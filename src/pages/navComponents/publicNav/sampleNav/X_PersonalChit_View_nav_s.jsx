@@ -1,8 +1,8 @@
-/* function Spotlight_View_nav_s(props) -------------------
-  Chooses between tree view or detail view.
+/* function Chit_View_nav_s(props) -------------------
+  Chooses between ledger view or calendar view.
   Also changes the color of the tab based on which view.
 
-  parent: Spotlights - pages/public/sampleSite/samSpots/Spotlights
+  parent:   pages/public/sampleSite/samChits/personal/personalMain
 
 ------------------------------------*/
 
@@ -103,19 +103,19 @@ const StyledLink= styled('div')({
 
 // ================================================
 
-function SpotlightViewNav(props) {
+function PersonalChitViewNav(props) {
   const dispatch = useDispatch()
-  let view = useSelector(selectStatus).view.spotlight.display
-  //  console.log('SPOTLIGHT VIEW NAV state: ' , view)
+  let view = useSelector(selectStatus).view.chit.display
+  //  console.log('Chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------
-     changes the sample/statusview/spotlight - display - in store
+     changes the sample/statusview/Chit - display - in store
         based on what was clicked
   */
   function handleViewChange(evt) {
 
     dispatch(updateStatusView({
-      pageType: 'spotlight',
+      pageType: 'chit',
       pageView: evt.target.id
     }))
 
@@ -127,19 +127,19 @@ function SpotlightViewNav(props) {
 
       <StyledLink >
 
-        {view !== 'tree' &&
+        {view !== 'ledger' &&
           <NavButton
-            id='tree'
+            id='ledger'
             onClick={(evt) => handleViewChange(evt)}
 
-          >Tree View </NavButton>
+          >ledger View </NavButton>
         }
 
-        {view === 'tree' &&
+        {view === 'ledger' &&
           <NavButtonDisabled
-            id='tree'
+            id='ledger'
             onClick={(evt) => handleViewChange(evt)}
-          >Tree View </NavButtonDisabled>
+          >Ledger View </NavButtonDisabled>
         }
 
 
@@ -147,16 +147,16 @@ function SpotlightViewNav(props) {
 
       <StyledLink   >
 
-        {view !== 'detail' &&
+        {view !== 'calendar' &&
           <NavButton
-            id='detail'
+            id='calendar'
             onClick={(evt) => handleViewChange(evt)}
-          >Detail View </NavButton>
+          >calendar View </NavButton>
         }
 
-        {view === 'detail' &&
+        {view === 'calendar' &&
           <NavButtonDisabled disabled
-          >Detail View
+          >calendar View
           </NavButtonDisabled>
         }
 
@@ -165,9 +165,9 @@ function SpotlightViewNav(props) {
     </Fragment>
 
   )// end return
-}// --- end main  func SpotlightViewNav
+}// --- end main  func PersonalChitViewNav
   
   // ----------------------------------------------
 
 
-export default SpotlightViewNav
+export default PersonalChitViewNav

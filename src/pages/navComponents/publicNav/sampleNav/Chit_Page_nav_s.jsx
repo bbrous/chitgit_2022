@@ -7,17 +7,22 @@
 ------------------------------------*/
 
 import React, {Fragment} from "react"
-import {NavLink, useLocation, useParams} from 'react-router-dom'
+import {NavLink, useLocation, useParams, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 
-import{ mediumLightGrey, shadowBlue, veryLightGrey, chitLavendar} from '../../../../styles/colors'
+import{ mediumLightGrey, shadowBlue, veryLightGrey, chitLavendar, chitBlueDull} from '../../../../styles/colors'
 
 
 import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
-
+// --- MUI ---
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -25,17 +30,19 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // -----------------------------------------------------------------
 const Wrapper = styled('div')({
 
-  padding: 0,
-  margin: 0,
+
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   height: '100%',
   width: '100%',
   fontSize: '.8rem',
-  margin: '0 6px',
+  
+  padding: '20px 16px',
   borderBottom: '2px solid #CFD0D1',
+
+
   [theme.breakpoints.down('sm')] : {
     // fontWeight: 'bold',
     flexDirection: 'column',
@@ -50,100 +57,61 @@ const Wrapper = styled('div')({
 
 })
 
-const NavButton= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  width: '100%',
-  // border: 'none',
-  color: shadowBlue,
 
-  textTransform: 'none',
-  fontWeight: '400',
-  paddingRight: '10px',
-  paddingLeft: '10px',
-  cursor: 'pointer',
 
-  '& :hover': {
-    // backgroundColor: '#2D259C',
-    boxShadow: 'none'
- 
-  },
-  [theme.breakpoints.down('sm')] : {
-    // fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-
-  [theme.breakpoints.down('xs')] : {
-    // fontWeight: 'bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
-  },
-
-})
-
-const NavButtonDisabled= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  width: '100%',
-  textTransform: 'none',
- 
-  // backgroundColor: shadowBlue,
-  // borderBottom: '2px solid white',
-  borderRadius: '0',
- 
-  fontWeight: '400',
-  marginRight: '8px',
-  padding: '0 10px',
-  backgroundColor: mediumLightGrey,
-  color: 'white',
-  '&:disabled ' : {
-    color: '#F58634',
-    // borderBottom: '2px solid #F58634',
-  },
-
-  '& :hover': {
-    backgroundColor: veryLightGrey,
-  },
-   
-  [theme.breakpoints.down('sm')] : {
-    fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-  [theme.breakpoints.down('xs')] : {
-    fontWeight: 'Bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
+const StyledLabel= styled(FormControlLabel)({
+  color: 'grey',
+  fontSize: '.5rem',
+  '& .MuiFormControlLabel-label ': {
+    fontSize: '.8rem'
   }
-
-})
-
-
-const StyledLink= styled(NavLink)({
   
-width: '33%',
-  textDecoration: 'none',
 
 })
+// -----------------------------------
+
+const StyledRadio = withStyles({
+  root: {
+    
+    color: chitBlueDull,
+   
+    icon: {
+      color: chitBlueDull,
+      
+    },
+    '&$checked': {
+      color: chitBlueDull,
+    },
+    '&:hover': {
+      backgroundColor: 'none',
+    },
+
+    '& svg ' : {
+      width : '1rem',
+      height: '1rem',
+      // backgroundColor: 'green'
+    
+    }
+
+    
+    
+  },
+
+  
+  
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+
 
 // ================================================
 
 function ChitViewNav(props) {
+  let navigate = useNavigate()
   const dispatch = useDispatch()
   let match = useParams()
   let page = match.pageView
-  let view = useSelector(selectStatus).view.chit.type
+  
   //  console.log('chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------
@@ -152,78 +120,34 @@ function ChitViewNav(props) {
   */
   function handleViewChange(evt) {
 
-    dispatch(updateStatusView({
-      pageType: 'chit',
-      pageView: 'ledger',
-      type: evt.target.id
-    }))
+    // dispatch(updateStatusView({
+    //   pageType: 'chit',
+    //   pageView: 'ledger',
+    //   type: evt.target.value
+    // }))
 
+    navigate(`/sample/${evt.target.value}`)
   }
 
   return (
 
     <Wrapper>
 
-<StyledLink to="/sample/chits/twoPartyChits" >
+<FormControl component="fieldset" onChange = {(evt) => handleViewChange(evt) }>
 
-        {page !== 'twoPartyChits' &&
-          <NavButton
-            id='twoPartyChits'
-            onClick={(evt) => handleViewChange(evt)}
-
-          >aTwo Party Chit  View </NavButton>
-        }
-
-        {page === 'twoPartyChits' &&
-          <NavButtonDisabled
-            id='twoPartyChits'
-            onClick={(evt) => handleViewChange(evt)}
-          >Two Party Chit View </NavButtonDisabled>
-        }
-
-
-      </StyledLink>
-
-      <StyledLink to="/sample/chits/personalChits" >
-
-        {page !== 'personalChits' &&
-          <NavButton
-            id='personalChits'
-            onClick={(evt) => handleViewChange(evt)}
-
-          >Personal Chit View </NavButton>
-        }
-
-        {page === 'personalChits' &&
-          <NavButtonDisabled
-            id='personalChits'
-            onClick={(evt) => handleViewChange(evt)}
-          >Personal Chit View </NavButtonDisabled>
-        }
-
-
-      </StyledLink>
-
-
-      <StyledLink to="/sample/chits/workChits" >
-
-{page !== 'workChits' &&
-  <NavButton
-    id='workChits'
-    onClick={(evt) => handleViewChange(evt)}
-
-  >Work Chit View </NavButton>
-}
-
-{page === 'workChits' &&
-  <NavButtonDisabled
-    id='workChits'
-    onClick={(evt) => handleViewChange(evt)}
-  >Work Chit View </NavButtonDisabled>
-}
-
-
-</StyledLink>
+<RadioGroup 
+  row aria-label="gender" 
+  name="row-radio-buttons-group"
+  defaultValue = {page}
+>
+  <StyledLabel value="twoPartyChits"
+ 
+  control={<StyledRadio />} label="Two Party Chits" />
+  <StyledLabel value="personalChits" control={<StyledRadio />} label="Personal Chits" />
+  <StyledLabel value="workChits" control={<StyledRadio />} label="Work Chits" />
+   
+</RadioGroup>
+</FormControl>
 
     </Wrapper>
 

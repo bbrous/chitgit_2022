@@ -22,6 +22,7 @@ import Parent from './Parent_s'
 import SpotlightTaskForm from '../samForms/SpotlightTaskForm_s'
 import SortableTasks from './SortableTasks_s'
 
+import ViewNav from '../../../../pages/navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
 
 //  ---- Material Ui ------------------
 
@@ -34,7 +35,30 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
+const ViewNavWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
 
+  position: 'absolute',
+  top: 0,
+  left: '5%',
+
+
+  height: '2rem',
+  color: 'white',
+
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+
+})
 
 const Container = styled(Paper)({
   display: 'flex',
@@ -113,6 +137,9 @@ function SpotlightMain(props) {
   // console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
   return (
     <>
+      <ViewNavWrapper>
+        <ViewNav />
+      </ViewNavWrapper>
 
       <Container>
     

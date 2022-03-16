@@ -1,124 +1,131 @@
+/* function Spotlight_View_nav_s(props) -------------------
+  Chooses between tree view or detail view.
+  Also changes the color of the tab based on which view.
+
+  parent: Spotlights - pages/public/sampleSite/samSpots/Spotlights
+
+------------------------------------*/
+
+import React, {Fragment} from "react"
+
+import {useDispatch, useSelector} from 'react-redux'
+
+import{ chitOrangeMedium, shadowBlue, chitBlueDull} from '../../../../styles/colors'
 
 
+import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
+import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
+// --- MUI ---
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+import { styled, createTheme} from "@mui/material/styles"
+import {withStyles} from '@mui/styles'
+const theme = createTheme(); // allows use of mui theme in styled component
+
+// -----------------------------------------------------------------
 
 
-
-// =====================================
-
-
-const FilterWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-  height: '2rem',
-  color: darkGrey,
-  fontSize: '.8rem',
-// backgroundColor: 'green',
- marginBottom: '1rem',
-  // height: '3rem',
-  marginTop: '6px',
+const StyledLabel= styled(FormControlLabel)({
+  color: 'grey',
+  fontSize: '.5rem',
+  '& .MuiFormControlLabel-label ': {
+    fontSize: '.8rem'
+  }
   
 
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
 })
-const FilterHeader = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  paddingLeft: '1%',
-  width: '10%',
-  height: '100%',
-  color: chitAquaBlue,
-  fontWeight: 'bold',
-  fontSize: '.85rem',
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
+// -----------------------------------
 
-  },
-
-})
-
-
-
-const CategoryWrapper = styled('div')({
-  display: 'flex',
-
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  marginRight: '1.5rem',
-  // backgroundColor: 'orange',
- 
-width: '20%',
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const KeywordWrapper = styled('div')({
-  display: 'flex',
-  flexGrow: 1,
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  marginRight: '1.5rem',
-  // backgroundColor: 'pink',
- 
-  // width: '33%',
-  overflow: 'hidden',
-
- 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const FilterLabel = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  paddingLeft: '1%',
-  color: headerGrey,
-fontWeight: 'bold',
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const Filter = styled('div')({
-
-/* 
-only works with Display: block not flex
-*/
-
-
-  display: 'block',
-  overflow: 'hidden',
+const StyledRadio = withStyles({
+  root: {
+    
+    color: chitBlueDull,
+   
+    icon: {
+      color: chitBlueDull,
       
-  minWidth: 0,
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+    },
+    '&$checked': {
+      color: chitBlueDull,
+    },
+    '&:hover': {
+      backgroundColor: 'none',
+    },
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
+    '& svg ' : {
+      width : '1rem',
+      height: '1rem',
+      // backgroundColor: 'green'
+    
+    }
 
+    
+    
   },
 
-})
+  
+  
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+
+ 
+
+
+
+
+
+
+// ================================================
+
+function SpotlightViewNav(props) {
+  const dispatch = useDispatch()
+  let view = useSelector(selectStatus).view.spotlight.display
+   console.log('SPOTLIGHT VIEW NAV view ====================: ' , view)
+
+  /* func handleViewChange ---------------------------------
+     changes the sample/statusview/spotlight - display - in store
+        based on what was clicked
+  */
+  function handleViewChange(evt) {
+
+    dispatch(updateStatusView({
+      pageType: 'spotlight',
+      pageView: evt.target.value
+    }))
+
+  }
+
+  return (
+
+    <Fragment>
+
+<FormControl component="fieldset" onChange = {(evt) => handleViewChange(evt) }>
+
+<RadioGroup 
+  row aria-label="gender" 
+  name="row-radio-buttons-group"
+  defaultValue = {view}
+>
+  
+  <StyledLabel value="tree" control={<StyledRadio />} label="Tree View" />
+  <StyledLabel value="detail" control={<StyledRadio />} label="Detail View" />
+   
+</RadioGroup>
+</FormControl>
+
+    </Fragment>
+
+  )// end return
+}// --- end main  func SpotlightViewNav
+  
+  // ----------------------------------------------
+
+
+export default SpotlightViewNav

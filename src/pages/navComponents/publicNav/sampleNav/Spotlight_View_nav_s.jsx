@@ -10,13 +10,19 @@ import React, {Fragment} from "react"
 
 import {useDispatch, useSelector} from 'react-redux'
 
-import{ chitOrangeMedium, shadowBlue, veryLightGrey} from '../../../../styles/colors'
+import{ chitOrangeMedium, shadowBlue, chitBlueDull} from '../../../../styles/colors'
 
 
 import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
+// --- MUI ---
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -25,88 +31,59 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // -----------------------------------------------------------------
 
 
-const NavButton= styled('div')({
-
-  // border: 'none',
-  color: shadowBlue,
-
-  textTransform: 'none',
-  fontWeight: '400',
-  paddingRight: '10px',
-  paddingLeft: '10px',
-  cursor: 'pointer',
-
-  '& :hover': {
-    // backgroundColor: '#2D259C',
-    boxShadow: 'none'
- 
-  },
-  [theme.breakpoints.down('sm')] : {
-    // fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-
-  [theme.breakpoints.down('xs')] : {
-    // fontWeight: 'bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
-  },
-
-})
-
-const NavButtonDisabled= styled('div')({
-
-  textTransform: 'none',
- 
-  // backgroundColor: shadowBlue,
-  // borderBottom: '2px solid white',
-  borderRadius: '0',
- 
-  fontWeight: '400',
-  marginRight: '8px',
-  padding: '0 10px',
-  backgroundColor: chitOrangeMedium,
-  color: 'white',
-  '&:disabled ' : {
-    color: '#F58634',
-    // borderBottom: '2px solid #F58634',
-  },
-
-  '& :hover': {
-    backgroundColor: veryLightGrey,
-  },
-   
-  [theme.breakpoints.down('sm')] : {
-    fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-  [theme.breakpoints.down('xs')] : {
-    fontWeight: 'Bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
+const StyledLabel= styled(FormControlLabel)({
+  color: 'grey',
+  fontSize: '.5rem',
+  '& .MuiFormControlLabel-label ': {
+    fontSize: '.8rem'
   }
+  
 
 })
+// -----------------------------------
+
+const StyledRadio = withStyles({
+  root: {
+    
+    color: chitBlueDull,
+   
+    icon: {
+      color: chitBlueDull,
+      
+    },
+    '&$checked': {
+      color: chitBlueDull,
+    },
+    '&:hover': {
+      backgroundColor: 'none',
+    },
+
+    '& svg ' : {
+      width : '1rem',
+      height: '1rem',
+      // backgroundColor: 'green'
+    
+    }
+
+    
+    
+  },
+
+  
+  
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 
-const StyledLink= styled('div')({
-
-    textDecoration: 'none',
-
-})
 
 // ================================================
 
 function SpotlightViewNav(props) {
   const dispatch = useDispatch()
   let view = useSelector(selectStatus).view.spotlight.display
-  //  console.log('SPOTLIGHT VIEW NAV state: ' , view)
+
+
+  // console.log('SPOTLIGHT VIEW NAV view ====================: ', view)
 
   /* func handleViewChange ---------------------------------
      changes the sample/statusview/spotlight - display - in store
@@ -116,7 +93,7 @@ function SpotlightViewNav(props) {
 
     dispatch(updateStatusView({
       pageType: 'spotlight',
-      pageView: evt.target.id
+      pageView: evt.target.value
     }))
 
   }
@@ -125,48 +102,25 @@ function SpotlightViewNav(props) {
 
     <Fragment>
 
-      <StyledLink >
+      <FormControl component="fieldset" onChange={(evt) => handleViewChange(evt)}>
 
-        {view !== 'tree' &&
-          <NavButton
-            id='tree'
-            onClick={(evt) => handleViewChange(evt)}
+        <RadioGroup
+          row aria-label="gender"
+          name="row-radio-buttons-group"
+          defaultValue={view}
+        >
 
-          >Tree View </NavButton>
-        }
+          <StyledLabel value="tree" control={<StyledRadio />} label="Tree View" />
+          <StyledLabel value="detail" control={<StyledRadio />} label="Detail View" />
 
-        {view === 'tree' &&
-          <NavButtonDisabled
-            id='tree'
-            onClick={(evt) => handleViewChange(evt)}
-          >Tree View </NavButtonDisabled>
-        }
-
-
-      </StyledLink>
-
-      <StyledLink   >
-
-        {view !== 'detail' &&
-          <NavButton
-            id='detail'
-            onClick={(evt) => handleViewChange(evt)}
-          >Detail View </NavButton>
-        }
-
-        {view === 'detail' &&
-          <NavButtonDisabled disabled
-          >Detail View
-          </NavButtonDisabled>
-        }
-
-      </StyledLink>
+        </RadioGroup>
+      </FormControl>
 
     </Fragment>
 
   )// end return
 }// --- end main  func SpotlightViewNav
-  
+
   // ----------------------------------------------
 
 

@@ -22,7 +22,7 @@ import{
  
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import ViewNav from '../../../../pages/navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
+
 import PopoverModal from '../samComponents/PopoverModal'
 import Spotlight from './SpotlightMain_s'
 import SpotlightTree from './SpotlightTree_s'
@@ -77,30 +77,7 @@ const NoneMessage= styled(Paper)({
 })
 //=======
 
-const ViewNavWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
 
-  position: 'absolute',
-  top: 0,
-  left: '5%',
-
-
-  height: '2rem',
-  color: 'white',
-
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-
-})
 
 
 // ====================================
@@ -156,9 +133,7 @@ function Spotlights(props) {
 
   return (
     <Wrapper>
-      <ViewNavWrapper>
-        <ViewNav />
-      </ViewNavWrapper>
+  
 
       {displayPopoverModalMessage &&
         <PopoverModal pageType={SpotlightPage} />

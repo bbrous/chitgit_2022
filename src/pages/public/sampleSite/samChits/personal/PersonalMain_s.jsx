@@ -30,8 +30,8 @@ const Wrapper= styled('div')({
   position: 'relative',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  color: 'pink',
-  width: '100%',
+
+  width: '95%',
 //   alignItems: 'center',
 //   backgroundColor: veryLightGrey,
 //   width: '100%',
@@ -47,13 +47,13 @@ const Wrapper= styled('div')({
 const ViewNavWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
-  
+
 
   position: 'relative',
   top: 0,
-  left: '5%',
+ 
 width: '100%',
 
   height: '2rem',
