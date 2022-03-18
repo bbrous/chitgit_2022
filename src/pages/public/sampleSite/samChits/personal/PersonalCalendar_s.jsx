@@ -11,6 +11,11 @@ import PropTypes from 'prop-types';
 
 import {veryLightGrey} from '../../../../../styles/colors'
 
+
+import MonthNav from './MonthNav_s';
+
+
+import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
  
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -20,32 +25,40 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 const Wrapper= styled('div')({
-color: 'red'
-//   display: 'flex',
-//   position: 'relative',
-//   flexDirection: 'column',
-//   justifyContent: 'flex-start',
-//   alignItems: 'center',
-//   backgroundColor: veryLightGrey,
-//   width: '100%',
-//   height: '100%',
-// overflow: 'hidden',
-
-//   [theme.breakpoints.down('sm')] : {
-//     // width: '100%'
-//   },
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  backgroundColor: 'white',
+  width: '90%',
+  height: '100%',
+overflow: 'auto',
+ 
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
 
 })
 
 
 
 export default function PersonalCalendar(props) {
+  
+ // get the src address for the img display the chit to show              
+//  let coinAddress = choosePersonalCoin(chitType)    
+ 
+//  const pathToCoinImages = '../../'
+//   const coinDisplayed = pathToCoinImages + coinAddress
+
+ 
+
   return (
     <Wrapper>
-      <div>PersonalCalendar_s</div>
-      <div> Mon - Tue - Wed etc</div>
-
-      <div> day 1 - day 2 - etc</div>
+ 
+    <MonthNav/>
+      Personal Calendar here
     
       
     </Wrapper>

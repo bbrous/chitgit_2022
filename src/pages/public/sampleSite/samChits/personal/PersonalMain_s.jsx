@@ -10,8 +10,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import {veryLightGrey} from '../../../../../styles/colors'
-import PersonalChitViewNav from '../../../../navComponents/publicNav/sampleNav/PersonalChit_View_nav_s';
- 
+
+import PersonalChitHeader from './PersonalChitHeader_s';
 import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 import PersonalLedger from './PersonalLedger_s';
@@ -44,30 +44,7 @@ const Wrapper= styled('div')({
 
 })
 
-const ViewNavWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
 
-
-  position: 'relative',
-  top: 0,
- 
-width: '100%',
-
-  height: '2rem',
-  color: 'white',
-
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-
-})
 
 export default function PersonalMain_s(props) {
   let chitView= useSelector(selectStatus).view.chit.display
@@ -75,9 +52,9 @@ export default function PersonalMain_s(props) {
   
   return (
     <Wrapper>
-      <ViewNavWrapper>
-      <PersonalChitViewNav/>
-      </ViewNavWrapper>
+      <PersonalChitHeader/>
+
+      
      
      {chitView === 'ledger' &&  <PersonalLedger/>}
      {chitView === 'calendar' &&  <PersonalCalendar/>}

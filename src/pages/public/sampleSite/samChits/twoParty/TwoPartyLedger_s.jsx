@@ -93,7 +93,7 @@ export default function TwoPartyLedger(props) {
 
   return (
     <Wrapper>
-      <FilterWrapper> David Anderson </FilterWrapper>
+       
 
       {chitRows(tempArray)}
 

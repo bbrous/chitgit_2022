@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import {chitRedDark, veryLightGrey} from '../../../../../styles/colors'
 
 import TwoPartyLedger from './TwoPartyLedger_s';
- 
+ import TwoPartyChitHeader from './TwoPartyChitHeader_s';
  
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -59,7 +59,7 @@ const MainTitle= styled('div')({
 export default function TwoPartyMain_s(props) {
   return (
     <Wrapper>
-      <MainTitle> Two Party Chits</MainTitle>
+      <TwoPartyChitHeader/>
 
      
       <TwoPartyLedger/>
