@@ -260,6 +260,7 @@ export default function TwoPartyLedgerRow(props) {
         <MoreIcon 
         onClick = {()=> openDetailPanel(passedId)}
         /> 
+        
       }
 
         {displayDetail && 
@@ -268,7 +269,7 @@ export default function TwoPartyLedgerRow(props) {
         />
 }
         <AccordionTopWrapper >
-          {passedId} in top
+          {passedId} in top - (chit owed to David)
         </AccordionTopWrapper>
 
         {displayDetail && 

@@ -7,7 +7,7 @@ import { createSelector } from 'reselect'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import InitialStore from '../store/sampleStore/ex_twoParty_initialStore'
+import InitialStore from '../store/sampleStore/ex_twoPartyChit_initialStore'
 
 export const twoPartySlice = createSlice({
   name: 'twoPartysSample',

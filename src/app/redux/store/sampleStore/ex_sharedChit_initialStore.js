@@ -9,6 +9,7 @@ const SharedChits =  [
     {
       id: 'shared_chit_1',
       
+      chitDate: 'Nov 4, 1984',
       initialShareDate: 'Nov 4, 1984',
       lastView: 'Nov 4, 1984',
 
@@ -22,7 +23,7 @@ const SharedChits =  [
 
       title: 'hellow chit 1 title here',
       message: 'message from chit 1',
-      chitDate: 'Nov 4, 1984',
+   
       whoPerformed: '',
       
 

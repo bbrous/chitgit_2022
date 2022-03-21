@@ -30,9 +30,10 @@ import keywordReducer from '../keywordRedux/sam_keywordSlice'
 import groupReducer from '../groupRedux/sam_groupSlice'
 import peopleReducer from '../peopleRedux/X_sam_reducers_People'
 import orgReducer from '../orgRedux/X_sam_reducers_Orgs'
-// import topicReducer from '../topicRedux/X_sam_reducers_Topics'
-import chitReducer from  '../chitRedux/X_sam_reducers_Chits'
-import chitLinkReducer from  '../chitRedux/X_sam_reducers_ChitLinks'
+import topicReducer from '../topicRedux/X_sam_reducers_Topics'
+import personalChitReducer from '../personalChitRedux/sam_personalChitSlice';
+import twoPartyChitReducer from '../twoPartyChitRedux/sam_twoPartyChitSlice';
+
 import spotlightReducer from '../spotlightRedux/sam_spotlightsSlice'
 import topicalReducer from '../topicalRedux/sam_topicalsSlice'
 
@@ -41,15 +42,18 @@ const sampleRootReducer = combineReducers({
     // private : mainReducer,
     // public: landingReducer,
     status : statusReducer,
-    chits: chitReducer,
-    chitLinks: chitLinkReducer,
+    personalChits: personalChitReducer,
+    twoPartyChits: twoPartyChitReducer,
+   
     categories: categoryReducer,
     keywords: keywordReducer,
+
     tasks: taskReducer,
     logs: logReducer,
+    topicals: topicalReducer,
     journal: journalReducer,
     notes: noteReducer,
-    // topics: topicReducer,
+    topics: topicReducer,
     organizations: orgReducer,
     people: peopleReducer,
     groups: groupReducer,

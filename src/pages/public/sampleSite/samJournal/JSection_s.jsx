@@ -40,7 +40,8 @@ import EditIcon from '@mui/icons-material/Edit';
  
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
-import ConvertIcon from '@mui/icons-material/Cached';
+ 
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -331,10 +332,10 @@ const StyledEditIcon= styled(EditIcon)({
   },
 })
 
-const StyledConvertIcon= styled(ConvertIcon)({
+const StyledDuplicateIcon= styled(ContentCopyIcon)({
   backgroundColor: veryLightGrey,
   borderRadius: '5px',
-  fontSize: '1.1rem',
+  fontSize: '1rem',
   color: chitOrange,
   margin: '0 .5rem .3rem .5rem',
   cursor: 'pointer',
@@ -499,12 +500,14 @@ Cancel
             />
           </LightTooltip>
 
-          <ChitIcon />
-          <LightTooltip title='Convert to Log' arrow>
-            <StyledConvertIcon />
+
+          <LightTooltip title='Copy in Logs or Topicals' arrow>
+            <StyledDuplicateIcon />
           </LightTooltip>
 
-         
+  
+          <ChitIcon />
+
           <LightTooltip title='Delete' arrow>
             <StyledDeleteIcon />
           </LightTooltip>
