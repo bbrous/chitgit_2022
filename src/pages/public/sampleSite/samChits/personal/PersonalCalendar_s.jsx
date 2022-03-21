@@ -5,7 +5,7 @@
 ------------------------------------*/
 
 import React from 'react'
-import { useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
@@ -91,6 +91,8 @@ const HeaderRowWrapper= styled('div')({
 // =============================================
 
 export default function PersonalCalendar(props) {
+
+  const dispatch = useDispatch()
   
  // get the src address for the img display the chit to show              
 //  let coinAddress = choosePersonalCoin(chitType)    

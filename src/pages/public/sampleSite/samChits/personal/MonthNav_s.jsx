@@ -1,8 +1,13 @@
 import React from 'react';
- 
+import {useDispatch, useSelector} from 'react-redux'
 import {veryLightGrey, chitOrangeLight, chitBlueDull} from '../../../../../styles/colors'
 
+import { getPreviousMonth, getNextMonth } from '../../../../../app/helpers/calendarHelper';
 
+import { DatetoUTC,unformattedUTCtoDate,  monthArrayLong } from '../../../../../app/helpers/dateHelper';
+
+ 
+import { changeMonthView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 // --- MUI ---
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -154,10 +159,81 @@ const Link= styled('span')({
 // =======================================================
 
 export default function MonthNav(props) {
+  let dispatch = useDispatch()
+  // let currentUTCmonth = props.displayParams.utc
+  let currentUTCmonth = useSelector(selectStatus).calendarMonthDisplay.utc
+  let monthName = useSelector(selectStatus).calendarMonthDisplay.monthName
+  let monthYear = useSelector(selectStatus).calendarMonthDisplay.monthYear
+
+  const handleMonthChange = (evt)=>{
+    let id = evt.currentTarget.id
+
+    
+  
+    console.log('[Chit-pro ... Month Nav currentUTCmonth : ', currentUTCmonth)
+
+
+    // let formattedUTCmonth = UTCtoDate(currentUTCmonth)
+    let unformattedUTCmonth =  unformattedUTCtoDate(currentUTCmonth)
+    let current_month_date_array = unformattedUTCmonth.split(' ') 
+
+    let [currentMonth, day, currentYear] = current_month_date_array
+
+  
+   console.log('[Chit-pro ... Month Nav currentUTCmonth : ', current_month_date_array)
+
+    if(id === 'next'){
+
+      let nextMonth = getNextMonth(currentMonth, currentYear)
+      let formattedNextMonth = `${nextMonth.nextMonth} 1 ${nextMonth.nextYear}`
+
+      let UTCMonth = DatetoUTC( formattedNextMonth)
+      let monthArrayPosition = nextMonth.nextMonth - 1
+      let monthName = monthArrayLong[monthArrayPosition]
+      let monthYear=  nextMonth.nextYear
+
+      
+
+      dispatch(changeMonthView({
+        utc: UTCMonth,
+        monthName: monthName,
+        monthYear: monthYear
+      }))
+
+
+    } 
+
+    if(id === 'previous'){
+
+      let previousMonth = getPreviousMonth(currentMonth, currentYear)
+      let formattedPreviousMonth = `${previousMonth.previousMonth} 1 ${previousMonth.previousYear}`
+
+      let UTCMonth = DatetoUTC( formattedPreviousMonth)
+      let monthArrayPosition = previousMonth.previousMonth - 1
+      let monthName = monthArrayLong[monthArrayPosition]
+      let monthYear=  previousMonth.previousYear
+
+
+      dispatch(changeMonthView({
+        utc: UTCMonth,
+        monthName: monthName,
+        monthYear: monthYear
+      }))
+    } 
+  }// end handleMonthChange
+
+  // ---Return -------------------
+
   return (
     <Wrapper>
-      <ButtonWrapper> <Previous/> <Next/></ButtonWrapper>
-      <Month> March 2022</Month>
+      <ButtonWrapper> 
+        
+        <Previous id = "previous" onClick = {(evt) => handleMonthChange(evt) }/> 
+
+        <Next id ="next" onClick = {(evt) => handleMonthChange(evt) }/>
+        
+        </ButtonWrapper>
+        <Month>{monthName} - {monthYear} </Month>
       <LinkWrapper>
       <Link>show today </Link> 
       <Link>  show last chit</Link>

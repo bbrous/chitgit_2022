@@ -104,7 +104,14 @@ export const statusSlice = createSlice({
         // TBD when you do inspiration ! 
       },
   
-    } // end lastView
+    }, // end lastView
+
+    calendarMonthDisplay: {
+      utc: 1646110800000,
+      monthName: 'March',
+      monthYear: '2022'
+    }
+
   }, // end Initial State
 
   reducers: {
@@ -159,6 +166,15 @@ export const statusSlice = createSlice({
                    
     },
 
+    changeMonthView: (state, action) => {
+
+      console.log('[ samStatusSlice ] changeMonthView ', action.payload);
+      state.calendarMonthDisplay= action.payload
+    
+      
+                   
+    },
+
     closeJournalForm: (state, action) => {
       // state.modal.modalType = ''
       // state.modal.dbCollection = ''
@@ -196,7 +212,8 @@ export const {
   updateStatusView,
   closeJournalForm,
   openJournalForm,
-  updateAccordionDisplay
+  updateAccordionDisplay,
+  changeMonthView
 
   } = statusSlice.actions
 
