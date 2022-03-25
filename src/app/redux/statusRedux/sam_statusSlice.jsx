@@ -53,7 +53,7 @@ export const statusSlice = createSlice({
   
         type: 'personalChits',  // personalChits, workChits, twoPartyChits
         display: 'calendar',  // ledger or calendar
-        id:  ''
+        id:  'cat_1'
       },
   
    // for Spotlights.jsx ----------------------------------
@@ -155,7 +155,7 @@ export const statusSlice = createSlice({
     updateStatusView: (state, action) => {
       state.view[action.payload.pageType].display = action.payload.pageView
       state.view[action.payload.pageType].type = action.payload.type
-      
+      state.view[action.payload.pageType].id = action.payload.id
                    
     },
 

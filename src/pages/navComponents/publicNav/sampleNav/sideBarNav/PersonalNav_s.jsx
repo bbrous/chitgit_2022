@@ -16,7 +16,7 @@ import { unformattedUTCtoDate, DatetoUTC} from '../../../../../app/helpers/dateH
 import { ascendSorter, descendSorter} from '../../../../../app/helpers/commonHelpers'
 
 
-import{ updateStatusView } from '../../../../../app/redux/statusRedux/sam_statusSlice'
+import{ updateStatusView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
 
 
 import{ 
@@ -194,22 +194,35 @@ function PersonalNav() {
   let dispatch = useDispatch()
   let match = useParams()
 
+  let initialStatus = useSelector(selectStatus)
+let personalView = initialStatus.view.chit.display
+
+  const[display, setDisplay] = useState(personalView)
+  useEffect(()=>{
+    setDisplay(personalView)
+
+  }, [personalView])
+
+  console.log('[PersonalChitNav] personalView is', display)
+
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {
     setArrayOrder(newState)
-    console.log('[PersonalChitNav] new slider state is', newState)
+
   }
 
     
   const handleChangeCategory = (evt) => {
-
-    navigate(`/sample/spotlights/${evt.currentTarget.id}`)
-    // props.updateStatusView('spotlight', 'detail')
-    // dispatch(updateStatusView({
-    //   pageType: 'spotlight',
-    //   pageView: 'detail'
-    // }))
+    let newCategory = evt.currentTarget.id
+    navigate(`/sample/personalChits/${newCategory}`)
+ 
+    dispatch(updateStatusView({
+      pageType: 'chit',
+      pageView: display,
+      type: 'personalChits',
+      id: newCategory
+    }))
   }
 
 // ##################  TEMP VARIABLES ###########################

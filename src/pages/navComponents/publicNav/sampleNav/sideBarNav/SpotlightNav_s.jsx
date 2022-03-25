@@ -382,12 +382,13 @@ function SpotlightNav(props)  {
   // ---  also changes the status view to detail if it was in tree mode
   
   const handleChangeSpotlight = (evt) => {
-
-    navigate(`/sample/spotlights/${evt.currentTarget.id}`)
+    let newSpotlight = evt.currentTarget.id
+    navigate(`/sample/spotlights/${newSpotlight}`)
     // props.updateStatusView('spotlight', 'detail')
     dispatch(updateStatusView({
       pageType: 'spotlight',
-      pageView: 'detail'
+      pageView: 'detail',
+      id : newSpotlight
     }))
   }
 
