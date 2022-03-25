@@ -16,7 +16,7 @@ import MonthNav from './MonthNav_s';
 import PersonalCalendarDay from './PersonalCalendarDay_s';
 
 import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
- 
+import { selectAllPersonalChits } from '../../../../../app/redux/personalChitRedux/sam_personalChitSlice';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -93,6 +93,9 @@ const HeaderRowWrapper= styled('div')({
 export default function PersonalCalendar(props) {
 
   const dispatch = useDispatch()
+
+  let personalChitArray = useSelector(selectAllPersonalChits)
+  console.log('[PersonalCalendar] personalChitArray ', personalChitArray);
   
  // get the src address for the img display the chit to show              
 //  let coinAddress = choosePersonalCoin(chitType)    

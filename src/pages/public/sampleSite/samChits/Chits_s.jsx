@@ -136,7 +136,7 @@ function Chits(props) {
       }
 
 <ViewNavWrapper>
-<ChitPageView/>
+<ChitPageView/>  
 </ViewNavWrapper>
 
 <ChitMain />

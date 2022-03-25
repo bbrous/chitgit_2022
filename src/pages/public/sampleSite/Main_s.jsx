@@ -54,12 +54,13 @@ import Spotlights from './samSpots/Spotlights_s'
 
 import SpotlightNav from '../../navComponents/publicNav/sampleNav/sideBarNav/SpotlightNav_s'
 
-// import TwoPartyNav from '../../navComponents/publicNav/sampleNav/sideBarNav/TwoPartyNav_s'
-// import PersonalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/PersonalNav_s'
-// import WorkNav from '../../navComponents/publicNav/sampleNav/sideBarNav/WorkNav_s'
+import TwoPartyNav from '../../navComponents/publicNav/sampleNav/sideBarNav/TwoPartyNav_s'
+import PersonalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/PersonalNav_s'
+import WorkNav from '../../navComponents/publicNav/sampleNav/sideBarNav/WorkNav_s'
 
-// import NoteNav from '../../navComponents/publicNav/sampleNav/sideBarNav/NoteNav_s'
 import LogNav from '../../navComponents/publicNav/sampleNav/sideBarNav/LogNav_s'
+import TopicalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/TopicalNav_s'
+import PeopleNav from '../../navComponents/publicNav/sampleNav/sideBarNav/PeopleNav_s'
 import JournalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/JournalNav_s'
 import Modal from './samComponents/Modal_s.jsx'
 
@@ -452,11 +453,16 @@ function Main_s(props) {
               */}
 
             <New />
-
+        
             {page === 'spotlights' && <SpotlightNav />}
             {page === 'logs' &&  <LogNav/>  }
             {page === 'journal' &&  <JournalNav/>  }
+            {page === 'topicals' &&  <TopicalNav/>  }
+            {page === 'people' &&  <PeopleNav/>  }
 
+            {page === 'personalChits' &&  <PersonalNav/>  }
+            {page === 'twoPartyChits' &&  <TwoPartyNav/>  }
+            {page === 'workChits' &&  <WorkNav/>  }
           </SidePanelWrapper>
 
          

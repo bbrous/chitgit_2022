@@ -5,12 +5,12 @@
 
 // -- chit image addresses --
 export const CHIT_ADDRESS = {
-  awChit: 'images/chit_red.svg',
-  goldChit: 'images/chit_gold.svg',
-  silverChit: 'images/chit_silver.svg',
-  copperChit: 'images/chit_copper.svg',
-  promiseChit: 'images/chit_promise.svg',
-  kindnessChit: 'images/chit_kindness.svg',
+  awChit: '/images/chit_red.svg',
+  goldChit: '/images/chit_gold.svg',
+  silverChit: '/images/chit_silver.svg',
+  copperChit: '/images/chit_copper.svg',
+  promiseChit: '/images/chit_promise.svg',
+  kindnessChit: '/images/chit_kindness.svg',
 }
 
 
@@ -259,17 +259,17 @@ export function chooseChitcoin(type, chitColor){
 */
 
   const address ={
-    standardCopper:   'images/chitCoins/copper_standard.svg ',
-    standardSilver:   'images/chitCoins/silver_standard.svg ',
-    standardGold:     'images/chitCoins/gold_standard.svg ',
+    standardCopper:   '/images/chitCoins/copper_standard.svg ',
+    standardSilver:   '/images/chitCoins/silver_standard.svg ',
+    standardGold:     '/images/chitCoins/gold_standard.svg ',
 
 
-    promiseCopper: 'images/chitCoins/copper_promise.svg',
-    promiseSilver: 'images/chitCoins/silver_promise.svg',
-    promiseGold: 'images/chitCoins/gold_promise.svg',
+    promiseCopper: '/images/chitCoins/copper_promise.svg',
+    promiseSilver: '/images/chitCoins/silver_promise.svg',
+    promiseGold: '/images/chitCoins/gold_promise.svg',
 
 
-    awChit: 'images/chitCoins/awChit.svg '
+    awChit: '/images/chitCoins/awChit.svg '
   }
 
   let coinAddress
@@ -338,12 +338,12 @@ export function choosePersonalCoin(chitColor){
   const address ={
 
 
-    personalCopper: 'images/chitCoins/copper_personal.svg',
-    personalSilver: 'images/chitCoins/silver_personal.svg',
-    personalGold:   'images/chitCoins/gold_personal.svg',
-    multipleChits:   'images/chitCoins/multiple_chits.svg',
-    awChit: 'images/chitCoins/awChit.svg ',
-    star: 'images/chitCoins/star.svg '
+    personalCopper: '/images/chitCoins/copper_personal.svg',
+    personalSilver: '/images/chitCoins/silver_personal.svg',
+    personalGold:   '/images/chitCoins/gold_personal.svg',
+    multipleChits:   '/images/chitCoins/multiple_chits.svg',
+    awChit: '/images/chitCoins/awChit.svg ',
+    star: '/images/chitCoins/star.svg '
   }
 
   if( coinColor ==='copper'){

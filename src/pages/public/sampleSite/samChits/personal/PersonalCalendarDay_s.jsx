@@ -11,6 +11,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {mediumGrey, lightGrey} from '../../../../../styles/colors'
 
 
+ 
+
 import MonthNav from './MonthNav_s';
 
 
@@ -117,12 +119,11 @@ export default function PersonalCalendarDay(props) {
  // get the src address for the img display the chit to show              
 //  let coinAddress = choosePersonalCoin(chitType)    
  
-//  const pathToCoinImages = '../../'
-//   const coinDisplayed = pathToCoinImages + coinAddress
+
 
 let {refIndex,  utcDate, month,  displayChits }= props
  
- 
+
  
 
 let chitType
@@ -164,11 +165,13 @@ else if (displayChits.length > 1){
 }// end else if's 
 
 // get the src address for the img display the chit to show              
-let coinAddress = choosePersonalCoin(chitType)    
+// let coinAddress = choosePersonalCoin(chitType)    
+let coinAddress = choosePersonalCoin('red')    
+console.log('[ PersonalCalendarDay ] coinAddress ', coinAddress);
 
 const pathToCoinImages = '../../'
-const coinDisplayed = pathToCoinImages + coinAddress
-
+// const coinDisplayed = pathToCoinImages + coinAddress
+const coinDisplayed =  '../../../images/chitCoins/copper_personal.svg'
 
 
 const showChitDetail = (chitId)=>{
@@ -177,20 +180,34 @@ props.openModal('personalDetail', chitId)
 
 }
 
+ 
+
+
   return (
     <>
- 
+   
+   
+  
  {month === 'current'  &&
         <CurrentMonthWrapper key ={refIndex}> 
           <DayWrapper> 
             <Day>
+              
             {props.day}
             </Day>
-            {displayChits.length > 0 &&  
+
+
+            {/* {displayChits.length > 0 &&  
               <img src={coinDisplayed} alt="coin"  id = {utcDate}
               onClick = {()=> showChitDetail({chitId})}
               />
-            }
+            } */}
+
+
+<img  src= {choosePersonalCoin('silver')  }  /> 
+
+
+
             <CategoryDescription>{chitCategory}</CategoryDescription>
           </DayWrapper>
         </CurrentMonthWrapper>
