@@ -9,8 +9,9 @@ import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { lightGrey, darkGrey, chitRedDark, mediumLightGrey,chitBlueDull, veryLightGrey, chitOrangeMedium, mediumGrey, chitOrangeLight} from '../../../../../styles/colors'
+import { lightGrey, darkGrey, chitRedDark, mediumLightGrey,chitBlueDull, veryLightGrey, chitOrangeMedium, mediumGrey, chitOrangeLight, chitBurgandy} from '../../../../../styles/colors'
 
+import { selectCategories } from '../../../../../app/redux/categoryRedux/sam_categorySlice'
 
 import { unformattedUTCtoDate, DatetoUTC} from '../../../../../app/helpers/dateHelper'
 import { ascendSorter, descendSorter} from '../../../../../app/helpers/commonHelpers'
@@ -153,6 +154,8 @@ const CategoryWrapper= styled(Paper)({
   fontSize: '.85rem',
   marginTop: '.2rem',
   padding: '0 .5rem',
+
+  cursor: 'pointer',
   borderRadius: '0',
     '&:hover' : {
       backgroundColor: chitOrangeLight,
@@ -185,7 +188,28 @@ const CategoryWrapperSelected= styled(Paper)({
 })
 
 
+const NoneMessage= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '1.5rem 0',
+  width: '80%',
+  height: '8rem',
+  backgroundColor: 'white',
+  marginTop: '3rem',
+  borderRadius: '10px',
+  textAlign: 'center',
+  color: chitBurgandy,
 
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+   
+  },
+  
+})
 // =======================================================
 
 function PersonalNav() {
@@ -194,8 +218,9 @@ function PersonalNav() {
   let dispatch = useDispatch()
   let match = useParams()
 
+  // --- define whether calendar or ledger display
   let initialStatus = useSelector(selectStatus)
-let personalView = initialStatus.view.chit.display
+  let personalView = initialStatus.view.chit.display
 
   const[display, setDisplay] = useState(personalView)
   useEffect(()=>{
@@ -203,7 +228,18 @@ let personalView = initialStatus.view.chit.display
 
   }, [personalView])
 
-  console.log('[PersonalChitNav] personalView is', display)
+
+
+  //  --- get all categories --------
+
+  const allCategories = useSelector(selectCategories)
+
+  console.log('[PersonalChitNav] allCategories is', allCategories.length)
+
+  const [categoryArray, setCategoryArray] = useState(allCategories)
+  useEffect(() => {
+    setCategoryArray(allCategories)
+  }, [allCategories])
 
   const [arrayOrder, setArrayOrder] = useState(false)
 
@@ -211,6 +247,8 @@ let personalView = initialStatus.view.chit.display
     setArrayOrder(newState)
 
   }
+
+  
 
     
   const handleChangeCategory = (evt) => {
@@ -227,11 +265,11 @@ let personalView = initialStatus.view.chit.display
 
 // ##################  TEMP VARIABLES ###########################
 let stateCategoryId = 'temp'
-let categoryArray = [
-  {id:  "1", title: 'tempDiet' } ,
-  {id:  "2", title: 'tempExercise' } ,
-  {id:  "f", title: 'tempEtc' } ,
-]
+// let categoryArray = [
+//   {id:  "1", title: 'tempDiet' } ,
+//   {id:  "2", title: 'tempExercise' } ,
+//   {id:  "f", title: 'tempEtc' } ,
+// ]
 
 // #########################################################
 
@@ -241,7 +279,7 @@ let categoryArray = [
     const displayCategories =categoryArray.map((category, index) => {
 
 
-      let name =category.title
+      let name =category.category
   
       
     /* func chooseDisplayType ---------------------------------
@@ -251,6 +289,8 @@ let categoryArray = [
       if(stateCategoryId !== category.id){
   
       return(
+
+        
   
         <CategoryWrapper elevation={1}
           key = {index} 
@@ -295,7 +335,11 @@ let categoryArray = [
 // --- Main Return ----------------
   return (
     <>
- 
+  { allCategories.length ===  0 && <NoneMessage> 
+Create a new Personal Chit Category
+ </NoneMessage> }
+
+ { allCategories.length > 0 && <> 
 
       {stateCategoryId !== 'milestones' &&
         <StaticWrapper elevation={1}
@@ -358,7 +402,11 @@ let categoryArray = [
         {displayCategories}
         </CategoriesWrapper>
       </DisplayWrapper>
+
+       </>
+      } 
     </>
+    
 
   ) // end main Return
 }// end PersonalNav

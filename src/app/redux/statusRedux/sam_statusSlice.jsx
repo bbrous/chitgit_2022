@@ -53,7 +53,7 @@ export const statusSlice = createSlice({
   
         type: 'personalChits',  // personalChits, workChits, twoPartyChits
         display: 'calendar',  // ledger or calendar
-        id:  'cat_1'
+        id:  ''
       },
   
    // for Spotlights.jsx ----------------------------------

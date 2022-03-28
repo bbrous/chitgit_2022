@@ -9,12 +9,13 @@ const SampleLogs =  [
     {
       id: 'log_1',
       type: 'person', // company, group, organization, topic, story, other
+      otherPartyId: 'XYZ',
       metaContent: '',
       headline: '',
       content: '',
   
-      noteKeywordArray: [],
-      noteCatgory : 'personal project',
+      keywordArray: [],
+      categoryId : 'XYZ',
 
       date: "2020-11-01T11:16:20.619Z",  // date input by user
       lastEdit:  "2020-11-01T11:16:20.619Z",  // last edit date
@@ -23,7 +24,7 @@ const SampleLogs =  [
       attachment: '',
       
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
-      chronicleLink: {collection: 'journal', id: 'rts'} //  journal only
+   
     },
 
 ]// end SampleLogs

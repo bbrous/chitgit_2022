@@ -428,7 +428,7 @@ const Sample = () => {
                 </SlideRight>
                 <SlideLeft>
                   Bob works for a medical device company as a project manager.
-                  He is  married to Mary.  Currently he is very busy with work, fixing up their first home, and spending time with friends.
+                  He is  married to Mary... an engineer.  Currently he is very busy with work, fixing up their first home, and spending time with friends.
                 </SlideLeft>
               </SlideWrapper>
 
@@ -492,8 +492,7 @@ const Sample = () => {
 
               <SlideWrapper>
                 <SlideLeft>
-                  But it’s not all work and no play.  He loves all water activities … especially wake boarding. In fact he has come up with a new
-                  wakeboard boot concept that he wants to develop.
+                  He likes work, but loves water sports … especially wake boarding. In fact he has come up with a new wakeboard boot concept that he is developing with Mary. They hope to turn the idea into a lifestyle business.
                 </SlideLeft>
                 <SlideRight>
                   <PictureStyle>

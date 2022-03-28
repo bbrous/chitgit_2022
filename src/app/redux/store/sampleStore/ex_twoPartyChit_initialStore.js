@@ -16,15 +16,15 @@ const TwoPartyChits =  [
       chitDate: 1545931999000, // 
       timeLock: '',  // if exists - not editable
       
-      otherParty: 'Dave Anderson',
-      deedPerfomedBy: 'Dave Anderson',
+      otherPartyId: 'XYZ',
+      deedPerfomedBy: 'XYZ',
 
     
 
 
       workRelated: false,
 
-      title: 'David Helped me move',
+      description: 'David Helped me move - blah blah blah',
  
       duplicate: 'logs',
 
