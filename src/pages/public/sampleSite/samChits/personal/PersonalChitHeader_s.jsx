@@ -12,7 +12,7 @@ import { useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../../app/helpers/dateHelper'
-import{lightGrey, darkGrey} from '../../../../../styles/colors'
+import{lightGrey, darkGrey, chitBurgandy} from '../../../../../styles/colors'
 import PersonalChitViewNav from '../../../../navComponents/publicNav/sampleNav/PersonalChit_View_nav_s';
 import EditIcon from '../../samComponents/Edit_icon_s'
 import DeleteIcon from '../../samComponents/Delete_icon_s'
@@ -106,7 +106,7 @@ const Title = styled('div')({
    
 
   
-  color: 'red',
+  color: chitBurgandy,
   flexWrap: 'wrap',
 
   fontSize: '1.2rem',

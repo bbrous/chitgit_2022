@@ -21,4 +21,19 @@
       )
     
     })// end displayChits
+
+
+
+    <div> 
+ <div>categories:</div>
+      <OrderWrapper>
+
+        <SliderComponent
+          handleSwitchState={handleSwitchState} //gets new state from child switch
+          leftLabel='desc'
+          rightLabel='asc'
+        />
+
+      </OrderWrapper>
+      </div>
     

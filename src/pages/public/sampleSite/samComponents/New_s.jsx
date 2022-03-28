@@ -123,12 +123,12 @@ function New(props) {
 
       case 'twoPartyChits':
         dbCollection = 'chits'
-        title = 'person'
+        title = 'two party chit'
         break;
 
       case 'personalChits':
         dbCollection = 'chits'
-        title = 'chit category'
+        title = 'personal chit'
         break;
   
 

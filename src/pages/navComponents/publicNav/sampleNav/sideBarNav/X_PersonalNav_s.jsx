@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { lightGrey, veryLightGrey,   mediumGrey,   chitBurgandy, chitOrange} from '../../../../../styles/colors'
+import { lightGrey, darkGrey, chitRedDark, mediumLightGrey,chitBlueDull, veryLightGrey, chitOrangeMedium, mediumGrey, chitOrangeLight, chitBurgandy} from '../../../../../styles/colors'
 
 import { selectCategories } from '../../../../../app/redux/categoryRedux/sam_categorySlice'
 
@@ -45,22 +45,7 @@ import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
-
-const Wrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  width: '98%',
-  height: '100%',
-  padding: '4px 2px 16px 2px',
-  marginTop: '4px',
-  backgroundColor: 'white',
-overflow: 'auto',
-})
-
-
-const OrderWrapper= styled('div')({
+const OrderWrapper= styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-around',
@@ -68,10 +53,9 @@ const OrderWrapper= styled('div')({
   width: '100%',
   height: '3rem',
   fontSize: '.8em',
-  color: chitBurgandy,
-  margin: '8px 0 0 0',
-  border: '1px solid purple',
-  backgroundColor: 'white',
+
+  margin: '8px 0 8px 0'
+
 })
 
 const DisplayWrapper= styled('div')({
@@ -81,8 +65,8 @@ const DisplayWrapper= styled('div')({
   alignItems: 'center',
   width: '100%',
   overflow: 'auto',
- 
- 
+  borderTop: '2px solid grey',
+  
 })
 
 
@@ -90,24 +74,24 @@ const StaticWrapper= styled(Paper)({
 
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
    
   color: 'black',
   
   
-  cursor: 'pointer',
+  
   width: '100%',
   height: '2rem' ,
-  fontSize: '.85rem',
+  fontSize: '.95rem',
   marginTop: '.2rem',
   padding: '0 .5rem',
   borderRadius: '0',
   border: '1px solid #F6F7F8', 
-  // backgroundColor: veryLightGrey,
+  backgroundColor: veryLightGrey,
     '&:hover' : {
-      // backgroundColor: 'white',
-        color: chitOrange,
+      backgroundColor: 'white',
+      
     },
 
 
@@ -120,17 +104,17 @@ const StaticWrapperSelected= styled(Paper)({
 
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
    
   color: 'white',
-  backgroundColor: mediumGrey,
+  backgroundColor: ' #606062 ',
    
   
 
   width: '100%',
   height: '2rem' ,
-  fontSize: '.85rem',
+  fontSize: '.95rem',
   marginTop: '.2rem',
   padding: '0 .5rem',
   borderRadius: '0',
@@ -178,8 +162,8 @@ const CategoryWrapper= styled(Paper)({
   cursor: 'pointer',
   borderRadius: '0',
     '&:hover' : {
-      // backgroundColor: veryLightGrey,
-      color: chitOrange,
+      backgroundColor: veryLightGrey,
+      
     },
   })
 
@@ -237,14 +221,8 @@ function PersonalNav() {
   let navigate = useNavigate()
   let dispatch = useDispatch()
   let match = useParams()
-
-
-  // --- displayId for setting background color of Nav Link ---
-
   let displayId = match.id
-
   // --- define whether calendar or ledger display
-
   let initialStatus = useSelector(selectStatus)
   let personalView = initialStatus.view.chit.display
 
@@ -255,9 +233,12 @@ function PersonalNav() {
   }, [personalView])
 
 
-   //  --- get and update all categories when new category added  ---  
+
+  //  --- get all categories --------
 
   const allCategories = useSelector(selectCategories)
+
+
 
   const [categoryArray, setCategoryArray] = useState(allCategories)
   useEffect(() => {
@@ -359,61 +340,60 @@ let stateCategoryId = 'temp'
 
 // --- Main Return ----------------
   return (
-    <Wrapper>
+    <>
   { allCategories.length ===  0 && <NoneMessage> 
 Create a new Personal Chit Category
  </NoneMessage> }
- 
 
  { allCategories.length > 0 && <> 
 
-      {displayId !== 'milestones' &&
+      {stateCategoryId !== 'milestones' &&
         <StaticWrapper elevation={1}
           id='milestones'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-          All Milestones Only
+          Milestones Only
         </StaticWrapper>
 
       }
-      {displayId === 'milestones' &&
+      {stateCategoryId === 'milestones' &&
         <StaticWrapperSelected elevation={1}
           id='milestones'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-          All Milestones Only
+          Milestones Only
         </StaticWrapperSelected>
 
       }
 
-      {displayId !== 'work' &&
+      {stateCategoryId !== 'work' &&
         <StaticWrapper elevation={1}
           id='work'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-          All Work Only
+          Work Only
         </StaticWrapper>
 
       }
-      {displayId === 'work' &&
+      {stateCategoryId === 'work' &&
         <StaticWrapperSelected elevation={1}
           id='work'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-         All Work Only
+          Work Only
         </StaticWrapperSelected>
 
       }
       <OrderWrapper>  
- <div>Categories</div>
+ <div>categories:</div>
     
 
         <SliderComponent
@@ -432,7 +412,7 @@ Create a new Personal Chit Category
 
        </>
       } 
-    </Wrapper>
+    </>
     
 
   ) // end main Return
