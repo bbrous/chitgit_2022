@@ -110,7 +110,7 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
     <Controller
       name={name}
       control={control}
-      defaultValue = {[0,10]}
+      defaultValue = {[0,100]}
       render={({
         field: { onChange, value },
         fieldState: { error },
@@ -124,7 +124,7 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
                     field.onChange(value);
                   }}
                   valueLabelDisplay="auto"
-                  max={10}
+                  max={100}
                   step={1}
             />
             

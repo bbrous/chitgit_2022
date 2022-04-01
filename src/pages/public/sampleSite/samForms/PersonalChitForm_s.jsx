@@ -331,6 +331,12 @@ console.log('[ Personal CHit Form ] data ', data);
   
        // --- Actual Form ---------------------------------------------
 
+       const myValue = watch("chitValue");
+       let myColor
+
+       if( myValue < 25 ) { myColor = 'copper' } 
+       if (myValue > 24 && myValue < 60 ) { myColor = 'silver' } 
+       if (myValue > 59 ){ myColor= 'gold' }
 
   return (
     <Wrapper>
@@ -361,7 +367,7 @@ console.log('[ Personal CHit Form ] data ', data);
 
         <FormComponentWrapper>
           <ComponentName>
-            Slider
+            Slider - {myColor}
           </ComponentName>
 
           <ComponentWrapper>
