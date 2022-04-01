@@ -1,21 +1,5 @@
-/*---- File - SpotlightForm_s.jsx 
-   Creates new or edits existing Spotlight... depending on if 
-   a detailId exists ... if yes - edit : if no - new
-
-   Contains children:  input components from ./formCompnents
-
-   parent: Modal.js  - src\pages\public\sampleSite\samComponents\Modal_s.jsx
-
-   --- Edit map --- id and collection needed for update 
-
-      Spotlight_s get's id and db collection (page) from URL sends to -
-      Edit_s - sends id & dbCollection to -
-      Modal_s - sends id & dbCollection to - SpotlightForm_s (this)
-
-   * note - creating a New spotlight changes the status in store to display a
-           new spotlight immediately - updating existing spotlight does not
-           change the status and keeps the spotlight being edited on display
-           after changes
+/*---- File - PersonalChitForm_s.jsx 
+ 
    
 */
 
@@ -38,21 +22,17 @@ import { string, object  } from 'yup';
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
-import { selectSpotlights, 
-        selectSpotlightFromArray,
-        addSpotlightToStore, 
-        addToTaskArray, 
-        updateEditedSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
 
- import{ updateStatusView } from '../../../../app/redux/statusRedux/sam_statusSlice'
+import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
+
+
 
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
-import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
-import { StyledSelectMui } from '../../../../forms/formComponents/StyledSelectMui';
 
+import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
 
 // --- MUI imports ---------
 
@@ -234,27 +214,27 @@ export default function SpotlightForm_s(props) {
   const dispatch = useDispatch()
 
   // retrieve spot id if passed from edit
-  let spotId = props.params.id
+  let personalChitId = props.params.id
 
 
   // --- set up options for the selector input (parentId) 
 
-  let spotlightArray = useSelector(selectSpotlights) // get all spotlights
+  let categoriesArray = useSelector(selectCategories) // get all spotlights
   
   // --- initial and fill  the options 
 
-  let spotlightsOptionsArray = [
+  let categoriesOptionsArray = [
     { value: 'none', label: 'none' }
   ] //  defining an initial value in array
 
-  let spotlightOption
+  let categoryOption
 
-  spotlightArray.map((spotlight, index) => {
+  categoriesArray.map((category, index) => {
     // code 
-    spotlightOption = { value: spotlight.id, label: spotlight.title }
-    spotlightsOptionsArray.push(spotlightOption)
+    categoryOption = { value: category.id, label: category.title }
+    categoriesOptionsArray.push(categoryOption)
 
-    return spotlightsOptionsArray
+    return categoriesOptionsArray
   }) //end map
   
 
@@ -263,33 +243,17 @@ export default function SpotlightForm_s(props) {
 
   //  --- default values conditioned on whether new or edit existing spotlight 
 
-  let defaultValues, spotlight, id,title, endEst, parentId, headerMessage
+  let defaultValues, category, id,title,  headerMessage
 
-  !spotId ? headerMessage = 'Create New Spotlight'  : headerMessage = 'Edit Spotlight'
-
-  !spotId ? spotlight = {} : spotlight = selectSpotlightFromArray(spotlightArray, spotId)
-  !spotId ? id = cuid()  : id =  spotId
-  !spotId ? title = ""  : title = spotlight.title
-
-
-  // --- react-datepicker logic
-  //  react-datepicker requires either "" or date
-  // tempEndEst is case when database provides a "" initial value
-
-  let tempEndEst
-  !spotlight.endEst ? tempEndEst = "" : tempEndEst = new Date(spotlight.endEst) 
-  !spotId ? endEst = ""  : endEst = tempEndEst
-
-  !spotId ? parentId = "none"  : parentId = spotlight.parentId
-
-  console.log('[ Spotlight Form  00000000 ] spotlight ', spotlight);
+  !personalChitId ? headerMessage = 'Create New Personal Chit'  : headerMessage = 'Edit Personal Chit'
+ 
  
 
     
     defaultValues = {
       title: title,
-      endEst: endEst,
-      parentId: parentId
+      chitValue: 2
+       
 
     };
 
@@ -303,7 +267,7 @@ export default function SpotlightForm_s(props) {
   const { handleSubmit, reset, control, watch } = methods;
 
   const submitForm = async (data) => {
-
+console.log('[ Personal CHit Form ] data ', data);
     // let submitData = data
     // console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
 
@@ -312,73 +276,36 @@ export default function SpotlightForm_s(props) {
       // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
 
-        // --- parentId from form can be = 'none' or 'a spotlightId'
-        // if parentId is none - dispatch '' to store...else ... form parentId
 
-        let parentId, endDateEst
-
-        data.parentId === 'none' ? parentId = '' : parentId = data.parentId
-        data.endEst === undefined ? endDateEst = '' : endDateEst = data.endEst.toString()
 
         // --- new data to be passed to store (firebase)
 
-        let newSpotlightData = {
+        let newPersonalChitData = {
           id: id,
-          type: 'spotlight',
-          parentId: parentId,
-          currentTaskId: '',
-          title: data.title,
-          spotlightStatus: 'inactive',
-          completedTimeStamp: '',
-          completed: false,
-          lastVisit: new Date().toISOString(),
-          endEst: endDateEst,
-          noteId: '',
-          chitId: '',
-          taskArray: []
+          type: 'personalChit',
+        
 
         }
 
 
-      // #### await Firebase  -- add + return newSpotlightId ############ 
+      // #### await Firebase  -- add + return newPersonalChitId ############ 
 
-      // -- if no spotId -- form is for new - else form is for edit/update
+      // -- if no personalChitId -- form is for new - else form is for edit/update
 
-      if (!spotId) {
+      if (!personalChitId) {
 
-        // --- create new spotlight ------------
-        await dispatch(addSpotlightToStore(newSpotlightData))
-
-        // ---- change status so new spotlight is displayed ---
-
-        navigate(`/sample/spotlights/${id}`)
-        dispatch(updateStatusView({
-          pageType: 'spotlight',
-          pageView: 'detail'
-        }))
+        // --- create new chit ------------
+        
 
       }
 
-      // --- edit/ update spotlight ------------
+      // --- edit/ update personalChit ------------
 
-      if (spotId) {
-        await dispatch(updateEditedSpotlight(newSpotlightData))
+      if (personalChitId) {
+        
       }
 
-      // --- if there is a parentId from form... add new spotlightId to
-      //     task array of the existing spotlight with the parentId
-
-      if (data.parentId !== 'none') {
-
-        dispatch(addToTaskArray(
-          {
-            spotId: data.parentId,
-            id: id,
-            type: "spotlight"
-          }
-        ))
-
-      }
+ 
 
 
         
@@ -418,7 +345,7 @@ export default function SpotlightForm_s(props) {
 
           <FormComponentWrapper>
           <ComponentName>
-            Title - spotlight goal, objective or task
+            Title - Chit goal, objective or task
           </ComponentName>
 
           <ComponentWrapper>
@@ -431,47 +358,24 @@ export default function SpotlightForm_s(props) {
 
         {/* ------Selector Component  (parentId) -------------------------- */}
 
+
         <FormComponentWrapper>
-            <ComponentName>
-              Make this spotlight the child of: 
-            </ComponentName>
+          <ComponentName>
+            Slider
+          </ComponentName>
 
-            <ComponentWrapper>
-              <StyledSelectMui
-                name={"parentId"}
-                control={control}
-                label={"Parent"}
-                options = {spotlightsOptionsArray}
-                defaultValue = {defaultValues.parentId}
-                 
-              />
+          <ComponentWrapper>
+          <StyledSliderMui name = "chitValue" control={control} label="Chit Value" type = "text" />
 
-            </ComponentWrapper>
-          </FormComponentWrapper>
+          </ComponentWrapper>
+        </FormComponentWrapper>
+
+
 
         {/* ------DatePicker Component (endEst) -------------------------- */}
 
  
-        <FormComponentWrapper>
-            <ComponentName>
-              <div> Target date - when you hope to get it done by:  <StyledCalendarIcon/></div>
-              
-            </ComponentName>
-
-            <ComponentWrapper>
-              <Controller
-
-                name="endEst"
-                control={control}
-                initialNote={'hi'}
-
-                render={({ field }) => (
-                  <StyledDatePicker {...field} ref={null} />
-                )}
-              />
-
-            </ComponentWrapper>
-          </FormComponentWrapper>
+  
 
 
         {/* ------Submit ---------- -------------------------- */}

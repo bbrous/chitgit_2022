@@ -52,7 +52,8 @@ export const statusSlice = createSlice({
       chit: {
   
         type: 'personalChits',  // personalChits, workChits, twoPartyChits
-        display: 'calendar',  // ledger or calendar
+        personalDisplay: 'calendar',  // ledger or calendar
+        twoPartyDisplay: 'graph',
         id:  ''
       },
   

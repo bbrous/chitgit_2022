@@ -114,6 +114,11 @@ const openSpotlightForm = ()=>{
       modalForm = 'noteForm'
       break;
 
+      case 'personalChits':
+        modalForm = 'personalChitForm'
+        break;
+      
+
 
     // ######     Add Chit FORMS HERE     ############
     // ######     Add Chron FORMS HERE    ############

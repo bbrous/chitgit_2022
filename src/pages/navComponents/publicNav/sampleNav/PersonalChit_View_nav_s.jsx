@@ -86,7 +86,7 @@ const StyledRadio = withStyles({
 
 function PersonalChitViewNav(props) {
   const dispatch = useDispatch()
-  let view = useSelector(selectStatus).view.chit.display
+  let view = useSelector(selectStatus).view.chit.personalDisplay
   //  console.log('Chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------

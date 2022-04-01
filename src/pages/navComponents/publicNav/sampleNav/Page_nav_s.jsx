@@ -177,7 +177,7 @@ let page
 
   if(!match.pageView){page = 'twoParty'}else{page = match.pageView}
 
-console.log('[PageNav ] - page location : ', page)
+// console.log('[PageNav ] - page location : ', page)
 // let page = 'twoParty'
 
 // Popover ---------

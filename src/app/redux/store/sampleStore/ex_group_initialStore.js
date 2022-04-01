@@ -2,61 +2,41 @@ const SampleGroups =  [
 
   { 
     id: 'group_1',
-    groupName: 'unaffiliated',
-    groupHolders: [
-       'person_2',
-       'person_3',
-       'person_4' ,
-       'person_5',
-       'person_6'
-    
-    ],
-   
+    name: 'IRS',
+    groupType: 'organization',
+    meta: '',
+    groupHolders: []
   },
-
-
 
   { 
     id: 'group_2',
-    groupName: 'family',
+    name: 'Ski club',
+    groupType: 'group',
+    meta: 'Tony - president. 858-555-1422',
     groupHolders: [
-       'person_16' ,
-       'person_17'
+      {dbCollection: 'journal', id: 'jsection_6' }, 
+    ]
     
-    ],
    
   },
 
   { 
     id: 'group_3',
-    groupName: 'neighbors',
-    groupHolders: [
-       'person_10' 
-    
-    ],
+    name: 'ATT',
+    groupType: 'company',
+    meta: '4134 Profit Ln. 800-355-1334 ',
+    groupHolders: []
    
   },
 
   { 
     id: 'group_4',
-    groupName: 'coworkers',
+    name: 'Beach cleanup',
+    groupType: 'group',
+    meta: '',
     groupHolders: [
-       'person_6' 
-    
-    ],
-   
-  },
-
-  { 
-    id: 'group_5',
-    groupName: 'project team',
-    groupHolders: [
-       'person_9',
-       'person_13',
-       'person_14' ,
-       'person_15'
-    
-    ],
+      {dbCollection: 'journal', id: 'jsection_6' }, 
+    ]
    
   },
 

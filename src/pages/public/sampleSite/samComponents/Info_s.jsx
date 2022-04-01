@@ -96,8 +96,8 @@ function Info(props) {
   id = match.id // get URL view location
 
 
-  console.log('[ INFO ] match ', match);
-  console.log('[ INFO ] match params', match.params);
+  // console.log('[ INFO ] match ', match);
+  // console.log('[ INFO ] match params', match.params);
 
 
   // --- format which Info button display -- Info Chit, Info Note, etc
@@ -124,15 +124,11 @@ const openInfoModal = ()=>{
       break;
 
     case 'personalChits':
-      modalPage = 'chits'
+      modalPage = 'personalChits'
       break;
 
     case 'twoPartyChits':
-      modalPage = 'chits'
-      break;
-
-    case 'workChits':
-      modalPage = 'chits'
+      modalPage = 'twoPartyChits'
       break;
 
       case 'journal':
@@ -143,9 +139,7 @@ const openInfoModal = ()=>{
         modalPage = 'chronicles'
         break;
   
-      case 'workChisagasts':
-        modalPage = 'chronicles'
-        break;
+
 
     default:
       modalPage = '';

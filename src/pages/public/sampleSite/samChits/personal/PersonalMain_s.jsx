@@ -83,7 +83,7 @@ export default function PersonalMain_s(props) {
     setNewCategoryVIew(categoryView)
   }, [categoryView])
 
-  console.log('[ Personal Main ] newCategoryView ================================ ', newCategoryView);
+  // console.log('[ Personal Main ] newCategoryView ================================ ', newCategoryView);
   
   return (
     <Wrapper>

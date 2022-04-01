@@ -85,7 +85,7 @@ export const {
 
 // --- Export selectors ------------------------------------------
 
-export const selectgroups = state => state.sample.groups
+export const selectGroups = state => state.sample.groups
 
 
 

@@ -87,7 +87,7 @@ const Modal = (props) => {
 
 let { chitDisplayed, modalType} = props.display.private
 
-// console.log('[MODAL... modalType is -- : ', modalType)
+console.log('[MODAL... modalType is -- : ', modalType)
 
 
 

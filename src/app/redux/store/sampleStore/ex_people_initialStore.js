@@ -9,143 +9,97 @@ const People =  [
     {
       id: 'person_1',
 
-      name: "Shawn O'Donnel",
-      meta: '',
+      name: "Cyn Terhor",
+      meta: 'Project Team',
    
 
-      
-      peopleHolders: []
-
+      peopleHolders: [
+        {collection: 'twoPartyChits', id: 'tp_1'},
+        {dbCollection: 'journal', id: 'jsection_3' }
+      ]
       
     },
 
  
     {
-      id: 'person_4',
+      id: 'person_2',
       
-      name: "Jackie Rauder",
-      meta: '',
-
-      group: 'unaffiliated',
-      
-      peopleHolders: []
-
-      
-    },
-    
-    {
-      id: 'person_5',
-      
-      name: "Randi Gelbwaks",
-      meta: '',
-
-      group: 'unaffiliated',
-      
-      peopleHolders: []
-
-      
-    },
-
-    
-    {
-      id: 'person_7',
-      name: "Jeff Donninger",
-      meta: '',
-
-      group: 'unaffiliated',
-      
-      peopleHolders: []
-
-      
-    },
-
-    
-    {
-      id: 'person_8',
-      name: "Beth Joseph",
-      meta: '',
-
-      group: 'unaffiliated',
-      
-      peopleHolders: []
-
-      
-    },
-
-    {
-      id: 'person_9',
-      name: "Cyn Terhor",
-      meta: '',
-
-      group: 'project team',
-      
-      peopleHolders: [
-        {dbCollection: 'journal', id: 'jsection_3' },
-      ]
-
-      
-    },
-
-
-    {
-      id: 'person_10',
-      name: "Shelly - neighbor",
-      meta: '',
-
-      group: 'unaffiliated',
-      
-      peopleHolders: []
-
-      
-    },
-
-    {
-      id: 'person_11',
-      name: "Jerry G",
-      meta: '',
-
-      group: 'friends',
-      
-      peopleHolders: []
-
-      
-    },
-
-    {
-      id: 'person_12',
-      name: "Billy",
-      meta: "Jerry's brother",
-
-      group: 'friends',
-      
-      peopleHolders: [
-        {dbCollection: 'journal', id: 'jsection_6' }, 
-      ]
-
-      
-    },
-
-    {
-      id: 'person_13',
-      name: "Linda",
-      meta: 'software girl',
-
-      group: 'project team',
-      
-      peopleHolders: []
-
-      
-    },
-
-    {
-      id: 'person_14',
       name: "Mark D",
       meta: 'engineer genius',
 
-      group: 'project team',
+      peopleHolders:  [
+        {collection: 'twoPartyChits', id: 'tp_2'},
+        {dbCollection: 'journal', id: 'jsection_3' }
+      ]
+
+      
+    },
+    
+    {
+      id: 'person_3',
+      
+      name: "Mary B",
+      meta: 'mi amore',
+
+      peopleHolders:  [{collection: 'journals', id: 'jsection_2'}]
+      
+     
+
+      
+    },
+
+    
+    {
+      id: 'person_4',
+      name: "Shelly-neighbor",
+      meta: '',
+
+      peopleHolders: []
+      
+       
+    },
+
+    
+    {
+      id: 'person_5',
+      name: "Linda",
+      meta: 'Project Team, software girl',
+      
+      peopleHolders: []
+
+      
+    },
+
+    {
+      id: 'person_6',
+      name: "Steve",
+      meta: 'Project Team, finance guy',
       
       peopleHolders: [
-        {dbCollection: 'journal', id: 'jsection_3' },
+        
+      ]
+
+      
+    },
+
+
+    {
+      id: 'person_7',
+      name: "Jerry G",
+      meta: 'best friend',
+    
+      peopleHolders: []
+
+      
+    },
+
+    {
+      id: 'person_8',
+      name: "Billy",
+      meta: "Jerry's brother",
+      
+      peopleHolders: [
+        {dbCollection: 'journal', id: 'jsection_6' }, 
       ]
 
       
@@ -170,8 +124,6 @@ const People =  [
       name: "Mary B",
       meta: 'wife',
 
-      group: 'family',
-      
       peopleHolders: [
         {dbCollection: 'journal', id: 'jsection_2' }, 
         {dbCollection: 'journal', id: 'jsection_6' },
@@ -184,10 +136,8 @@ const People =  [
     {
       id: 'person_17',
       name: "Simi B",
-      meta: 'my sister',
-
-      group: 'family',
-      
+      meta: 'little sister',
+    
       peopleHolders: []
 
       

@@ -8,13 +8,12 @@ const SampleTopical  =  [
  
     {
       id: 'topical_1',
-      topic: 'Deck',
+      topic: 'Blog',
 
       dateCreated: "2021-01-03T16:21:33.000Z",
-      Description: 'going to build a deck', 
+      Description: 'water ski and wakeboard blog', 
 
-      chitId: '',
-      JournalSectionId: ''
+ 
 
     },
  
@@ -24,24 +23,11 @@ const SampleTopical  =  [
       
       dateCreated: "2021-01-03T16:21:33.000Z",
       Description: 'creating a wakeboard boot assembly that moves 90 degrees.', 
-
-      chitId: '',
-      JournalSectionId: ''
-    },
-
  
-    {
-      id: 'topical_3',
-      topic: 'Book',
-      
-     
-
-      dateCreated: "2021-01-03T16:21:33.000Z",
-      Description: 'The Chit Mind', 
-      
-      chitId: '',
-      JournalSectionId: ''
+ 
     },
+
+
 
 
 

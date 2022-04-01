@@ -91,9 +91,15 @@ function New(props) {
   let page, id, formattedPage
   const dispatch = useDispatch()
 
+
+
   page = match.pageView // get URL view location
   id = match.id // get URL view location
   let dbCollection, title
+
+  // console.log('[ NEW ] page ', page);
+
+
   switch (page) {
     case 'spotlights':
       dbCollection = 'spotlights'
@@ -122,12 +128,12 @@ function New(props) {
         break;
 
       case 'twoPartyChits':
-        dbCollection = 'chits'
+        dbCollection = 'twoPartyChits'
         title = 'two party chit'
         break;
 
       case 'personalChits':
-        dbCollection = 'chits'
+        dbCollection = 'personalChits'
         title = 'personal chit'
         break;
   

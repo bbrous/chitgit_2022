@@ -27,10 +27,9 @@ import{ selectChits
 } from '../../../../app/redux/chitRedux/X_sam_selectors_Chits'
 import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import Chit from './Chit_s'
 import PersonalMain from './personal/PersonalMain_s'
 import TwoPartyMain from './twoParty/TwoPartyMain_s'
-import WorkMain from './work/WorkMain_s'
+
 //  ---- Material Ui ------------------
 
 import InfoIcon from '@mui/icons-material/Info';
@@ -73,16 +72,15 @@ function ChitMain(props) {
   let match = useParams()
   // let chitPage = useSelector(selectStatus).view.chit.type
   let chitPage = match.pageView
-console.log('[ ChitMain ] chitPage ', chitPage);
-console.log('[ ChitMain ] match ', match);
+// console.log('[ ChitMain ] chitPage ', chitPage);
+// console.log('[ ChitMain ] match ', match);
   return (
     <MainWrapper>
  
   
         {chitPage === 'personalChits' && <PersonalMain/> }
         {chitPage === 'twoPartyChits' && <TwoPartyMain/>}
-        
-        {chitPage === 'workChits' && <WorkMain/>}
+   
 
       
     </MainWrapper>

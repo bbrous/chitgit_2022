@@ -35,10 +35,13 @@ import{selectStatus} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import MainHelp from '../samHelp/Main_help_s'
 import HelpSpotlights from '../../sampleSite/samHelp/Help_spotlights_s'
-import HelpChits from '../../sampleSite/samHelp/Help_chits_s'
+import HelpPersonalChits from '../../sampleSite/samHelp/Help_personalChits_s'
+import TwoPartyChits from '../../sampleSite/samHelp/Help_twoPartyChits_s'
 import HelpChronicles from '../../sampleSite/samHelp/Help_chronicles_s'
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
+
+import PersonalChitForm from '../samForms/PersonalChitForm_s'
 
 
 // import WOChitDetail from '../../features/main/views/chitView/WO_ChitDetail'
@@ -170,6 +173,13 @@ console.log('[ modal ] modalPage ', modalPage);
 
         }
 
+             
+        {dbCollection === 'personalChits' &&
+          // <SpotlightForm id = {id} type = 'spotlights' />
+          <PersonalChitForm params = {modalParams} />
+
+        }
+
         {dbCollection === 'notes' &&
           <NoteForm params = {modalParams} />
 
@@ -188,9 +198,14 @@ console.log('[ modal ] modalPage ', modalPage);
    <HelpSpotlights/>
 }
 
-   {modalPage === 'chits'  &&
-   <HelpChits/>
+   {modalPage === 'personalChits'  &&
+   <HelpPersonalChits/>
 }
+
+{modalPage === 'twoPartyChits'  &&
+   <TwoPartyChits/>
+}
+
 
 {modalPage === 'chronicles'  &&
    <HelpChronicles/>

@@ -1,10 +1,11 @@
 /* function PersonalNav(props) -------------------
 
-  
+  Side bar navigation for Personal Chits
 
 
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
+
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -13,23 +14,11 @@ import { lightGrey, veryLightGrey,   mediumGrey,   chitBurgandy, chitOrange} fro
 
 import { selectCategories } from '../../../../../app/redux/categoryRedux/sam_categorySlice'
 
-import { unformattedUTCtoDate, DatetoUTC} from '../../../../../app/helpers/dateHelper'
+
 import { ascendSorter, descendSorter} from '../../../../../app/helpers/commonHelpers'
 
 
 import{ updateStatusView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
-
-
-import{ 
-  // selectSpotlights, 
-  // selectFilteredParentSpotlights,
-  // selectFilteredCompletedSpotlights,
-  // selectFilteredBegunSpotlights,
-  // selectFilteredInactiveSpotlights,
-  // selectFilteredUnCompletedSpotlights
-
- } from '../../../../../app/redux/personalChitRedux/sam_personalChitSlice'
-
 
 
 import SliderComponent from '../../../../../common_components/SliderComponent'
@@ -41,7 +30,7 @@ import SliderComponent from '../../../../../common_components/SliderComponent'
 import Paper from '@mui/material/Paper'; 
 
 import { styled, createTheme} from "@mui/material/styles"
-import {withStyles} from '@mui/styles'
+// import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
@@ -56,7 +45,13 @@ const Wrapper= styled('div')({
   padding: '4px 2px 16px 2px',
   marginTop: '4px',
   backgroundColor: 'white',
-overflow: 'auto',
+  overflow: 'auto',
+
+  
+  [theme.breakpoints.down('xs')] : {
+    // display: 'none', 
+  }
+
 })
 
 
@@ -104,16 +99,12 @@ const StaticWrapper= styled(Paper)({
   padding: '0 .5rem',
   borderRadius: '0',
   border: '1px solid #F6F7F8', 
-  // backgroundColor: veryLightGrey,
+ 
     '&:hover' : {
       // backgroundColor: 'white',
         color: chitOrange,
     },
 
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
 
 })
 const StaticWrapperSelected= styled(Paper)({
@@ -136,11 +127,6 @@ const StaticWrapperSelected= styled(Paper)({
   borderRadius: '0',
 
 
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
 })
 
 const CategoriesWrapper= styled('div')({
@@ -156,9 +142,6 @@ const CategoriesWrapper= styled('div')({
   overflowY: 'auto',
   paddingBottom: '3px',
 
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
 
 })
 
@@ -201,9 +184,6 @@ const CategoryWrapperSelected= styled(Paper)({
   backgroundColor: mediumGrey,
 
 
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
 
 })
 
@@ -222,12 +202,6 @@ const NoneMessage= styled('div')({
   textAlign: 'center',
   color: chitBurgandy,
 
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-   
-  },
   
 })
 // =======================================================
@@ -246,10 +220,11 @@ function PersonalNav() {
   // --- define whether calendar or ledger display
 
   let initialStatus = useSelector(selectStatus)
+  // console.log('[ PersonalNav ] initialStatus ', initialStatus);
   let personalView = initialStatus.view.chit.display
 
-  const[display, setDisplay] = useState(personalView)
-  useEffect(()=>{
+  const [display, setDisplay] = useState(personalView)
+  useEffect(() => {
     setDisplay(personalView)
 
   }, [personalView])
@@ -264,14 +239,29 @@ function PersonalNav() {
     setCategoryArray(allCategories)
   }, [allCategories])
 
-  const [arrayOrder, setArrayOrder] = useState(false)
+
+    /* --- set the order for filtered categories mapped (arrayOrder)  ---
+    Default is latest first
+    Uses Material UI's  slider component (boolean)
+    Order is determined by last time the spotlight was visited
+  */
+
+  const [arrayOrder, setArrayOrder] = useState(true)
+
+  let ascendingCategories= ascendSorter(categoryArray, 'category')
+  let descendingCategories= descendSorter(categoryArray, 'category')
+
+  let sortedCategories
+  if (arrayOrder === false) { sortedCategories= ascendingCategories} else if (arrayOrder === true) { sortedCategories= descendingCategories}
+
+// console.log('[ PersonalNav ] sortedCategories ', sortedCategories);
 
   const handleSwitchState = (newState) => {
     setArrayOrder(newState)
 
   }
 
-  console.log('[PersonalChitNav] arrayOrder is', arrayOrder)
+  // console.log('[PersonalChitNav] arrayOrder is', arrayOrder)
 
     
   const handleChangeCategory = (evt) => {
@@ -286,20 +276,12 @@ function PersonalNav() {
     }))
   }
 
-// ##################  TEMP VARIABLES ###########################
-let stateCategoryId = 'temp'
-// let categoryArray = [
-//   {id:  "1", title: 'tempDiet' } ,
-//   {id:  "2", title: 'tempExercise' } ,
-//   {id:  "f", title: 'tempEtc' } ,
-// ]
-
-// #########################################################
 
 
-    // 3_ Map the people for display
 
-    const displayCategories =categoryArray.map((category, index) => {
+    // --- Map the categories for display in side panel
+
+    const displayCategories =sortedCategories.map((category, index) => {
 
 
       let name =category.category
@@ -310,9 +292,9 @@ let stateCategoryId = 'temp'
     ---------------------------------------------------*/
     const chooseDisplayType =()=>{
       if(displayId !== category.id){
-        console.log('[ whePERSONAL NAV]re ]@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  console.log('[ PERSONAL NAV] stateCategoryId ', stateCategoryId);
-  console.log('[ PERSONAL NAV] category.id ', category.id);
+       
+  // console.log('[ PERSONAL NAV] category.id ', category.id);
+
       return(
 
         
@@ -390,25 +372,25 @@ Create a new Personal Chit Category
 
       }
 
-      {displayId !== 'work' &&
+      {displayId !== 'workChits' &&
         <StaticWrapper elevation={1}
-          id='work'
+          id='workChits'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-          All Work Only
+          Work Chits
         </StaticWrapper>
 
       }
-      {displayId === 'work' &&
+      {displayId === 'workChits' &&
         <StaticWrapperSelected elevation={1}
-          id='work'
+          id='workChits'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-         All Work Only
+         Work Chits
         </StaticWrapperSelected>
 
       }
@@ -418,8 +400,8 @@ Create a new Personal Chit Category
 
         <SliderComponent
           handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='desc'
-          rightLabel='asc'
+          leftLabel='a-Z'
+          rightLabel='z-A' 
         />
 
       </OrderWrapper>
