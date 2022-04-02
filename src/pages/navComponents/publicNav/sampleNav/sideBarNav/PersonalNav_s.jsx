@@ -220,16 +220,16 @@ function PersonalNav() {
   // --- define whether calendar or ledger display
 
   let initialStatus = useSelector(selectStatus)
-  // console.log('[ PersonalNav ] initialStatus ', initialStatus);
-  let personalView = initialStatus.view.chit.display
-
+ 
+  let personalView = initialStatus.view.personalChit.display
+ 
   const [display, setDisplay] = useState(personalView)
   useEffect(() => {
     setDisplay(personalView)
 
   }, [personalView])
-
-
+  console.log('[ PersonalNav ] initialStatus ', initialStatus);
+  console.log('[ PersonalNav ] personalView ', personalView);
    //  --- get and update all categories when new category added  ---  
 
   const allCategories = useSelector(selectCategories)
@@ -269,9 +269,9 @@ function PersonalNav() {
     navigate(`/sample/personalChits/${newCategory}`)
  
     dispatch(updateStatusView({
-      pageType: 'chit',
+      pageType: 'personalChit',
       pageView: display,
-      type: 'personalChits',
+     
       id: newCategory
     }))
   }

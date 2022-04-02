@@ -1,7 +1,12 @@
 /* function PersonalMain (props) -------------------
- 
 
   parent: ../Chits_s
+
+  children:
+    ./PersonalChitHeader_s
+    ./PersonalLedger_s
+    ./PersonalCalendar_s
+
 ------------------------------------*/
 
 import React, {useState, useEffect} from 'react'
@@ -74,16 +79,18 @@ const NoneMessage= styled(Paper)({
 // ====================
 
 export default function PersonalMain_s(props) {
-  let chitView= useSelector(selectStatus).view.chit.display
-  let categoryView = useSelector(selectStatus).view.chit.id
-  let [newCategoryView, setNewCategoryVIew] = useState(categoryView)
+  let chitView= useSelector(selectStatus).view.personalChit.display
+  let categoryView = useSelector(selectStatus).view.personalChit.id
+  let [newCategoryView, setNewCategoryView] = useState(categoryView)
 
   useEffect(() => {
-    // console.log('[Spotlights_s]  SpotlightPage is', spotlightView)
-    setNewCategoryVIew(categoryView)
+    // console.log('[PersonalMain_s]  ', newCategoryView)
+    setNewCategoryView(categoryView)
   }, [categoryView])
 
-  // console.log('[ Personal Main ] newCategoryView ================================ ', newCategoryView);
+  console.log('[ Personal Main ] chitView ================================ ', chitView);
+
+  console.log('[ Personal Main ] newCategoryView ================================ ', newCategoryView);
   
   return (
     <Wrapper>

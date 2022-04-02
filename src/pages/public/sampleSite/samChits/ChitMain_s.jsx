@@ -1,5 +1,5 @@
 /* function ChitMain(props) -------------------
-       parent: sampleSite/Spotlights_s
+       parent: sampleSite/Chits_s
 
   Holds Chits, Section Form and sections ... includes  
   (a) info icon - to get help

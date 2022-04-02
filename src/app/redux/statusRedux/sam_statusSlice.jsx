@@ -56,6 +56,19 @@ export const statusSlice = createSlice({
         twoPartyDisplay: 'graph',
         id:  ''
       },
+
+      personalChit: {
+        type: 'personalChits',
+        display: 'calendar',
+        id: ''
+      },
+
+      
+      twoPartyChit: {
+        display: 'graph',
+        id: ''
+      },
+  
   
    // for Spotlights.jsx ----------------------------------
 
@@ -154,8 +167,10 @@ export const statusSlice = createSlice({
 
 
     updateStatusView: (state, action) => {
+
+      console.log('[ samStatus_slice ] pageType', action.payload.pageType);
       state.view[action.payload.pageType].display = action.payload.pageView
-      state.view[action.payload.pageType].type = action.payload.type
+      // state.view[action.payload.pageType].type = action.payload.type
       state.view[action.payload.pageType].id = action.payload.id
                    
     },

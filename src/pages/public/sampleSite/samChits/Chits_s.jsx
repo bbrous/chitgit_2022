@@ -9,6 +9,7 @@
 
 
   children: ./chitMain
+            navComponents/publicNav/sampleNav/Chit_Page_nav_s
 
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
@@ -16,14 +17,15 @@
 import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import ChitPageView from '../../../navComponents/publicNav/sampleNav/Chit_Page_nav_s'
-import {veryLightGrey} from '../../../../styles/colors'
 
+import {veryLightGrey} from '../../../../styles/colors'
 
 import{ 
   selectStatus,
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import ChitMain from './ChitMain_s'
+
+import ChitPageView from '../../../navComponents/publicNav/sampleNav/Chit_Page_nav_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
 
@@ -130,22 +132,16 @@ function Chits(props) {
   return (
     <Wrapper>
 
-{displayPopoverModalMessage &&
+      {displayPopoverModalMessage &&
         <PopoverModal pageType={ChitPage} />
- 
+
       }
 
-<ViewNavWrapper>
-<ChitPageView/>  
-</ViewNavWrapper>
+      <ViewNavWrapper>
+        <ChitPageView />
+      </ViewNavWrapper>
 
-<ChitMain />
-
-
-
-
-
-
+      <ChitMain />
 
 
     </Wrapper>
