@@ -280,6 +280,34 @@ export function unformattedUTCtoDate(milSeconds){
   }
 
 
+  export function UTCtoISO(milSeconds){
+    /* func UTCtoISO
+        converts a  UTC timestamp 
+        to ISO
+  
+        @param  num (milliseconds)
+        @return str  "2021-01-07T16:21:33.000Z"
+    */
+  
+    let ISOdate = new Date(milSeconds).toISOString()
+ 
+    return ISOdate
+    }
 
+    export function ISOtoUTC(ISOdate){
+      /* func ISOtoUTC
+          converts ISO date t0  UTC miliseconds 
+       
+    
+          @param  str (ISO date) - "2021-01-07T16:21:33.000Z"
+          @return num 
+      */
+    
+      let UTCdate =  Date.parse(ISOdate)
+    
+ 
+    
+      return UTCdate
+      }
 
 

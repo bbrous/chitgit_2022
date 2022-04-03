@@ -121,9 +121,9 @@ export const statusSlice = createSlice({
     }, // end lastView
 
     calendarMonthDisplay: {
-      utc: 1646110800000,
+      utc: 1615705861000,
       monthName: 'March',
-      monthYear: '2022'
+      monthYear: '2021'
     }
 
   }, // end Initial State

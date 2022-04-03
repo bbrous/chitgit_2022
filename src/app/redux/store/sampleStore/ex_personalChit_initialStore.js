@@ -114,8 +114,76 @@ const PersonalChits =  [
       },
     
 
+            // March  ------------------------- >>
+
+  
+            {
+              id: 'p7',
+              chitType: 'personalChit',
+              dateCreated: "2021-03-08T05:01:21.000Z", // Mar 8
+              chitDate: "2021-03-08T05:01:21.000Z", // Mar 8
+              timeLock: '',  // if exists - not editable
+        
+              chitColor: 'copper',   //gold, silver, red, milestone
+        
+              category: 'cat_8',
+              workRelated: false,
+        
+              detail: '',
+              
+            },
+        
+          
+            {
+              id: 'p8',
+              chitType: 'personalChit',
+              dateCreated: "2021-03-09T05:01:21.000Z", // Mar 9
+              chitDate: "2021-03-09T05:01:21.000Z", // Mar 9
+              timeLock: '',  // if exists - not editable
+        
+              chitColor: 'gold',   //gold, silver, red, milestone
+        
+              category: 'cat_3',
+              workRelated: false,
+        
+              detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
+              
+            },
 
 
+  
+            {
+              id: 'p9',
+              chitType: 'personalChit',
+              dateCreated: "2021-03-11T05:01:21.000Z", // Mar 11
+              chitDate: "2021-03-11T05:01:21.000Z", // Mar 11
+              timeLock: '',  // if exists - not editable
+        
+              chitColor: 'copper',   //gold, silver, red, milestone
+        
+              category: 'cat_8',
+              workRelated: false,
+        
+              detail: '',
+              
+            },
+        
+          
+            {
+              id: 'p10',
+              chitType: 'personalChit',
+              dateCreated: "2021-03-12T05:01:21.000Z", // Mar 12
+              chitDate: "2021-03-12T05:01:21.000Z", // Mar 12
+              timeLock: '',  // if exists - not editable
+        
+              chitColor: 'gold',   //gold, silver, red, milestone
+        
+              category: 'cat_3',
+              workRelated: false,
+        
+              detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
+              
+            },
 
 
 

@@ -1,4 +1,18 @@
 /* function PersonalLedger (props) -------------------
+
+  1. get all personal chits (personalChit array)
+  2a. get calendar month to display
+  2b. get the array of days for that calendar month
+
+  3. map calendar month by day
+     4. see if there is a chit for that day (filter personalChit array)
+     5a. if yes chit exists - display PersonalChit
+     5b. if no chit exists - display QuickChit form
+
+  special note: 
+      - all dates in calendarHelper require and use miliseconds (UTc) 
+      - Redux store status.calendarMonthDisplay.UTC is in miliseconds
+      - all chits Redux store and database are in  ISO dates
  
   children: ./PersonalLedgerRow
   parent: ./PersonalMain
@@ -11,9 +25,13 @@ import PropTypes from 'prop-types';
 
 import {veryLightGrey, mediumGrey} from '../../../../../styles/colors'
 import { calendarDisplayArray } from '../../../../../app/helpers/calendarHelper';
+import { ISOtoUTC, UTCtoISO } from '../../../../../app/helpers/dateHelper';
 
 import MonthNav from './MonthNav_s';
-import PersonalCalendarDay from './PersonalCalendarDay_s';
+import PersonalChit from './PersonalChit_s';
+import QuickPersonalChitForm from '../../samForms/QuickPersonalChitForm';
+
+
 
 import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
 import { selectAllPersonalChits } from '../../../../../app/redux/personalChitRedux/sam_personalChitSlice';
@@ -92,7 +110,10 @@ const HeaderRowWrapper= styled('div')({
 
 export default function PersonalCalendar(props) {
 
+
   const dispatch = useDispatch()
+
+  // --- 1. get all personal chits -----
 
   let personalChitArray = useSelector(selectAllPersonalChits)
   console.log('[PersonalCalendar] personalChitArray ', personalChitArray);
@@ -106,42 +127,73 @@ export default function PersonalCalendar(props) {
 // ############### TEMP #############################
 
 
-  // get current month of view from Redux store
-  // create the array of days for that calendar month
+  // --- 2a. get calendar month to display
+ 
 
   let currentUTCMonth = 1615711313000  // Mar 14, 2021
   let currentISOMonth = '2021-03-14T08:41:53.000Z'
   // let currentUTCMonth = props.monthView.monthFilter.utc
 
-
+  // --- 2b. get the array of days for that calendar month
   let monthArray =  calendarDisplayArray(currentUTCMonth) 
 
 //###########################################
 
-// create the calendar - map through the month
+// --- 3. create the calendar - map through the month -----
 
-const displayDays =monthArray.map((displayDay, index) => {
+  const displayDays = monthArray.map((displayDay, index) => {
 
- return(
-   <PersonalCalendarDay
-   key = {index}
-   refIndex = {index}
-      id = {displayDay.utcDate}
-      day = {displayDay.day}
-      month = {displayDay.month}
-      utcDate = {displayDay.utcDate}
-      // displayChits = {displayChits}
-            displayChits = {[]}
+    // determine if there is a chit for that day
 
-   
-   
-   />
- )
-  
-  })// end displayChits
+    const displayChits =personalChitArray.filter((chit) => {
+
+    // get begin and start time for each day in map
+      let chitBeginTime = parseInt(displayDay.utcDate)
+      let chitEndTime = parseInt(displayDay.utcDate) + 86400000 - 1
+
+    // convert chitDate from ISO to UTC
+
+      let chitDateUTC = ISOtoUTC(chit.chitDate)
+    
+        return (
+
+          chitDateUTC >= chitBeginTime  &&
+          chitDateUTC <= chitEndTime
+        )
+    
+    })// end displayChits
+
+    console.log('[ PERSONAL CALENDAR ] array length ', displayChits);
+
+    return (
+
+<> 
+ {displayChits.length === 1 && 
+
+<PersonalChit
+key = {index}
+id = {displayDay.utcDate}
+day = {displayDay.day}
+month = {displayDay.month}
+utcDate = {displayDay.utcDate}
+displayChits = {displayChits}
 
 
+/>
+ 
+ }
+ {!displayChits.length !== 1 && 
+ 
+<QuickPersonalChitForm/>
+ 
+ }
+</>
+    )
 
+  })// end displayDays
+
+
+// === MAIN RETURN ==============================
   return (
     <Wrapper>
  

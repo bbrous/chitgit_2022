@@ -1,6 +1,6 @@
-/* function PersonalCalendarDay_s (props) -------------------
+/* function PersonalChit_s (props) -------------------
  
-  children: ./PersonalCalendarDay_s
+  children: ./PersonalChit_s
   parent: ./PersonalCalendar
 ------------------------------------*/
 
@@ -114,7 +114,7 @@ const CategoryDescription = styled('div')({
 })
   
   //====================================
-export default function PersonalCalendarDay(props) {
+export default function PersonalChit(props) {
   
  // get the src address for the img display the chit to show              
 //  let coinAddress = choosePersonalCoin(chitType)    
@@ -167,7 +167,7 @@ else if (displayChits.length > 1){
 // get the src address for the img display the chit to show              
 // let coinAddress = choosePersonalCoin(chitType)    
 let coinAddress = choosePersonalCoin('red')    
-console.log('[ PersonalCalendarDay ] coinAddress ', coinAddress);
+console.log('[ PersonalChit ] coinAddress ', coinAddress);
 
 const pathToCoinImages = '../../'
 // const coinDisplayed = pathToCoinImages + coinAddress

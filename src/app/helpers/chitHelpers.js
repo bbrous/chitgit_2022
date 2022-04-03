@@ -1,6 +1,11 @@
-// chitHelpers.js  .... IN   ChitGit_2022
+/* chitHelpers.js  .... IN   ChitGit_2022
 
+getAllChits - all chits sorted by Date
+chitFilter - two party chits - gets an individual's chits
+categoryChitFilter - personal chits - get's a category's chits
+choosePersonalCoin
 
+*/
 
 
 // -- chit image addresses --
@@ -11,6 +16,34 @@ export const CHIT_ADDRESS = {
   copperChit: '/images/chit_copper.svg',
   promiseChit: '/images/chit_promise.svg',
   kindnessChit: '/images/chit_kindness.svg',
+}
+
+// === Group = two party chit filter ======
+
+/* -- func chitFilter ------------------
+  @desc - gets all chits for a specific person Id
+  @params - chits, id
+  @required - func getAllChits(chits), func getPersonChits(chits, Id)
+  @return -  name to be Displayed 
+
+  1. get all chits (ordered by date)
+  2. 
+---------------------*/
+
+export function chitFilter(chits, filterId){
+
+  let displayedChits
+
+if(filterId === 'all' ){
+
+  displayedChits = getAllChits(chits)
+  
+}else{
+  displayedChits = getPersonChits(chits, filterId)
+}
+
+
+return displayedChits
 }
 
 
@@ -32,10 +65,8 @@ export function getAllChits(chits){
 
 
 
-
-
 /* -- func getPersonChits ------------------
-  @desc - gets an individual's chits
+  @desc - two party chits - gets an individual's chits
   @params array of chits
   @return array sorted 
 
@@ -54,27 +85,7 @@ export function getPersonChits(chits, id){
 
 }
 
-/* -- func chitFilter ------------------
-  @desc - gets all chits for a specific person Id
-  @params - chits, id
-  @return -  name to be Displayed 
-
----------------------*/
-export function chitFilter(chits, filterId){
-
-    let displayedChits
-
-  if(filterId === 'all' ){
-
-    displayedChits = getAllChits(chits)
-    
-  }else{
-    displayedChits = getPersonChits(chits, filterId)
-  }
-
-
-  return displayedChits
-}
+// ==== Group - personal chits filter =================
 
 /* -- func categoryChitFilter ------------------
   @desc - gets all chits for a specific Id
@@ -82,6 +93,7 @@ export function chitFilter(chits, filterId){
   @return -  name to be Displayed 
 
 ---------------------*/
+
 export function categoryChitFilter(chitsArray, categoryId){
 
   let displayedChits
@@ -203,60 +215,17 @@ export function getChitDetail(chits, id){
 
 }
 
-
-
-
-/* -- func nameDisplay ------------------
-  @desc - creates name display from parts
-  @params - firstName, lastName, nameSub
-  @return -  name to be Displayed 
+/* -- func chooseChitcoin ------------------
+  @desc - gets  two party coin svg image address from public folder
+  @params - type, color
+  @return -  image address
 
 ---------------------*/
 
-export function nameDisplay(firstName, lastName, nameSub){
-
-  let nameDisplayed
-
-  if((firstName !== null) && (lastName !== null)){
-    nameDisplayed = firstName + ' ' + lastName
-  }
 
 
-
-  if((firstName !== null) && (lastName === null)){
-    nameDisplayed = firstName + ' - ' + nameSub
-  }
-
-  if((firstName === null) && (lastName !== null)){
-    nameDisplayed = lastName + ' - ' + nameSub
-  }
-
-  if((firstName === null) && (lastName === null) && (nameSub !== null)){
-    nameDisplayed =   nameSub  + ' -- '
-  }
-
-
-  if((firstName === null) && (lastName === null) && (nameSub === null)){
-    nameDisplayed = 'unknown'  
-  }
-  
-  if((firstName !== null) && (lastName === null) && (nameSub === null)){
-    nameDisplayed = firstName 
-  }
-  return nameDisplayed
-
-
-}
-
-//==============================
 export function chooseChitcoin(type, chitColor){
   
-/*
-
-  NOTE :  These addresses come from the public folder not src
-
-
-*/
 
   const address ={
     standardCopper:   '/images/chitCoins/copper_standard.svg ',
@@ -323,6 +292,12 @@ export function chooseChitcoin(type, chitColor){
 
 }
 
+/* -- func choosePersonalCoin ------------------
+  @desc - gets  personal coin svg image address from public folder
+  @params - type, color
+  @return -  image address
+
+---------------------*/
 
 export function choosePersonalCoin(chitColor){
 
