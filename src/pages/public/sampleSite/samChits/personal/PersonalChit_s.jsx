@@ -121,9 +121,9 @@ export default function PersonalChit(props) {
  
 
 
-let {refIndex,  utcDate, month,  displayChits }= props
+let {refIndex,  utcDate, month,  displayChit }= props
  
-
+console.log('[ PersonalChit ] refIndex ', refIndex);
  
 
 let chitType
@@ -134,44 +134,19 @@ let chitCategory
    chit is displayed instead of a single silver or gold, etc.
 */ 
 
-if(displayChits.length === 1){
-
-  chitCategory = displayChits[0].category
-
- if(displayChits[0].milestone){chitType = 'milestone'}else{chitType = displayChits[0].chitColor}
-
- let chitsIdArray = []
-chitsIdArray.push(displayChits[0].chitId)
- chitId = chitsIdArray
-
-  
-
-} 
-else if (displayChits.length > 1){
-  chitType = 'multiple'
-  chitCategory = ''
-  // create an array of chitIds for a day with multiple chits
-  chitId = displayChits.map((displayChit, index)=>{
-    
-
-    return displayChit.chitId
-    
-  })// end map displaychits
 
 
-}else{
-  chitType = ''
-  chitCategory = ''
-}// end else if's 
+
+
 
 // get the src address for the img display the chit to show              
 // let coinAddress = choosePersonalCoin(chitType)    
-let coinAddress = choosePersonalCoin('red')    
+let coinAddress = choosePersonalCoin(displayChit[0].chitColor)    
 console.log('[ PersonalChit ] coinAddress ', coinAddress);
 
-const pathToCoinImages = '../../'
-// const coinDisplayed = pathToCoinImages + coinAddress
-const coinDisplayed =  '../../../images/chitCoins/copper_personal.svg'
+const pathToCoinImages = '../../../'
+const coinDisplayed = pathToCoinImages + coinAddress
+// const coinDisplayed =  '../../../images/chitCoins/copper_personal.svg'
 
 
 const showChitDetail = (chitId)=>{
@@ -204,7 +179,11 @@ props.openModal('personalDetail', chitId)
             } */}
 
 
-<img  src= {choosePersonalCoin('silver')  }  /> 
+
+              <img src={coinDisplayed} alt="coin"  id = {utcDate}
+              onClick = {()=> showChitDetail({chitId})}
+              />
+
 
 
 
@@ -212,13 +191,14 @@ props.openModal('personalDetail', chitId)
           </DayWrapper>
         </CurrentMonthWrapper>
         }
+        
       {month !== 'current'  &&
         <OtherMonthWrapper key ={refIndex}> 
           <DayWrapper> 
             <Day>
             {props.day}
             </Day>
-            {displayChits.length > 0 &&  
+            {displayChit.length > 0 &&  
               <img src={coinDisplayed} alt="coin"  id = {utcDate}
               onClick = {()=> showChitDetail({chitId})}
               />

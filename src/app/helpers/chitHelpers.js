@@ -122,7 +122,7 @@ if(categoryId === 'all' ){
 
   displayedChits = chitsArray.filter(function(chits){
 
-    return chits.categoryId === categoryId
+    return chits.category === categoryId
 
   })
 }

@@ -1,4 +1,4 @@
-/* function PersonalChit_s (props) -------------------
+/* function QuickPersonalChitForm_s (props) -------------------
  
   children: ./PersonalChit_s
   parent: ./PersonalCalendar
@@ -8,13 +8,13 @@ import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import {mediumGrey, lightGrey} from '../../../../styles/colors'
+import {mediumGrey, lightGrey, veryLightGrey} from '../../../../styles/colors'
 
 
  
 
 import MonthNav from '../samChits/personal/MonthNav_s'
-
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 
  
@@ -112,14 +112,44 @@ const CategoryDescription = styled('div')({
   },
 
 })
+
+const AddCircleIconWrapper= styled(AddCircleIcon)({
+
+  color: lightGrey,
+  fontSize : '1.7rem',
+  
+  '&:hover' : {
+    backgroundColor: veryLightGrey,
+    borderRadius: '50px',
+    cursor: 'pointer'
+  },
+
+})
   
   //====================================
 
 export default function QuickPersonalChitForm(props) {
+
+  let {refIndex,  utcDate, month,  displayChits }= props
+  console.log('[ QuickForm ] refIndex ', refIndex);
+
+
   return (
-    <CurrentMonthWrapper>
-      + PE Form
-    </CurrentMonthWrapper>
+    <CurrentMonthWrapper key ={refIndex}> 
+    <DayWrapper> 
+      <Day >
+        
+      {props.day}
+      </Day>
+
+
+<AddCircleIconWrapper/>
+
+
+
+     
+    </DayWrapper>
+  </CurrentMonthWrapper>
   );
 }
  

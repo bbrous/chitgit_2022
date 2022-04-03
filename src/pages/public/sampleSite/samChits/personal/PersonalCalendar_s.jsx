@@ -18,10 +18,12 @@
   parent: ./PersonalMain
 ------------------------------------*/
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
+
+import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 import {veryLightGrey, mediumGrey} from '../../../../../styles/colors'
 import { calendarDisplayArray } from '../../../../../app/helpers/calendarHelper';
@@ -33,7 +35,7 @@ import QuickPersonalChitForm from '../../samForms/QuickPersonalChitForm';
 
 
 
-import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
+import { choosePersonalCoin, categoryChitFilter } from '../../../../../app/helpers/chitHelpers';
 import { selectAllPersonalChits } from '../../../../../app/redux/personalChitRedux/sam_personalChitSlice';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -109,28 +111,24 @@ const HeaderRowWrapper= styled('div')({
 // =============================================
 
 export default function PersonalCalendar(props) {
-
-
+  let match = useParams()
+  let id = match.id // get URL view location
   const dispatch = useDispatch()
 
-  // --- 1. get all personal chits -----
+  // --- 1. get all  chits for a category -----
 
-  let personalChitArray = useSelector(selectAllPersonalChits)
-  console.log('[PersonalCalendar] personalChitArray ', personalChitArray);
-  
- // get the src address for the img display the chit to show              
-//  let coinAddress = choosePersonalCoin(chitType)    
+  let allChitsArray = useSelector(selectAllPersonalChits)
  
-//  const pathToCoinImages = '../../'
-//   const coinDisplayed = pathToCoinImages + coinAddress
-
-// ############### TEMP #############################
-
+   
+  console.log('[PersonalCalendar] personalChitArray ', allChitsArray);
+  
+  let personalChitArray  = categoryChitFilter(allChitsArray, id)
+console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
 
   // --- 2a. get calendar month to display
- 
+  let currentUTCMonth = useSelector(selectStatus).calendarMonthDisplay.utc
 
-  let currentUTCMonth = 1615711313000  // Mar 14, 2021
+  // let currentUTCMonth = 1615711313000  // Mar 14, 2021
   let currentISOMonth = '2021-03-14T08:41:53.000Z'
   // let currentUTCMonth = props.monthView.monthFilter.utc
 
@@ -163,31 +161,39 @@ export default function PersonalCalendar(props) {
     
     })// end displayChits
 
-    console.log('[ PERSONAL CALENDAR ] array length ', displayChits);
+ 
 
     return (
 
-<> 
- {displayChits.length === 1 && 
+      <>
+        {displayChits.length > 0 &&
 
-<PersonalChit
-key = {index}
-id = {displayDay.utcDate}
-day = {displayDay.day}
-month = {displayDay.month}
-utcDate = {displayDay.utcDate}
-displayChits = {displayChits}
+          <PersonalChit
+            key={index}
+            refIndex= {index}
+            id={displayDay.utcDate}
+            day={displayDay.day}
+            month={displayDay.month}
+            utcDate={displayDay.utcDate}
+            displayChit={displayChits}
 
 
-/>
- 
- }
- {!displayChits.length !== 1 && 
- 
-<QuickPersonalChitForm/>
- 
- }
-</>
+          />
+
+        }
+        {!displayChits.length &&
+
+          <QuickPersonalChitForm
+            key={index}
+            refIndex= {index}
+            id={displayDay.utcDate}
+            day={displayDay.day}
+            month={displayDay.month}
+            utcDate={displayDay.utcDate}
+          />
+
+        }
+      </>
     )
 
   })// end displayDays
@@ -203,13 +209,13 @@ displayChits = {displayChits}
     
     
     <HeaderRowWrapper>
-          <HeaderDayWrapper>Sun</HeaderDayWrapper>
-          <HeaderDayWrapper>Mon</HeaderDayWrapper>
-          <HeaderDayWrapper>Tue</HeaderDayWrapper>
-          <HeaderDayWrapper>Wed</HeaderDayWrapper>
-          <HeaderDayWrapper>Thu</HeaderDayWrapper>
-          <HeaderDayWrapper>Fri</HeaderDayWrapper>
-          <HeaderDayWrapper>Sat</HeaderDayWrapper>
+          <HeaderDayWrapper >Sun</HeaderDayWrapper>
+          <HeaderDayWrapper >Mon</HeaderDayWrapper>
+          <HeaderDayWrapper >Tue</HeaderDayWrapper>
+          <HeaderDayWrapper >Wed</HeaderDayWrapper>
+          <HeaderDayWrapper >Thu</HeaderDayWrapper>
+          <HeaderDayWrapper >Fri</HeaderDayWrapper>
+          <HeaderDayWrapper >Sat</HeaderDayWrapper>
       </HeaderRowWrapper>
 
       <MonthWrap>

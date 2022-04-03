@@ -10,8 +10,8 @@ const PersonalChits =  [
     {
       id: 'p1',
       chitType: 'personalChit',
-      dateCreated: "2021-01-07T16:21:33.000Z", // Jan 5
-      chitDate: "2021-01-07T16:21:33.000Z", // Jan 5
+      dateCreated: "2021-01-07T16:21:43.000Z", // Jan 5
+      chitDate: "2021-01-07T16:21:43.000Z", // Jan 5
       timeLock: '',  // if exists - not editable
 
       chitColor: 'silver',   //gold, silver, red, milestone
@@ -141,7 +141,7 @@ const PersonalChits =  [
               chitDate: "2021-03-09T05:01:21.000Z", // Mar 9
               timeLock: '',  // if exists - not editable
         
-              chitColor: 'gold',   //gold, silver, red, milestone
+              chitColor: 'milestone',   //gold, silver, red, milestone
         
               category: 'cat_3',
               workRelated: false,
@@ -176,7 +176,23 @@ const PersonalChits =  [
               chitDate: "2021-03-12T05:01:21.000Z", // Mar 12
               timeLock: '',  // if exists - not editable
         
-              chitColor: 'gold',   //gold, silver, red, milestone
+              chitColor: 'copper',   //gold, silver, red, milestone
+        
+              category: 'cat_3',
+              workRelated: false,
+        
+              detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
+              
+            },
+
+            {
+              id: 'p11',
+              chitType: 'personalChit',
+              dateCreated: "2021-01-12T05:01:21.000Z", // Mar 12
+              chitDate: "2021-01-12T05:01:21.000Z", // Mar 12
+              timeLock: '',  // if exists - not editable
+        
+              chitColor: 'milestone',   //gold, silver, red, milestone
         
               category: 'cat_3',
               workRelated: false,
