@@ -177,15 +177,18 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
     })// end displayChits
 
     console.log('[ PersonalChit ] utcDate ',UTCtoDateTradional( parseInt(displayDay.utcDate)));
-    console.log('[ PersonalChit ] utcDate today ',UTCtoDateTradional( today));
+    // console.log('[ PersonalChit ] utcDate today ',UTCtoDateTradional( today));
   
   let displayDayMMDDYY = UTCtoDateTradional( parseInt(displayDay.utcDate))
   let todayMMDDYY = UTCtoDateTradional( today)
  
   let isToday
- 
   displayDayMMDDYY === todayMMDDYY ? isToday = true: isToday = false
-  
+  let futureDay
+  parseInt(displayDay.utcDate) > todayUTC ? futureDay = true: futureDay = false
+
+  console.log('[ PersonalCalendar ] displayDayMMDDYY in future ', futureDay);
+  console.log('[ PersonalCalendar ] today in future ', typeof todayUTC);
     return (
 
       <DayWrapper key={index}>
@@ -214,6 +217,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
             month={displayDay.month}
             utcDate={displayDay.utcDate}
             isToday = {isToday}
+            futureDay = {futureDay}
           />
 
         }

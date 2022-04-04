@@ -8,7 +8,7 @@ import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey} from '../../../../styles/colors'
+import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey, chitLightBlueDull} from '../../../../styles/colors'
 
 
  
@@ -48,7 +48,7 @@ const TodayWrapper= styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: '.8rem',
-  backgroundColor: 'orange',
+  backgroundColor: chitLightBlueDull,
   borderTop: '1px solid #E6E7E8',
   borderBottom: '1px solid #E6E7E8',
   borderLeft: '1px solid #E6E7E8',
@@ -109,25 +109,7 @@ const Day = styled('div')({
 
 })
 
-const CategoryDescription = styled('div')({
-  fontSize: '.55rem',
-  position: 'absolute',
-  bottom: '0',
-  color: mediumGrey,
-  width: '98%',
- 
-  overflow: 'hidden',
-    
-    minWidth: 0,
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-     
-  },
-
-})
 
 const AddCircleIconWrapper= styled(AddCircleIcon)({
 
@@ -135,9 +117,23 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
   fontSize : '1.7rem',
   
   '&:hover' : {
-    backgroundColor: veryLightGrey,
+    backgroundColor: lightGrey,
+    color: 'white',
     borderRadius: '50px',
     cursor: 'pointer'
+  },
+
+})
+
+const DispabledAddCircleIconWrapper= styled(AddCircleIcon)({
+
+  color: lightGrey,
+  fontSize : '1.7rem',
+  opacity: 0,
+  '&:hover' : {
+    backgroundColor: veryLightGrey,
+    borderRadius: '50px',
+   
   },
 
 })
@@ -146,67 +142,76 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 
 export default function QuickPersonalChitForm(props) {
 
-  let {refIndex,  utcDate, month,  displayChits, isToday }= props
- 
+  let { refIndex, utcDate, month, displayChits, isToday, futureDay } = props
+
 
 
   return (
     <>
-    {month === 'current'  && isToday &&
-    <TodayWrapper > 
-    <DayWrapper> 
-      <Day >
+      {month === 'current' && isToday &&
+        <TodayWrapper >
+          <DayWrapper>
+            <Day >
+
+              {props.day}
+            </Day>
+
+
+            <AddCircleIconWrapper />
+
+          </DayWrapper>
+        </TodayWrapper>
+      }
+      {month === 'current' && !isToday &&
+        <CurrentMonthWrapper >
+          <DayWrapper>
+            <Day >
+
+              {props.day}
+            </Day>
+
+      {!futureDay && 
+            <AddCircleIconWrapper />
+      }
+        {futureDay && 
+            <DispabledAddCircleIconWrapper />
+      }
+
+
+
+
+          </DayWrapper>
+        </CurrentMonthWrapper>
+
         
-      {props.day}
-      </Day>
-
-
-<AddCircleIconWrapper/>
+      }
 
 
 
-     
-    </DayWrapper>
-  </TodayWrapper>
-  }
- {month === 'current'  && !isToday &&
-    <CurrentMonthWrapper > 
-    <DayWrapper> 
-      <Day >
-        
-      {props.day}
-      </Day>
+      {month !== 'current' &&
+        <OtherMonthWrapper >
+          <DayWrapper>
+            <Day >
+
+              {props.day}
+            </Day>
 
 
-<AddCircleIconWrapper/>
-
-
-
-     
-    </DayWrapper>
-  </CurrentMonthWrapper>
-  }
+            
+      {!futureDay && 
+            <AddCircleIconWrapper />
+      }
+        {futureDay && 
+            <DispabledAddCircleIconWrapper />
+      }
 
 
 
-{month !== 'current'  &&
-<OtherMonthWrapper > 
-<DayWrapper> 
-  <Day >
-    
-  {props.day}
-  </Day>
 
-
-<AddCircleIconWrapper/>
-
-
-
- 
-</DayWrapper>
-</OtherMonthWrapper>
-  }
-  </>
+          </DayWrapper>
+        </OtherMonthWrapper>
+      }
+    </>
   );
 }
  
