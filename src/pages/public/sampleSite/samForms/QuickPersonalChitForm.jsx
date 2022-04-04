@@ -8,7 +8,7 @@ import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import {mediumGrey, lightGrey, veryLightGrey} from '../../../../styles/colors'
+import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey} from '../../../../styles/colors'
 
 
  
@@ -33,6 +33,22 @@ const CurrentMonthWrapper= styled('div')({
   alignItems: 'center',
   fontSize: '.8rem',
   backgroundColor: 'white',
+  borderTop: '1px solid #E6E7E8',
+  borderBottom: '1px solid #E6E7E8',
+  borderLeft: '1px solid #E6E7E8',
+  borderRight: '1px solid #E6E7E8',
+  color: 'black',
+  width: '100%',
+
+
+})
+
+const TodayWrapper= styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '.8rem',
+  backgroundColor: 'orange',
   borderTop: '1px solid #E6E7E8',
   borderBottom: '1px solid #E6E7E8',
   borderLeft: '1px solid #E6E7E8',
@@ -71,7 +87,7 @@ const OtherMonthWrapper= styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: '.8rem',
-  backgroundColor: lightGrey,
+  backgroundColor: mediumLightGrey,
   borderTop: '1px solid #E6E7E8',
   borderBottom: '1px solid #E6E7E8',
   borderLeft: '1px solid #E6E7E8',
@@ -130,11 +146,30 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 
 export default function QuickPersonalChitForm(props) {
 
-  let {refIndex,  utcDate, month,  displayChits }= props
-  console.log('[ QuickForm ] refIndex ', refIndex);
+  let {refIndex,  utcDate, month,  displayChits, isToday }= props
+ 
 
 
   return (
+    <>
+    {month === 'current'  && isToday &&
+    <TodayWrapper > 
+    <DayWrapper> 
+      <Day >
+        
+      {props.day}
+      </Day>
+
+
+<AddCircleIconWrapper/>
+
+
+
+     
+    </DayWrapper>
+  </TodayWrapper>
+  }
+ {month === 'current'  && !isToday &&
     <CurrentMonthWrapper > 
     <DayWrapper> 
       <Day >
@@ -150,6 +185,28 @@ export default function QuickPersonalChitForm(props) {
      
     </DayWrapper>
   </CurrentMonthWrapper>
+  }
+
+
+
+{month !== 'current'  &&
+<OtherMonthWrapper > 
+<DayWrapper> 
+  <Day >
+    
+  {props.day}
+  </Day>
+
+
+<AddCircleIconWrapper/>
+
+
+
+ 
+</DayWrapper>
+</OtherMonthWrapper>
+  }
+  </>
   );
 }
  

@@ -27,7 +27,8 @@ import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSli
 
 import {veryLightGrey, mediumGrey} from '../../../../../styles/colors'
 import { calendarDisplayArray } from '../../../../../app/helpers/calendarHelper';
-import { ISOtoUTC, UTCtoISO } from '../../../../../app/helpers/dateHelper';
+import { ISOtoUTC, UTCtoISO, UTCtoDateTradional } from '../../../../../app/helpers/dateHelper';
+
 
 import MonthNav from './MonthNav_s';
 import PersonalChit from './PersonalChit_s';
@@ -138,8 +139,12 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
   // --- 2a. get calendar month to display
   let currentUTCMonth = useSelector(selectStatus).calendarMonthDisplay.utc
 
-  // let currentUTCMonth = 1615711313000  // Mar 14, 2021
-  let currentISOMonth = '2021-03-14T08:41:53.000Z'
+  let todayUTC = 1615711313000  // Mar 14, 2021
+  // let todayISO = '2021-03-14T08:41:53.000Z'
+
+  let today = UTCtoDateTradional(todayUTC)
+
+  
   // let currentUTCMonth = props.monthView.monthFilter.utc
 
   // --- 2b. get the array of days for that calendar month
@@ -171,8 +176,16 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
     
     })// end displayChits
 
+    console.log('[ PersonalChit ] utcDate ',UTCtoDateTradional( parseInt(displayDay.utcDate)));
+    console.log('[ PersonalChit ] utcDate today ',UTCtoDateTradional( today));
+  
+  let displayDayMMDDYY = UTCtoDateTradional( parseInt(displayDay.utcDate))
+  let todayMMDDYY = UTCtoDateTradional( today)
  
-
+  let isToday
+ 
+  displayDayMMDDYY === todayMMDDYY ? isToday = true: isToday = false
+  
     return (
 
       <DayWrapper key={index}>
@@ -186,7 +199,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
             month={displayDay.month}
             utcDate={displayDay.utcDate}
             displayChit={displayChits}
-
+            isToday = {isToday}
 
           />
 
@@ -200,6 +213,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
             day={displayDay.day}
             month={displayDay.month}
             utcDate={displayDay.utcDate}
+            isToday = {isToday}
           />
 
         }

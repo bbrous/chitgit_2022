@@ -8,10 +8,10 @@ import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import {mediumGrey, lightGrey} from '../../../../../styles/colors'
+import {mediumGrey, mediumLightGrey} from '../../../../../styles/colors'
 
 
- 
+ import { UTCtoDateTradional } from '../../../../../app/helpers/dateHelper'
 
 import MonthNav from './MonthNav_s';
 
@@ -65,13 +65,35 @@ const DayWrapper= styled('div')({
 
 })
 
+const ToDayWrapper= styled('div')({
+  // display: 'block',
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '.8rem',
+  border: '1px solid red',
+  width: '4.5rem',
+  height: '4.5rem',
+ 
+   overflow: 'hidden',
+  verticalAlign: 'middle',
+  textAlign: 'center',
+ 
+  '& img' :{
+    height: '3rem',
+    marginBottom: '6px'
+  },
+
+})
+
 const OtherMonthWrapper= styled('div')({
 
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: '.8rem',
-  backgroundColor: lightGrey,
+  backgroundColor: mediumLightGrey,
   borderTop: '1px solid #E6E7E8',
   borderBottom: '1px solid #E6E7E8',
   borderLeft: '1px solid #E6E7E8',
@@ -121,9 +143,11 @@ export default function PersonalChit(props) {
  
 
 
-let {refIndex,  utcDate, month,  displayChit }= props
+let {refIndex,  utcDate, month,  displayChit, day }= props
+
+
  
-console.log('[ PersonalChit ] refIndex ', refIndex);
+// console.log('[ PersonalChit ] utcDate ',UTCtoDateTradional( utcDate));
  
 
 let chitType
@@ -166,6 +190,8 @@ props.openModal('personalDetail', chitId)
  {month === 'current'  &&
         <CurrentMonthWrapper> 
           <DayWrapper> 
+
+            
             <Day>
               
             {props.day}
