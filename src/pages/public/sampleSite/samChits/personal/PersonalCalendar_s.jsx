@@ -108,6 +108,16 @@ const HeaderRowWrapper= styled('div')({
 
   })
 
+  const DayWrapper= styled('div')({
+    display: 'inline-block',
+    justifyContent: 'center',
+    alignItems: 'center',
+ 
+    width: '14%',
+  
+  
+  })
+
 // =============================================
 
 export default function PersonalCalendar(props) {
@@ -165,11 +175,11 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
 
     return (
 
-      <>
+      <DayWrapper key={index}>
         {displayChits.length > 0 &&
 
           <PersonalChit
-            key={index}
+            
             refIndex= {index}
             id={displayDay.utcDate}
             day={displayDay.day}
@@ -184,7 +194,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
         {!displayChits.length &&
 
           <QuickPersonalChitForm
-            key={index}
+            
             refIndex= {index}
             id={displayDay.utcDate}
             day={displayDay.day}
@@ -193,7 +203,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
           />
 
         }
-      </>
+      </DayWrapper>
     )
 
   })// end displayDays

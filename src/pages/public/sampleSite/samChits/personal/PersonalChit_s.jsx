@@ -38,7 +38,7 @@ const CurrentMonthWrapper= styled('div')({
   borderLeft: '1px solid #E6E7E8',
   borderRight: '1px solid #E6E7E8',
   color: 'black',
-  width: '14%',
+  width: '100%',
 
 
 })
@@ -77,7 +77,7 @@ const OtherMonthWrapper= styled('div')({
   borderLeft: '1px solid #E6E7E8',
   borderRight: '1px solid #E6E7E8',
   color: 'white',
-  width: '14%',
+  width: '100%',
 
 
 })
@@ -164,7 +164,7 @@ props.openModal('personalDetail', chitId)
    
   
  {month === 'current'  &&
-        <CurrentMonthWrapper key ={refIndex}> 
+        <CurrentMonthWrapper> 
           <DayWrapper> 
             <Day>
               
@@ -193,7 +193,7 @@ props.openModal('personalDetail', chitId)
         }
         
       {month !== 'current'  &&
-        <OtherMonthWrapper key ={refIndex}> 
+        <OtherMonthWrapper> 
           <DayWrapper> 
             <Day>
             {props.day}
