@@ -80,8 +80,8 @@ const OrderWrapper= styled('div')({
   fontSize: '.8em',
   color: chitBurgandy,
   margin: '8px 0 0 0',
-  border: '1px solid purple',
-  backgroundColor: 'white',
+  // border: '1px solid purple',
+  backgroundColor: lightGrey,
 })
 
 const DisplayWrapper= styled('div')({
@@ -390,6 +390,104 @@ const chooseDisplayType =()=>{
 
   }) // end function displayPeople
 
+
+
+
+ // --- 5 map through allGroupsArray - get data from allGroups by id   
+
+
+ const unsortedNamesOfGroups = allGroupsArray.map((id, index) => {
+
+  let groupObject = allGroups.find(group => group.id === id)
+  return (
+    groupObject
+
+  )
+}
+) //end map allGroupArray
+
+ 
+
+
+ 
+let descendingGroups = descendSorter(unsortedNamesOfGroups, 'name')
+
+let  sortedGroups = descendingGroups
+
+console.log('[ PersonalNav ] sortedGroups ', sortedGroups);
+ 
+
+const handleChangeGroup = (evt) => {
+let newGroup = evt.currentTarget.id
+navigate(`/sample/twoPartyChits/${newGroup}`)
+
+dispatch(updateStatusView({
+  pageType: 'chit',
+  pageView: display,
+  type: 'twoPartyChits',
+  id: newGroup
+}))
+}
+
+
+const displayGroups =sortedGroups.map((group, index) => {
+
+
+let name =group.name
+
+
+/* func chooseDisplayType ---------------------------------
+ desc: css changes highlight of person selected
+---------------------------------------------------*/
+const chooseDisplayType =()=>{
+if(displayId !== group.id){
+ 
+// console.log('[ PERSONAL NAV] person.id ', person.id);
+
+return(
+
+  
+
+  <SelectorWrapper elevation={1}
+    key = {index} 
+    id = {group.id}
+    onClick = {(evt)=>{
+      handleChangePerson(evt)
+    }}
+  >
+         {name}
+        </SelectorWrapper>
+  
+
+)}
+  
+if(displayId === group.id){
+
+  return(
+
+    <SelectorWrapperSelected elevation={1}
+      key = {index} 
+      id = {group.id}
+      onClick = {(evt)=>{
+        handleChangePerson(evt)
+      }}
+    >
+           {name}
+          </SelectorWrapperSelected>
+    
+
+  )}   
+    }
+    
+return chooseDisplayType()
+
+
+}) // end function displayGroups
+
+
+
+
+
   // --- Main Return  ----------------------
 
   return (
@@ -492,7 +590,7 @@ const chooseDisplayType =()=>{
 <div> ---- groups ---- </div>
           <PeopleWrapper>
             
-          {/* {displayGroup} */}
+          {displayGroups}
           </PeopleWrapper>
 
           
