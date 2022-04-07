@@ -92,7 +92,7 @@ export const {
 
 // --- Export selectors ------------------------------------------
 
-export const selectAllTwoPartySections = state => state.sample.twoParty
+export const selectAllTwoPartyChits = state => state.sample.twoPartyChits
 
 
 

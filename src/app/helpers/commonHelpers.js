@@ -1,22 +1,39 @@
-// commonHelpers.js  .... IN   ChitGit_2022
+/* commonHelpers.js  .... IN   ChitGit_2022
 
+capitalizeFirstLetter(string)                
+optionDescendSorter(array)                     - sorts select-input options
+asecendSorter(arrayOfObjects, objectParameter) - sorts array of objects
+descendSorter(arrayOfObjects, objectParameter) - sorts array of objects
+cleanOptions(stringArray, dbCollection)        - cleans select input options
+checkIfWordExists(word, array, dbCollection)
+isArrayDifferent(arrA, arrB)                   - compares 2 arrays
+doesArrayIncludeItem(item, array)
+uniqueItemsInObjectField(array, parameterKey)  - gets unique values from
+                                                 field in array of objects
+*/
 
+// ==========================================================================
 
+/* -- func capitalizeFirstLetter ------------------
+  @desc - capitalizes the first letter of a string
+  @params string   
+  @return string with first letter capitalized
+
+---------------------*/
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 } // end func capitalizeFirstLetter
 
 
 
-/* -- func descendSorter ------------------
-  @desc - sorts array of Objects by object parameter - ascending
+/* -- func optionDescendSorter ----- for select input ---
+  @desc - sorts array   of strings for select input
   @params array, parameter   
   @return array sorted 
 
 ---------------------*/
 export function optionDescendSorter(array){
 
-  // console.log('[ optionDescendSorter ] m Array ', array);
 
   let  sortedArray  = array.sort((a, b) => (a > b ) ? 1 : -1)
  
@@ -183,3 +200,34 @@ if(collection === 'keywords'){
 
 
  } // end findArrayDifference
+
+
+  /* --- func uniqueItemsInObjectField -------------
+  @desc - creates an array of unique items in a given field
+  
+   @params array , field name
+   @return  array of unique items
+          
+   use like: 
+        var array = [
+        {"name": "Joe", "age": 17}, 
+        {"name": "Bob", "age": 17}, 
+        {"name": "Carl", "age": 35}
+      ];
+
+      var ages = uniqueBy(array, "age");
+      console.log(ages); // [17, 35]
+      ---------------------*/
+
+ export function uniqueItemsInObjectField(arrayOfObjects, parameterKey){
+
+  let objectsArray = arrayOfObjects
+
+
+  let arrayOfOnlyParameters = objectsArray.map((object) => object[parameterKey])
+  let arrayOfUniques = [...new Set(arrayOfOnlyParameters)]
+  return(
+    arrayOfUniques
+
+  )
+}

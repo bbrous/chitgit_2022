@@ -170,11 +170,10 @@ function PersonalChits() {
          <a href="#intro">Introduction  </a>
 
 
-         <a href="#twoPartyChits">Two party chits</a>
-         <a href="#personalChits">Personal chits</a>
-         <a href="#workChits">Work chits</a>
-         <a href="#createNew">Creating new chits  </a>
+         <a href="#views">Views</a>
+          
          <a href="#chitWeights">Chit Weights</a>
+      
          <a href="#timeLocks">Time locks</a>
       </LinkWrapper>
       <ContentWrapper>
@@ -182,108 +181,87 @@ function PersonalChits() {
       <HeaderWrapper name="intro"> Personal Chits Introduction</HeaderWrapper>
 
 
-        <div><em> Chits Are</em> "tokens: <br />
-        Tokens you create when someone does something for you, or for something you do for someone else... or, a token you can give yoursef for something you accomplish.
+        <div><em>Personal Chits Are</em> "tokens: <br />
+        Tokens you give yourself for something you accomplish or do that does not involve another person .
+        </div>
+        <div>
+        Personal chits are assigned to categories you create.  Thigs like "diet", or "training", or "ideas", etc.
+      
+        </div>
+       <div>
+        Personal chits are good for tracking progress towards a a category's goal, or to document significant milestones in your life.
+      
         </div>
 
-        <div>There are 3 types of chits<br />
+
+
+      {/* -------- views -------------------------------- */}
+      
+      <HeaderWrapper name="views"> Personal Chit Views</HeaderWrapper>
+ 
+       
+      <div>There are 2 displays for personal chits<br />
               <ul>
-                <li>Two Party Chits</li>
-                <li>Promise Chits</li>
-                <li>Personal Chits</li>
+                <li>Ledger View</li>
+                <li>Calendar View</li>
+                 
               </ul>
-        You create two party chits that involves a second person for some action that has already taken place.  A promise chit also involves a second person, but is for some futue action you promised them, or they promised you.  Personal chits are the tokens you give yourself.
+      </div>
+      <div>
+      The <em>Ledger View</em> is the primary view.  It is where you can create, edit or timelock individual chits.
+      </div>
+
+      <div>
+      The <em>Calendar View</em> is for displaying and tracking your daily progress towards a given category's goals.  You can also quickly add a chit by clicking on the "+" icon for days that do not have a chit already.
+      </div>
+
+     {/* -------- chitWeights -------------------------------- */}
       
-        </div>
+     <HeaderWrapper name="chitWeights"> Chit Weights</HeaderWrapper>
 
-      {/* -------- twoPartyChits -------------------------------- */}
-      
-      <HeaderWrapper name="twoPartyChits"> Two Party Chits</HeaderWrapper>
- 
-      <div>
-        Two Party chits are
+<div> 
+ Personal chits come in 3 colors... plus the two specialty chits - the "awChit" and the "milestone". The colors represent a conceptual weight or importance.
 
+</div>
+<div> 
+  Silver chits are for an implied "good" progress on a given day ... like working out for a half hour for your exercise category.
 
-      </div>
+</div>
+<div> 
+  Copper chits are for an implied "ok" progress... like getting to the gym but only working out for 15 minutes for your exercise category.
 
-      {/* -------- personalChits -------------------------------- */}
-      
-      <HeaderWrapper name="personalChits"> Personal Chits</HeaderWrapper>
- 
-      <div>
-        Personal chits are
+</div>
+<div> 
+  Gold chits are for an implied "excellent" importance... like going to the gym twice in one day and working out for an hour.
+</div>
 
+<div> 
+  Give yourself an "Aw chit"  when you blew off the gym on a day you thought you should go.
 
-      </div>
+</div>
 
+<div> 
+  Finally the milestone is for achieving a significant goal. For the exercise category, you might have started out only being able to work out for 15 minutes in a day, but wanted to be able to work out for an hour each day.  Give yourself a milestone when you first achieve the hour work out.
 
-      {/* -------- workChits -------------------------------- */}
-      
-      <HeaderWrapper name="workChits"> work Chits</HeaderWrapper>
- 
-      <div>
-        work can be any type of chit - personal, two party or promise.
-      </div>
+</div>
 
-
-
-
-      {/* -------- createNew -------------------------------- */}
-      
-      <HeaderWrapper name="createNew"> Creating new Chits</HeaderWrapper>
-
-      <div> New chits can be created in 2 basic ways </div>
-      <IconWrapper>
-          <AddCircleIconWrapper />
-        </IconWrapper>
-      <div>
-        The first way to create a new chit is in the side panel 
-        of any chit page using the + icon.  The form the icon opens 
-        will create any kind of chit.
-      </div>
-
-      <div>
-        The 2nd way to create a new chit is to click the "chit icon" that can 
-        be found in every spotlight, task, log section or journal section.  
-        Completing the chit form 
-        
-      </div>
-
-
-      {/* -------- chitWeights -------------------------------- */}
-      
-      <HeaderWrapper name="chitWeights"> Chit Weights</HeaderWrapper>
-
-      <div> 
-        All 3 types of chits come in 3 colors... Plus there are 2 specialty chits - the awChit and the milestone chit.  
-
-      </div>
-      <IconWrapper>
-          <AddCircleIconWrapper />
-        </IconWrapper>
-      <div>
-        The first way to create a new chit is in the side panel 
-        of any chit page using the + icon.  The form the icon opens 
-        will create any kind of chit.
-      </div>
-
-      <div>
-        The 2nd way to create a new chit is to click the "chit icon" that can 
-        be found in every spotlight, task, log section or journal section.  
-        Completing the chit form 
-        
-      </div>
 
 
        {/* -------- timeLocks -------------------------------- */}
-      <HeaderWrapper name="timeLocks">Time Locks</HeaderWrapper>
+
+
+
+
+
+       <HeaderWrapper name="timeLocks">Time Locks</HeaderWrapper>
       <div>
         Invoking a "Time Lock" on a chit means that it  can not be edited again.  You do this by clicking on the "lock icon". Once locked - there is a date-time stamp associated with the chit.  You can not unlock a locked chit... but it can be delted all together.
       </div>
+ 
       <div>
-        You might want to lock a chit because you think you might possibly have to prove when you created it.  For instance - maybe you issue yourself a locked chit you come up with a new product idea.   Having an unalterable, time stamped chit could be helpful in a future patent dispute.
+        You might want to lock a chit because you think you might possibly have to prove when you created something.  For instance - maybe you issue yourself a locked chit you come up with a new product idea.   Having an unalterable, time stamped chit could be helpful in a future patent dispute.
       </div>
-   
+
 
       {/* ----------------- */}
 

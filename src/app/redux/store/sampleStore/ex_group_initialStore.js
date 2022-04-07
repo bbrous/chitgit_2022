@@ -1,3 +1,16 @@
+/*
+other
+company
+firm
+group
+club
+agency
+church
+charity
+organization
+
+*/
+
 const SampleGroups =  [
 
   { 
@@ -40,6 +53,17 @@ const SampleGroups =  [
    
   },
 
+
+  { 
+    id: 'group_10',
+    name: 'Toys for tots',
+    groupType: 'charity',
+    meta: '',
+    groupHolders: [
+      {dbCollection: 'journal', id: 'jsection_6' }, 
+    ]
+   
+  },
 
 
 ]//end SampleGroups

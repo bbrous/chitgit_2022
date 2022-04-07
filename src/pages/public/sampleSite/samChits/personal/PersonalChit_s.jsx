@@ -1,6 +1,6 @@
 /* function PersonalChit_s (props) -------------------
  
-  children: ./PersonalChit_s
+   
   parent: ./PersonalCalendar
 ------------------------------------*/
 
@@ -135,66 +135,46 @@ const CategoryDescription = styled('div')({
 
 })
   
-  //====================================
+//====================================
+
 export default function PersonalChit(props) {
   
- // get the src address for the img display the chit to show              
-//  let coinAddress = choosePersonalCoin(chitType)    
+  // get the src address for the img display the chit to show              
+  //  let coinAddress = choosePersonalCoin(chitType)    
+
+
+
+  let { utcDate, month, displayChit } = props
+
+
+  
+
+  let chitCategory
+
+
+  // get the src address for the img display the chit to show              
+  // let coinAddress = choosePersonalCoin(chitType)    
+
+  let coinAddress = choosePersonalCoin(displayChit[0].chitColor)
  
 
+  const pathToCoinImages = '../../../'
+  const coinDisplayed = pathToCoinImages + coinAddress
 
-let {refIndex,  utcDate, month,  displayChit, day }= props
-
-
- 
-// console.log('[ PersonalChit ] utcDate ',UTCtoDateTradional( utcDate));
- 
-
-let chitType
-let chitId
-let chitCategory
-/* Determine if there are multiple chits for a specific day
-   then set the chitType to multiple so that a multi-colored
-   chit is displayed instead of a single silver or gold, etc.
-*/ 
-
-
-
-
-
-
-// get the src address for the img display the chit to show              
-// let coinAddress = choosePersonalCoin(chitType)    
-let coinAddress = choosePersonalCoin(displayChit[0].chitColor)    
-console.log('[ PersonalChit ] coinAddress ', coinAddress);
-
-const pathToCoinImages = '../../../'
-const coinDisplayed = pathToCoinImages + coinAddress
-// const coinDisplayed =  '../../../images/chitCoins/copper_personal.svg'
-
-
-const showChitDetail = (chitId)=>{
-
-props.openModal('personalDetail', chitId)
-
-}
-
- 
-
+  // ==== Main Return =============================
 
   return (
     <>
-   
-   
-  
- {month === 'current'  &&
-        <CurrentMonthWrapper> 
-          <DayWrapper> 
 
-            
+
+      {month === 'current' &&
+        <CurrentMonthWrapper>
+          <DayWrapper>
+
+
             <Day>
-              
-            {props.day}
+
+              {props.day}
             </Day>
 
 
@@ -206,9 +186,7 @@ props.openModal('personalDetail', chitId)
 
 
 
-              <img src={coinDisplayed} alt="coin"  id = {utcDate}
-              onClick = {()=> showChitDetail({chitId})}
-              />
+            <img src={coinDisplayed} alt="coin" />
 
 
 
@@ -216,25 +194,23 @@ props.openModal('personalDetail', chitId)
             <CategoryDescription>{chitCategory}</CategoryDescription>
           </DayWrapper>
         </CurrentMonthWrapper>
-        }
-        
-      {month !== 'current'  &&
-        <OtherMonthWrapper> 
-          <DayWrapper> 
+      }
+
+      {month !== 'current' &&
+        <OtherMonthWrapper>
+          <DayWrapper>
             <Day>
-            {props.day}
+              {props.day}
             </Day>
-            {displayChit.length > 0 &&  
-              <img src={coinDisplayed} alt="coin"  id = {utcDate}
-              onClick = {()=> showChitDetail({chitId})}
-              />
+            {displayChit.length > 0 &&
+              <img src={coinDisplayed} alt="coin" id={utcDate} />
             }
             <CategoryDescription>{chitCategory}</CategoryDescription>
           </DayWrapper>
         </OtherMonthWrapper>
-        }
-    
-      
+      }
+
+
     </>
   );
 }

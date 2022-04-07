@@ -2,18 +2,6 @@
 
   Side bar navigation for TwoParty Chits
 
-  1a. select all two party chits
-     1b. select all groups
-     1c. select all people
-  2. filter allTwoParty Chits by people 
-  3. filter allTwoParty Chits by group 
-  4. get unique id values for otherParty for #2 and #3
-  5. map through #4 for people and group
-     5a. find by id details for each
-     5b. return display
-
-
-
 
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
@@ -24,13 +12,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { lightGrey, veryLightGrey,   mediumGrey,   chitBurgandy, chitOrange} from '../../../../../styles/colors'
 
-import { selectAllTwoPartyChits } from '../../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
-
 import { selectPeople} from '../../../../../app/redux/peopleRedux/sam_peopleSlice'
 
 import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice'
 
-import { ascendSorter, descendSorter, uniqueItemsInObjectField} from '../../../../../app/helpers/commonHelpers'
+import { ascendSorter, descendSorter} from '../../../../../app/helpers/commonHelpers'
 
 
 import{ updateStatusView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
@@ -248,95 +234,53 @@ function TwoPartyNav() {
   }, [twoPartyView])
 
 
-  // ---1a  get all two party chits
-  const allChits = useSelector(selectAllTwoPartyChits)
+   //  --- get and update all people when new person added  ---  
 
-  const [twoPartyChitsArray, setsetTwoPartyChitsArray] = useState(allChits)
-  useEffect(() => {
-    setsetTwoPartyChitsArray(allChits)
-  }, [allChits])
+   const allPeople = useSelector(selectPeople)
 
-  // ---1b get all people -----
-  const allPeople = useSelector(selectPeople)
+   const [peopleArray, setPeopleArray] = useState(allPeople)
+   useEffect(() => {
+     setPeopleArray(allPeople)
+   }, [allPeople])
 
-  const [peopleArray, setPeopleArray] = useState(allPeople)
-  useEffect(() => {
-    setPeopleArray(allPeople)
-  }, [allPeople])
- 
- // ---1c get all people -----
+    /* --- set the order for filtered people mapped (arrayOrder)  ---
+    Default is latest first
+    Uses Material UI's  slider component (boolean)
+    
+  */
 
-  const allGroups = useSelector(selectGroups)
 
-  const [groupsArray, setGroupsArray] = useState(allGroups)
-  useEffect(() => {
-   setGroupsArray(allGroups)
-  }, [allGroups])
 
-  // ---2 filter ---  get people only  two party chits
+    const [arrayOrder, setArrayOrder] = useState(false)
 
-  const allPeopleChits = twoPartyChitsArray.filter(people => {
-    return people.otherPartyCollection === 'people';
-  });
-
-   // ---3 filter ---  get groups only two party chits
-  const allGroupsChits = twoPartyChitsArray.filter(group => {
-    return group.otherPartyCollection === 'group';
-  });
-
+    let ascendingPeople= ascendSorter(peopleArray, 'name')
+    let descendingPeople= descendSorter(peopleArray, 'name')
   
-  // --- 4 get unique people  ... and ... unique groups
-  let allPeopleArray = uniqueItemsInObjectField(allPeopleChits, 'otherPartyId')
-  let allGroupsArray = uniqueItemsInObjectField(allGroupsChits, 'otherPartyId')
-
-
-  console.log('[ TwoPartyNav ] allPeopleArray ', allPeopleArray);
- 
-
-
- // --- 5 map through allPeopleArray - get data from allPeople by id   
-
-
-  const unsortedNamesOfPeople = allPeopleArray.map((id, index) => {
-
-    let personObject = allPeople.find(person => person.id === id)
-    return (
-      personObject
-
-    )
-  }
-  ) //end map allPeopleArray
-
-  const [arrayOrder, setArrayOrder] = useState(false)
-
-
-  let ascendingPeople = ascendSorter(unsortedNamesOfPeople, 'name')
-  let descendingPeople = descendSorter(unsortedNamesOfPeople, 'name')
-
-  let sortedPeople
-  if (arrayOrder === true) { sortedPeople = ascendingPeople } else if (arrayOrder === false) { sortedPeople = descendingPeople }
-
+    let sortedPeople
+    if (arrayOrder === true) { sortedPeople= ascendingPeople} else if (arrayOrder === false) { sortedPeople= descendingPeople}
+  
   console.log('[ PersonalNav ] sortedPeople ', sortedPeople);
 
-const handleSwitchState = (newState) => {
-  setArrayOrder(newState)
+  const handleSwitchState = (newState) => {
+    setArrayOrder(newState)
 
-}
+  }
 
-const handleChangePerson = (evt) => {
-  let newPerson = evt.currentTarget.id
-  navigate(`/sample/twoPartyChits/${newPerson}`)
+  const handleChangePerson = (evt) => {
+    let newPerson = evt.currentTarget.id
+    navigate(`/sample/twoPartyChits/${newPerson}`)
+ 
+    dispatch(updateStatusView({
+      pageType: 'chit',
+      pageView: display,
+      type: 'twoPartyChits',
+      id: newPerson
+    }))
+  }
 
-  dispatch(updateStatusView({
-    pageType: 'chit',
-    pageView: display,
-    type: 'twoPartyChits',
-    id: newPerson
-  }))
-}
+ // --- Map the People for display in side panel
 
-
-const displayPeople =sortedPeople.map((person, index) => {
+ const displayPeople =sortedPeople.map((person, index) => {
 
 
   let name =person.name
@@ -389,6 +333,103 @@ const chooseDisplayType =()=>{
 
 
   }) // end function displayPeople
+
+  // ---------------------------------------
+
+  // -- Duplicate displayPerson for displayGroup
+
+  const handleChangeGroup = (evt) => {
+    let newGroup = evt.currentTarget.id
+    navigate(`/sample/twoPartyChits/${newGroup}`)
+ 
+    dispatch(updateStatusView({
+      pageType: 'chit',
+      pageView: display,
+      type: 'twoPartyChits',
+      id: newGroup
+    }))
+  }
+
+  const allGroups = useSelector(selectGroups)
+
+  const [groupsArray, setGroupsArray] = useState(allGroups)
+  useEffect(() => {
+   setGroupsArray(allGroups)
+  }, [allGroups])
+
+  console.log('[ Two Party Nav ] groupsArray ', groupsArray);
+
+
+
+
+// --- Map the People for display in side panel
+let sortedGroup = ascendSorter(groupsArray, 'name')
+
+const displayGroup =sortedGroup.map((group, index) => {
+
+
+  let name =group.name
+
+  
+/* func chooseDisplayType ---------------------------------
+   desc: css changes highlight of person selected
+---------------------------------------------------*/
+const chooseGroupDisplayType =()=>{
+  if(displayId !== group.id){
+ 
+
+  return(
+
+    
+
+    <SelectorWrapper elevation={1}
+      key = {index} 
+      id = {group.id}
+      onClick = {(evt)=>{
+        handleChangeGroup(evt)
+      }}
+    >
+           {name}
+          </SelectorWrapper>
+    
+
+  )}
+    
+  if(displayId === group.id){
+
+    return(
+
+      <SelectorWrapperSelected elevation={1}
+        key = {index} 
+        id = {group.id}
+        onClick = {(evt)=>{
+          handleChangePerson(evt)
+        }}
+      >
+             {name}
+            </SelectorWrapperSelected>
+      
+
+    )}   
+      }
+      
+  return chooseGroupDisplayType()
+
+
+  }) // end function displayPerson
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // --- Main Return  ----------------------
 
@@ -492,7 +533,7 @@ const chooseDisplayType =()=>{
 <div> ---- groups ---- </div>
           <PeopleWrapper>
             
-          {/* {displayGroup} */}
+          {displayGroup}
           </PeopleWrapper>
 
           
@@ -502,7 +543,6 @@ const chooseDisplayType =()=>{
         } 
       </Wrapper>
   )
-} // end TwoPartyNav
-
+}
 
 export default TwoPartyNav

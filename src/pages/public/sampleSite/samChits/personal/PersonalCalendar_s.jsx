@@ -21,7 +21,7 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types';
+ 
 
 import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
@@ -176,19 +176,20 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
     
     })// end displayChits
 
-    console.log('[ PersonalChit ] utcDate ',UTCtoDateTradional( parseInt(displayDay.utcDate)));
-    // console.log('[ PersonalChit ] utcDate today ',UTCtoDateTradional( today));
-  
-  let displayDayMMDDYY = UTCtoDateTradional( parseInt(displayDay.utcDate))
-  let todayMMDDYY = UTCtoDateTradional( today)
  
-  let isToday
-  displayDayMMDDYY === todayMMDDYY ? isToday = true: isToday = false
-  let futureDay
-  parseInt(displayDay.utcDate) > todayUTC ? futureDay = true: futureDay = false
+    // --- define current day and future day
+    // --- used to highlight today ... and not show quick form icons
+    // ---                     for any day in the future
+  
+    let displayDayMMDDYY = UTCtoDateTradional(parseInt(displayDay.utcDate))
+    let todayMMDDYY = UTCtoDateTradional(today)
 
-  console.log('[ PersonalCalendar ] displayDayMMDDYY in future ', futureDay);
-  console.log('[ PersonalCalendar ] today in future ', typeof todayUTC);
+    let isToday
+    displayDayMMDDYY === todayMMDDYY ? isToday = true : isToday = false
+    let futureDay
+    parseInt(displayDay.utcDate) > todayUTC ? futureDay = true : futureDay = false
+
+
     return (
 
       <DayWrapper key={index}>
@@ -218,6 +219,7 @@ console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
             utcDate={displayDay.utcDate}
             isToday = {isToday}
             futureDay = {futureDay}
+            categoryId = {id}
           />
 
         }

@@ -1,6 +1,7 @@
 /* function QuickPersonalChitForm_s (props) -------------------
  
-  children: ./PersonalChit_s
+opens a dialog box with form to add a chit in Calendar view
+  
   parent: ./PersonalCalendar
 ------------------------------------*/
 
@@ -11,12 +12,20 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey, chitLightBlueDull} from '../../../../styles/colors'
 
 
- 
+ import { UTCtoDateTradional } from '../../../../app/helpers/dateHelper'
 
 import MonthNav from '../samChits/personal/MonthNav_s'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
+// --- MUI --------------
 
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
  
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -142,7 +151,20 @@ const DispabledAddCircleIconWrapper= styled(AddCircleIcon)({
 
 export default function QuickPersonalChitForm(props) {
 
-  let { refIndex, utcDate, month, displayChits, isToday, futureDay } = props
+
+  // --- Dialog open close ---
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  let { refIndex, utcDate, month, displayChits, isToday, futureDay, categoryId } = props
+
+  let formattedDate = UTCtoDateTradional(parseInt(utcDate))
 
 
 
@@ -157,7 +179,7 @@ export default function QuickPersonalChitForm(props) {
             </Day>
 
 
-            <AddCircleIconWrapper />
+            <AddCircleIconWrapper onClick={handleClickOpen} />
 
           </DayWrapper>
         </TodayWrapper>
@@ -170,12 +192,12 @@ export default function QuickPersonalChitForm(props) {
               {props.day}
             </Day>
 
-      {!futureDay && 
-            <AddCircleIconWrapper />
-      }
-        {futureDay && 
-            <DispabledAddCircleIconWrapper />
-      }
+            {!futureDay &&
+              <AddCircleIconWrapper onClick={handleClickOpen} />
+            }
+            {futureDay &&
+              <DispabledAddCircleIconWrapper />
+            }
 
 
 
@@ -183,7 +205,7 @@ export default function QuickPersonalChitForm(props) {
           </DayWrapper>
         </CurrentMonthWrapper>
 
-        
+
       }
 
 
@@ -197,13 +219,13 @@ export default function QuickPersonalChitForm(props) {
             </Day>
 
 
-            
-      {!futureDay && 
-            <AddCircleIconWrapper />
-      }
-        {futureDay && 
-            <DispabledAddCircleIconWrapper />
-      }
+
+            {!futureDay &&
+              <AddCircleIconWrapper onClick={handleClickOpen} />
+            }
+            {futureDay &&
+              <DispabledAddCircleIconWrapper />
+            }
 
 
 
@@ -211,6 +233,31 @@ export default function QuickPersonalChitForm(props) {
           </DayWrapper>
         </OtherMonthWrapper>
       }
+
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add Chit</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            categoryId - {categoryId} <br />
+            chit date - {formattedDate}
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   );
 }

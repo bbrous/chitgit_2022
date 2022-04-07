@@ -5,11 +5,28 @@ const People =  [
 
 
   // Begin log_1 ------------------------- >>
- 
+    {
+      id: 'unknown',
+
+      name: 'Unknown',
+      meta: 'Unknown',
+
+      peopleHolders: []
+      
+    },
+    {
+      id: 'person_0',
+
+      name: 'Bob B',
+      meta: 'account holder',
+  
+      peopleHolders: []
+      
+    },
     {
       id: 'person_1',
 
-      name: "Cyn Terhor",
+      name: 'Cyn Ter',
       meta: 'Project Team',
    
 
@@ -85,7 +102,7 @@ const People =  [
 
     {
       id: 'person_7',
-      name: "Jerry G",
+      name: 'Jerry G',
       meta: 'best friend',
     
       peopleHolders: []

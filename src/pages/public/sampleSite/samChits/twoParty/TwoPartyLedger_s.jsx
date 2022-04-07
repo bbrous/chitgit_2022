@@ -5,13 +5,20 @@
 ------------------------------------*/
 
 import React from 'react'
-import { useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import {chitAquaBlue, veryLightGrey} from '../../../../../styles/colors'
 
 import TwoPartyLedgerRow from './TwoPartyLedgerRow_s';
+
+
+import { selectAllTwoPartyChits } from '../../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice';
+
+import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
+
+
  
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -61,15 +68,18 @@ const FilterWrapper= styled('div')({
   })
 
   const tempArray = [
-    {id: 'xChit_1', title: 'xChit_1 title here'},
-    {id: 'xChit_2', title: 'xChit_2 title here'},
-    {id: 'xChit_3', title: 'xChit_3 title here'},
-    {id: 'xChit_4', title: 'xChit_4 title here'},
+    {id: 'xChit_1', description: 'description here - xChit_1 '},
+    {id: 'xChit_2', description: 'description here - xChit_2 '},
+    {id: 'xChit_3', description: ' description here -  xChit_3'},
+    {id: 'xChit_4', description: ' description here -xChit_4'},
   ]
 
 // ===================================================================
 
 export default function TwoPartyLedger(props) {
+
+let allChits = useSelector(selectAllTwoPartyChits)
+console.log('[ TwoPartyLedger ] all 2 party chits ', allChits);
 
   const chitRows = (tempArray) => 
 
@@ -81,7 +91,7 @@ export default function TwoPartyLedger(props) {
     <TwoPartyLedgerRow
       id = {item.id}
       key = {item.id}
-      title = {item.title}
+      description = {item.description}
 
      
     />

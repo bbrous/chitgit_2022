@@ -12,6 +12,9 @@ import cuid from 'cuid';
 import { veryLightGrey, lightGrey } from '../../../../../styles/colors'
 import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
+import { chooseTwoPartyChitCoin } from '../../../../../app/helpers/chitHelpers';
+import { ISOtoUTC, UTCtoISO, UTCtoDateTradional } from '../../../../../app/helpers/dateHelper';
+
 // ---MUI ------
 import { Paper } from '@mui/material';
 
@@ -217,6 +220,7 @@ export default function TwoPartyLedgerRow(props) {
   let dispatch = useDispatch()
   // let passedId = props.id
   let passedId = props.id
+  let description = props.description
   let status = useSelector(selectStatus)
   let accordionId = status.accordionDisplay.id
 
@@ -275,8 +279,7 @@ export default function TwoPartyLedgerRow(props) {
         {displayDetail && 
         <AccordionDetailWrapper>
           <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            {description}
           </div>
         </AccordionDetailWrapper>
         }

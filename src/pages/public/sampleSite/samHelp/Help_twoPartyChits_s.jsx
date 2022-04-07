@@ -308,7 +308,7 @@ function TwoPartyChits() {
         Invoking a "Time Lock" on a chit means that it  can not be edited again.  You do this by clicking on the "lock icon". Once locked - there is a date-time stamp associated with the chit.  You can not unlock a locked chit... but it can be delted all together.
       </div>
       <div>
-        You might want to lock a chit because you think you might possibly have to prove when you created it.  For instance - maybe you issue yourself a locked chit you come up with a new product idea.   Having an unalterable, time stamped chit could be helpful in a future patent dispute.
+        You might want to lock a chit because you think you might possibly have to prove when you created something.  For instance - maybe you issue yourself a locked chit you come up with a new product idea.   Having an unalterable, time stamped chit could be helpful in a future patent dispute.
       </div>
    
 

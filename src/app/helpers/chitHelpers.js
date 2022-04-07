@@ -224,7 +224,7 @@ export function getChitDetail(chits, id){
 
 
 
-export function chooseChitcoin(type, chitColor){
+export function chooseTwoPartyChitCoin(type, chitColor){
   
 
   const address ={

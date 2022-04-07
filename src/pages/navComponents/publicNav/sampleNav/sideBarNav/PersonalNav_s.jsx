@@ -228,8 +228,8 @@ function PersonalNav() {
     setDisplay(personalView)
 
   }, [personalView])
-  console.log('[ PersonalNav ] initialStatus ', initialStatus);
-  console.log('[ PersonalNav ] personalView ', personalView);
+  // console.log('[ PersonalNav ] initialStatus ', initialStatus);
+  // console.log('[ PersonalNav ] personalView ', personalView);
    //  --- get and update all categories when new category added  ---  
 
   const allCategories = useSelector(selectCategories)
