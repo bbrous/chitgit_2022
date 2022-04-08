@@ -13,12 +13,13 @@ import { veryLightGrey, lightGrey } from '../../../../../styles/colors'
 import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 import { chooseTwoPartyChitCoin } from '../../../../../app/helpers/chitHelpers';
+import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
 import { ISOtoUTC, UTCtoISO, UTCtoDateTradional } from '../../../../../app/helpers/dateHelper';
 
 // ---MUI ------
 import { Paper } from '@mui/material';
 
-
+import ForwardIcon from '@mui/icons-material/Forward';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
@@ -54,6 +55,8 @@ const Wrapper = styled('div')({
 
 })
 
+// ---- Top header-------------------
+
 const HeaderWrapper = styled('div')({
 
 
@@ -74,6 +77,80 @@ const HeaderWrapper = styled('div')({
   //   },
 
 })
+
+const NameContainer = styled('div')({
+
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.7rem',
+ 
+  width: '50%',
+ 
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
+
+const NameWrapper = styled('div')({
+
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.7rem',
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
+const YouOweMe = styled(ForwardIcon)({
+  transform: 'rotate(180deg)',
+  fontSize: '1rem',
+  color: 'green',
+          
+})
+
+const IOU = styled(ForwardIcon)({
+  transform: 'rotate(0deg)',
+  fontSize: '1rem',
+  color: 'red',
+          
+})
+
+const DateContainer = styled('div')({
+
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+
+color: 'blue'
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+// ==- Accordion ------------------------
 
 const AccordionWrapper = styled('div')({
 
@@ -104,7 +181,7 @@ const AccordionTopWrapper = styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.85rem',
   width: '96%',
@@ -119,6 +196,116 @@ const AccordionTopWrapper = styled('div')({
 
 })
 
+const ChitContainer = styled('div')({
+
+  backgroundColor: 'red',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+ 
+   
+ 
+
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const StyledImage = styled('img')({
+
+ 
+  display: 'flex',
+ 
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+  width: '2.5rem',
+  height: '2.5rem',
+   
+ 
+
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const RightContainer = styled('div')({
+
+  backgroundColor: 'pink',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ width: '100%',
+   
+ 
+
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const RightTopContainer = styled('div')({
+
+  backgroundColor: 'orange',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+   
+ 
+
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+
+  
+})
+const RightBottomContainer = styled('div')({
+
+  backgroundColor: 'green',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+   
+ 
+
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
+
 const AccordionDetailWrapper = styled('div')({
   // backgroundColor: 'red',
   display: 'flex',
@@ -130,6 +317,41 @@ const AccordionDetailWrapper = styled('div')({
   width: '96%',
   minHeight: '40px',
   margin: 0, padding: 0,
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const DetailWrapper = styled('div')({
+  backgroundColor: 'pink',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  width: '55%',
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+const SharedDetailWrapper = styled('div')({
+  backgroundColor: 'orange',
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  width: '40%',
+
 
 
   //   [theme.breakpoints.down('sm')] : {
@@ -167,7 +389,7 @@ const MoreIcon = styled(ExpandMoreIcon)({
   alignItems: 'center',
 
   position: 'absolute',
-  top: '6px',
+  bottom: '6px',
   right: '6px',
 
   borderRadius: '50px',
@@ -247,6 +469,13 @@ export default function TwoPartyLedgerRow(props) {
   }
 
 
+  let coinAddress = choosePersonalCoin('silver')
+ 
+
+  const pathToCoinImages = '../../../'
+  const coinDisplayed = pathToCoinImages + coinAddress
+
+
 
 // passedId === showId ? displayDetail = true : displayDetail = false
   return (
@@ -254,33 +483,78 @@ export default function TwoPartyLedgerRow(props) {
     <Wrapper key = {passedId}>
       <HeaderWrapper>
 
+        <NameContainer>
+          <NameWrapper>
+            David Anderson
+          </NameWrapper>
+          <IOU/>
+          <div> owes chit to you</div>
 
-        <div>David Anderson</div>
-        <div>July 4, 1968</div>
+        </NameContainer>
+        <DateContainer>July 4, 1968</DateContainer>
 
       </HeaderWrapper>
-      <AccordionWrapper>
-      {!displayDetail && 
-        <MoreIcon 
-        onClick = {()=> openDetailPanel(passedId)}
-        /> 
-        
-      }
 
-        {displayDetail && 
-        <LessIcon 
-        onClick = {()=> closeDetailPanel(passedId)}
-        />
-}
+
+      <AccordionWrapper>
+
+        {!displayDetail &&
+          <MoreIcon
+            onClick={() => openDetailPanel(passedId)}
+          />
+
+        }
+
+        {displayDetail &&
+          <LessIcon
+            onClick={() => closeDetailPanel(passedId)}
+          />
+        }
+
+
         <AccordionTopWrapper >
-          {passedId} in top - (chit owed to David)
+
+          <ChitContainer>
+          <StyledImage src={coinDisplayed} alt="coin" />
+            
+          </ChitContainer>
+    
+          <RightContainer>
+
+            <RightTopContainer>
+              <div> Description:</div>
+              <div> icons icons </div>
+            </RightTopContainer>
+            <RightBottomContainer>
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>     
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>    
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>
+<div> {passedId} in top - (chit owed to David) </div>            
+
+            </RightBottomContainer>
+          </RightContainer>   
+
+
+
         </AccordionTopWrapper>
 
         {displayDetail && 
         <AccordionDetailWrapper>
-          <div>
-            {description}
-          </div>
+          <DetailWrapper>
+            <div>detail 1</div>
+            <div>detail 1</div>
+            <div>detail 1</div>
+            <div>detail 1</div>
+          </DetailWrapper>
+
+          <SharedDetailWrapper>
+            shared detail 
+          </SharedDetailWrapper>
         </AccordionDetailWrapper>
         }
       </AccordionWrapper>
