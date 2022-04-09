@@ -157,8 +157,8 @@ const TwoPartyChits =  [
       chitDate: '2021-02-21T21:57:49.000Z', // date - 02/21/21
       timeLock: '',  // if exists - not editable
       
-      otherPartyCollection: 'group',
-      otherPartyId: 'group_3',
+      otherPartyCollection: 'groups',
+      otherPartyId: 'group_4',
       deedPerformedBy: 'person_0',
 
       workRelated: false,
@@ -184,7 +184,7 @@ const TwoPartyChits =  [
       chitDate: '2020-12-21T21:57:49.000Z', // date - 12/21/20
       timeLock: '',  // if exists - not editable
       
-      otherPartyCollection: 'group',
+      otherPartyCollection: 'groups',
       otherPartyId: 'group_10',
       deedPerformedBy: 'person_0',
 

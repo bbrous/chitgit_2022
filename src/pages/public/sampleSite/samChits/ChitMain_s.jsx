@@ -19,7 +19,7 @@ import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, mediumGrey} from '../../../../styles/colors'
 
 import{ selectChits
   // selectSpotlightTaskArray
@@ -50,7 +50,7 @@ const MainWrapper= styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  // backgroundColor: 'green',
+  backgroundColor: mediumGrey,
   width: '100%',
   height: '100%',
 

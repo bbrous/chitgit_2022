@@ -85,7 +85,7 @@ const ViewNavWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
-marginBottom: '8px',
+marginBottom: '6px',
   position: 'relative',
  
 

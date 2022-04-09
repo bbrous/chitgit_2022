@@ -18,7 +18,7 @@ import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice
 
 import { chooseTwoPartyChitCoin } from '../../../../../app/helpers/chitHelpers';
 import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
-import { ISOtoUTC, UTCtoISO, UTCtoDateTradional } from '../../../../../app/helpers/dateHelper';
+import { ISOtoUTC, UTCtoISO, UTCtoDateTradional , ISOtoTraditional} from '../../../../../app/helpers/dateHelper';
 
 import EditIcon from '../../samComponents/Edit_icon_s'
 import DeleteIcon from '../../samComponents/Delete_icon_s'
@@ -525,16 +525,23 @@ export default function TwoPartyLedgerRow(props) {
 
  
   if(otherPartyCollection === 'groups'){
-  groupObject = allGroups.find(group => group.id === id)
+  groupObject = allGroups.find(group => group.id === otherPartyId)
+ 
   nameDisplayed = groupObject.name
 }
 
 
- 
-
-  // --- set up arrow ---
+  // --- set up IOU arrow color and message ---
   let  youOwe 
+  
   otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
+
+  console.log('[ TWO party ledger ] otherPartyId ', otherPartyId);
+  console.log('[ TWO party ledger ] deedPerformedBy ', deedPerformedBy);
+  console.log('[ TWO party ledger ] you owe ------------------ ', youOwe);
+  // convert Dates for display
+
+  let styledChitDate = ISOtoTraditional(chitDate)
 
   return (
     
@@ -545,19 +552,19 @@ export default function TwoPartyLedgerRow(props) {
           <NameWrapper>
             {nameDisplayed}
           </NameWrapper>
-          {youOwe && 
+          {!youOwe && 
           <>
           <IOU/>
           <div> owes chit to you</div>
           </>}
-          {!youOwe && 
+          {youOwe && 
           <>
           <YouOweMe/>
           <div> You owe chit</div>
           </>}      
 
         </NameContainer>
-        <DateContainer>July 4, 1968</DateContainer>
+        <DateContainer>{styledChitDate}</DateContainer>
         <IconWrapper> 
         <Shared/>
         <TimeLock/>
