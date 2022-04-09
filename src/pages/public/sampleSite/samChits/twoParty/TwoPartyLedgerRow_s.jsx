@@ -9,12 +9,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import { veryLightGrey, lightGrey } from '../../../../../styles/colors'
+import { veryLightGrey, lightGrey, chitBlueDull, mediumGrey } from '../../../../../styles/colors'
 import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
+
+import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSlice';
+
+import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice';
 
 import { chooseTwoPartyChitCoin } from '../../../../../app/helpers/chitHelpers';
 import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
 import { ISOtoUTC, UTCtoISO, UTCtoDateTradional } from '../../../../../app/helpers/dateHelper';
+
+import EditIcon from '../../samComponents/Edit_icon_s'
+import DeleteIcon from '../../samComponents/Delete_icon_s'
+import Shared from '../../samComponents/Share_icon_s';
+import TimeLock from '../../samComponents/TimeLock_icon_s';
 
 // ---MUI ------
 import { Paper } from '@mui/material';
@@ -40,7 +49,7 @@ const Wrapper = styled('div')({
   justifyContent: 'flex-start',
   //   alignItems: 'center',
   backgroundColor: 'white',
-  width: '100%',
+  width: '98%',
   padding: '3px 6px',
   margin: '3px 0',
   borderRadius: '5px',
@@ -87,8 +96,8 @@ const NameContainer = styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.7rem',
+  width: '40%',
  
-  width: '50%',
  
 
 
@@ -123,6 +132,7 @@ const YouOweMe = styled(ForwardIcon)({
   transform: 'rotate(180deg)',
   fontSize: '1rem',
   color: 'green',
+  margin: '0 8px'
           
 })
 
@@ -130,6 +140,7 @@ const IOU = styled(ForwardIcon)({
   transform: 'rotate(0deg)',
   fontSize: '1rem',
   color: 'red',
+  margin: '0 8px'
           
 })
 
@@ -141,7 +152,7 @@ const DateContainer = styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-end',
   alignItems: 'center',
-
+  width: '20%',
 color: 'blue'
 
   //   [theme.breakpoints.down('sm')] : {
@@ -153,8 +164,7 @@ color: 'blue'
 // ==- Accordion ------------------------
 
 const AccordionWrapper = styled('div')({
-
-  // backgroundColor: 'orange',
+ 
 
   display: 'flex',
   position: 'relative',
@@ -198,17 +208,29 @@ const AccordionTopWrapper = styled('div')({
 
 const ChitContainer = styled('div')({
 
-  backgroundColor: 'red',
+  // backgroundColor: 'red',
   display: 'flex',
   position: 'relative',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
- 
-   
- 
+  width: '3.5rem',
+  height: '3.5rem'
+  
 
 
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const ChitTypeWrapper = styled('div')({
+
+  // backgroundColor: 'red',
+  fontSize: '.65rem',
+  color: mediumGrey
+  
 
 
   //   [theme.breakpoints.down('sm')] : {
@@ -242,18 +264,15 @@ const StyledImage = styled('img')({
 
 const RightContainer = styled('div')({
 
-  backgroundColor: 'pink',
+  // backgroundColor: 'pink',
   display: 'flex',
-  position: 'relative',
+
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
- width: '100%',
-   
- 
-
-
-
+  width: 'calc(90% - 1rem)',
+  padding: '0 0 0 1rem',
+   borderLeft: '1px solid #E6E7E8'
 
   //   [theme.breakpoints.down('sm')] : {
   //     // width: '100%'
@@ -261,17 +280,19 @@ const RightContainer = styled('div')({
 
 })
 
-const RightTopContainer = styled('div')({
+const TopRightContainer = styled('div')({
 
-  backgroundColor: 'orange',
+  // backgroundColor: 'orange',
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-   
- 
+  fontStyle: 'italic',
+  fontSize: '.8rem',
+  // fontWeight: 'bold',
+  marginBottom: '4px'
 
 
 
@@ -283,9 +304,9 @@ const RightTopContainer = styled('div')({
 
   
 })
-const RightBottomContainer = styled('div')({
+const BottomRightContainer = styled('div')({
 
-  backgroundColor: 'green',
+  // backgroundColor: 'green',
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
@@ -435,28 +456,42 @@ const LessIcon = styled(ExpandLessIcon)({
 
 })
 
+const IconWrapper= styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+ 
+  marginRight: '6px',
+
+  width: '40%',
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
 
 // ==============================================================
 
 export default function TwoPartyLedgerRow(props) {
-  let dispatch = useDispatch()
-  // let passedId = props.id
-  let passedId = props.id
-  let description = props.description
-  let status = useSelector(selectStatus)
-  let accordionId = status.accordionDisplay.id
 
+  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message} = props.data
+
+  let dispatch = useDispatch()
+  
+  let passedId = id
+  
+  let status = useSelector(selectStatus)
+  let allGroups = useSelector(selectGroups)
+  let allPeople = useSelector(selectPeople)
+
+
+  // --- set up accordion display ----
+  let accordionId = status.accordionDisplay.id
+ 
   let displayDetail 
   if(passedId === accordionId){displayDetail = true}
-  // const [showId, setShowId] = useState(false)
-  useEffect(()=>{
-
-    console.log('[ TwoPartyLedgerRow @@@@@@@@@@@ ] accordionId ', accordionId);
-    
-
-
-
-  },[accordionId, passedId])
 
   const openDetailPanel = (passedId)=>{
     dispatch(updateAccordionDisplay({id: passedId}))
@@ -468,16 +503,39 @@ export default function TwoPartyLedgerRow(props) {
 
   }
 
+  //  --- define which coin is displayed
 
-  let coinAddress = choosePersonalCoin('silver')
+  let coinAddress = chooseTwoPartyChitCoin(chitType, chitColor)
  
-
   const pathToCoinImages = '../../../'
   const coinDisplayed = pathToCoinImages + coinAddress
 
+  let chitDescription
+  chitType ==='kindness'? chitDescription = 'good will': chitDescription = chitType
+
+  //--- get Name to be displayed  ---
+  let nameDisplayed, personObject, groupObject
+
+  if(otherPartyCollection === 'people'){
+    personObject = allPeople.find(person => person.id === otherPartyId)
+
+    nameDisplayed = personObject.name
+  }
 
 
-// passedId === showId ? displayDetail = true : displayDetail = false
+ 
+  if(otherPartyCollection === 'groups'){
+  groupObject = allGroups.find(group => group.id === otherPartyId)
+  nameDisplayed = groupObject.name
+}
+
+
+ 
+
+  // --- set up arrow ---
+  let  youOwe 
+  otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
+
   return (
     
     <Wrapper key = {passedId}>
@@ -485,13 +543,31 @@ export default function TwoPartyLedgerRow(props) {
 
         <NameContainer>
           <NameWrapper>
-            David Anderson
+            {nameDisplayed}
           </NameWrapper>
+          {youOwe && 
+          <>
           <IOU/>
           <div> owes chit to you</div>
+          </>}
+          {!youOwe && 
+          <>
+          <YouOweMe/>
+          <div> You owe chit</div>
+          </>}      
 
         </NameContainer>
         <DateContainer>July 4, 1968</DateContainer>
+        <IconWrapper> 
+        <Shared/>
+        <TimeLock/>
+        <DeleteIcon/>
+        <EditIcon/>
+
+
+
+      </IconWrapper>
+       
 
       </HeaderWrapper>
 
@@ -516,27 +592,20 @@ export default function TwoPartyLedgerRow(props) {
 
           <ChitContainer>
           <StyledImage src={coinDisplayed} alt="coin" />
+          <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
             
           </ChitContainer>
     
           <RightContainer>
 
-            <RightTopContainer>
+            <TopRightContainer>
               <div> Description:</div>
-              <div> icons icons </div>
-            </RightTopContainer>
-            <RightBottomContainer>
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>     
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>    
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>
-<div> {passedId} in top - (chit owed to David) </div>            
 
-            </RightBottomContainer>
+            </TopRightContainer>
+            <BottomRightContainer>
+{description}       
+
+            </BottomRightContainer>
           </RightContainer>   
 
 

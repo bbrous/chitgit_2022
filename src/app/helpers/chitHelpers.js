@@ -237,6 +237,10 @@ export function chooseTwoPartyChitCoin(type, chitColor){
     promiseSilver: '/images/chitCoins/silver_promise.svg',
     promiseGold: '/images/chitCoins/gold_promise.svg',
 
+    kindnessCopper:   '/images/chitCoins/copper_kindness.svg ',
+    kindnessSilver:   '/images/chitCoins/silver_kindness.svg ',
+    kindnessGold:     '/images/chitCoins/gold_kindness.svg ',
+
 
     awChit: '/images/chitCoins/awChit.svg '
   }
@@ -279,7 +283,21 @@ export function chooseTwoPartyChitCoin(type, chitColor){
     coinAddress = address.promiseGold
     return ( coinAddress )
   }
+  //---------------------
+  if(type === "kindness" && coinColor ==='copper'){
+    coinAddress = address.kindnessCopper
+    return ( coinAddress )
+  }
 
+  if(type === "kindness" && coinColor ==='silver'){
+    coinAddress = address.kindnessSilver
+    return ( coinAddress )
+  }
+
+  if(type === "kindness" && coinColor ==='gold'){
+    coinAddress = address.kindnessGold
+    return ( coinAddress )
+  }
   // --------------
 
 

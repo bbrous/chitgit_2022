@@ -237,12 +237,7 @@ return (
       </ButtonWrapper>
     
 
-      <IconWrapper> 
-        <DeleteIcon/>
-        <EditIcon/>
 
-
-      </IconWrapper>
 
     </BottomWrapper>
 

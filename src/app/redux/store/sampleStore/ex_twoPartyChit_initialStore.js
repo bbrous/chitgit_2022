@@ -19,14 +19,14 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'people',
       otherPartyId: 'person_7',
-      deedPerfomedBy: 'person_7',
+      deedPerformedBy: 'person_7',
 
     
 
 
       workRelated: false,
 
-      description: 'Jerry helped Mary with the New Year\'s party... after I got stuck working',
+      description: 'Jerry helped Mary with the New Year\'s party... after I got stuck working Jerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck workingJerry helped Mary with the New Year\'s party... after I got stuck working',
  
       duplicate: 'journal',
 
@@ -49,7 +49,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'people',
       otherPartyId: 'person_1',
-      deedPerfomedBy: 'person_1',
+      deedPerformedBy: 'person_1',
 
       workRelated: true,
 
@@ -76,7 +76,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'people',
       otherPartyId: 'person_7',
-      deedPerfomedBy: 'person_0',
+      deedPerformedBy: 'person_0',
 
       workRelated: false,
 
@@ -91,32 +91,6 @@ const TwoPartyChits =  [
 
     },
 
-    {
-      id: 'tp4',
-
-      chitType: 'awChit', //promise, kindness, awChit
-      chitValue: '',    
-      chitColor: 'red',   //gold, silver,, copper, red, 
-
-      dateCreated: '2021-01-27T12:20:16.000Z', // date - 01/27/21
-      chitDate: '2021-01-27T12:20:16.000Z', // date - 01/27/21
-      timeLock: '2021-01-27T12:20:16.000Z',  // if exists - not editable
-      
-      otherPartyCollection: 'people',
-      otherPartyId: 'person_1',
-      deedPerfomedBy: 'person_1',
-
-      workRelated: true,
-
-      description: 'Cyn did a half assed job on an assignment that she delayed doing twice.  And - it was submitted 2 weeks late',
- 
-      duplicate: 'logs',
-
-      sharedId: '',
-      sharedTitle: '',
-      message: ''
-
-    },
 
     {
       id: 'tp5',
@@ -131,7 +105,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'people',
       otherPartyId: 'unknown',
-      deedPerfomedBy: 'person_0',
+      deedPerformedBy: 'person_0',
 
       workRelated: false,
 
@@ -158,7 +132,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'people',
       otherPartyId: 'person_7',
-      deedPerfomedBy: 'person_7',
+      deedPerformedBy: 'person_7',
 
       workRelated: false,
 
@@ -185,7 +159,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'group',
       otherPartyId: 'group_3',
-      deedPerfomedBy: 'person_0',
+      deedPerformedBy: 'person_0',
 
       workRelated: false,
 
@@ -212,7 +186,7 @@ const TwoPartyChits =  [
       
       otherPartyCollection: 'group',
       otherPartyId: 'group_10',
-      deedPerfomedBy: 'person_0',
+      deedPerformedBy: 'person_0',
 
       workRelated: false,
 

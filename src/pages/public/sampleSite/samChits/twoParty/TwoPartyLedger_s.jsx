@@ -81,17 +81,17 @@ export default function TwoPartyLedger(props) {
 let allChits = useSelector(selectAllTwoPartyChits)
 console.log('[ TwoPartyLedger ] all 2 party chits ', allChits);
 
-  const chitRows = (tempArray) => 
+  const ledgerRows = () => 
 
 
  
-  tempArray.map((item, index) => {
+  allChits.map((row, index) => {
    // code 
   return (
     <TwoPartyLedgerRow
-      id = {item.id}
-      key = {item.id}
-      description = {item.description}
+      id = {row.id}
+      key = {row.id}
+      data = {row}
 
      
     />
@@ -105,7 +105,7 @@ console.log('[ TwoPartyLedger ] all 2 party chits ', allChits);
     <Wrapper>
        
 
-      {chitRows(tempArray)}
+      {ledgerRows()}
 
       
 
