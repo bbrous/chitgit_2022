@@ -53,7 +53,7 @@ const Wrapper = styled('div')({
   padding: '3px 6px',
   margin: '3px 0',
   borderRadius: '5px',
-  border: '2px solid #F6F7F8',
+  border: '1px solid #A49AED',
 
   boxShadow: '1px 2px #CFD0D1'
 
@@ -525,7 +525,7 @@ export default function TwoPartyLedgerRow(props) {
 
  
   if(otherPartyCollection === 'groups'){
-  groupObject = allGroups.find(group => group.id === otherPartyId)
+  groupObject = allGroups.find(group => group.id === id)
   nameDisplayed = groupObject.name
 }
 

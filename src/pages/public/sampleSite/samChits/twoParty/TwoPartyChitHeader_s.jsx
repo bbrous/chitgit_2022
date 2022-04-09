@@ -216,7 +216,7 @@ const ViewNavWrapper= styled('div')({
 
 // ================================================
 function TwoPartyChitHeader(props) {
- 
+ console.log('[ TwoPartyChitHeader ] props are -----  ', props);
   const match = useParams()
 
   const matchId = match.id
