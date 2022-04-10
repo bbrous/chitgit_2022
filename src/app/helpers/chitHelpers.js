@@ -36,7 +36,7 @@ export function chitFilter(chits, filterId){
 
 if(filterId === 'all' ){
 
-  displayedChits = getAllChits(chits)
+  displayedChits = sortChitsByDate(chits)
   
 }else{
   displayedChits = getPersonChits(chits, filterId)
@@ -47,16 +47,47 @@ return displayedChits
 }
 
 
+
+export function twoPartyChitFilter(chitsArray, filterId){
+
+  console.log('[ CHitHelper ] filterId ', filterId);
+
+  let displayedChitsArray
+
+if(filterId === 'allChits' ){
+
+  displayedChitsArray = chitsArray
+
+}else if(filterId === 'workChits' ){
+
+
+  displayedChitsArray = chitsArray.filter(item => item.workRelated === true )
+  
+}else if(filterId === 'goodWillChits' ){
+
+
+  displayedChitsArray = chitsArray.filter(item => item.chitType === 'kindness' )
+  
+  
+}else{
+  displayedChitsArray = chitsArray.filter(item => item.otherPartyId === filterId )
+}
+
+
+return displayedChitsArray
+}
+
+
 /* -- func getAllChits ------------------
   @desc - sorts all chits by date
   @params array of chits
   @return array sorted 
 
 ---------------------*/
-export function getAllChits(chits){
+export function sortChitsByDate(chits){
 
   
-  chits.sort((a, b) => (a.date > b.date) ? -1 : 1)
+  chits.sort((a, b) => (a.chitDate > b.date) ? -1 : 1)
 
   return chits
 

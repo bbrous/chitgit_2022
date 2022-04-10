@@ -26,7 +26,7 @@ const TwoPartyChits =  [
 
       workRelated: false,
 
-      description: 'Jerry helped Mary with the New Year\'s party... after I got stuck working Jerry helped Mary with the New Year\'s party... after I got stuck working',
+      description: 'After I got stuck working, Jerry helped Mary with the New Year\'s party.',
  
       duplicate: 'journal',
 

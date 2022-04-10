@@ -71,7 +71,8 @@ function MainPage_NavButtons_s(props) {
 
 const status = useSelector(selectStatus)
 const chitView = status.view.chit.type
-const chitLink = `/sample/${chitView}`
+const chitId = status.view.chit.id
+const chitLink = `/sample/${chitView}/${chitId}`
 
 console.log('[ MainPage_NavButtons_s ] status ', status);
 

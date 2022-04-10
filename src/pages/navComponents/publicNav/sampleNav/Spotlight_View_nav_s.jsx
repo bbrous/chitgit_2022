@@ -10,7 +10,7 @@ import React, {Fragment} from "react"
 
 import {useDispatch, useSelector} from 'react-redux'
 
-import{ chitOrangeMedium, shadowBlue, chitBlueDull} from '../../../../styles/colors'
+import{ chitOrangeMedium, shadowBlue, chitBlueDull, veryLightGrey ,} from '../../../../styles/colors'
 
 
 import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'

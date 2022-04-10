@@ -159,21 +159,43 @@ function PopoverModal(props) {
       {pageType === 'personalChits' &&
           <Content>
             <div> ChitGit <em>Chits</em> are tokens... <br/>
-            Tokens that represent things you've done for others, or that 
-            others have done for you (two party chits)... or tokens you give to yourself (personal chits) for things that you have done or accomplished.
+            Personal Chits are tokens you give to yourself.  Use personal chits to motivate yourself... or track progress towards a goal... or to indicate a personal milestone or accomplishment.
              </div>
                          
              <div>
-             There are several types and colors of both two party and personal chits,  each of which serve and represent different purposes. 
+             There are several colors of personal chits,  each of which serve to indicate a value or weight for the chit. 
             </div>
 
             <div> 
-             You create two party chits here whether or not the action taken was done by you for someone else... or by someone else for you.  These two party chits are private, unless you choose to share them with the other party.   If you choose to give a chit to someone else, they do not have to be Chit Git members (or sign up for Chit Git) in order to receive / view it.  
-             
-             <div> Chit Git does not require or want you to provide any of the other party's contact info in order for you to send them a chit.
-             </div>
+              When you create your first personal chit, you first create a category.  Subsequent chits you give yourself can be added to that category or to a new category you create.
 
              </div>
+
+
+            <MoreInfo> For details click the info icon <Info />  at top of the chits page </MoreInfo>
+          </Content>
+        }
+
+
+{pageType === 'twoPartyChits' &&
+          <Content>
+            <div> Two party Chit Git <em>Chits</em> are tokens... <br/>
+            Tokens that represent things you've done for others, or that 
+            others have done for you.
+             </div>
+                         
+             <div>
+             There are several types of two party chits,  each of which serve different purposes.  There are also several colors of each type of chit to indicate a "value" for the chit.  These values (set by you) are used to calculate your personal karmic balance.
+            </div>
+
+            <div> 
+             You create two party chits here whether or not the action taken was done by you for someone else... or by someone else for you.  Two party chits are privateby default, unless you choose to share them with the other party.   If you choose to give a chit to someone else, they do not have to be Chit Git members (or sign up for Chit Git) in order to receive / view it.  
+             </div>
+             
+             <div> Chit Git does not require or want you to provide any of the other party's contact info in order for you to send them a chit or for them to view it.
+             </div>
+
+          
 
 
             <MoreInfo> For details click the info icon <Info />  at top of the chits page </MoreInfo>

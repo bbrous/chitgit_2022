@@ -4,7 +4,7 @@
   parent: ./PersonalMain
 ------------------------------------*/
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
@@ -12,9 +12,12 @@ import PropTypes from 'prop-types';
 import {chitAquaBlue, veryLightGrey} from '../../../../../styles/colors'
 
 import TwoPartyLedgerRow from './TwoPartyLedgerRow_s';
-
+import { ISOtoUTC } from '../../../../../app/helpers/dateHelper';
 
 import { selectAllTwoPartyChits } from '../../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice';
+
+import { sortChitsByDate, twoPartyChitFilter } from '../../../../../app/helpers/chitHelpers';
+
 
 import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
@@ -68,25 +71,36 @@ const FilterWrapper= styled('div')({
   })
 
   const tempArray = [
-    {id: 'xChit_1', description: 'description here - xChit_1 '},
-    {id: 'xChit_2', description: 'description here - xChit_2 '},
-    {id: 'xChit_3', description: ' description here -  xChit_3'},
-    {id: 'xChit_4', description: ' description here -xChit_4'},
+    {id: 'xChit_1', description: 'description here - xChit_1 ', chitDate: 5},
+    {id: 'xChit_2', description: 'description here - xChit_2 ', chitDate: 3},
+    {id: 'xChit_3', description: ' description here -  xChit_3', chitDate: 2},
+    {id: 'xChit_4', description: ' description here -xChit_4', chitDate: 1},
   ]
 
 // ===================================================================
 
 export default function TwoPartyLedger(props) {
+  let match = useParams()
+  let id = match.id // get URL view location
+  let allChitsArray = useSelector(selectAllTwoPartyChits) //immutable
+  var chitsArray = [...allChitsArray]; // mutable copy of allChitsArray
 
-let allChits = useSelector(selectAllTwoPartyChits)
-console.log('[ TwoPartyLedger ] all 2 party chits ', allChits);
+  
+  
+ //sort all chits
+  let sortedChitsByDate = sortChitsByDate(chitsArray)
 
+let b = twoPartyChitFilter(sortedChitsByDate, id)
+
+console.log('[ TwoPartyLedger ] bbbbbbbbbbbbbbbbbbbbb ', b);
   const ledgerRows = () => 
 
 
  
-  allChits.map((row, index) => {
-   // code 
+  sortedChitsByDate.map((row, index) => {
+
+    
+
   return (
     <TwoPartyLedgerRow
       id = {row.id}

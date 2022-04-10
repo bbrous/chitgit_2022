@@ -14,7 +14,7 @@
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
@@ -114,18 +114,21 @@ function Chits(props) {
   let navigate = useNavigate()
 
   const ChitPage = match.pageView
+  const ChitId = match.id
+
+  const [pageDisplayed, setPageDisplayed] = useState(ChitPage)
+
+  useEffect(()=> {
+    setPageDisplayed(ChitPage)
+  }, [ChitPage])
 
   let status = useSelector(selectStatus)
-  const displayPopoverModalMessage = status.initialMessage.personalChits
+  const displayPopoverModalMessage = status.initialMessage[pageDisplayed]
 
   console.log('[ Chits_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
-  // console.log('[ Chits_s ] match params', match.params);
+  console.log('[ Chits_s ] match params ChitId', ChitId);
 
-  // const ChitId = match.params.detailId 
-  // const ChitsArray = props.ChitsArray
-
-  // console.Chit('[Chits_s] route ChitId is', ChitId)
-  // console.Chit('[Chits_s] retrieved Chits are', ChitsArray)
+ 
 
 
 

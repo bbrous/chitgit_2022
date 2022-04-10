@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import { veryLightGrey, lightGrey, chitBlueDull, mediumGrey } from '../../../../../styles/colors'
+import { veryLightGrey, lightGrey, chitBlueDull, mediumGrey, chitBurgandy } from '../../../../../styles/colors'
 import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSlice';
@@ -93,10 +93,10 @@ const NameContainer = styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
   fontSize: '.7rem',
-  width: '40%',
+  width: '30%',
  
  
 
@@ -117,7 +117,8 @@ const NameWrapper = styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  fontSize: '.7rem',
+  fontSize: '.75rem',
+  color: chitBurgandy,
 
 
 
@@ -150,10 +151,10 @@ const DateContainer = styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '20%',
-color: 'blue'
+  width: '30%',
+color: mediumGrey,
 
   //   [theme.breakpoints.down('sm')] : {
   //     // width: '100%'
@@ -536,9 +537,7 @@ export default function TwoPartyLedgerRow(props) {
   
   otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
 
-  console.log('[ TWO party ledger ] otherPartyId ', otherPartyId);
-  console.log('[ TWO party ledger ] deedPerformedBy ', deedPerformedBy);
-  console.log('[ TWO party ledger ] you owe ------------------ ', youOwe);
+
   // convert Dates for display
 
   let styledChitDate = ISOtoTraditional(chitDate)
@@ -548,6 +547,9 @@ export default function TwoPartyLedgerRow(props) {
     <Wrapper key = {passedId}>
       <HeaderWrapper>
 
+
+        <DateContainer>{styledChitDate}</DateContainer>
+
         <NameContainer>
           <NameWrapper>
             {nameDisplayed}
@@ -555,16 +557,17 @@ export default function TwoPartyLedgerRow(props) {
           {!youOwe && 
           <>
           <IOU/>
-          <div> owes chit to you</div>
+          <div> Owes this chit to you</div>
           </>}
           {youOwe && 
           <>
           <YouOweMe/>
-          <div> You owe chit</div>
+          <div> You owe this chit</div>
           </>}      
 
         </NameContainer>
-        <DateContainer>{styledChitDate}</DateContainer>
+
+
         <IconWrapper> 
         <Shared/>
         <TimeLock/>
