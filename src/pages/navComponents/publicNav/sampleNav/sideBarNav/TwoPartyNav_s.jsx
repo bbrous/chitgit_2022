@@ -571,29 +571,29 @@ return chooseDisplayType()
 
 
 
-        <OrderWrapper>  
-   <div>People</div>
-      
-  
+        <OrderWrapper>
+          <div>People</div>
+
+
           <SliderComponent
             handleSwitchState={handleSwitchState} //gets new state from child switch
-            leftLabel=  'a-Z'
-            rightLabel= 'z-A'
+            leftLabel='a-Z'
+            rightLabel='z-A'
           />
-  
+
         </OrderWrapper>
         <DisplayWrapper>
-         
+
           <PeopleWrapper>
-          {displayPeople}
+            {displayPeople}
           </PeopleWrapper>
-<OrderWrapper> Groups  </OrderWrapper>
+          <OrderWrapper> Groups  </OrderWrapper>
           <PeopleWrapper>
-            
-          {displayGroups}
+
+            {displayGroups}
           </PeopleWrapper>
 
-          
+
         </DisplayWrapper>
   
          </>

@@ -209,7 +209,7 @@ const formSchema = object({
 
 // ==============================
 
-export default function PersonalChitForm_s(props) {
+export default function TwoPartyChitForm_s(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -245,7 +245,7 @@ export default function PersonalChitForm_s(props) {
 
   let defaultValues, category, id,title,  headerMessage
 
-  !personalChitId ? headerMessage = 'Create New Personal Chit'  : headerMessage = 'Edit Personal Chit'
+  !personalChitId ? headerMessage = 'Create New Two Party Chit'  : headerMessage = 'Edit Personal Chit'
  
  
 
@@ -267,7 +267,7 @@ export default function PersonalChitForm_s(props) {
   const { handleSubmit, reset, control, watch } = methods;
 
   const submitForm = async (data) => {
-console.log('[ Personal CHit Form ] data ', data);
+console.log('[ Two Party CHit Form ] data ', data);
     // let submitData = data
     // console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
 

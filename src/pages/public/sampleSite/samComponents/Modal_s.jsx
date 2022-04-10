@@ -38,11 +38,11 @@ import HelpSpotlights from '../../sampleSite/samHelp/Help_spotlights_s'
 import HelpPersonalChits from '../../sampleSite/samHelp/Help_personalChits_s'
 import TwoPartyChits from '../../sampleSite/samHelp/Help_twoPartyChits_s'
 import HelpChronicles from '../../sampleSite/samHelp/Help_chronicles_s'
+
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
-
 import PersonalChitForm from '../samForms/PersonalChitForm_s'
-
+import TwoPartyChitForm from '../samForms/TwoPartyChitForm_s'
 
 // import WOChitDetail from '../../features/main/views/chitView/WO_ChitDetail'
 // import PEChitDetail from '../../features/main/views/chitView/PE_ChitDetail'
@@ -170,6 +170,11 @@ console.log('[ modal ] modalPage ', modalPage);
         {dbCollection === 'spotlights' &&
           // <SpotlightForm id = {id} type = 'spotlights' />
           <SpotlightForm params = {modalParams} />
+
+        }
+        {dbCollection === 'twoPartyChits' &&
+          // <SpotlightForm id = {id} type = 'spotlights' />
+          <TwoPartyChitForm params = {modalParams} />
 
         }
 
