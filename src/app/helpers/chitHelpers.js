@@ -7,7 +7,7 @@ choosePersonalCoin
 
 */
 
-
+import { ISOtoUTC } from "./dateHelper"
 // -- chit image addresses --
 export const CHIT_ADDRESS = {
   awChit: '/images/chit_red.svg',
@@ -87,7 +87,7 @@ return displayedChitsArray
 export function sortChitsByDate(chits){
 
   
-  chits.sort((a, b) => (a.chitDate > b.date) ? -1 : 1)
+  chits.sort((a, b) => (ISOtoUTC(a.chitDate) > ISOtoUTC(b.chitDate)) ? -1 : 1)
 
   return chits
 

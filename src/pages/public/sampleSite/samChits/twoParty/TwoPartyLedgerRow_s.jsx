@@ -132,7 +132,7 @@ const NameWrapper = styled('div')({
 const YouOweMe = styled(ForwardIcon)({
   transform: 'rotate(180deg)',
   fontSize: '1rem',
-  color: 'green',
+  color: 'red',
   margin: '0 8px'
           
 })
@@ -140,7 +140,7 @@ const YouOweMe = styled(ForwardIcon)({
 const IOU = styled(ForwardIcon)({
   transform: 'rotate(0deg)',
   fontSize: '1rem',
-  color: 'red',
+  color: 'green',
   margin: '0 8px'
           
 })

@@ -88,11 +88,11 @@ export default function TwoPartyLedger(props) {
   
   
  //sort all chits
-  let sortedChitsByDate = sortChitsByDate(chitsArray)
 
-let b = twoPartyChitFilter(sortedChitsByDate, id)
 
-console.log('[ TwoPartyLedger ] bbbbbbbbbbbbbbbbbbbbb ', b);
+let filteredChits = twoPartyChitFilter(chitsArray, id)
+let sortedChitsByDate = sortChitsByDate(filteredChits)
+ 
   const ledgerRows = () => 
 
 

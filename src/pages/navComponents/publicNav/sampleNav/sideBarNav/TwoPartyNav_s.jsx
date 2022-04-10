@@ -281,7 +281,7 @@ function TwoPartyNav() {
 
    // ---3 filter ---  get groups only two party chits
   const allGroupsChits = twoPartyChitsArray.filter(group => {
-    return group.otherPartyCollection === 'group';
+    return group.otherPartyCollection === 'groups';
   });
 
   
@@ -290,7 +290,7 @@ function TwoPartyNav() {
   let allGroupsArray = uniqueItemsInObjectField(allGroupsChits, 'otherPartyId')
 
 
-  console.log('[ TwoPartyNav ] allPeopleArray ', allPeopleArray);
+  console.log('[ TwoPartyNav ] allGroupsChits ', allGroupsChits);
  
 
 
