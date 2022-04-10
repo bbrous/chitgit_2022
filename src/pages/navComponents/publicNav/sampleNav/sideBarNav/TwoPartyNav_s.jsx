@@ -587,7 +587,7 @@ return chooseDisplayType()
           <PeopleWrapper>
           {displayPeople}
           </PeopleWrapper>
-<div> ---- groups ---- </div>
+<OrderWrapper> Groups  </OrderWrapper>
           <PeopleWrapper>
             
           {displayGroups}
