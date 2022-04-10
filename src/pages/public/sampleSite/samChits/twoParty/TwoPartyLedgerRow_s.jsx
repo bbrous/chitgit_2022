@@ -293,8 +293,8 @@ const TopRightContainer = styled('div')({
   fontStyle: 'italic',
   fontSize: '.8rem',
   // fontWeight: 'bold',
-  marginBottom: '4px'
-
+  marginBottom: '4px',
+  color: mediumGrey,
 
 
 
@@ -329,58 +329,26 @@ const BottomRightContainer = styled('div')({
 
 
 const AccordionDetailWrapper = styled('div')({
-  // backgroundColor: 'red',
+  backgroundColor: 'white',
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.85rem',
   width: '96%',
   minHeight: '40px',
-  margin: 0, padding: 0,
-
-
-  //   [theme.breakpoints.down('sm')] : {
-  //     // width: '100%'
-  //   },
-
-})
-
-const DetailWrapper = styled('div')({
-  backgroundColor: 'pink',
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-
-  width: '55%',
-
-
+  margin: 0, 
+  paddingLeft: '1rem',
+  // borderTop: '1px solid grey'
 
   //   [theme.breakpoints.down('sm')] : {
   //     // width: '100%'
   //   },
 
 })
-const SharedDetailWrapper = styled('div')({
-  backgroundColor: 'orange',
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
 
-  width: '40%',
-
-
-
-  //   [theme.breakpoints.down('sm')] : {
-  //     // width: '100%'
-  //   },
-
-})
+ 
 
 
 // const AccordionIconWrapper= styled('div')({
@@ -473,6 +441,127 @@ const IconWrapper= styled('div')({
 })
 
 
+// --- Accordion Detail CSS ---
+
+const LeftDetailWrapper = styled('div')({
+
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '3.5rem',
+ 
+  
+
+ 
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
+const MiddleDetailWrapper = styled('div')({
+ 
+  display: 'flex',
+
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '40%',
+  height: '100%',
+  borderTop: '1px solid grey',
+  paddingTop: '8px',
+  // padding: '0 0 0 1rem',
+  //  borderLeft: '1px solid #E6E7E8'
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const RightDetailWrapper = styled('div')({
+
+  // backgroundColor: 'pink',
+  display: 'flex',
+
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '40%',
+  height: '100%',
+  borderTop: '1px solid grey',
+  paddingTop: '8px',
+  // padding: '0 0 0 1rem',
+  //  borderLeft: '1px solid #E6E7E8'
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const DetailWrapper = styled('div')({
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+
+  width: '100%',
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const DetailTitle = styled('div')({
+
+ 
+  display: 'flex',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '40%',
+  fontStyle: 'italic',
+  fontSize: '.75rem',
+  color: mediumGrey,
+  // padding: '0 0 0 1rem',
+  //  borderLeft: '1px solid #E6E7E8'
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const Detail = styled('div')({
+
+ 
+  display: 'flex',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '50%',
+ 
+  // padding: '0 0 0 1rem',
+  //  borderLeft: '1px solid #E6E7E8'
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
 // ==============================================================
 
 export default function TwoPartyLedgerRow(props) {
@@ -541,6 +630,18 @@ export default function TwoPartyLedgerRow(props) {
   // convert Dates for display
 
   let styledChitDate = ISOtoTraditional(chitDate)
+  let styledDateCreated = ISOtoTraditional(dateCreated)
+  let styledTimeLock
+  timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
+
+
+  // format workRelated
+  let styledWorkRelated
+  workRelated ? styledWorkRelated = 'yes': styledWorkRelated = 'no'
+
+  // format deepd performed by
+  let styledDeedDoneBy
+  deedPerformedBy === otherPartyId ? styledDeedDoneBy = nameDisplayed: styledDeedDoneBy = 'you'
 
   return (
     
@@ -624,16 +725,48 @@ export default function TwoPartyLedgerRow(props) {
 
         {displayDetail && 
         <AccordionDetailWrapper>
-          <DetailWrapper>
-            <div>detail 1</div>
-            <div>detail 1</div>
-            <div>detail 1</div>
-            <div>detail 1</div>
-          </DetailWrapper>
+          <LeftDetailWrapper></LeftDetailWrapper>
+          <MiddleDetailWrapper>
+            <DetailWrapper>
+              <DetailTitle>Deed performed by:</DetailTitle>
+              <Detail>{styledDeedDoneBy}</Detail>
+              </DetailWrapper>
 
-          <SharedDetailWrapper>
-            shared detail 
-          </SharedDetailWrapper>
+              <DetailWrapper>
+              <DetailTitle>Chit created  by:</DetailTitle>
+              <Detail> you </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Date chit created:</DetailTitle>
+              <Detail> {styledDateCreated} </Detail>
+              </DetailWrapper>
+
+
+
+
+
+          </MiddleDetailWrapper>
+
+          <RightDetailWrapper>
+          <DetailWrapper>
+              <DetailTitle>Work related:</DetailTitle>
+              <Detail> {styledWorkRelated} </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Chit value</DetailTitle>
+              <Detail> {chitValue} </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Time Lock</DetailTitle>
+              <Detail> {styledTimeLock} </Detail>
+              </DetailWrapper>
+
+
+
+          </RightDetailWrapper>
         </AccordionDetailWrapper>
         }
       </AccordionWrapper>
