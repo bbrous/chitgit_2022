@@ -399,6 +399,38 @@ var stringToHTML = function (str) {
 //  =====================================================================
 
 export default function JSection(props) {
+
+
+
+/*   #### - keywords code for creating displayed string (Apr 2022)
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+*/
+
+
+
   let dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);
 

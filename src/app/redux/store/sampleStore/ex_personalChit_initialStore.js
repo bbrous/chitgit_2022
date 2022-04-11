@@ -21,6 +21,7 @@ const PersonalChits =  [
 
       detail: '',
       
+     keyWordArray: [],  
     },
 
   
@@ -37,7 +38,7 @@ const PersonalChits =  [
       workRelated: false,
 
       detail: "<p>Cereal for breakfast.</p><p>Turkey sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-      
+     keyWordArray: [],  
     },
 
       // Jan 6  ------------------------- >>
@@ -56,7 +57,7 @@ const PersonalChits =  [
         workRelated: false,
   
         detail: '',
-        
+       keyWordArray: [],  
       },
   
     
@@ -73,7 +74,7 @@ const PersonalChits =  [
         workRelated: false,
   
         detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-        
+       keyWordArray: [],  
       },
 
 
@@ -93,7 +94,7 @@ const PersonalChits =  [
         workRelated: false,
   
         detail: '',
-        
+       keyWordArray: [],  
       },
   
     
@@ -110,7 +111,7 @@ const PersonalChits =  [
         workRelated: false,
   
         detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-        
+       keyWordArray: [],  
       },
     
 
@@ -130,7 +131,7 @@ const PersonalChits =  [
               workRelated: false,
         
               detail: '',
-              
+             keyWordArray: [],  
             },
         
           
@@ -147,7 +148,7 @@ const PersonalChits =  [
               workRelated: false,
         
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-              
+             keyWordArray: [],  
             },
 
 
@@ -165,7 +166,7 @@ const PersonalChits =  [
               workRelated: false,
         
               detail: '',
-              
+             keyWordArray: [],  
             },
         
           
@@ -182,7 +183,7 @@ const PersonalChits =  [
               workRelated: false,
         
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-              
+             keyWordArray: [],  
             },
 
             {
@@ -198,7 +199,7 @@ const PersonalChits =  [
               workRelated: false,
         
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-              
+             keyWordArray: [],  
             },
 
 

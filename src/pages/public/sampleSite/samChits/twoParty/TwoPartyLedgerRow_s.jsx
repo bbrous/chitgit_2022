@@ -326,17 +326,35 @@ const BottomRightContainer = styled('div')({
 
 })
 
+const AccordionBottomWrapper = styled('div')({
+  
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.85rem',
+  width: '96%',
+  minHeight: '40px',
+  margin: 0, 
+  
+  borderTop: '1px solid grey'
 
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
 
 const AccordionDetailWrapper = styled('div')({
-  backgroundColor: 'white',
+ 
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.85rem',
-  width: '96%',
+  width: '100%',
   minHeight: '40px',
   margin: 0, 
   paddingLeft: '1rem',
@@ -472,7 +490,7 @@ const MiddleDetailWrapper = styled('div')({
   alignItems: 'center',
   width: '40%',
   height: '100%',
-  borderTop: '1px solid grey',
+   
   paddingTop: '8px',
   // padding: '0 0 0 1rem',
   //  borderLeft: '1px solid #E6E7E8'
@@ -493,7 +511,7 @@ const RightDetailWrapper = styled('div')({
   alignItems: 'center',
   width: '40%',
   height: '100%',
-  borderTop: '1px solid grey',
+   
   paddingTop: '8px',
   // padding: '0 0 0 1rem',
   //  borderLeft: '1px solid #E6E7E8'
@@ -562,11 +580,74 @@ const Detail = styled('div')({
 
 })
 
+const SearchWrapper= styled('div')({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // backgroundColor: veryLightGrey,
+  width: '100%',
+  
+  margin: '5px 0 0 0',
+backgroundColor: veryLightGrey,
+  fontSize: '.6rem',
+  height: '.8rem',
+  color: mediumGrey,
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
+const LeftSearchWrapper = styled('div')({
+
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '4.5rem',
+ 
+  
+
+ 
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const KeyWordWrapper= styled('div')({
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // backgroundColor: 'grey',
+ 
+  '& em' :{
+    marginRight: '1rem'
+  },
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
+
 // ==============================================================
 
 export default function TwoPartyLedgerRow(props) {
 
-  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message} = props.data
+  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
+
+  console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
 
   let dispatch = useDispatch()
   
@@ -642,6 +723,38 @@ export default function TwoPartyLedgerRow(props) {
   // format deepd performed by
   let styledDeedDoneBy
   deedPerformedBy === otherPartyId ? styledDeedDoneBy = nameDisplayed: styledDeedDoneBy = 'you'
+
+  // format keywords
+  let styledKeywords = ''
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+ 
+ 
+ 
+ 
+ 
 
   return (
     
@@ -724,6 +837,7 @@ export default function TwoPartyLedgerRow(props) {
         </AccordionTopWrapper>
 
         {displayDetail && 
+         <AccordionBottomWrapper>
         <AccordionDetailWrapper>
           <LeftDetailWrapper></LeftDetailWrapper>
           <MiddleDetailWrapper>
@@ -767,8 +881,17 @@ export default function TwoPartyLedgerRow(props) {
 
 
           </RightDetailWrapper>
+          
         </AccordionDetailWrapper>
+       
+            <SearchWrapper>
+              <LeftSearchWrapper />
+              <KeyWordWrapper>  <em> keywords:  </em>{styledKeywords}</KeyWordWrapper>
+
+            </SearchWrapper>
+        </AccordionBottomWrapper>
         }
+
       </AccordionWrapper>
 
 

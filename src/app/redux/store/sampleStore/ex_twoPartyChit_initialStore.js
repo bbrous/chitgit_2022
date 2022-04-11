@@ -28,6 +28,7 @@ const TwoPartyChits =  [
 
       description: 'After I got stuck working, Jerry helped Mary with the New Year\'s party.',
  
+      keyWordArray: [],
       duplicate: 'journal',
 
       sharedId: 'X11rt2N',
@@ -55,6 +56,7 @@ const TwoPartyChits =  [
 
       description: 'Cyn did a half assed job on an assignment that she delayed doing twice.  And - it was submitted 2 weeks late',
  
+      keyWordArray: ['project team'],
       duplicate: 'logs',
 
       sharedId: '',
@@ -82,6 +84,7 @@ const TwoPartyChits =  [
 
       description: 'I lent Jerry my car for the day.  Thought I would\'t need it... turns out I did, but it was too late.',
  
+      keyWordArray: [],
       duplicate: 'journal',
 
       sharedId: 'X11rt2N',
@@ -111,6 +114,7 @@ const TwoPartyChits =  [
 
       description: 'Paid for coffee for woman who left wallet in car.',
  
+      keyWordArray: [],
       duplicate: '',
 
       sharedId: '',
@@ -138,6 +142,7 @@ const TwoPartyChits =  [
 
       description: 'Jerry promised to help me build our deck.  And he promised to get Billy to help.',
  
+      keyWordArray: ['deck', 'project team', 'dorah' , 'boys in band'],
       duplicate: 'journal',
 
       sharedId: '',
@@ -165,6 +170,7 @@ const TwoPartyChits =  [
 
       description: 'Volunteered for beach clean up.  Spent all day Sunday cleaning up other people\'s trash at the beach.',
  
+      keyWordArray: [],
       duplicate: '',
 
       sharedId: '',
@@ -192,6 +198,7 @@ const TwoPartyChits =  [
 
       description: 'Gave a whole lot of cool toys to Toys for Tots.',
  
+      keyWordArray: [],
       duplicate: '',
 
       sharedId: '',
