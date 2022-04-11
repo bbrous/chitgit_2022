@@ -13,9 +13,11 @@ import {chitRedDark, veryLightGrey} from '../../../../../styles/colors'
 
 import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
+import TwoPartyChitHeader from './TwoPartyChitHeader_s';
 import TwoPartyLedger from './TwoPartyLedger_s';
- import TwoPartyChitHeader from './TwoPartyChitHeader_s';
+
  import KarmicView from './KarmicView_s';
+ import KarmicHeader from './KarmicHeader_s';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -66,7 +68,15 @@ console.log('[ TWK PARTY MAIN ] chitView ', chitView);
 
   return (
     <Wrapper>
+      
+      {chitView === 'ledger' &&
       <TwoPartyChitHeader/>
+  }
+
+ 
+      {chitView === 'karmic' &&
+      <KarmicHeader/>
+  }
 
       {chitView === 'ledger' &&  <TwoPartyLedger/>}
         {chitView === 'karmic' && <KarmicView />}

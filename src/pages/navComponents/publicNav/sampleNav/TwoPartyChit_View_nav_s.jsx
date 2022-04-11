@@ -116,9 +116,9 @@ function TwoPartyChitViewNav(props) {
   name="row-radio-buttons-group"
   defaultValue = {view}
 >
-
+<StyledLabel value="ledger" control={<StyledRadio />} label="Ledger View" />
     <StyledLabel value="karmic" control={<StyledRadio />} label="Karmic View" />
-    <StyledLabel value="ledger" control={<StyledRadio />} label="Ledger View" />
+    
 
 </RadioGroup>
 </FormControl>
