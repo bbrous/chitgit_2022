@@ -1,22 +1,34 @@
-/*---- File - TopicalHeader.jsx
-     Displays details about Topical retrieved from Redux store
+/*---- File - TwoPartyChitHeader.jsx
+     Displays header name for 2 party chits
+     Displays add new button
      
-    Contains children: 
-        CountdownDisplay_s'
+    to get name to be displayed:
+       1. get id from URL
+       2. create title to be displayed (switch)
+          allChits - all chits
+          workChits= work chits
+          good will chits,
+          - for id's in URL
+            3. find any chit matching the URL id
+            4. find the collection in that chit (people or groups)
+            5. get name by searching the collection matching the URL id
 
-      parent: TopicalMain -./TopicalsMain
+
+      parent: TwoPartyMain -./TwoPartysMain
 */
 
 import React  from 'react'
 import { useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
-import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../../app/helpers/dateHelper'
-import{lightGrey, darkGrey, chitBurgandy} from '../../../../../styles/colors'
-import PersonalChitViewNav from '../../../../navComponents/publicNav/sampleNav/PersonalChit_View_nav_s';
-import EditIcon from '../../samComponents/Edit_icon_s'
-import DeleteIcon from '../../samComponents/Delete_icon_s'
+import{chitBurgandy} from '../../../../../styles/colors'
 
+import { selectAllTwoPartyChits } from '../../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
+
+import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSlice'
+
+import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice';
+import TwoPartyChitViewNav from '../../../../navComponents/publicNav/sampleNav/TwoPartyChit_View_nav_s'
 //  ---- Material Ui ------------------
 
 import Paper from '@mui/material/Paper'
@@ -32,11 +44,11 @@ const theme = createTheme(); // allows use of mui theme in styled component
 const Wrapper = styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  margin: '1rem  0 .5rem 0',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  margin: '1rem  .5rem .5rem .5rem',
   paddingBottom: '.5rem',
-
+ 
    
   width: '90%',
  
@@ -58,7 +70,7 @@ const TitleWrapper= styled('div')({
  
  
   width: '98%',
-  padding: '0 .5rem',
+  padding: '0 1rem',
   // marginBottom: '.5rem',
 
   fontSize: '1rem',
@@ -77,26 +89,6 @@ const TitleWrapper= styled('div')({
   },
 })
 
-const TitleLabel= styled('div')({
-  display: 'flex',
-  
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-   
-  margin: '0 8px ',
-  
-
-  flexWrap: 'wrap',
-
-  fontSize: '.9rem',
-  color: darkGrey,
-  fontStyle: 'italic',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
 
 const Title = styled('div')({
   display: 'flex',
@@ -124,7 +116,7 @@ const BottomWrapper = styled('div')({
   
   justifyContent: 'space-between',
   alignItems: 'center',
-  width: 'calc(100% - 12px)',
+  width: 'calc(100%-12px)',
  
 
   [theme.breakpoints.down('sm')] : {
@@ -174,21 +166,6 @@ margin: '0 1rem',
 
 })
 
-const IconWrapper= styled('div')({
-  display: 'flex',
-  
-  justifyContent: 'flex-end',
-  alignItems: 'center',
- 
-  marginRight: '6px',
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
-
 const ViewNavWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
@@ -200,9 +177,9 @@ const ViewNavWrapper= styled('div')({
   top: 0,
  
  
-
+width: '33%',
   height: '2rem',
-  color: 'white',
+  // color: 'white',
 
 
 
@@ -215,18 +192,63 @@ const ViewNavWrapper= styled('div')({
 })
 
 // ================================================
-function PersonalChitHeader(props) {
+function TwoPartyChitHeader(props) {
  
   const match = useParams()
 
   const matchId = match.id
+  let allChitsArray = useSelector(selectAllTwoPartyChits) //immutable
+  let allGroups = useSelector(selectGroups)
+  let allPeople = useSelector(selectPeople)
+
+  let title
+
+  switch(matchId){
+    case 'allChits':
+    
+      title ='All Chits';
+
+      break;
+
+    case 'workChits':
+   
+      title ='All Work Related Chits';
+      break;
+
+      case 'goodWillChits':
+     
+        title ='All Good Will Chits';
+        break;
+
+    default: 
+    let headerObject = allChitsArray.find(element => element.otherPartyId === matchId)
+
+    let collection = headerObject.otherPartyCollection
+    
+    if(collection === 'groups' ){
+      let groupObject = allGroups.find(group => group.id === matchId)
+  
+      title = groupObject.name
+      console.log('[ Two Party Chit Header ] we got a group ', title);
+    }
+    if(collection === 'people' ){
+      let personObject = allPeople.find(person => person.id === matchId)
+
+    title = personObject.name
+  
+      console.log('[ Two Party Chit Header ] we got People ', title);
+    }
+   
+  }
+
+
 
 return (
 <Wrapper>
     <TitleWrapper>
-      <TitleLabel> Category : </TitleLabel>
+  
       <Title>
-        Diet
+        Karmic View
       </Title>
     </TitleWrapper>
     <BottomWrapper>
@@ -235,16 +257,12 @@ return (
         <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
     
       </ButtonWrapper>
+    
       <ViewNavWrapper>
-      <PersonalChitViewNav/>
+      
+     <TwoPartyChitViewNav/>
       </ViewNavWrapper>
 
-      <IconWrapper> 
-        <DeleteIcon/>
-        <EditIcon/>
-
-
-      </IconWrapper>
 
     </BottomWrapper>
 
@@ -256,4 +274,4 @@ return (
   )}// end func TopicalDetail
 
  
-export default PersonalChitHeader
+export default TwoPartyChitHeader

@@ -11,9 +11,11 @@ import PropTypes from 'prop-types';
 
 import {chitRedDark, veryLightGrey} from '../../../../../styles/colors'
 
+import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
+
 import TwoPartyLedger from './TwoPartyLedger_s';
  import TwoPartyChitHeader from './TwoPartyChitHeader_s';
- 
+ import KarmicView from './KarmicView_s';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -57,12 +59,17 @@ const MainTitle= styled('div')({
 })
 
 export default function TwoPartyMain_s(props) {
+
+  let chitView= useSelector(selectStatus).view.twoPartyChit.display
+
+console.log('[ TWK PARTY MAIN ] chitView ', chitView);
+
   return (
     <Wrapper>
       <TwoPartyChitHeader/>
 
-     
-      <TwoPartyLedger/>
+      {chitView === 'ledger' &&  <TwoPartyLedger/>}
+        {chitView === 'karmic' && <KarmicView />}
        
     </Wrapper>
   );

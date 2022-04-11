@@ -29,6 +29,8 @@ import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSli
 
 import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice';
 
+import TwoPartyChitViewNav from '../../../../navComponents/publicNav/sampleNav/TwoPartyChit_View_nav_s'
+
 //  ---- Material Ui ------------------
 
 import Paper from '@mui/material/Paper'
@@ -116,7 +118,7 @@ const BottomWrapper = styled('div')({
   
   justifyContent: 'space-between',
   alignItems: 'center',
-  width: 'calc(100%-12px)',
+  width: 'calc(100% - 12px)',
  
 
   [theme.breakpoints.down('sm')] : {
@@ -131,7 +133,7 @@ const ButtonWrapper = styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   
-
+  width: '33%',
 [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
     // backgroundColor: 'red'
@@ -164,6 +166,46 @@ margin: '0 1rem',
   }
 
 
+})
+
+const ViewNavWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+// backgroundColor: 'green',
+
+  position: 'relative',
+  top: 0,
+ 
+ 
+width: '33%',
+  height: '2rem',
+  // color: 'white',
+
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+
+})
+
+const BottomSpacerWrapper= styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+ 
+  marginRight: '6px',
+  width: '33%',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
 })
 
 // ================================================
@@ -232,9 +274,14 @@ return (
         <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
     
       </ButtonWrapper>
+
+      <ViewNavWrapper>
+      
+       <TwoPartyChitViewNav/>
+      </ViewNavWrapper>
     
 
-
+<BottomSpacerWrapper/>
 
     </BottomWrapper>
 
@@ -243,7 +290,7 @@ return (
 
 
 
-  )}// end func TopicalDetail
+  )}// end func TwoPartyChitHeader
 
  
 export default TwoPartyChitHeader

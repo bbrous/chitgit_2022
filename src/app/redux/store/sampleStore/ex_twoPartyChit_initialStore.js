@@ -142,7 +142,7 @@ const TwoPartyChits =  [
 
       description: 'Jerry promised to help me build our deck.  And he promised to get Billy to help.',
  
-      keyWordArray: ['deck', 'project team', 'dorah' , 'boys in band'],
+      keyWordArray: ['deck'],
       duplicate: 'journal',
 
       sharedId: '',

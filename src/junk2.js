@@ -1,58 +1,76 @@
-
-
-// ==============================================================
-
-/*  
-
-  1. get all personal chits (personalChit array)
-  2a. get calendar month to display
-  2b. get the array of days for that calendar month
-
-  3. map calendar month by day
-     4. see if there is a chit for that day (filter personalChit array)
-     5a. if yes chit exists - display PersonalChit
-     5b. if no chit exists - display QuickChit form
+/* function PersonalMain (props) -------------------
  
- 
+
+  parent: ../Chits_s
 ------------------------------------*/
 
+import React from 'react'
+import { useSelector} from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
-// ==============================================================
+import {chitRedDark, veryLightGrey} from '../../../../../styles/colors'
 
-// THIS is the logic for adding the add new chit
-// when no chit is displayed
+import TwoPartyLedger from './TwoPartyLedger_s';
+ import TwoPartyChitHeader from './TwoPartyChitHeader_s';
+import KarmicView from './KarmicView_s';
+ import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
+
+import { styled, createTheme} from "@mui/material/styles"
+import {withStyles} from '@mui/styles'
+const theme = createTheme(); // allows use of mui theme in styled component
+
+// -----------------------------------------------------------------
+
+
+const Wrapper= styled('div')({
+
+  // backgroundColor: 'pink',
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+//   backgroundColor: veryLightGrey,
+  width: '100%',
+  height: '100%',
+  overflowY: 'auto',
+
+//   [theme.breakpoints.down('sm')] : {
+//     // width: '100%'
+//   },
+
+})
+
+const MainTitle= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: chitRedDark,
+  fontSize: '1.1rem',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+export default function TwoPartyMain_s(props) {
+
+  let chitView= useSelector(selectStatus).view.personalChit.display
 
   return (
-    <>
-        {displayChits && <DayChit
-          key = {index}
-          id = {displayDay.utcDate}
-          day = {displayDay.day}
-          month = {displayDay.month}
-          utcDate = {displayDay.utcDate}
-          displayChits = {displayChits}
-         />  
-      }
-          {!displayChits && <div>  no chit + </div>
-      }
-       </>
-      
-      )
-    
-    })// end displayChits
+    <Wrapper>
+      <TwoPartyChitHeader/>
+{chitView === 'ledger' &&  <TwoPartyLedger/>}
+        {chitView === 'karmic' && <KarmicView />}
+     
+     
+       
+    </Wrapper>
+  );
+}
 
-
-
-    <div> 
- <div>categories:</div>
-      <OrderWrapper>
-
-        <SliderComponent
-          handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='desc'
-          rightLabel='asc'
-        />
-
-      </OrderWrapper>
-      </div>
-    
