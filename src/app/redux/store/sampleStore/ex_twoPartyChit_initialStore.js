@@ -10,7 +10,7 @@ const TwoPartyChits =  [
       id: 'tp1',
 
       chitType: 'standard', //promise, kindness, awChit
-      chitValue: '60',    
+      chitValue: 60,    
       chitColor: 'gold',   //gold, silver, copper, red, 
 
       dateCreated: '2021-01-04T12:20:16.000Z',// date - 01/03/21
@@ -41,7 +41,7 @@ const TwoPartyChits =  [
       id: 'tp2',
 
       chitType: 'awChit', //promise, kindness, awChit
-      chitValue: '',    
+      chitValue: 20,    
       chitColor: 'red',   //gold, silver,copper, red, 
 
       dateCreated: '2021-01-27T12:20:16.000Z', // date - 01/27/21
@@ -69,7 +69,7 @@ const TwoPartyChits =  [
       id: 'tp3',
 
       chitType: 'standard', //promise, kindness, awChit
-      chitValue: '45',    
+      chitValue: 45,    
       chitColor: 'silver',   //gold, silver,copper, red, 
 
       dateCreated: '2021-01-04T12:20:16.000Z',// date - 01/04/21
@@ -99,7 +99,7 @@ const TwoPartyChits =  [
       id: 'tp5',
 
       chitType: 'kindness', //promise, kindness, awChit
-      chitValue: '10',    
+      chitValue: 10,    
       chitColor: 'copper',   //gold, silver, copper red, 
 
       dateCreated: '2021-01-21T12:20:16.000Z', // date - 01/27/21
@@ -127,7 +127,7 @@ const TwoPartyChits =  [
       id: 'tp6',
 
       chitType: 'promise', //promise, kindness, awChit
-      chitValue: '60',    
+      chitValue: 660,    
       chitColor: 'gold',   //gold, silver, copper red, 
 
       dateCreated: '2021-01-09T12:20:16.000Z', // date - 01/09/21
@@ -155,7 +155,7 @@ const TwoPartyChits =  [
       id: 'tp7',
 
       chitType: 'kindness', //promise, kindness, awChit
-      chitValue: '80',    
+      chitValue: 80,    
       chitColor: 'gold',   //gold, silver, copper red, 
 
       dateCreated: '2021-02-21T21:57:49.000Z', // date - 02/21/21
@@ -183,7 +183,7 @@ const TwoPartyChits =  [
       id: 'tp8',
 
       chitType: 'kindness', //promise, kindness, awChit
-      chitValue: '30',    
+      chitValue: 30,    
       chitColor: 'silver',   //gold, silver, copper red, 
 
       dateCreated: '2021-01-09T12:20:16.000Z', // date - 01/09/21
@@ -206,6 +206,8 @@ const TwoPartyChits =  [
       message: ''
 
     },
+
+    
 
 ]// end SampleLogs
 
