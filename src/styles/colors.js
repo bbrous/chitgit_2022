@@ -50,6 +50,7 @@ export const chitLightGreen = '#96FFDC'
 export const chitVeryLightGreen = '#E4FFEF'
 export const chitDarkGreen = '#008000'
 export const chitMediumGreen ='#2BAD82'
+export const graphGreen = '#00C49F'
 
 // -- Yellows  ----------
 

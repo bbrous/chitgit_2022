@@ -22,11 +22,11 @@ const LegendWrapper= styled('div')({
   
     display: 'flex',
  
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    width: '8rem' ,
-    height: '3rem',
+    width: '50%' ,
+     
     fontSize: '.7rem',
     lineHeight: 1.8,
     padding: '3px 8px',
@@ -47,11 +47,12 @@ const LegendWrapper= styled('div')({
     
       display: 'flex',
    
-      flexDirection: 'row',
-      justifyContent: 'flexStart',
-      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       width: '100%',
-      // backgroundColor: 'yellow'
+     
+ 
     
     
     //   [theme.breakpoints.down('sm')] : {
@@ -60,18 +61,18 @@ const LegendWrapper= styled('div')({
     
     })
 
-    const LegendIconTop= styled('div')({
+    const HeaderWrapper= styled('tr')({
 
       // backgroundColor: 'green' ,
-      
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '.7rem',
-          height: '.7rem',
-        backgroundColor: 'green',
-        borderRadius: '30px'
+      display: 'flex',
+ 
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+        width: '100%',
+        borderBottom: '1px solid #CFD0D1',
+        marginBottom: '6px'
+
     
       
       
@@ -81,7 +82,119 @@ const LegendWrapper= styled('div')({
       
       })
 
+      const RowWrapper= styled('tr')({
 
+        // backgroundColor: 'green' ,
+        display: 'flex',
+   
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+          width: '100%'
+      
+        
+        
+        //   [theme.breakpoints.down('sm')] : {
+        //     // width: '100%'
+        //   },
+        
+        })
+
+      const ItemWrapper= styled('div')({
+
+        // backgroundColor: 'green' ,
+        display: 'flex',
+   
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+          width: '55%'
+      
+        
+        
+        //   [theme.breakpoints.down('sm')] : {
+        //     // width: '100%'
+        //   },
+        
+        })
+
+        const NumberWrapper= styled('div')({
+
+          // backgroundColor: 'green' ,
+          display: 'flex',
+   
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+            width: '15%'
+        
+          
+          
+          //   [theme.breakpoints.down('sm')] : {
+          //     // width: '100%'
+          //   },
+          
+          })
+
+          
+        const AssetWrapper= styled('div')({
+
+          // backgroundColor: 'green' ,
+          display: 'flex',
+   
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+            width: '15%',
+            color: 'green'
+        
+          
+          
+          //   [theme.breakpoints.down('sm')] : {
+          //     // width: '100%'
+          //   },
+          
+          })
+
+
+          const LiabilityWrapper= styled('div')({
+
+            // backgroundColor: 'green' ,
+            display: 'flex',
+   
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+              width: '15%',
+          
+            color: 'red',
+            
+            //   [theme.breakpoints.down('sm')] : {
+            //     // width: '100%'
+            //   },
+            
+            })
+
+            const LegendIconTop= styled('div')({
+
+              // backgroundColor: 'green' ,
+              
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '.7rem',
+                  height: '.7rem',
+                backgroundColor: '#00C49F',
+                borderRadius: '30px'
+            
+              
+              
+              //   [theme.breakpoints.down('sm')] : {
+              //     // width: '100%'
+              //   },
+              
+              })
       const LegendIconBottom= styled('div')({
 
         // backgroundColor: 'green' ,
@@ -124,19 +237,41 @@ const LegendWrapper= styled('div')({
 
 
 export default function KarmicLegend(props) {
+
+  const {owedChits, chitsOwed, assets, liabilities} = props
   return (
     <>
             <LegendWrapper>
             
             <LegendBox>
-              <LegendIconTop/>
-              <LegendDescription> Owed to You</LegendDescription>
+              <HeaderWrapper>
+                <ItemWrapper></ItemWrapper>
+                <NumberWrapper># of chits</NumberWrapper>
+                <AssetWrapper>Assets</AssetWrapper>
+                <LiabilityWrapper>Liabilities</LiabilityWrapper>
+              </HeaderWrapper>
+
+               <RowWrapper>
+                <ItemWrapper>
+                  <LegendIconTop/>
+              <LegendDescription> Chits owed to You</LegendDescription>
+               </ItemWrapper>
+              <NumberWrapper>{chitsOwed}</NumberWrapper>
+              <AssetWrapper>{assets}</AssetWrapper>
+              <td></td>
+              </RowWrapper>
+              
+             <RowWrapper>
+               <ItemWrapper><LegendIconBottom/>
+              <LegendDescription> Chits you Owe: </LegendDescription>
+              </ItemWrapper>
+              <NumberWrapper>{owedChits}</NumberWrapper>
+              <AssetWrapper></AssetWrapper>
+              <LiabilityWrapper>- {liabilities}</LiabilityWrapper>
+             </RowWrapper> 
             </LegendBox>
       
-            <LegendBox>
-              <LegendIconBottom/>
-              <LegendDescription> You Owe </LegendDescription>
-            </LegendBox>
+          
       
           </LegendWrapper> 
       

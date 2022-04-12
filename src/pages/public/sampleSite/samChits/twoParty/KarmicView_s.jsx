@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import {chitAquaBlue, veryLightGrey} from '../../../../../styles/colors'
+import {chitAquaBlue, chitBurgandy, veryLightGrey} from '../../../../../styles/colors'
 
 
 import DonutGraph from './DonutGraph'
@@ -66,13 +66,30 @@ const TopWrapper = styled('div')({
 
 })
 
+const HeaderWrapper = styled('div')({
+
+
+
+  fontSize: '1.3rem',
+  // color: chitBurgandy
+
+ 
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
 const BottomWrapper = styled('div')({
 
 
 
   display: 'flex',
   position: 'relative',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'space-around',
   alignItems: 'center',
   width: '100%',
@@ -213,9 +230,23 @@ const NoteWrapper = styled('div')({
 
   display: 'block',
   color: '#2B6D6D',
-  height: '3rem',
-  width: '50%',
+  textAlign: 'center',
+  width: '25%',
   fontSize: '.75rem',
+  margin: '.5rem .5rem 0 0',
+  border: '1px solid grey',
+  borderRadius: '5px',
+  padding: '3px',
+  '& span' :{
+    decoration: 'underline',
+    fontWeight: 'bold'
+  },
+
+  '& div' :{
+    fontSize: '.65rem',
+    textAlign: 'center',
+    
+  }
 
 
 
@@ -267,21 +298,23 @@ export default function KarmicView_s(props) {
   
   )
   karmicSum =  assets -liabilities  
-console.log('[ Karmic View ] liabilities ', liabilities);
-console.log('[ Karmic View ] assets ', assets);
-console.log('[ Karmic View ] chitsOwed ', chitsOwed);
-console.log('[ Karmic View ] owedChits ', owedChits);
-console.log('[ Karmic View ] a ', a);
+ 
   return (
     <Wrapper>
       <TopWrapper>
-
-        <KarmicLegend />
+      <NoteWrapper>
+            Your <span>
+              karmic balance </span> is the
+            total of weights you assigned to all of your
+            two party chits.
+            <div> (chits you owe - chits owed to you) </div>
+          </NoteWrapper>
+       
       </TopWrapper>
 
       <BottomWrapper>
-        <LeftBottomWrapper>
-          <div> Karmic Balance</div>
+    
+          <HeaderWrapper> Karmic Balance</HeaderWrapper>
           <GraphWrapper>
 
             < DonutGraph 
@@ -299,34 +332,15 @@ console.log('[ Karmic View ] a ', a);
 
 
           </GraphWrapper>
-          <NoteWrapper>
-            Your <span className='emphasize'>
-              karmic balance </span> is the
-            sum total of weights you assigned to all of your
-            two party chits.
-            <div className='small'> (chits you owe - chits owed to you) </div>
-          </NoteWrapper>
 
 
-        </LeftBottomWrapper>
-
-
-        <RightBottomWrapper>
-          <div> # of Chits</div>
+          <KarmicLegend 
+            chitsOwed = {chitsOwed}
+            owedChits = {owedChits}
+            assets = {assets}
+            liabilities = {liabilities}
+          />
  
-        <table>
-        <tr>
-    <td>Chits owed to you</td>
-    <td>{chitsOwed}</td>
-   
-  </tr>
-  <tr>
-  <td>Chits you owe</td>
-    <td> {owedChits}</td>
-  </tr>
-        </table>
-
-        </RightBottomWrapper>
       </BottomWrapper>
 
 
