@@ -4,12 +4,11 @@
   parent: ./TwoPartyLedger
 ------------------------------------*/
 
-import React, {useState, useEffect}  from 'react'
+import React   from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types';
-import cuid from 'cuid';
+ 
 import { veryLightGrey, lightGrey, chitBlueDull, mediumGrey, chitBurgandy } from '../../../../../styles/colors'
+
 import { updateAccordionDisplay, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice';
 
 import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSlice';
@@ -17,7 +16,7 @@ import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSli
 import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice';
 
 import { chooseTwoPartyChitCoin } from '../../../../../app/helpers/chitHelpers';
-import { choosePersonalCoin } from '../../../../../app/helpers/chitHelpers';
+
 import { ISOtoUTC, UTCtoISO, UTCtoDateTradional , ISOtoTraditional} from '../../../../../app/helpers/dateHelper';
 
 import EditIcon from '../../samComponents/Edit_icon_s'

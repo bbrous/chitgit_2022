@@ -18,6 +18,7 @@ const PersonalChits =  [
 
       category: 'cat_8',
       workRelated: false,
+      duplicate: '',
 
       detail: '',
       
@@ -36,8 +37,9 @@ const PersonalChits =  [
 
       category: 'cat_3',
       workRelated: false,
+      duplicate: '',
 
-      detail: "<p>Cereal for breakfast.</p><p>Turkey sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
+      detail:  "<p><strong>Great Day</strong></p><p><br></p><p>Ate only Salads</p>",
      keyWordArray: [],  
     },
 
@@ -55,7 +57,8 @@ const PersonalChits =  [
   
         category: 'cat_8',
         workRelated: false,
-  
+        duplicate: '',
+
         detail: '',
        keyWordArray: [],  
       },
@@ -64,16 +67,17 @@ const PersonalChits =  [
       {
         id: 'p4',
         chitType: 'personalChit',
-        dateCreated: "2021-0106T16:21:55.000Z", // Jan 5
-        chitDate: "2021-0106T16:21:55.000Z", // Jan 5
+        dateCreated: "2021-01-06T16:21:44.000Z", // Jan 5
+        chitDate: "2021-01-06T16:21:44.000Z", // Jan 5
         timeLock: '',  // if exists - not editable
   
         chitColor: 'red',   //gold, silver, red, milestone
   
         category: 'cat_3',
         workRelated: false,
-  
-        detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
+        duplicate: '',
+
+        detail: "<p>Cereal for <span style=\"color: rgb(230, 0, 0);\">breakfast.</span></p><p>Peanut butter for <span style=\"color: rgb(107, 36, 178);\">lunch.</span></p><p><br></p><p>Salad for<strong style=\"color: rgb(0, 138, 0);\"> dinner</strong></p>",
        keyWordArray: [],  
       },
 
@@ -92,7 +96,8 @@ const PersonalChits =  [
   
         category: 'cat_8',
         workRelated: false,
-  
+        duplicate: '',
+
         detail: '',
        keyWordArray: [],  
       },
@@ -109,7 +114,8 @@ const PersonalChits =  [
   
         category: 'cat_3',
         workRelated: false,
-  
+        duplicate: '',
+
         detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
        keyWordArray: [],  
       },
@@ -129,7 +135,8 @@ const PersonalChits =  [
         
               category: 'cat_8',
               workRelated: false,
-        
+              duplicate: '',
+
               detail: '',
              keyWordArray: [],  
             },
@@ -146,7 +153,8 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: false,
-        
+              duplicate: '',
+
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
             },
@@ -164,7 +172,8 @@ const PersonalChits =  [
         
               category: 'cat_8',
               workRelated: false,
-        
+              duplicate: '',
+
               detail: '',
              keyWordArray: [],  
             },
@@ -181,7 +190,8 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: false,
-        
+              duplicate: '',
+
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
             },
@@ -197,7 +207,8 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: false,
-        
+              duplicate: '',
+
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
             },

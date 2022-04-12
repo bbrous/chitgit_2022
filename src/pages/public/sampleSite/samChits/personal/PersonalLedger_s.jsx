@@ -68,15 +68,27 @@ console.log('[ PersonalLedger ] allPersonalChitsArray ', allPersonalChitsArray);
 console.log('[ PersonalLedger ] filteredChits ', filteredChits);
 console.log('[ PersonalLedger ] sortedChitsByDate ', sortedChitsByDate);
 
+const ledgerRows = () =>
+
+sortedChitsByDate.map((row, index) => {
+
+  return (
+    <PersonalLedgerRow
+      id={row.id}
+      key={row.id}
+      data={row}
+
+    />
+  )
+}
+) //end map
+
 
 
   return (
     <Wrapper>
-      <div> PersonalLedger_s</div>
-
-      <PersonalLedgerRow/>
-      <PersonalLedgerRow/>
-      <PersonalLedgerRow/>
+      
+      {ledgerRows()}
       
     </Wrapper>
   );
