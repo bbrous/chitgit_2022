@@ -6,7 +6,7 @@
 
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import parse from "html-react-parser";
+
 
 
 
@@ -606,11 +606,6 @@ export default function PersonalLedgerRow(props) {
   let allCategories = useSelector(selectCategories)
   console.log('[ PersonalLedgerRow ] allCategories ', allCategories);
   
- // convert WYSIWYG data to JSX detail
-
-
-
-//  let parsedDetail = parse(detail, options);
  
 
 
