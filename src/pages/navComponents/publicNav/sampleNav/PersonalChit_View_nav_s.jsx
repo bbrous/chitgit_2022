@@ -88,7 +88,7 @@ function PersonalChitViewNav(props) {
   const dispatch = useDispatch()
   let view = useSelector(selectStatus).view.personalChit.display
   let categoryId = useSelector(selectStatus).view.personalChit.id
-  //  console.log('Chit VIEW NAV state: ' , view)
+   console.log('Chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------
      changes the sample/statusview/Chit - display - in store
@@ -112,9 +112,9 @@ function PersonalChitViewNav(props) {
 <FormControl component="fieldset" onChange = {(evt) => handleViewChange(evt) }>
 
 <RadioGroup 
-  row aria-label="gender" 
+  row aria-label="personal" 
   name="row-radio-buttons-group"
-  defaultValue = {view}
+  value = {view ?? ""}
 >
 
     <StyledLabel value="calendar" control={<StyledRadio />} label="Calendar View" />

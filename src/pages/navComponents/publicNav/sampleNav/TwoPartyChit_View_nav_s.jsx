@@ -87,7 +87,7 @@ const StyledRadio = withStyles({
 function TwoPartyChitViewNav(props) {
   const dispatch = useDispatch()
   let view = useSelector(selectStatus).view.twoPartyChit.display
-  let categoryId = useSelector(selectStatus).view.twoPartyChit.id
+  let twoPartyId = useSelector(selectStatus).view.twoPartyChit.id
   //  console.log('Chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------
@@ -100,7 +100,7 @@ function TwoPartyChitViewNav(props) {
       pageType: 'twoPartyChit',
       pageView: evt.target.value,
       type: 'twoPartyChits',
-      id: categoryId
+      id: twoPartyId
     }))
 
   }
@@ -112,9 +112,9 @@ function TwoPartyChitViewNav(props) {
 <FormControl component="fieldset" onChange = {(evt) => handleViewChange(evt) }>
 
 <RadioGroup 
-  row aria-label="gender" 
+  row aria-label="twoParty" 
   name="row-radio-buttons-group"
-  defaultValue = {view}
+  value = {view ?? ""}
 >
 <StyledLabel value="ledger" control={<StyledRadio />} label="Ledger View" />
     <StyledLabel value="karmic" control={<StyledRadio />} label="Karmic View" />

@@ -61,7 +61,7 @@ const LegendWrapper= styled('div')({
     
     })
 
-    const HeaderWrapper= styled('tr')({
+    const HeaderWrapper= styled('div')({
 
       // backgroundColor: 'green' ,
       display: 'flex',
@@ -82,7 +82,7 @@ const LegendWrapper= styled('div')({
       
       })
 
-      const RowWrapper= styled('tr')({
+      const RowWrapper= styled('div')({
 
         // backgroundColor: 'green' ,
         display: 'flex',
@@ -258,7 +258,7 @@ export default function KarmicLegend(props) {
                </ItemWrapper>
               <NumberWrapper>{chitsOwed}</NumberWrapper>
               <AssetWrapper>{assets}</AssetWrapper>
-              <td></td>
+              
               </RowWrapper>
               
              <RowWrapper>

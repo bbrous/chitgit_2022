@@ -4,6 +4,8 @@ getAllChits - all chits sorted by Date
 chitFilter - two party chits - gets an individual's chits
 categoryChitFilter - personal chits - get's a category's chits
 choosePersonalCoin
+twoPartyChitFilter
+personalChitFilter
 
 */
 
@@ -27,7 +29,7 @@ export const CHIT_ADDRESS = {
   @return -  name to be Displayed 
 
   1. get all chits (ordered by date)
-  2. 
+  
 ---------------------*/
 
 export function chitFilter(chits, filterId){
@@ -47,7 +49,14 @@ return displayedChits
 }
 
 
+/* -- func twoPartyChitFilter ------------------
+  @desc - gets all chits for a specific person Id
+  @params - chits, id
+  @return -  name to be Displayed 
 
+  1. get all chits (ordered by date)
+  2. 
+---------------------*/ 
 export function twoPartyChitFilter(chitsArray, filterId){
 
   console.log('[ CHitHelper ] filterId ', filterId);
@@ -71,6 +80,41 @@ if(filterId === 'allChits' ){
   
 }else{
   displayedChitsArray = chitsArray.filter(item => item.otherPartyId === filterId )
+}
+
+
+return displayedChitsArray
+}
+
+
+
+/* -- func personalChitFilter ------------------
+  @desc - gets all chits for a specific person Id
+  @params - chits, id
+  @return -  name to be Displayed 
+
+  1. get all chits (ordered by date)
+  2. 
+---------------------*/ 
+export function personalChitFilter(chitsArray, filterId){
+
+  console.log('[ CHitHelper ] filterId ', filterId);
+
+  let displayedChitsArray
+
+if(filterId === 'workChits' ){
+
+
+  displayedChitsArray = chitsArray.filter(item => item.workRelated === true )
+  
+}else if(filterId === 'milestones' ){
+
+
+  displayedChitsArray = chitsArray.filter(item => item.chitColor === 'milestone' )
+  
+  
+}else{
+  displayedChitsArray = chitsArray.filter(item => item.category === filterId )
 }
 
 
