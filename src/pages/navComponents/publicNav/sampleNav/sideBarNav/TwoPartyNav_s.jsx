@@ -328,8 +328,8 @@ const handleChangePerson = (evt) => {
   navigate(`/sample/twoPartyChits/${newPerson}`)
 
   dispatch(updateStatusView({
-    pageType: 'chit',
-    pageView: display,
+    pageType: 'twoPartyChit',
+    pageView: 'ledger',
     type: 'twoPartyChits',
     id: newPerson
   }))
