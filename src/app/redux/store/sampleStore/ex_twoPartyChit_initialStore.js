@@ -127,7 +127,7 @@ const TwoPartyChits =  [
       id: 'tp6',
 
       chitType: 'promise', //promise, kindness, awChit
-      chitValue: 660,    
+      chitValue: 0,    // promise chits have 0 value
       chitColor: 'gold',   //gold, silver, copper red, 
 
       dateCreated: '2021-01-09T12:20:16.000Z', // date - 01/09/21

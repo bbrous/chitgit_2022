@@ -21,8 +21,9 @@ import React  from 'react'
 import { useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
-import{chitBurgandy} from '../../../../../styles/colors'
+import{chitBurgandy, mediumGrey} from '../../../../../styles/colors'
 
+import { twoPartyChitFilter } from '../../../../../app/helpers/chitHelpers';
 import { selectAllTwoPartyChits } from '../../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
 
 import { selectPeople } from '../../../../../app/redux/peopleRedux/sam_peopleSlice'
@@ -65,7 +66,7 @@ const Wrapper = styled(Paper)({
 const TitleWrapper= styled('div')({
   display: 'flex',
    
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
   alignItems: 'center',
    
   
@@ -112,6 +113,77 @@ const Title = styled('div')({
     // backgroundColor: 'red'
   },
 })
+
+
+const KarmaWrapperRed = styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  color: 'red',
+  fontSize: '.78rem',
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const KarmaWrapperGreen = styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  color: 'green',
+  fontSize: '.78rem',
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const KarmaTitle = styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+ 
+  marginRight: '6px',
+  fontSize: '.78rem',
+  fontStyle: 'italic',
+  color: mediumGrey,
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const KarmaValue = styled('div')({
+  display: 'flex',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  fontWeight: 'bold',
+ 
+
+  fontSize: '.78rem',
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
+
 
 const BottomWrapper = styled('div')({
   display: 'flex',
@@ -258,7 +330,50 @@ function TwoPartyChitHeader(props) {
    
   }
 
+  let karmicBalance = 0
 
+  let filteredChits = twoPartyChitFilter(allChitsArray, match.id)
+console.log('[ two party HEADER ] filteredChits ', filteredChits);
+
+ 
+ let assets, liabilities 
+  
+filteredChits.map((chit, index) => {
+
+  if(chit.chitType === 'awChit') {
+    // assets
+     
+    karmicBalance = karmicBalance + chit.chitValue
+ 
+
+    console.log('[ two party HEADER ] map owes me' ,  chit.chitValue);
+    console.log('[ two party HEADER ] I owe',  karmicBalance);
+     }
+ 
+     if(chit.chitType !== 'awChit'  ) {
+       if(chit.deedPerformedBy === chit.otherPartyId){
+        karmicBalance = karmicBalance - chit.chitValue
+
+        console.log('[ two party HEADER ] I owe',  chit.chitValue);
+        console.log('[ two party HEADER ] I owe',  karmicBalance);
+       }
+   
+       // assets
+       if(chit.deedPerformedBy !== chit.otherPartyId){
+        karmicBalance = karmicBalance + chit.chitValue
+
+        console.log('[ two party HEADER ] map owes me',  chit.chitValue );
+        console.log('[ two party HEADER ] I owe',  karmicBalance);
+       }
+       
+     }
+
+ 
+  return   karmicBalance
+  }
+  ) //end map
+
+  console.log('[ two party HEADER ] karmicBalance @@@@@ ', karmicBalance);
 
 return (
 <Wrapper>
@@ -267,6 +382,34 @@ return (
       <Title>
         {title}
       </Title>
+      {karmicBalance >= 0 && 
+      <KarmaWrapperGreen>
+        <KarmaTitle>
+          Karmic Balance: 
+        </KarmaTitle>
+
+    
+         <KarmaValue>
+         {karmicBalance}
+       </KarmaValue>
+       </KarmaWrapperGreen>
+        }
+
+{karmicBalance < 0 && 
+      <KarmaWrapperRed>
+        <KarmaTitle>
+          Karmic Balance: 
+        </KarmaTitle>
+
+    
+         <KarmaValue>
+         {karmicBalance}
+       </KarmaValue>
+       </KarmaWrapperRed>
+        }
+ 
+       
+      
     </TitleWrapper>
     <BottomWrapper>
       <ButtonWrapper>
