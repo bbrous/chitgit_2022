@@ -21,7 +21,7 @@ import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} fro
 import{ selectLogs
   // selectSpotlightTaskArray
   
-} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
+} from '../../../../app/redux/logRedux/sam_logsSlice'
 
 import ChitIcon from '../samComponents/Chit_icon_s'
  

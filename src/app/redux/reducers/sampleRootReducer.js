@@ -21,7 +21,7 @@ import asyncReducer from './asyncReducer'
 import statusReducer from '../statusRedux/sam_statusSlice'
 
 import taskReducer from '../taskRedux/sam_tasksSlice'
-import logReducer from '../logRedux/X_sam_reducers_Logs'
+import logReducer from '../logRedux/sam_logsSlice'
 import journalReducer from '../journalRedux/sam_journalSlice'
 
 import noteReducer from '../noteRedux/sam_notesSlice'
@@ -30,7 +30,7 @@ import keywordReducer from '../keywordRedux/sam_keywordSlice'
 import groupReducer from '../groupRedux/sam_groupSlice'
 import peopleReducer from '../peopleRedux/sam_peopleSlice'
 import orgReducer from '../orgRedux/X_sam_reducers_Orgs'
-import topicReducer from '../topicRedux/X_sam_reducers_Topics'
+// import topicReducer from '../topicRedux/sam_topicSlice'
 import personalChitReducer from '../personalChitRedux/sam_personalChitSlice';
 import twoPartyChitReducer from '../twoPartyChitRedux/sam_twoPartyChitSlice';
 
@@ -53,7 +53,7 @@ const sampleRootReducer = combineReducers({
     topicals: topicalReducer,
     journal: journalReducer,
     notes: noteReducer,
-    topics: topicReducer,
+    // topics: topicReducer,
     organizations: orgReducer,
     people: peopleReducer,
     groups: groupReducer,

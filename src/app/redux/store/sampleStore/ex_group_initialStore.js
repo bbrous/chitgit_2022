@@ -23,7 +23,7 @@ const SampleGroups =  [
 
   { 
     id: 'group_2',
-    name: 'Ski club',
+    name: 'Water Ski club',
     groupType: 'group',
     meta: 'Tony - president. 858-555-1422',
     groupHolders: [

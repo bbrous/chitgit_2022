@@ -137,7 +137,7 @@ const PersonalChits =  [
               workRelated: false,
               duplicate: '',
 
-              detail: '',
+              detail: 'Ran only 1 mile today',
              keyWordArray: [],  
             },
         

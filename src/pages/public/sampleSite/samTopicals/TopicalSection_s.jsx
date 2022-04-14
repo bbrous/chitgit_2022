@@ -15,7 +15,7 @@
 import React , {useState, useEffect, useRef} from 'react'
 import {connect} from 'react-redux'
 import {useSelector, useDispatch} from 'react-redux'
-import ReactHtmlParser from 'react-html-parser'
+
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
 
 // import TopicalForm from '../samForms/TopicalForm_s'
@@ -506,7 +506,7 @@ export default function TopicalSection(props) {
       
               <Content>
                 <HeadlineWrapper> Title Here</HeadlineWrapper>
-                {/* {ReactHtmlParser(content)} */}
+                {/* dangerouslySetInnerHTML={{__html: content}}*/}
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </Content>
       

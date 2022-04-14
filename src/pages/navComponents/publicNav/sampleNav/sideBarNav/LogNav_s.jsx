@@ -1,17 +1,62 @@
-import React from 'react'
-import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,darkGrey, chitAquaBlue, chitGold} from '../../../../../styles/colors'
+/* function LogNav(props) -------------------
 
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import Paper from '@mui/material/Paper'
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeItem from '@mui/lab/TreeItem';
+  Side bar navigation for Logs
+
+  1a. select all logs
+     1b. select all groups
+     
+  2. create filter options from groups
+    - get unique id values for type from logs (person, company, etc)
+    - map through unique values in groups to get names
+    - return array of options - 
+     <option value = name> {name} </option>
 
 
-import { makeStyles  } from "@mui/styles"
-import { styled, createTheme  } from "@mui/material/styles"
+
+
+  3. filter logs by group and people
+  4. map through #4 for people and group
+ 
+
+
+
+  parent: Main_s - pages/public/sampleSite/Main_s
+------------------------------------*/
+
+
+import React, { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+
+import { lightGrey, veryLightGrey,   mediumGrey,   chitBurgandy, chitOrange} from '../../../../../styles/colors'
+
+// --- helpers
+import { unformattedUTCtoDate, DatetoUTC} from '../../../../../app/helpers/dateHelper'
+import { ascendSorter, descendSorter, uniqueItemsInObjectField} from '../../../../../app/helpers/commonHelpers'
+
+//--- redux store slices --------------------------
+import { 
+  selectLogs
+} from '../../../../../app/redux/logRedux/sam_logsSlice'
+
+import{ updateStatusView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
+
+import { selectPeople} from '../../../../../app/redux/peopleRedux/sam_peopleSlice'
+
+import { selectGroups } from '../../../../../app/redux/groupRedux/sam_groupSlice'
+
+
+import SliderComponent from '../../../../../common_components/SliderComponent'
+
+// material UI imports ---------
+
+import Paper from '@mui/material/Paper'; 
+
+import { styled, createTheme} from "@mui/material/styles"
+import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
+
+ 
 
 
 
@@ -30,50 +75,18 @@ const Wrapper= styled('div')({
 
 })
 
-const HeaderWrapper= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-
-  
-  height: '3rem',
-  backgroundColor: '#F6F7F8',
-  borderRadius: '0',
-  marginBottom: '2px',
-
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
-
-
-
-
-const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400,
-  },
-});
-
-
 const FilterWrapper= styled('div')({
 
   display: 'flex',
-  flexDirection: 'space-between',
-  justifyContent: 'center',
-  alignItems: 'flex-end',
-
-  height: '1.6rem',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  marginBottom: '16px',
+  // height: '1.6rem',
   width: '100%',
   borderRadius: '0',
   margin: '7px 0 0 0',
-  // backgroundColor: '#727376',
+  backgroundColor: 'white',
   color: 'black',
 
   [theme.breakpoints.down('xs')]: {
@@ -81,166 +94,356 @@ const FilterWrapper= styled('div')({
   }
 
 })
+const StyledSelectField= styled('select')({
+  border: '1px solid orange',
+  borderRadius: '5px',
+  width: '80%', 
+  margin: '1rem 0 0 0 ',
+  // width: '16rem',
+  backgroundColor: 'white',
+  color: mediumGrey,
 
 
-const Filter= styled('div')({
+})
+
+const OrderWrapper= styled('div')({
   display: 'flex',
-  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '48%',
-  height: '1.5rem',
-  borderRadius: '5px 5px 0 0',
-  margin: '1px',
-  backgroundColor: 'white'
- 
-
-
+  width: '100%',
+  fontSize: '.8em',
+  margin: '8px 0 16px 0'
 
 })
 
 
 
-
-const CategoryContainer= styled('div')({
-
+const DisplayWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  backgroundColor: 'red',
+  alignItems: 'center',
   width: '100%',
-  margin: '5px auto',
-  height: '100%' ,
-  overflowY: 'auto',
-  paddingBottom: '3px',
+  overflow: 'auto',
+  borderTop: '2px solid grey',
+  paddingBottom: '4px'
+})
 
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
+
+const SelectorWrapper= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+
+  cursor: 'pointer',
+  borderRadius: '0',
+    '&:hover' : {
+      // backgroundColor: veryLightGrey,
+      color: chitOrange,
+    },
+  })
+
+  
+const SelectorWrapperSelected= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+  borderRadius: '0',
+  color: 'white',
+  backgroundColor: mediumGrey,
+
+
 
 })
 
-const TreeWrapper= styled(TreeView)({
 
 
-fontFamily: 'Roboto',
-height: '100%',
-width: '90%',
-padding: '10px',
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
-
-const HeaderItemWrapper= styled(TreeItem)({
-
-
-  // backgroundColor: 'green',
-
-
-'& 	.MuiTreeItem-label' :{
-  fontFamily: 'Roboto',
-  fontSize: '.9rem',
-  color: darkGrey
-},
-
-margin: '.1rem 0',
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
-
-const ItemWrapper= styled(TreeItem)({
-
-
-  // backgroundColor: 'green',
-
-
-'& 	.MuiTreeItem-label' :{
-  fontFamily: 'Roboto',
-  fontSize: '.9rem',
-  color: 'red'
-},
-
-margin: '.1rem 0',
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
 
 // =========================================
 
 function LogNav() {
 
+  const dispatch = useDispatch()
 
-  const classes = useStyles();
+  let navigate = useNavigate()
+  let match = useParams()
+
+
+ // --- displayId for setting background color of Nav Link ---
+
+ let displayId = match.id
+
+  //  --- get and update all Logs when new log added  ---  
+  const allLogs = useSelector(selectLogs)
+
+
+  
+  const [LogsArray, setLogsArray] = useState(allLogs)
+
+  useEffect(() => {
+    setLogsArray(allLogs)
+  }, [allLogs])
+
+   // ---1c get all people -----
+  const allPeople = useSelector(selectPeople)
+
+  const [peopleArray, setPeopleArray] = useState(allPeople)
+  useEffect(() => {
+    setPeopleArray(allPeople)
+  }, [allPeople])
+
+   // ---1c get all people -----
+
+  const allGroups = useSelector(selectGroups)
+
+  const [groupsArray, setGroupsArray] = useState(allGroups)
+  useEffect(() => {
+   setGroupsArray(allGroups)
+  }, [allGroups])
+
+
+  //  --- set the filter for Logs  ---
+  
+  const [filter, setFilter] = useState('allLogs')
+
+  const changeFilter = (evt)=>{
+
+    setFilter(evt.target.value)
+    
+  }
+
+
+  // ######################################################
+// create filtered arrays here ---------------------
+
+console.log('[ LogSection ] LogsArray ', LogsArray);
+
+console.log('[ LogSection ] filter ', filter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //make options for select filter
+
+  let uniqueTypes = uniqueItemsInObjectField(allLogs, 'type')
+      let uniqueOptions = uniqueTypes.map((log, index) => {
+
+        return (
+          <option value= {log}  key = {index} >{log} </option>
+        )
+    
+      }
+    
+    
+      ) //end map displayLogName
+
+
+ 
+
+// ######################################################
+
+let filteredLogsArray  
+
+
+
+if(filter === 'allLogs'){ filteredLogsArray = allLogs }else{
+  filteredLogsArray = allLogs.filter(log => log.type === filter)
+}
+
+// let filteredLogsArray = uniqueItemsInObjectField(allLogs, filter)
+console.log('[ LogSection ] filter ------ ', filter );
+console.log('[ LogSection ] boy ------ ', filteredLogsArray );
+
+
+
+
+
+let nameObject
+let nameObjectArray = []
+
+
+// create array of name objects WITH duplicates
+
+
+
+
+filteredLogsArray.map((log, index) => {
+
+    if(log.type === 'person') {
+     
+      const person = allPeople.find(person =>  person.id === log.otherPartyId)
+      nameObject = {id: person.id, name: person.name}
+      // console.log('[ LogSection ] Person Here ', nameObject);
+    }else{
+      const group = allGroups.find(group =>  group.id === log.otherPartyId)
+      nameObject = {id: group.id, name: group.name}
+      // console.log('[ LogSection ] Group Here ', nameObject);
+    }
+
+    nameObjectArray.push(nameObject)
+    return (
+      nameObjectArray
+    )
+
+  }
+
+
+  ) //end map displayLogName
+  
+
+  console.log('[ LogSection ] nameObjectArray ', nameObjectArray);
+  
+ // create array of name objects with NO  duplicates
+
+  const ids = nameObjectArray.map(o => o.id)
+  const uniqueLogNames = nameObjectArray.filter(({id}, index) => !ids.includes(id, index + 1))
+
+  // --- order names a-Z
+
+  const orderedUniqueLogNames = descendSorter(uniqueLogNames, 'name')
+
+  console.log('[ LogSection ] uniqueLogNames ', uniqueLogNames);
+
+
+  
+
+
+
+
+  // --- displayLogName --- the map of jsx with uniqueLogNames 
+ 
+  let displayLogName = orderedUniqueLogNames.map((log, index) => {
+    if (displayId === log.id) {
+   
+    return (
+    
+      <SelectorWrapperSelected elevation={1}
+      key = {index} 
+      id = {log.id}
+      onClick = {(evt)=>{
+        handleChangeLog(evt)
+      }}
+    >
+      {log.name}
+
+    </SelectorWrapperSelected>
+
+
+    )
+    }
+
+    if (displayId !== log.id) {
+   
+      return (
+      
+        <SelectorWrapper elevation={1}
+        key = {index} 
+        id = {log.id}
+        onClick = {(evt)=>{
+          handleChangeLog(evt)
+        }}
+      >
+        {log.name}
+  
+      </SelectorWrapper>
+  
+  
+      )
+      }
+
+
+  }
+
+
+  ) //end map displayLogName
+  
+
+
+
+  
+    // --- func For slider -  to change order of array (asc, desc) ---
+
+    const handleSwitchState = (newState) => {
+      // setArrayOrder(newState)
+      console.log('[Inside Spotlight Nav] new state is', newState)
+    }
+
+    const handleChangeLog = (evt) => {
+      let newLog = evt.currentTarget.id
+      navigate(`/sample/logs/${newLog}`)
+    
+      dispatch(updateStatusView({
+        pageType: 'log',
+   
+      
+        id: newLog
+      }))
+    }
+
+    
+// === MAIN return ===================================================
+
   return (
- 
- 
 <>
   
 
-        <TreeWrapper
-          className={classes.root}
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ChevronRightIcon />}
-        >
+<FilterWrapper  >
+
+<StyledSelectField name="filters" id="filters"
+  onChange={(evt) => changeFilter(evt)}
+>
+  <option key = '99' value="allLogs" >All logs  </option>
+  {uniqueOptions}
+ 
+  
+
+</StyledSelectField>
+
+</FilterWrapper>
+
+<OrderWrapper>
+
+ 
+</OrderWrapper>
+
+<DisplayWrapper>
+  {displayLogName}
+</DisplayWrapper>
 
 
-
-
-          <HeaderItemWrapper  nodeId="11" label="People (8)">
-            <ItemWrapper style={{ color: 'red' }} nodeId="2" label="Kelly House" />
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Cybill" />
-
-          </HeaderItemWrapper>
-
-          <HeaderItemWrapper  nodeId="12" label="Companies (2)">
-            <ItemWrapper style={{ color: 'black' }} nodeId="2" label="Kelly House" />
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="ATT" />
-
-          </HeaderItemWrapper>
-
-          <HeaderItemWrapper  nodeId="16" label="Groups  (12) ">
-            <ItemWrapper style={{ color: 'black' }} nodeId="7" label="IRS">
-              <ItemWrapper style={{ color: 'black' }} nodeId="8" label="2002 Taxes" />
-              <ItemWrapper style={{ color: 'black' }} nodeId="9" label="Mom Refund" />
-            </ItemWrapper>
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Lansbrook" >
-              <ItemWrapper style={{ color: 'black' }} nodeId="8" label="insurance" />
-              <ItemWrapper style={{ color: 'black' }} nodeId="9" label="dog" />
-            </ItemWrapper>
-          </HeaderItemWrapper>
-
-          <HeaderItemWrapper  nodeId="15" label="Organizations (8)">
-            <ItemWrapper style={{ color: 'black' }} nodeId="2" label="ChitaBit" />
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Wakeboard Boot" />
-
-          </HeaderItemWrapper>
-
-          <HeaderItemWrapper  nodeId="17" label="Topics/Stories (8)">
-            <ItemWrapper style={{ color: 'black' }} nodeId="2" label="ChitaBit" />
-            <ItemWrapper style={{ color: 'black' }} nodeId="3" label="Wakeboard Boot" />
-
-          </HeaderItemWrapper>
-
-          <HeaderItemWrapper  nodeId="19" label="Other(0)">
-           
-
-          </HeaderItemWrapper>
-
-
-
-
-
-
-
-
-        </TreeWrapper>
         </>
  
   )

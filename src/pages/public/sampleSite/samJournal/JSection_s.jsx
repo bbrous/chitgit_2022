@@ -15,7 +15,7 @@
 import React , {useState, useEffect, useRef} from 'react'
 import {connect} from 'react-redux'
 import {useSelector, useDispatch} from 'react-redux'
-import ReactHtmlParser from 'react-html-parser'
+ 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
 
 import JournalForm from '../samForms/JournalForm_s'
@@ -390,12 +390,16 @@ const LightTooltip = withStyles({
 
 
 
-var stringToHTML = function (str) {
-	var parser = new DOMParser();
-	var doc = parser.parseFromString(str, 'text/html');
-	return doc.body;
-};
+const StyledDetail= styled('div')({
 
+  lineHeight: .5,
+   [theme.breakpoints.down('sm')] : {
+     // width: '100%'
+   },
+ 
+ 
+ })
+ 
 //  =====================================================================
 
 export default function JSection(props) {
@@ -552,7 +556,9 @@ Cancel
 
         <Content>
           <HeadlineWrapper> {title} </HeadlineWrapper>
-          {ReactHtmlParser(content)}
+          {/* {content} */}
+          <div dangerouslySetInnerHTML={{__html: content}}>
+  </div>  
 
         </Content>
 

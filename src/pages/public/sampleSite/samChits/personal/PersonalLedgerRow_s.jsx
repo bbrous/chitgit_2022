@@ -108,7 +108,7 @@ const NameContainer = styled('div')({
 
 const NameWrapper = styled('div')({
 
-
+ 
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
@@ -582,13 +582,7 @@ const StyledDetail= styled('div')({
 // ==============================================================
 
 
-const options = {
-  replace: (domNode) => {
-    if (domNode.attribs && domNode.attribs.class === "remove") {
-      return <></>;
-    }
-  }
-};
+
 
 export default function PersonalLedgerRow(props) {
 
@@ -665,6 +659,7 @@ styledKeywords = 'none'
             {categoryName}
           </NameWrapper>
 
+          </NameContainer>
           <IconWrapper>
 
             <TimeLock />
@@ -676,7 +671,6 @@ styledKeywords = 'none'
           </IconWrapper>
 
 
-        </NameContainer>
 
       </HeaderWrapper>
 
