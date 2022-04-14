@@ -4,21 +4,19 @@
 
   1a. select all logs
      1b. select all groups
+     1c. select all people
      
-  2. create filter options from groups
-    - get unique id values for type from logs (person, company, etc)
-    - map through unique values in groups to get names
-    - return array of options - 
-     <option value = name> {name} </option>
+  2. create filter options for filter selector
 
+  3. get the names of the logs --
+     use log.otherPartyId to query group or people collections
+     for the name
+  4. create an array of names with associated Id's - 2 steps
+     - first create array of names with lot's of duplicates
+     - get unique names / id's from duplicates array
 
-
-
-  3. filter logs by group and people
-  4. map through #4 for people and group
+  5. map through unique names array to create JSX
  
-
-
 
   parent: Main_s - pages/public/sampleSite/Main_s
 ------------------------------------*/
@@ -180,19 +178,17 @@ const SelectorWrapperSelected= styled(Paper)({
 function LogNav() {
 
   const dispatch = useDispatch()
-
   let navigate = useNavigate()
   let match = useParams()
 
 
  // --- displayId for setting background color of Nav Link ---
 
- let displayId = match.id
+  let displayId = match.id
 
   //  --- get and update all Logs when new log added  ---  
+
   const allLogs = useSelector(selectLogs)
-
-
   
   const [LogsArray, setLogsArray] = useState(allLogs)
 
@@ -200,25 +196,27 @@ function LogNav() {
     setLogsArray(allLogs)
   }, [allLogs])
 
-   // ---1c get all people -----
-  const allPeople = useSelector(selectPeople)
 
-  const [peopleArray, setPeopleArray] = useState(allPeople)
-  useEffect(() => {
-    setPeopleArray(allPeople)
-  }, [allPeople])
+   // ---1b get all people -----
 
-   // ---1c get all people -----
+    const allPeople = useSelector(selectPeople)
 
-  const allGroups = useSelector(selectGroups)
+    const [peopleArray, setPeopleArray] = useState(allPeople)
+    useEffect(() => {
+      setPeopleArray(allPeople)
+    }, [allPeople])
 
-  const [groupsArray, setGroupsArray] = useState(allGroups)
-  useEffect(() => {
-   setGroupsArray(allGroups)
-  }, [allGroups])
+   // ---1c get all groups -----
+
+    const allGroups = useSelector(selectGroups)
+
+    const [groupsArray, setGroupsArray] = useState(allGroups)
+    useEffect(() => {
+    setGroupsArray(allGroups)
+    }, [allGroups])
 
 
-  //  --- set the filter for Logs  ---
+  //  --- set the filter selector for Logs  ---
   
   const [filter, setFilter] = useState('allLogs')
 
@@ -228,35 +226,11 @@ function LogNav() {
     
   }
 
-
-  // ######################################################
-// create filtered arrays here ---------------------
-
-console.log('[ LogSection ] LogsArray ', LogsArray);
-
-console.log('[ LogSection ] filter ', filter);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //make options for select filter
+  /* --- make options for select filter
+      From all the people and groups in those collections,
+      only display an option for the specific types 
+      that have a log ... ie (person, company, charity, etc)
+  */
 
   let uniqueTypes = uniqueItemsInObjectField(allLogs, 'type')
       let uniqueOptions = uniqueTypes.map((log, index) => {
@@ -267,66 +241,54 @@ console.log('[ LogSection ] filter ', filter);
     
       }
     
-    
       ) //end map displayLogName
 
+  /* --- filter logsArray ---------------------
+      1. show all logs or,
+      2. show logs only for give type
+  */
 
- 
+    let filteredLogsArray  
 
-// ######################################################
-
-let filteredLogsArray  
-
-
-
-if(filter === 'allLogs'){ filteredLogsArray = allLogs }else{
-  filteredLogsArray = allLogs.filter(log => log.type === filter)
-}
-
-// let filteredLogsArray = uniqueItemsInObjectField(allLogs, filter)
-console.log('[ LogSection ] filter ------ ', filter );
-console.log('[ LogSection ] boy ------ ', filteredLogsArray );
-
-
-
-
-
-let nameObject
-let nameObjectArray = []
-
-
-// create array of name objects WITH duplicates
-
-
-
-
-filteredLogsArray.map((log, index) => {
-
-    if(log.type === 'person') {
-     
-      const person = allPeople.find(person =>  person.id === log.otherPartyId)
-      nameObject = {id: person.id, name: person.name}
-      // console.log('[ LogSection ] Person Here ', nameObject);
-    }else{
-      const group = allGroups.find(group =>  group.id === log.otherPartyId)
-      nameObject = {id: group.id, name: group.name}
-      // console.log('[ LogSection ] Group Here ', nameObject);
+    if(filter === 'allLogs'){ filteredLogsArray = allLogs }else{
+      filteredLogsArray = allLogs.filter(log => log.type === filter)
     }
 
-    nameObjectArray.push(nameObject)
-    return (
-      nameObjectArray
-    )
 
-  }
+
+  // --- create array of name objects that has duplicates 
+  //     (nameObjectArray)
+
+    let nameObject
+    let nameObjectArray = []
+
+    filteredLogsArray.map((log, index) => {
+
+      if(log.type === 'person') {
+      
+        const person = allPeople.find(person =>  person.id === log.otherPartyId)
+        nameObject = {id: person.id, name: person.name}
+        // console.log('[ LogSection ] Person Here ', nameObject);
+      }else{
+        const group = allGroups.find(group =>  group.id === log.otherPartyId)
+        nameObject = {id: group.id, name: group.name}
+        // console.log('[ LogSection ] Group Here ', nameObject);
+      }
+
+      nameObjectArray.push(nameObject)
+      return (
+        nameObjectArray
+      )
+
+    }
 
 
   ) //end map displayLogName
   
 
-  console.log('[ LogSection ] nameObjectArray ', nameObjectArray);
+
   
- // create array of name objects with NO  duplicates
+ // ---create array of name objects with NO  duplicates
 
   const ids = nameObjectArray.map(o => o.id)
   const uniqueLogNames = nameObjectArray.filter(({id}, index) => !ids.includes(id, index + 1))
@@ -335,40 +297,33 @@ filteredLogsArray.map((log, index) => {
 
   const orderedUniqueLogNames = descendSorter(uniqueLogNames, 'name')
 
-  console.log('[ LogSection ] uniqueLogNames ', uniqueLogNames);
+ 
 
-
-  
-
-
-
-
-  // --- displayLogName --- the map of jsx with uniqueLogNames 
+  // --- displayLogName --- maps the jsx of uniqueLogNames 
  
   let displayLogName = orderedUniqueLogNames.map((log, index) => {
-    if (displayId === log.id) {
+
    
     return (
-    
+      <> 
+      {displayId === log.id    && 
       <SelectorWrapperSelected elevation={1}
       key = {index} 
       id = {log.id}
       onClick = {(evt)=>{
         handleChangeLog(evt)
       }}
-    >
-      {log.name}
+      >
 
-    </SelectorWrapperSelected>
+          {log.name}
+
+      </SelectorWrapperSelected>
 
 
-    )
     }
 
-    if (displayId !== log.id) {
+    {displayId !== log.id && 
    
-      return (
-      
         <SelectorWrapper elevation={1}
         key = {index} 
         id = {log.id}
@@ -379,39 +334,25 @@ filteredLogsArray.map((log, index) => {
         {log.name}
   
       </SelectorWrapper>
+ 
   
-  
-      )
+     
       }
+        </>  
+  )}) //end map displayLogName
+  
 
-
+  // --- on click function that changes URL and Redux store status
+  
+  const handleChangeLog = (evt) => {
+    let newLog = evt.currentTarget.id
+    navigate(`/sample/logs/${newLog}`)
+  
+    dispatch(updateStatusView({
+      pageType: 'log',
+      id: newLog
+    }))
   }
-
-
-  ) //end map displayLogName
-  
-
-
-
-  
-    // --- func For slider -  to change order of array (asc, desc) ---
-
-    const handleSwitchState = (newState) => {
-      // setArrayOrder(newState)
-      console.log('[Inside Spotlight Nav] new state is', newState)
-    }
-
-    const handleChangeLog = (evt) => {
-      let newLog = evt.currentTarget.id
-      navigate(`/sample/logs/${newLog}`)
-    
-      dispatch(updateStatusView({
-        pageType: 'log',
-   
-      
-        id: newLog
-      }))
-    }
 
     
 // === MAIN return ===================================================
