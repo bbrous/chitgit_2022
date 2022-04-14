@@ -169,16 +169,21 @@ function PageNav(props) {
 
   const status = useSelector(selectStatus)
 const chitView = status.view.chit.type
-const chitLink = `/sample/${chitView}`
-//   let location = useLocation()
-//   let page = getPage(location)
+const chitId = status.view.chit.id
+const chitLink = `/sample/${chitView}/${chitId}`
+
+const topicalsId = status.view.topical.id
+const topicalLink = `/sample/topicals/${topicalsId}`
+
+const logsId = status.view.log.id
+const logLink = `/sample/logs/${logsId}`
+
+ 
 let handleClose = props.handleClose
 let page
 
   if(!match.pageView){page = 'twoParty'}else{page = match.pageView}
-
-// console.log('[PageNav ] - page location : ', page)
-// let page = 'twoParty'
+ 
 
 // Popover ---------
 const [anchorEl, setAnchorEl] = React.useState(null);
@@ -275,7 +280,7 @@ const id = open ? 'simple-popover' : undefined;
 
 
 
-<StyledLink to="/sample/logs" >
+<StyledLink to= {logLink}>
 
 {page !== 'logs' &&
   <NavButton
@@ -297,7 +302,7 @@ const id = open ? 'simple-popover' : undefined;
 </StyledLink>
 
 
-<StyledLink to="/sample/topicals" >
+<StyledLink to= {topicalLink} >
 
 {page !== 'topicals' &&
   <NavButton

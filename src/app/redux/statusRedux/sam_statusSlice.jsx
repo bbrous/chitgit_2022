@@ -54,6 +54,7 @@ export const statusSlice = createSlice({
         type: 'twoPartyChits',  // personalChits, workChits, twoPartyChits
         personalDisplay: 'calendar',  // ledger or calendar
         twoPartyDisplay: 'ledger',
+        personalChitId:  'cat_8',
         id:  'allChits'
       },
 
@@ -66,7 +67,7 @@ export const statusSlice = createSlice({
       
       twoPartyChit: {
         display: 'ledger',
-        id: 'all'
+        id: 'allChits'
       },
   
   
@@ -89,7 +90,15 @@ export const statusSlice = createSlice({
   
       log: {
   
-        id: '',  // if no logId -- all else logId stuff
+        id: 'allLogs',  // if no logId -- all else logId stuff
+        
+      },
+
+      // for Topicals.jsx ----------------------------------
+
+      topical: {
+
+        id: 'allTopicals',  // if no logId -- all else logId stuff
         
       },
   

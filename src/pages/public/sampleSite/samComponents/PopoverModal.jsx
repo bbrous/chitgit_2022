@@ -158,8 +158,8 @@ function PopoverModal(props) {
 
       {pageType === 'personalChits' &&
           <Content>
-            <div> ChitGit <em>Chits</em> are tokens... <br/>
-            Personal Chits are tokens you give to yourself.  Use personal chits to motivate yourself... or track progress towards a goal... or to indicate a personal milestone or accomplishment.
+            <div> <em>Personal Chits </em> 
+             are tokens you give to yourself.  <br/>Use personal chits to motivate yourself... or track progress towards a goal... or to indicate a personal milestone or accomplishment.
              </div>
                          
              <div>

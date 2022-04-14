@@ -6,7 +6,7 @@ import {useHistory, useParams, match} from 'react-router-dom'
 import { useSelector } from "react-redux"
 import {connect} from 'react-redux'
 // import{setPage} from '../../../app/redux/actions/landingActions'
-
+import { selectStatus } from "../../../../app/redux/statusRedux/sam_statusSlice"
 // import {getPage} from '../../../app/helpers/locationHelper'
 import{backgroundBlue, bodyBlue, chitOrange, chitOrangeVeryLight, darkGrey, highlightGrey, lightGrey, shadowBlue, veryLightGrey} from '../../../../styles/colors'
 
@@ -166,7 +166,10 @@ const Submenu = styled('div')({
 function PageNav(props) {
   let match = useParams()
 
-
+  const status = useSelector(selectStatus)
+const chitView = status.view.chit.type
+const chitId = status.view.chit.id
+const chitLink = `/sample/${chitView}/${chitId}`
 
 //   let location = useLocation()
 //   let page = getPage(location)
@@ -227,64 +230,28 @@ const id = open ? 'simple-popover' : undefined;
 
 
        
+<StyledLink to= {chitLink}>
+{page !== 'personalChits' && 
+<NavButton
+      aria-describedby={id} variant="contained" onClick={handleClick}
 
-            <StyledLink to="/sample/chits/twoPartyChits" >
-              {page !== 'twoPartyChits' &&
-                <NavButton
-                  id='twoPartyChits'
-                  onClick={handleClose}
+    >Chits </NavButton>
+}
 
-                >Two Party Chits </NavButton>
-              }
-
-              {page === 'twoPartyChits' &&
-                <NavButtonDisabled disabled
-                  id='twoPartyChits'
-                // onClick = {handleClose}
-
-                >Two Party Chits </NavButtonDisabled>
-              }
-
-            </StyledLink>
+{page === 'personalChits' && 
+  <NavButtonDisabled disabled
+    id = 'spotlights' 
+    // onClick = {handleClose}
+  
+  >Chits </NavButtonDisabled>
+}
 
 
-            <StyledLink to="/sample/chits/personalChits" >
-              {page !== 'personalChits' &&
-                <NavButton
-                  id='personalChits'
-                  onClick={handleClose}
 
-                >PersonalChits Chits </NavButton>
-              }
 
-              {page === 'personalChits' &&
-                <NavButtonDisabled disabled
-                  id='personalChits'
-                // onClick = {handleClose}
 
-                >PersonalChits Chits </NavButtonDisabled>
-              }
+</StyledLink>
 
-            </StyledLink>
-
-            <StyledLink to="/sample/chits/workChits" >
-              {page !== 'workChits' &&
-                <NavButton
-                  id='workChits'
-                  onClick={handleClose}
-
-                >WorkChits Chits </NavButton>
-              }
-
-              {page === 'workChits' &&
-                <NavButtonDisabled disabled
-                  id='workChits'
-                // onClick = {handleClose}
-
-                >WorkChits Chits </NavButtonDisabled>
-              }
-
-            </StyledLink>
 
 
 

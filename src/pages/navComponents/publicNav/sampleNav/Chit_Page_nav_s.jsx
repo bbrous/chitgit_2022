@@ -107,6 +107,11 @@ const StyledRadio = withStyles({
 // ================================================
 
 function ChitViewNav(props) {
+
+  const status = useSelector(selectStatus)
+  let personalChitId = status.view.personalChit.id
+  let twoPartyChitId = status.view.twoPartyChit.id
+
   let navigate = useNavigate()
   const dispatch = useDispatch()
   let match = useParams()
@@ -125,8 +130,14 @@ function ChitViewNav(props) {
     //   pageView: 'ledger',
     //   type: evt.target.value
     // }))
+let chitId
+    let newPage = evt.target.value
+    newPage === 'personalChits' ? chitId = personalChitId: chitId = twoPartyChitId
 
-    navigate(`/sample/${evt.target.value}`)
+console.log('[ PAGE NAV ] newPage ', newPage);
+console.log('[ PAGE NAV ] chitId ', chitId);
+
+    navigate(`/sample/${evt.target.value}/${chitId}`)
   }
 
   return (

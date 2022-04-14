@@ -75,7 +75,11 @@ const chitId = status.view.chit.id
 const chitLink = `/sample/${chitView}/${chitId}`
 
 console.log('[ MainPage_NavButtons_s ] status ', status);
+const topicalsId = status.view.topical.id
+const topicalLink = `/sample/topicals/${topicalsId}`
 
+const logsId = status.view.log.id
+const logLink = `/sample/logs/${logsId}`
 
   return (
     <>
@@ -85,11 +89,11 @@ console.log('[ MainPage_NavButtons_s ] status ', status);
         <NavButton> Chits </NavButton>
       </StyledLink>
 
-      <StyledLink to="/sample/logs" >
+      <StyledLink to= {logLink} >
         <NavButton> Logs </NavButton>
       </StyledLink>
 
-      <StyledLink to="/sample/topicals" >
+      <StyledLink to= {topicalLink} >
         <NavButton> Topicals </NavButton>
       </StyledLink>
 
