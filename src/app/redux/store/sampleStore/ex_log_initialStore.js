@@ -25,6 +25,8 @@ const SampleLogs =  [
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
 
     },
@@ -48,6 +50,8 @@ const SampleLogs =  [
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
       
     },
@@ -69,6 +73,8 @@ const SampleLogs =  [
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
 
     },
@@ -77,18 +83,20 @@ const SampleLogs =  [
       id: 'log_4', // group Waterski club
       type: 'group', // company, group, organization, other
       otherPartyId: 'group_2',
-      date: "2021-01-22T08:01:00.000Z",  // date input by user
-      lastEdit:  "2021-01-22T08:01:00.000Z",  // Jan 3 2021 8:01 AM
-      timeLock:  "",  // if exists - not editable
+      logDate: "2021-01-03T11:01:00.000Z",  // date input by user
+      lastEdit:  "2021-01-03T11:01:00.000Z",  // Jan 3 2021 11:01 AM
+      timeLock:  "",
       
       meta: 'meta for Waterski Club',
       title: '#1  I\'m a secretary',
      
-      detail : ' #1  Waterski club Elected secretary -Lorem ipsum dolor sit amet, Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 
+      detail : '<p><span style=\"color: rgb(206, 145, 120);\">#1 &nbsp;Waterski club Elected secretary -Lorem ipsum dolor sit amet, Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>', 
 
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
    
     },
@@ -112,6 +120,8 @@ const SampleLogs =  [
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
       
     },
@@ -136,6 +146,8 @@ const SampleLogs =  [
       attachment: '',
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      
+      peopleArray: ['Rhonda'],
       keyWordArray: ['Product team'],
       
     },
@@ -165,6 +177,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },
@@ -188,6 +202,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
   
 },
@@ -211,6 +227,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },
@@ -233,6 +251,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },
@@ -265,6 +285,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },
@@ -288,6 +310,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
   
 },
@@ -311,6 +335,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },
@@ -333,6 +359,8 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+ peopleArray: ['Rhonda'], 
+  
   keyWordArray: ['Product team'],
 
 },

@@ -22,6 +22,11 @@ import Paper from '@mui/material/Paper'
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button'
  
+import { selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+
+import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+
+import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice';
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -200,13 +205,42 @@ function LogHeader(props) {
   const match = useParams()
 
   const matchId = match.id
+  let allLogsArray = useSelector(selectLogs) //immutable
+  let allGroups = useSelector(selectGroups)
+  let allPeople = useSelector(selectPeople)
+
+
+  let headerObject = allLogsArray.find(element => element.otherPartyId === matchId)
+  console.log('[ Two Party Chit Header ] we got a headerObject ', headerObject);
+  let collection 
+
+  headerObject.type === 'person'? collection = 'people': collection = 'groups'
+  
+  let title
+  
+  if(collection === 'groups' ){
+    let groupObject = allGroups.find(group => group.id === matchId)
+
+    title = groupObject.name
+    console.log('[ Two Party Chit Header ] we got a group ', title);
+  }
+  if(collection === 'people' ){
+    let personObject = allPeople.find(person => person.id === matchId)
+
+  title = personObject.name
+
+    console.log('[ Two Party Chit Header ] we got People ', title);
+  }
+ 
+
+
 
 return (
 <Wrapper>
     <TitleWrapper>
       
       <Title>
-        Cybill
+        {title}
       </Title>
     </TitleWrapper>
     <BottomWrapper>

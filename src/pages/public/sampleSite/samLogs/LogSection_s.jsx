@@ -206,6 +206,18 @@ const KeyWordWrapper= styled('div')({
 
 
 })
+const SearchTitle= styled('span')({
+
+  fontStyle: 'italic',
+  marginRight: '6px',
+
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+
+})
+
 
 // ----------------------------------
 const ContentWrapper= styled('div')({
@@ -421,7 +433,7 @@ const LightTooltip = withStyles({
 
 export default function LogSection(props) {
 
-  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyworkdArray} = props.data
+  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
 
  
    // convert Dates for display
@@ -432,6 +444,59 @@ export default function LogSection(props) {
    let styledTimeLock
    timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
  
+
+  // format keywords
+  let styledKeywords = ''
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+
+  let styledPeople = ''
+
+  if (peopleArray.length > 0) {
+    //    peopleArray.map((keyword) => {
+    //   styledPeople = styledPeople  + keyword + ' , '
+
+    //   return styledPeople
+    // }
+    // ) //end map
+
+  for(let i = 0; i < peopleArray.length; i++){
+    if(i === peopleArray.length - 1){
+      styledPeople += peopleArray[i]  
+    }else{
+    styledPeople += peopleArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (peopleArray.length === 0) {
+styledPeople = 'none'
+  }
+
 
   return (
     <MainWrapper>
@@ -474,15 +539,15 @@ export default function LogSection(props) {
      
         <Content>
           <HeadlineWrapper> {title}</HeadlineWrapper>
-          {detail}
-
+    
+          <div dangerouslySetInnerHTML={{__html: detail}}/>
         </Content>
 
 
       </ContentWrapper>
       <SearchWrapper>
-        <PeopleWrapper>people: aaaa</PeopleWrapper>
-        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+        <PeopleWrapper><SearchTitle>people:</SearchTitle>{styledPeople}</PeopleWrapper>
+        <KeyWordWrapper>  <SearchTitle> keywords:  </SearchTitle>{styledKeywords}</KeyWordWrapper>
 
       </SearchWrapper>
       </OuterContentWrapper>
