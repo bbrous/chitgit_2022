@@ -10,15 +10,15 @@
 
 
 import React , {useState} from 'react'
-import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+import {useParams} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
 
-import{ selectLogs
-  // selectSpotlightTaskArray
-  
-} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
+import{ selectLogs} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
+
+
+import { sortLogsByDate, logFilter } from '../../../../app/helpers/chronicleHelpers';
 
 import LogSection from './LogSection_s'
  
@@ -50,14 +50,41 @@ overflow: 'auto',
 })
 
 export default function Log() {
+  let match = useParams()
+  let id = match.id // get URL view location
+
+  const allLogsArray = useSelector(selectLogs)
+  var logsArray = [...allLogsArray]; // mutable copy of allLogsArray
+
+
+
+   //sort and filter all logs
+
+   let sortedLogsByDate = sortLogsByDate(logsArray)
+   let filteredLogs = logFilter(sortedLogsByDate, id)
+
+
+   const logRows = () =>
+
+   filteredLogs.map((row, index) => {
+
+     return (
+       <LogSection
+         id={row.id}
+         key={row.id}
+         data={row}
+
+       />
+     )
+   }
+   ) //end map
+
+
+   
   return (
     <Wrapper>
 
-        <LogSection/>
-        <LogSection/>
-        <LogSection/>
-        <LogSection/>
-        <LogSection/>
+     {logRows()}
     </Wrapper>
   )
 }

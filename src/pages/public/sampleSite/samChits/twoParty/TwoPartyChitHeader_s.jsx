@@ -1,6 +1,7 @@
 /*---- File - TwoPartyChitHeader.jsx
      Displays header name for 2 party chits
      Displays add new button
+     Calculate and display Karmic balance for URL id
      
     to get name to be displayed:
        1. get id from URL
@@ -12,6 +13,8 @@
             3. find any chit matching the URL id
             4. find the collection in that chit (people or groups)
             5. get name by searching the collection matching the URL id
+
+
 
 
       parent: TwoPartyMain -./TwoPartysMain
@@ -131,12 +134,12 @@ const KarmaWrapperRed = styled('div')({
   },
 })
 
-const KarmaWrapperGreen = styled('div')({
+const KarmaWrapper = styled('div')({
   display: 'flex',
   
   justifyContent: 'flex-end',
   alignItems: 'center',
-  color: 'green',
+
   fontSize: '.78rem',
   
 
@@ -245,7 +248,7 @@ const ViewNavWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-// backgroundColor: 'green',
+ 
 
   position: 'relative',
   top: 0,
@@ -290,6 +293,8 @@ function TwoPartyChitHeader(props) {
   let allGroups = useSelector(selectGroups)
   let allPeople = useSelector(selectPeople)
 
+  // --- create the title header based on URL id
+
   let title
 
   switch(matchId){
@@ -330,110 +335,105 @@ function TwoPartyChitHeader(props) {
    
   }
 
+  // --- calculate the karmic balance -------------------
+
   let karmicBalance = 0
 
+  // --- get the chits array for URL id
+
   let filteredChits = twoPartyChitFilter(allChitsArray, match.id)
-console.log('[ two party HEADER ] filteredChits ', filteredChits);
 
- 
- let assets, liabilities 
+  // --- calculate by mapping through and chitValue to karmic Balance
+
+  filteredChits.map((chit, index) => {
+
+    if(chit.chitType === 'awChit') {
+      // assets
+      
+      karmicBalance = karmicBalance + chit.chitValue
   
-filteredChits.map((chit, index) => {
 
-  if(chit.chitType === 'awChit') {
-    // assets
-     
-    karmicBalance = karmicBalance + chit.chitValue
- 
+      }
+  
+      if(chit.chitType !== 'awChit'  ) {
+        if(chit.deedPerformedBy === chit.otherPartyId){
+          karmicBalance = karmicBalance - chit.chitValue
 
-    console.log('[ two party HEADER ] map owes me' ,  chit.chitValue);
-    console.log('[ two party HEADER ] I owe',  karmicBalance);
-     }
- 
-     if(chit.chitType !== 'awChit'  ) {
-       if(chit.deedPerformedBy === chit.otherPartyId){
-        karmicBalance = karmicBalance - chit.chitValue
+        }
+    
+        // assets
+        if(chit.deedPerformedBy !== chit.otherPartyId){
+          karmicBalance = karmicBalance + chit.chitValue
 
-        console.log('[ two party HEADER ] I owe',  chit.chitValue);
-        console.log('[ two party HEADER ] I owe',  karmicBalance);
-       }
-   
-       // assets
-       if(chit.deedPerformedBy !== chit.otherPartyId){
-        karmicBalance = karmicBalance + chit.chitValue
-
-        console.log('[ two party HEADER ] map owes me',  chit.chitValue );
-        console.log('[ two party HEADER ] I owe',  karmicBalance);
-       }
-       
-     }
+        }
+        
+      }
 
  
   return   karmicBalance
   }
   ) //end map
 
-  console.log('[ two party HEADER ] karmicBalance @@@@@ ', karmicBalance);
+  //--- set the style color for displaying the karmic balance
 
-return (
-<Wrapper>
-    <TitleWrapper>
-  
-      <Title>
-        {title}
-      </Title>
-      {karmicBalance >= 0 && 
-      <KarmaWrapperGreen>
-        <KarmaTitle>
-          Karmic Balance: 
-        </KarmaTitle>
+  let karmicColor
 
-    
-         <KarmaValue>
-         {karmicBalance}
-       </KarmaValue>
-       </KarmaWrapperGreen>
-        }
+  if(karmicBalance === 0){karmicColor = 'grey'
+    }else if(karmicBalance < 0){karmicColor = 'red'
+  }else{ karmicColor = 'green'}
 
-{karmicBalance < 0 && 
-      <KarmaWrapperRed>
-        <KarmaTitle>
-          Karmic Balance: 
-        </KarmaTitle>
-
-    
-         <KarmaValue>
-         {karmicBalance}
-       </KarmaValue>
-       </KarmaWrapperRed>
-        }
  
-       
-      
-    </TitleWrapper>
-    <BottomWrapper>
-      <ButtonWrapper>
+// === main return ==============================
 
-        <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
-    
-      </ButtonWrapper>
+  return (
 
-      <ViewNavWrapper>
-      
-       <TwoPartyChitViewNav/>
-      </ViewNavWrapper>
-    
+    <Wrapper>
+      <TitleWrapper>
 
-<BottomSpacerWrapper/>
+        <Title>
+          {title}
+        </Title>
 
-    </BottomWrapper>
-
-</Wrapper>
+        <KarmaWrapper>
+          <KarmaTitle>
+            Karmic Balance:
+          </KarmaTitle>
 
 
+          <KarmaValue style={{ color: karmicColor }}>
+            {karmicBalance}
+          </KarmaValue>
+        </KarmaWrapper>
 
 
-  )}// end func TwoPartyChitHeader
+
+
+
+      </TitleWrapper>
+      <BottomWrapper>
+        <ButtonWrapper>
+
+          <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
+
+        </ButtonWrapper>
+
+        <ViewNavWrapper>
+
+          <TwoPartyChitViewNav />
+        </ViewNavWrapper>
+
+
+        <BottomSpacerWrapper />
+
+      </BottomWrapper>
+
+    </Wrapper>
+
+
+
+
+  )
+}// end func TwoPartyChitHeader
 
  
 export default TwoPartyChitHeader

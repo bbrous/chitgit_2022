@@ -23,6 +23,8 @@ import{ selectLogs
   
 } from '../../../../app/redux/logRedux/sam_logsSlice'
 
+import { ISOtoTraditional, ISOtoTraditionalTime } from '../../../../app/helpers/dateHelper'
+
 import ChitIcon from '../samComponents/Chit_icon_s'
  
 //  ---- Material Ui ------------------
@@ -96,6 +98,12 @@ const DateWrapper= styled('div')({
   fontSize: '.8rem',
   height: '.8rem',
 
+  '& span': {
+    color: mediumGrey,
+    marginLeft: '6px',
+     
+  },
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -165,7 +173,7 @@ const OuterContentWrapper= styled(Paper)({
 })
 
 
-const CategoryWrapper= styled('div')({
+const PeopleWrapper= styled('div')({
 
   display: 'flex',
   position: 'relative',
@@ -411,11 +419,24 @@ const LightTooltip = withStyles({
 
 //  =====================================================================
 
-export default function LogSection() {
+export default function LogSection(props) {
+
+  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyworkdArray} = props.data
+
+ 
+   // convert Dates for display
+
+   let styledLogDate = ISOtoTraditional(logDate)
+   let styledLogTime = ISOtoTraditionalTime(logDate)
+   let styledLastEdit = ISOtoTraditionalTime(lastEdit)
+   let styledTimeLock
+   timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
+ 
+
   return (
     <MainWrapper>
       <TopWrapper>
-        <DateWrapper>Date</DateWrapper>
+        <DateWrapper>{styledLogDate} : <span> {styledLogTime} </span></DateWrapper>
         <IconWrapper>
 
           <LightTooltip title='Edit' arrow>
@@ -442,26 +463,25 @@ export default function LogSection() {
       <ContentWrapper>
 
         <MetaWrapper>
-        <div> type: phone con (meeting, incident, thought, action, activity, other) </div>
-          <div>  rep: Karen Karen <br />  number: x98fy </div>
+        {meta}
           <TimesWrapper>
-            <div> timestamp:  none </div>
-            <div> last edit:  Feb 2, 2021 </div>
-            <div> created:  Feb 2, 2021 </div>
+            <div> timestamp:  {} </div>
+            <div> last edit:  {styledLastEdit} : </div>
+            
           </TimesWrapper>
         </MetaWrapper>
         
      
         <Content>
-          <HeadlineWrapper> This is about what?</HeadlineWrapper>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <HeadlineWrapper> {title}</HeadlineWrapper>
+          {detail}
 
         </Content>
 
 
       </ContentWrapper>
       <SearchWrapper>
-        <CategoryWrapper>category: aaaa</CategoryWrapper>
+        <PeopleWrapper>people: aaaa</PeopleWrapper>
         <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
       </SearchWrapper>

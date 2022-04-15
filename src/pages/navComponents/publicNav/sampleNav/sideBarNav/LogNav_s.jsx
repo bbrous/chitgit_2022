@@ -62,8 +62,9 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 const Wrapper= styled('div')({
 
-  display: 'block',
+  display: 'flex',
   position: 'relative',
+  width: '100%',
 
 
   [theme.breakpoints.down('xs')] : {
@@ -241,7 +242,7 @@ function LogNav() {
     
       }
     
-      ) //end map displayLogName
+      ) //end map uniqueTypes
 
   /* --- filter logsArray ---------------------
       1. show all logs or,
@@ -283,7 +284,7 @@ function LogNav() {
     }
 
 
-  ) //end map displayLogName
+  ) //end map filteredLogsArray
   
 
 
@@ -303,43 +304,45 @@ function LogNav() {
  
   let displayLogName = orderedUniqueLogNames.map((log, index) => {
 
-   
+
+
     return (
-      <> 
-      {displayId === log.id    && 
-      <SelectorWrapperSelected elevation={1}
-      key = {index} 
-      id = {log.id}
-      onClick = {(evt)=>{
-        handleChangeLog(evt)
-      }}
-      >
+      <Wrapper key={log.id} >
+        {displayId === log.id &&
+          <SelectorWrapperSelected elevation={1}
 
-          {log.name}
+            id={log.id}
+            onClick={(evt) => {
+              handleChangeLog(evt)
+            }}
+          >
 
-      </SelectorWrapperSelected>
+            {log.name}
+
+          </SelectorWrapperSelected>
 
 
-    }
+        }
 
-    {displayId !== log.id && 
-   
-        <SelectorWrapper elevation={1}
-        key = {index} 
-        id = {log.id}
-        onClick = {(evt)=>{
-          handleChangeLog(evt)
-        }}
-      >
-        {log.name}
-  
-      </SelectorWrapper>
- 
-  
-     
-      }
-        </>  
-  )}) //end map displayLogName
+        {displayId !== log.id &&
+
+          <SelectorWrapper elevation={1}
+
+            id={log.id}
+            onClick={(evt) => {
+              handleChangeLog(evt)
+            }}
+          >
+            {log.name}
+
+          </SelectorWrapper>
+
+
+
+        }
+      </Wrapper>
+    )
+  }) //end map displayLogName
   
 
   // --- on click function that changes URL and Redux store status

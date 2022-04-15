@@ -6,13 +6,16 @@
 
 ------------------------------------*/
 
-import React from 'react'
- 
+import React, {useState, useEffect} from 'react'
+import { useSelector} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectLogs } from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
-
+import{ selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+import{ 
+  selectStatus,
+ 
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
 import LogMain from './LogMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
@@ -72,16 +75,18 @@ function Logs(props) {
 
   let match = useParams()
   let navigate = useNavigate()
-
+  let status = useSelector(selectStatus)
   const LogPage = match.pageView
+
+  console.log('[ LOGS ] LogPage ', LogPage);
   const LogId = match.id
-  // const displayPopoverModalMessage = status.initialMessage.spotlights
+  const displayPopoverModalMessage = status.initialMessage.logs
 
 // ###########  TEMP  ############## 
 let logsArray = [1]
 let logId = 'spectrum'
 let logSectionId = ''
-let displayPopoverModalMessage = false
+ 
  
 
   return (

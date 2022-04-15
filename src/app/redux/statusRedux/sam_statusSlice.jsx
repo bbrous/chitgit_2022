@@ -90,7 +90,7 @@ export const statusSlice = createSlice({
   
       log: {
   
-        id: 'allLogs',  // if no logId -- all else logId stuff
+        id: 'group_3',  // if no logId -- all else logId stuff
         
       },
 

@@ -147,7 +147,7 @@ function PopoverModal(props) {
   });
 
 // ---Return -----------------------------------------------------
-
+console.log('[ POPOVER ] pageType ', pageType);
   return (
     <>
       <ModalWrapper />
@@ -206,7 +206,7 @@ function PopoverModal(props) {
 
         {pageType === 'spotlights' &&
           <Content>
-            <div> ChitGit <em>Spotlights</em> is a "decomposition" tool. </div>
+            <div> <em>Spotlights</em> is a "decomposition" tool. </div>
             <div>
               As used here, a "decomposition" tool is a cross between a to-do list and a project manager.
 
@@ -221,7 +221,7 @@ function PopoverModal(props) {
 
 {pageType === 'logs' &&
           <Content>
-            <div> ChitGit <em>Logs</em> are designed to help you keep track of
+            <div> <em>Logs</em> are designed to help you keep track of
             interactions between you and another party or entity.
             </div>
             <div> For instance - document calls between you and a company about 
