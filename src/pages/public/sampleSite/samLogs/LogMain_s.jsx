@@ -12,19 +12,21 @@
 ------------------------------------*/
 
 
-import React , {useState} from 'react'
-import {connect} from 'react-redux'
-import {useHistory,   withRouter} from 'react-router-dom'
+import React , {useState, useEffect} from 'react'
+ 
+import {useSelector, useDispatch} from 'react-redux'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
 
 import{ selectLogs
   // selectSpotlightTaskArray
   
-} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
+} from '../../../../app/redux/logRedux/sam_logsSlice'
+
+import { closeLogForm, selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import Log from './Log_s'
-import LogEntryForm from '../samForms/LogEntryForm_s'
+import LogSectionForm from '../samForms/LogSectionForm_s'
 import LogHeader from './LogHeader_s'
 import SliderComponent from '../../../../common_components/SliderComponent'
 //  ---- Material Ui ------------------
@@ -187,7 +189,7 @@ const FormContainer = styled('div')({
   
 
   width: '100%',
-  minHeight: '13rem',
+  
   backgroundColor: 'lightGrey',
 
   // minHeight: '10rem',
@@ -300,12 +302,20 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 // ===========================================
 
 function LogMain(props) {
+  let status = useSelector(selectStatus)
+
+  let logFormDisplay = status.view.log.sectionId
+
+  console.log('[Log Main] logFormDisplay', logFormDisplay)
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {
     setArrayOrder(newState)
-    console.log('[Inside Spotlight Nav] new state is', newState)
+    // 
   }
+
+
+  
 
   return (
     <OuterContainer> 
@@ -325,9 +335,9 @@ function LogMain(props) {
  
       <Container>
 
-
-        <FormContainer>  <LogEntryForm />  </FormContainer>
-       
+        {logFormDisplay === 'new'  &&  
+        <FormContainer>  <LogSectionForm />  </FormContainer>
+      }
         <SectionsContainer>
           <SectionWrapper>
 

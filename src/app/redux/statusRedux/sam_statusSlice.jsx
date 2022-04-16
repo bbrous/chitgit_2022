@@ -91,7 +91,7 @@ export const statusSlice = createSlice({
       log: {
   
         id: 'group_3',  // if no logId -- all else logId stuff
-        
+        sectionId: ''
       },
 
       // for Topicals.jsx ----------------------------------
@@ -99,14 +99,14 @@ export const statusSlice = createSlice({
       topical: {
 
         id: 'allTopicals',  // if no logId -- all else logId stuff
-        
+        sectionId: ''
       },
   
       // for journal.jsx ----------------------------------
   
       journal: {
-  
-        id: '',  // if no journalId -- all else journalId stuff
+        // journal has no id - because only 1 journal
+        sectionId: '',  // if no journalId -- all else journalId stuff
       },
   
       // for Notes.jsx ----------------------------------
@@ -206,7 +206,7 @@ export const statusSlice = createSlice({
       // state.modal.id = ''
 
        
-      state.view.journal.journalId = ''
+      state.view.journal.sectionId = ''
 
     },
 
@@ -215,7 +215,26 @@ export const statusSlice = createSlice({
       let newJournalId = action.payload
 
       // console.log('[ sam_StatusSlice ] sectionId ', newJournalId);
-      state.view.journal.journalId = newJournalId
+      state.view.journal.sectionId = newJournalId
+
+    },
+
+    closeLogForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.log.sectionId = ''
+
+    },
+
+    openLogForm: (state, action) => {
+      
+      let newLogId = action.payload
+
+      // console.log('[ sam_StatusSlice ] sectionId ', newLogId);
+      state.view.log.sectionId = newLogId
 
     },
 
@@ -237,6 +256,8 @@ export const {
   updateStatusView,
   closeJournalForm,
   openJournalForm,
+  closeLogForm,
+  openLogForm,
   updateAccordionDisplay,
   changeMonthView
 

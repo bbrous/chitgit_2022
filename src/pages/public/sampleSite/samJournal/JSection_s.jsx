@@ -13,7 +13,7 @@
 
 
 import React , {useState, useEffect, useRef} from 'react'
-import {connect} from 'react-redux'
+ 
 import {useSelector, useDispatch} from 'react-redux'
  
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
@@ -448,7 +448,7 @@ styledKeywords = 'none'
 
   // const[sectionId, setSectionId] = useState('')
 
-  let journalViewId = useSelector(selectStatus).view.journal.journalId
+  let journalViewId = useSelector(selectStatus).view.journal.sectionId
 
  
 

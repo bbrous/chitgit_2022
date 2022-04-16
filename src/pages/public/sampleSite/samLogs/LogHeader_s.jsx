@@ -8,7 +8,7 @@
 */
 
 import React  from 'react'
-import { useSelector} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
@@ -23,6 +23,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button'
  
 import { selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
@@ -203,7 +204,7 @@ const IconWrapper= styled('div')({
 function LogHeader(props) {
  
   const match = useParams()
-
+  const dispatch = useDispatch()
   const matchId = match.id
   let allLogsArray = useSelector(selectLogs) //immutable
   let allGroups = useSelector(selectGroups)
@@ -211,60 +212,74 @@ function LogHeader(props) {
 
 
   let headerObject = allLogsArray.find(element => element.otherPartyId === matchId)
-  console.log('[ Two Party Chit Header ] we got a headerObject ', headerObject);
+
+  // --- Get the name for URL Id---------------------------
+
+  // --- determine which collection the id is from based on type
   let collection 
 
   headerObject.type === 'person'? collection = 'people': collection = 'groups'
   
-  let title
+  // --- get the name 
+  let name
   
-  if(collection === 'groups' ){
+  if (collection === 'groups') {
     let groupObject = allGroups.find(group => group.id === matchId)
 
-    title = groupObject.name
-    console.log('[ Two Party Chit Header ] we got a group ', title);
+    name = groupObject.name
+
   }
-  if(collection === 'people' ){
+  if (collection === 'people') {
     let personObject = allPeople.find(person => person.id === matchId)
 
-  title = personObject.name
+    name = personObject.name
 
-    console.log('[ Two Party Chit Header ] we got People ', title);
+  }
+
+  const handleClick = ()=>{
+ 
+   
+   console.log('[ LOG HEADER] open new form ');
+    dispatch(openLogForm('new'))
+    
   }
  
 
+// ====  Main Return =======================================
+
+  return (
+    <Wrapper>
+      <TitleWrapper>
+
+        <Title>
+          {name}
+        </Title>
+      </TitleWrapper>
+      <BottomWrapper>
+        <ButtonWrapper>
+
+          <FormButton 
+          startIcon={<AddIcon/>}
+          onClick={()=>handleClick()}
+          > 
+          add Section
+          </FormButton>
+
+        </ButtonWrapper>
+
+        <IconWrapper>
+          <DeleteIcon />
+          <EditIcon />
 
 
-return (
-<Wrapper>
-    <TitleWrapper>
-      
-      <Title>
-        {title}
-      </Title>
-    </TitleWrapper>
-    <BottomWrapper>
-      <ButtonWrapper>
+        </IconWrapper>
 
-        <FormButton startIcon={<AddIcon />}> add Section</FormButton>
-  
-      </ButtonWrapper>
+      </BottomWrapper>
 
-      <IconWrapper> 
-        <DeleteIcon/>
-        <EditIcon/>
+    </Wrapper>
 
-
-      </IconWrapper>
-
-    </BottomWrapper>
-
-</Wrapper>
-
-
-
-
-  )}// end func LogDetail
+  )
+}// end func LogDetail
 
  
 export default LogHeader
