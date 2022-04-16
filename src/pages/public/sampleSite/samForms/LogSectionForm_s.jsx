@@ -41,13 +41,14 @@ import {
 
 // --- Form component imports ---------
 
-import { Editor } from '../../../../forms/formComponents/QuillEditor'
-
+import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
+import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
 import { StyledAutocomplete } from '../../../../forms/formComponents/StyledAutocomplete';
 
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
-
+import { StyledInput } from '../../../../forms/formComponents/StyledInput'
+ 
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -70,7 +71,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
     width: '100%',
     height: '100%',
     overflow: 'auto',
-border: '2px solid #33CC99',
+border: '2px solid #F285B5',
 backgroundColor: veryLightGrey,
 
     [theme.breakpoints.down('sm')]: {
@@ -88,7 +89,9 @@ backgroundColor: veryLightGrey,
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '98%',
+    height: '100%',
     margin: '5px 0',
+    padding: '4px',
     backgroundColor: 'white',
   
 
@@ -136,6 +139,7 @@ backgroundColor: veryLightGrey,
     borderLeft: '1px solid #CFD0D1',
     borderTop: '1px solid #CFD0D1',
     borderRight: '1px solid #CFD0D1',
+    height: '2rem',
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
     },
@@ -171,17 +175,16 @@ backgroundColor: veryLightGrey,
   })
 
 
-  const OuterContentWrapper= styled(Paper)({
+  const OuterContentWrapper= styled('div')({
 
     display: 'flex',
     position: 'relative',
     flexDirection: 'Column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // backgroundColor: 'aqua',
+ 
     width: '100%',
-    borderLeft: '1px solid #CFD0D1',
-    borderRight: '1px solid #CFD0D1',
+    
   
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
@@ -196,7 +199,6 @@ backgroundColor: veryLightGrey,
     position: 'relative',
     flexDirection: 'row',
   
-    backgroundColor: veryLightGrey,
     width: '100%',
     // marginTop:'6px',
     margin: 'auto',
@@ -222,7 +224,6 @@ backgroundColor: veryLightGrey,
     width: '30%',
     minHeight: '100%',
    
-    padding: '6px',
     backgroundColor: veryLightGrey,
   
    
@@ -286,7 +287,7 @@ backgroundColor: veryLightGrey,
     margin: '3px 0',
   // backgroundColor: veryLightGrey,
     fontSize: '.6rem',
-    height: '.8rem',
+    height: '2rem',
     color: mediumGrey,
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
@@ -343,10 +344,10 @@ backgroundColor: veryLightGrey,
     fontSize: '.85rem',
     width: '70%',
   
-    padding: '6px',
-    borderLeft: '1px solid #E6E7E8',
+     
+    // borderLeft: '1px solid #E6E7E8',
     backgroundColor: 'white',
-    borderRadius: '0 5px 5px 0',
+     
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
     },
@@ -356,8 +357,56 @@ backgroundColor: veryLightGrey,
 
 
 
+// ##############################################
 
-
+  const FormComponentWrapper= styled('div')({
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '100%',
+    margin: '.5rem',
+  
+   
+    [theme.breakpoints.down('sm')]: {
+      // height: '1.25rem',
+  
+    },
+  
+  })
+  
+  const ComponentName= styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    color: 'darkGrey',
+  
+  
+    [theme.breakpoints.down('sm')]: {
+      // height: '1.25rem',
+  
+    },
+  
+  })
+  
+  const ComponentWrapper= styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '100%',
+  
+   
+    [theme.breakpoints.down('sm')]: {
+      // height: '1.25rem',
+  
+    },
+  
+  })
+  // #######################################
 
 
 //  --- Buttons -----------
@@ -417,9 +466,8 @@ export default function LogForm_s(props) {
     // !logId ? formlogHolderId = id  : formlogHolderId = log.logHolderId
     
       let defaultValues = {
-      logContent:'',
-      keywords: [],
-      categories: ''
+        content: '',
+        meta: '',
 
     };
 // ===========  FORM  ==================================================
@@ -433,7 +481,7 @@ export default function LogForm_s(props) {
   const submitForm = (data) => {
 
     
-    console.log('[Dispatch_Form]...data ', data)
+    console.log('[LogSectionForm]...data ', data)
 
 
     dispatch(closeLogForm())
@@ -461,18 +509,48 @@ export default function LogForm_s(props) {
       <ContentWrapper>
 
         <MetaWrapper>
-       meta
-          <TimesWrapper>
-              timestamp:   
-            
-          </TimesWrapper>
+      
+
+
+              <Controller
+
+                name="meta"
+                control={control}
+                initialNote={'hi quill description'}
+               
+                render={({ field }) => (
+                  <EditorShort 
+                  {...field} 
+                  ref={null}  
+                  IniitalValue = {defaultValues.noteContent}/>
+                )}
+                
+              />
+
+         
         </MetaWrapper>
         
      
         <Content>
-          <HeadlineWrapper> title</HeadlineWrapper>
-    
-          content
+
+
+
+              <Controller
+
+                name="content"
+                control={control}
+                initialNote={'hi quill description'}
+               
+                render={({ field }) => (
+                  <Editor 
+                  {...field} 
+                  ref={null}  
+                  IniitalValue = {defaultValues.noteContent}/>
+                )}
+                
+              />
+
+
         </Content>
 
 
