@@ -1,5 +1,7 @@
 .react-datepicker__header{
-  background-color: #F58634
+  background-color: #2875C2;
+  color: white;
+ 
 }
 
 
@@ -7,8 +9,18 @@
 .react-datepicker__month-text--today,
 .react-datepicker__quarter-text--today,
 .react-datepicker__year-text--today {
-  background-color:  #F8C6A0;
+  border: 1px solid  #2875C2;
   border-radius: 50%;
+}
+
+.react-datepicker__day-name{
+   color:  white;
+  border-radius: 50%;
+}
+
+.react-datepicker__current-month{
+  color:  white;
+ border-radius: 50%;
 }
 
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {

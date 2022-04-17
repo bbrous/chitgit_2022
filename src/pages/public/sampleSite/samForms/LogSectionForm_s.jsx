@@ -48,9 +48,9 @@ import { StyledAutocomplete } from '../../../../forms/formComponents/StyledAutoc
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
-import { StyledMUIDateTimePicker } from '../../../../forms/formComponents/ChronicleDateTimePicker'
 
-import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker'
+
+import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -157,7 +157,7 @@ backgroundColor: veryLightGrey,
     justifyContent: 'flex-start',
     alignItems: 'center',
     // backgroundColor: 'green',
-    width: '50%',
+    width: '35%',
     padding: '2px 6px',
   
     fontSize: '.8rem',
@@ -473,7 +473,7 @@ export default function LogForm_s(props) {
         meta: '',
         keywords: [],
         people: [],
-        dateTimeMUI: ''
+        dateTimeMUI: Date.now()
 
     };
 // ===========  FORM  ==================================================
@@ -516,8 +516,13 @@ control={control}
 defaultValue = {defaultValues.dateTimeMUI}
 
 render={({ field }) => (
-  <StyledDatePicker {...field} ref = {null} />
+  <StyledDateTimePicker {...field} ref = {null} />
 )}
+/><CalendarTodayIcon  style = {{
+   color: '#A7A7A8', 
+   fontSize: '1.2rem',
+   marginLeft: '5px'
+   }}
 />
 
         </DateWrapper>
