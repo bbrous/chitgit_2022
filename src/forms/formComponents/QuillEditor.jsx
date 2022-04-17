@@ -14,7 +14,7 @@ import "react-quill/dist/quill.snow.css";
 
 
 
-import './quillStyle.css'
+import './quillChronicleStyle.css'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 

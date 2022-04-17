@@ -53,15 +53,18 @@ backgroundColor: '#F6F7F8',
 const StyledTextBox= styled(TextField)({
   // border: '1px solid orange',
   color: '#333333',
-  borderBottom: "4px solid red",
-'&:hover' : {
-  color:'#333333',
-  backgroundColor: '#FEEDE2'
-},
+  // borderBottom: "4px solid red",
+
 
 '& input' : {
   height: '50%',
   fontSize: '.85rem',
+  padding: '0',
+  border: '1px solid white',
+  '&:hover' : {
+    color:'#333333',
+    backgroundColor: '#FEEDE2'
+  },
 },
 
 '&:focus' : {
@@ -112,7 +115,7 @@ const useStyles = makeStyles({
   paper: {
     backgroundColor: '#F6F7F8',
     fontSize: '.85rem',
-    border: '1px solid #CFD0D1',
+    // border: '1px solid #CFD0D1',
   }
 });
 

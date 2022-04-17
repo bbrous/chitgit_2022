@@ -49,8 +49,6 @@ import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/Style
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { StyledMUIDateTimePicker } from '../../../../forms/formComponents/ChronicleDateTimePicker'
-
-import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker'
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -473,7 +471,7 @@ export default function LogForm_s(props) {
         meta: '',
         keywords: [],
         people: [],
-        dateTimeMUI: ''
+        duh: ''
 
     };
 // ===========  FORM  ==================================================
@@ -501,26 +499,12 @@ export default function LogForm_s(props) {
       
      
 
-      <FormProvider {...methods}>
+<FormProvider>
 <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm) } >
-  
 
 <MainWrapper>
       <TopWrapper>
-        <DateWrapper>
-
-        <Controller
-
-name="dateTime"
-control={control}
-defaultValue = {defaultValues.dateTimeMUI}
-
-render={({ field }) => (
-  <StyledDatePicker {...field} ref = {null} />
-)}
-/>
-
-        </DateWrapper>
+        <DateWrapper>date</DateWrapper>
 
       </TopWrapper>
   

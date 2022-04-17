@@ -53,7 +53,7 @@ import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
 import { StyledSelectMui } from '../../../../forms/formComponents/StyledSelectMui';
 
-
+import { StyledMUIDateTimePicker } from '../../../../forms/formComponents/StyledMUIDateTimePicker';
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'

@@ -202,6 +202,22 @@ const theme = createTheme(); // allows use of mui theme in styled component
     },
   
   })
+  const NoteComponentWrapper= styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '100%',
+  border: '1px solid orange',
+  borderRadius: '5px',
+   padding: '2px',
+    [theme.breakpoints.down('sm')]: {
+      // height: '1.25rem',
+  
+    },
+  
+  })
+  
   
   const ButtonWrapper= styled('div')({
     display: 'flex',
@@ -744,7 +760,7 @@ if(keywordExists) {
               NoteContent
             </ComponentName>
 
-            <ComponentWrapper>
+            <NoteComponentWrapper>
 
 
               <Controller
@@ -762,7 +778,7 @@ if(keywordExists) {
                 
               />
 
-            </ComponentWrapper>
+            </NoteComponentWrapper>
           </FormComponentWrapper>
 
           
