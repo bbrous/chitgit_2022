@@ -43,7 +43,7 @@ import {
 
 import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
 import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
-import { StyledAutocomplete } from '../../../../forms/formComponents/StyledAutocomplete';
+import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
 
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
@@ -170,7 +170,7 @@ backgroundColor: veryLightGrey,
     },
   
     [theme.breakpoints.down('sm')] : {
-      // width: '100%'
+      width: '100%'
     },
   
   
@@ -283,11 +283,11 @@ backgroundColor: veryLightGrey,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'veryLightGrey',
+ 
     width: '99%',
     padding: '2px 0',
     margin: '3px 0',
-  // backgroundColor: veryLightGrey,
+  backgroundColor: veryLightGrey,
     fontSize: '.6rem',
     height: '2rem',
     color: mediumGrey,
@@ -298,6 +298,24 @@ backgroundColor: veryLightGrey,
   
   })
 
+  const SearchTitle= styled('div')({
+
+    display: 'flex',
+    position: 'relative',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+ 
+    marginRight: '1.5rem',
+    fontSize: '.85rem',
+    fontStyle: 'italic',
+    height: '100%',
+    [theme.breakpoints.down('sm')] : {
+      // width: '100%'
+    },
+  
+  
+  })
 
 
   const PeopleWrapper= styled('div')({
@@ -309,7 +327,7 @@ backgroundColor: veryLightGrey,
     alignItems: 'center',
     // backgroundColor: 'aqua',
     width: '30%',
-  
+  height: '100%',
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
     },
@@ -325,7 +343,8 @@ backgroundColor: veryLightGrey,
     justifyContent: 'flex-start',
     alignItems: 'center',
     // backgroundColor: 'orange',
-    width: '70%',
+    marginLeft: '8px',
+    width: '40%',
   
     [theme.breakpoints.down('sm')] : {
       // width: '100%'
@@ -453,14 +472,12 @@ const formSchema = object({
 
 // ==============================
 
-export default function LogForm_s(props) {
+export default function LogSectionForm_s(props) {
 
   const dispatch = useDispatch()
 
   const cancelForm = ()=>{
  
-   
-    console.log('[ LOG HEADER] open new form ');
      dispatch(closeLogForm())
      
    }
@@ -473,7 +490,7 @@ export default function LogForm_s(props) {
         meta: '',
         keywords: [],
         people: [],
-        dateTimeMUI: Date.now()
+        dateTimeMUI: 1615741420000  // Bob's login time Mar 14
 
     };
 // ===========  FORM  ==================================================
@@ -581,23 +598,26 @@ render={({ field }) => (
 
       </ContentWrapper>
           <SearchWrapper>
+            <SearchTitle>Add search terms</SearchTitle>
             <PeopleWrapper>
-            <StyledAutocomplete
+
+            <StyledChronicleMultiselect
                 name={'people'}
                 control={control}
                 options={peopleOptionsArray}
                 // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.keywords}
-
+                defaultValue={defaultValues.people}
+                placeholder = 'select or type people'
 
               />
-
             </PeopleWrapper>
+
             <KeyWordWrapper>
-              <StyledAutocomplete
+              <StyledChronicleMultiselect
                 name={'keywords'}
                 control={control}
                 options={keywordsOptionsArray}
+                placeholder = 'select or type keywords'
                 // defaultValue = {{ value: 'ge423', label: 'home'}}
                 defaultValue={defaultValues.keywords}
 

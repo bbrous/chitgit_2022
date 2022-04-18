@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
 
-// import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/datePickerStyleOverrides.css'
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -54,6 +54,7 @@ export const StyledDateTimePicker = ({
   defaultValue
 }) => {
 
+  console.log('[ StyledDateTimePicker ] defaultValue ', defaultValue);
 
   return (
 
@@ -70,8 +71,9 @@ export const StyledDateTimePicker = ({
                       selected={field.value}
                       dateFormat="d MMMM , yyyy - h:mm aa"
                       popperPlacement="bottom"
-                      defaultValue= {defaultValue}
+                      // defaultValue= {defaultValue}
                       showTimeInput
+                      maxDate={new Date(field.value)}
                     />
                 )}
             />

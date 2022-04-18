@@ -25,7 +25,7 @@
 
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
   border-top: none;
-  border-bottom-color: #F58634
+  border-bottom-color:  #2875C2;
 }
 
 
