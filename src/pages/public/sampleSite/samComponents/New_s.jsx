@@ -14,7 +14,7 @@
 import React from 'react'
 import { useDispatch} from 'react-redux'
 import {  useParams } from 'react-router-dom'
-
+import {useNavigate } from 'react-router-dom'
 import{openModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
  
 
@@ -91,7 +91,7 @@ function New(props) {
   let page, id, formattedPage
   const dispatch = useDispatch()
 
-
+  let navigate = useNavigate()
 
   page = match.pageView // get URL view location
   id = match.id // get URL view location
@@ -116,9 +116,9 @@ function New(props) {
         title = 'log'
         break;
 
-        case 'sagas':
-          dbCollection = 'sagas'
-          title = 'saga'
+        case 'topicals':
+          dbCollection = 'topicals'
+          title = 'topical'
           break;
 
 
@@ -159,9 +159,6 @@ const openForm = ()=>{
 
   //  define which Form to open in Modal by passing
   //  dbCollection to Modal depending on pageView in browser URL 
-
-
-  
   // ------------------------------------------------------------
     
   // props.openModal(dbCollection, id)
@@ -178,28 +175,79 @@ const openForm = ()=>{
 
 }// end openForm
 
+const handleRoutToNew = (collection)=>{
+
+  //  define which Form to open in Modal by passing
+  //  dbCollection to Modal depending on pageView in browser URL 
+  // ------------------------------------------------------------
+    
+  // props.openModal(dbCollection, id)
+  let newType
+  if(collection === 'logs'){newType = 'newLog'}
+  if(collection === 'topicals'){newType = 'newTopical'}
+
+navigate(`/sample/${collection}/${newType}`)
+
+  
+}// end openForm
+
   return (
     <> 
-    {dbCollection !== 'journal' && 
+   
     <NewWrapper elevation={1}>
 
     
 
     <NewTitle> add {title} </NewTitle>
+
+    {dbCollection === 'logs'  &&
+    
+    <LightTooltip title={formattedPage} arrow>
+    <AddCircleIconWrapper
+      onClick={() => handleRoutToNew(page)}
+    />
+  </LightTooltip>
+    
+    }
+    {dbCollection === 'topicals'  &&
+    <LightTooltip title={formattedPage} arrow>
+    <AddCircleIconWrapper
+      onClick={() => handleRoutToNew(page)}
+    />
+  </LightTooltip>
+    
+    
+    }
+
+{dbCollection === 'spotlights' &&
       <LightTooltip title={formattedPage} arrow>
         <AddCircleIconWrapper
           onClick={() => openForm(page, id)}
         />
       </LightTooltip>
- 
+ }
+
+{dbCollection === 'twoPartyChits' &&
+      <LightTooltip title={formattedPage} arrow>
+        <AddCircleIconWrapper
+          onClick={() => openForm(page, id)}
+        />
+      </LightTooltip>
+ }
+
+
+{dbCollection === 'personalChits' &&
+      <LightTooltip title={formattedPage} arrow>
+        <AddCircleIconWrapper
+          onClick={() => openForm(page, id)}
+        />
+      </LightTooltip>
+ }
+
     </NewWrapper>
-
-  } 
-
-{dbCollection === 'journal' && 
-  <NewWrapper></NewWrapper>
-
-  } 
+  
+ 
+ 
 
 </>
   )

@@ -64,152 +64,8 @@ import { styled, createTheme} from '@mui/material/styles'
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// ---------------------------------------------
-  const Wrapper = styled(Paper)({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    // zIndex: '95',
-    backgroundColor: 'none',
-    width: '100%',
-    height: '100%',
-    overflow: 'auto',
 
-
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-
-  const HeaderWrapper = styled('div')({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: '.5rem 0 .5rem 0',
-    marginBottom: '.5rem',
-    borderBottom: '2px solid #CFD0D1',
-    boxShadow : '0 0 1px 0 #F6F7F8' ,
-    // zIndex: '95',
-
-    width: '100%',
-
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-
-  const FormWrapper = styled('form')({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '80%',
-  
-
-  
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      backgroundColor: 'pink'
-  
-    },
-  
-  })
-  const FormComponentWrapper= styled('div')({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: '100%',
-    margin: '.5rem',
-  
-   
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ComponentName= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    color: 'darkGrey',
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ComponentWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-  
-   
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ButtonWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '60%',
-    margin: '.75rem',
-  
-    
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const StyledButton= styled(Button)({
-    color: 'white'
-  
-  })
-
-
-  const StyledCalendarIcon = styled(CalendarTodayIcon)({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '8px',
-    width: '16px',
-    color: '#CFD0D1',
-  
-   
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-
+// ---functions --------------------------------------------
 
 
 //  -- Input requirements for user for each component (if any)
@@ -223,11 +79,8 @@ const formSchema = object({
 
 
 
-
-
-
-
-// ==============================
+// ==============================================================
+// ==== MAIN FUNCTION ===========================================
 
 export default function SpotlightForm_s(props) {
   const navigate = useNavigate()
@@ -494,3 +347,150 @@ export default function SpotlightForm_s(props) {
   );
 }
 
+
+// ==== Styles ===========================================
+
+const Wrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // zIndex: '95',
+  backgroundColor: 'none',
+  width: '100%',
+  height: '100%',
+  overflow: 'auto',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const HeaderWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  padding: '.5rem 0 .5rem 0',
+  marginBottom: '.5rem',
+  borderBottom: '2px solid #CFD0D1',
+  boxShadow : '0 0 1px 0 #F6F7F8' ,
+  // zIndex: '95',
+
+  width: '100%',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const FormWrapper = styled('form')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '80%',
+
+
+
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    backgroundColor: 'pink'
+
+  },
+
+})
+const FormComponentWrapper= styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '100%',
+  margin: '.5rem',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ComponentName= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  color: 'darkGrey',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ComponentWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ButtonWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '60%',
+  margin: '.75rem',
+
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const StyledButton= styled(Button)({
+  color: 'white'
+
+})
+
+
+const StyledCalendarIcon = styled(CalendarTodayIcon)({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginLeft: '8px',
+  width: '16px',
+  color: '#CFD0D1',
+
+ 
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})

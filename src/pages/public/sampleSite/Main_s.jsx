@@ -75,6 +75,220 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 
+
+// =====================================
+
+function Main_s(props) {
+  let match = useParams()
+  let dispatch = useDispatch
+
+  const status = useSelector(selectStatus)
+  const modalShow = status.modal.modalDisplayed
+  let page, formattedPage
+  page = match.pageView
+
+  console.log('[ PAGE in  MAIN ] page ', page);
+
+  switch(page){
+
+    case 'personalChits' : 
+      formattedPage = 'Personal Chits'
+      break
+
+      case 'twoPartyChits' : 
+      formattedPage = 'Two Party Chits'
+      break
+
+      case 'workChits' : 
+      formattedPage = 'Work Chits'
+      break
+      
+      
+    default: formattedPage = capitalizeFirstLetter(page)
+  }
+
+  console.log('MAIN S -- params ', match )
+  
+
+
+
+  
+
+
+/*
+   --- each page (chits, logs etc) has a different header color
+   --- headerColor logic determines which color is displayed
+   --- based on page variable in URL
+*/
+  const headerColor = (page) => {
+    let background
+     
+    if (page === 'personal') { 
+       background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'twoPartyChits') {
+      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'personalChits') {
+      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+      if (page === 'workChits') {
+        background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
+    if (page === 'logs') { 
+      background =
+      {backgroundColor: chitLightPink, fontColor: 'black'} }
+
+    if (page === 'journal') { 
+      background =
+          {backgroundColor: chitLightGreen, fontColor: 'black'} }
+    if (page === 'people') { 
+      background =
+          {backgroundColor: chitBright, fontColor: 'black'} }
+
+    if (page === 'topicals') {
+      background =
+          {backgroundColor: chitDullYellow, fontColor: 'black'} }
+
+    if (page === 'spotlights') { 
+      
+      background =
+          {backgroundColor: chitOrangeMedium, fontColor: 'black'} }
+
+
+    return background
+  }
+
+  // ----side Panel logic ----- 
+
+
+  const [viewSidePanel, setViewSidePanel] = useState('hide');
+  const handleSidePanelChange = (evt) => {
+    evt.persist()
+    const newSidePanelView = (viewSidePanel === 'show') ? 'hide' : 'show'
+    setViewSidePanel(newSidePanelView)
+  }
+
+  return (
+    <BodyWrapper>
+
+      {modalShow && <Modal />}
+
+      <HeaderMain />
+      {/* <TopSpacer /> */}
+
+
+      <MainWrapper>
+
+        <HeaderWrapper style={{ 
+          backgroundColor: headerColor(page).backgroundColor, 
+          color: headerColor(page).fontColor
+          }}>
+          <Header> {formattedPage}   </Header>
+<InfoIconWrapper>
+
+
+          <InfoIcon
+          
+          // onClick={() => openModal('help', page)} 
+          />
+</InfoIconWrapper>
+        </HeaderWrapper>
+        <MainContentWrapper>
+
+
+          {/* #########   SIDE PANEL  ############################### */}
+
+          <SidePanelWrapper className={viewSidePanel}>
+
+
+            <Handle onClick={handleSidePanelChange}>
+
+              {viewSidePanel === 'hide' &&
+                <KeyboardArrowRightIcon style={{ color: 'white' }} />
+              }
+
+              {viewSidePanel === 'show' &&
+                <KeyboardArrowLeftIcon style={{ color: 'white' }} />
+              }
+            </Handle>
+
+
+
+
+            {/* {page === 'twoParty' &&  <TwoPartyNav />  }
+              {page === 'personal' &&  <PersonalNav />  }
+              {page === 'work' &&  <WorkNav  />  }
+              {page === 'notes' &&  <NoteNav/>  }
+              {page === 'logs' &&  <LogNav/>  }
+
+              */}
+
+            <New />
+        
+            {page === 'spotlights' && <SpotlightNav />}
+            {page === 'logs' &&  <LogNav/>  }
+            {page === 'journal' &&  <JournalNav/>  }
+            {page === 'topicals' &&  <TopicalNav/>  }
+            {page === 'people' &&  <PeopleNav/>  }
+
+            {page === 'personalChits' &&  <PersonalNav/>  }
+            {page === 'twoPartyChits' &&  <TwoPartyNav/>  }
+            {page === 'workChits' &&  <WorkNav/>  }
+          </SidePanelWrapper>
+
+         
+
+          <ContentArea>
+
+          {page === 'twoPartyChits' &&
+              <Chits />
+            }
+
+            {page === 'workChits' &&
+              <Chits />
+            }
+
+            {page === 'personalChits' &&
+              <Chits />
+            }
+
+            {page === 'people' &&
+              <People />
+            }
+
+            {page === 'journal' &&
+              <Journal />
+            }
+
+            {page === 'logs' &&
+              <Logs />
+            }
+            {page === 'topicals' &&
+              <Topicals />
+            }
+            {/* 
+{page === 'inspire' &&
+                <Inspire />
+              }    */}
+
+            {page === 'spotlights' &&
+              <Spotlights />
+            }
+
+
+          </ContentArea>
+
+        </MainContentWrapper>
+
+      </MainWrapper>
+
+    </BodyWrapper>
+
+
+  ) // end return
+} // --- end func Main_s
+
+
+export default Main_s
+
+// ---Styles ---------------------------------------
 const BodyWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -310,212 +524,3 @@ const InfoIconWrapper= styled('div')({
     // backgroundColor: 'red'
   },
 })
-// =====================================
-
-function Main_s(props) {
-  let match = useParams()
-  let dispatch = useDispatch
-
-  const status = useSelector(selectStatus)
-  const modalShow = status.modal.modalDisplayed
-  let page, formattedPage
-  page = match.pageView
-
-  switch(page){
-
-    case 'personalChits' : 
-      formattedPage = 'Personal Chits'
-      break
-
-      case 'twoPartyChits' : 
-      formattedPage = 'Two Party Chits'
-      break
-
-      case 'workChits' : 
-      formattedPage = 'Work Chits'
-      break
-      
-      
-    default: formattedPage = capitalizeFirstLetter(page)
-  }
-
-  console.log('MAIN S -- params ', match )
-  
-
-
-
-  
-
-
-/*
-   --- each page (chits, logs etc) has a different header color
-   --- headerColor logic determines which color is displayed
-   --- based on page variable in URL
-*/
-  const headerColor = (page) => {
-    let background
-     
-    if (page === 'personal') { 
-       background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
-    if (page === 'twoPartyChits') {
-      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
-    if (page === 'personalChits') {
-      background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
-      if (page === 'workChits') {
-        background = {backgroundColor: chitDarkLavendar, fontColor: 'white'} }
-    if (page === 'logs') { 
-      background =
-      {backgroundColor: chitLightPink, fontColor: 'black'} }
-
-    if (page === 'journal') { 
-      background =
-          {backgroundColor: chitLightGreen, fontColor: 'black'} }
-    if (page === 'people') { 
-      background =
-          {backgroundColor: chitBright, fontColor: 'black'} }
-
-    if (page === 'topicals') {
-      background =
-          {backgroundColor: chitDullYellow, fontColor: 'black'} }
-
-    if (page === 'spotlights') { 
-      
-      background =
-          {backgroundColor: chitOrangeMedium, fontColor: 'black'} }
-
-
-    return background
-  }
-
-  // ----side Panel logic ----- 
-
-
-  const [viewSidePanel, setViewSidePanel] = useState('hide');
-  const handleSidePanelChange = (evt) => {
-    evt.persist()
-    const newSidePanelView = (viewSidePanel === 'show') ? 'hide' : 'show'
-    setViewSidePanel(newSidePanelView)
-  }
-
-  return (
-    <BodyWrapper>
-
-      {modalShow && <Modal />}
-
-      <HeaderMain />
-      {/* <TopSpacer /> */}
-
-
-      <MainWrapper>
-
-        <HeaderWrapper style={{ 
-          backgroundColor: headerColor(page).backgroundColor, 
-          color: headerColor(page).fontColor
-          }}>
-          <Header> {formattedPage}   </Header>
-<InfoIconWrapper>
-
-
-          <InfoIcon
-          
-          // onClick={() => openModal('help', page)} 
-          />
-</InfoIconWrapper>
-        </HeaderWrapper>
-        <MainContentWrapper>
-
-
-          {/* #########   SIDE PANEL  ############################### */}
-
-          <SidePanelWrapper className={viewSidePanel}>
-
-
-            <Handle onClick={handleSidePanelChange}>
-
-              {viewSidePanel === 'hide' &&
-                <KeyboardArrowRightIcon style={{ color: 'white' }} />
-              }
-
-              {viewSidePanel === 'show' &&
-                <KeyboardArrowLeftIcon style={{ color: 'white' }} />
-              }
-            </Handle>
-
-
-
-
-            {/* {page === 'twoParty' &&  <TwoPartyNav />  }
-              {page === 'personal' &&  <PersonalNav />  }
-              {page === 'work' &&  <WorkNav  />  }
-              {page === 'notes' &&  <NoteNav/>  }
-              {page === 'logs' &&  <LogNav/>  }
-
-              */}
-
-            <New />
-        
-            {page === 'spotlights' && <SpotlightNav />}
-            {page === 'logs' &&  <LogNav/>  }
-            {page === 'journal' &&  <JournalNav/>  }
-            {page === 'topicals' &&  <TopicalNav/>  }
-            {page === 'people' &&  <PeopleNav/>  }
-
-            {page === 'personalChits' &&  <PersonalNav/>  }
-            {page === 'twoPartyChits' &&  <TwoPartyNav/>  }
-            {page === 'workChits' &&  <WorkNav/>  }
-          </SidePanelWrapper>
-
-         
-
-          <ContentArea>
-
-          {page === 'twoPartyChits' &&
-              <Chits />
-            }
-
-            {page === 'workChits' &&
-              <Chits />
-            }
-
-            {page === 'personalChits' &&
-              <Chits />
-            }
-
-            {page === 'people' &&
-              <People />
-            }
-
-            {page === 'journal' &&
-              <Journal />
-            }
-
-            {page === 'logs' &&
-              <Logs />
-            }
-            {page === 'topicals' &&
-              <Topicals />
-            }
-            {/* 
-{page === 'inspire' &&
-                <Inspire />
-              }    */}
-
-            {page === 'spotlights' &&
-              <Spotlights />
-            }
-
-
-          </ContentArea>
-
-        </MainContentWrapper>
-
-      </MainWrapper>
-
-    </BodyWrapper>
-
-
-  ) // end return
-} // --- end func Main_s
-
-
-export default Main_s

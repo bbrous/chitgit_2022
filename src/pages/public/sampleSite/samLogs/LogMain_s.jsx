@@ -13,7 +13,7 @@
 
 
 import React , {useState, useEffect} from 'react'
- 
+import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
@@ -302,11 +302,14 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 // ===========================================
 
 function LogMain(props) {
+
+  let match = useParams()
+  let logId = match.id
   let status = useSelector(selectStatus)
 
   let logFormDisplay = status.view.log.sectionId
 
-  console.log('[Log Main] logFormDisplay', logFormDisplay)
+  console.log('[Log Main] logId', logId)
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {
@@ -319,6 +322,9 @@ function LogMain(props) {
 
   return (
     <OuterContainer> 
+
+      {logId === 'newLog'  && <> new log page here</>}
+      {logId !== 'newLog'  && <> 
       <LogHeader/>
 
     <MainWrapper>
@@ -351,7 +357,9 @@ function LogMain(props) {
       </Container>
 
     </MainWrapper>
+    </>}
     </OuterContainer>
+    
   )
 }
 

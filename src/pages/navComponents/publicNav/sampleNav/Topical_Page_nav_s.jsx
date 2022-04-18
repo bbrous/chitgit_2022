@@ -139,7 +139,7 @@ width: '33%',
 
 // ================================================
 
-function ChitViewNav(props) {
+function TopicalViewNav(props) {
   const dispatch = useDispatch()
   let match = useParams()
   let page = match.pageView
