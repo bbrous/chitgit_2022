@@ -16,7 +16,7 @@ import React , {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
-import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue, chitBurgandy} from '../../../../styles/colors'
 
 import{ selectLogs
   // selectSpotlightTaskArray
@@ -38,6 +38,115 @@ import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
+
+
+
+// ===========================================
+
+function LogMain(props) {
+
+  let match = useParams()
+  let urlId = match.id
+
+  let status = useSelector(selectStatus)
+
+  let logFormDisplay = status.view.log.sectionId
+  let logId = status.view.log.id
+  console.log('[Log Main] logId', logId)
+  const [arrayOrder, setArrayOrder] = useState(false)
+
+  const handleSwitchState = (newState) => {
+    setArrayOrder(newState)
+    // 
+  }
+
+
+  
+
+  return (
+    <OuterContainer> 
+
+      {logId === 'newLog'  && 
+ <> 
+    
+
+ {/* <LogHeader /> */}
+
+ <MainWrapper>
+
+ <HeaderWrapper>New Log</HeaderWrapper>
+
+
+   <Container>
+
+  
+       <FormContainer>  <LogSectionForm />  </FormContainer>
+ 
+
+
+
+
+   </Container>
+
+ </MainWrapper>
+
+
+
+
+
+</>
+  
+      }
+
+
+
+
+
+      {logId !== 'newLog'  &&
+
+        <>
+          <LogHeader />
+
+          <MainWrapper>
+
+
+            <FilterWrapper>
+
+              <SliderComponent
+                handleSwitchState={handleSwitchState} //gets new state from child switch
+                leftLabel='oldest first'
+                rightLabel='latest first'
+              />
+            </FilterWrapper>
+
+            <Container>
+
+              {logFormDisplay === 'new' &&
+                <FormContainer>  <LogSectionForm />  </FormContainer>
+              }
+              <SectionsContainer>
+                <SectionWrapper>
+
+                  <Log />
+                </SectionWrapper>
+
+              </SectionsContainer>
+
+
+
+            </Container>
+
+          </MainWrapper>
+        </>}
+    </OuterContainer>
+    
+  )
+}
+
+export default  LogMain
+
+
+
 
 
 const OuterContainer = styled('div')({
@@ -80,6 +189,28 @@ overflow: 'auto',
   },
 
 
+})
+
+const HeaderWrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  margin: '.2rem  0 2rem 0',
+  padding: '0 0 .5rem 2rem',
+  height: '4rem',
+  color: chitBurgandy,
+  fontSize: '1.3rem',
+
+
+  width: 'calc(98% - 2rem)',
+ 
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
 })
 
 const FilterWrapper = styled('div')({
@@ -298,69 +429,3 @@ const AddCircleIconWrapper= styled(AddCircleIcon)({
 
 })
  
-
-// ===========================================
-
-function LogMain(props) {
-
-  let match = useParams()
-  let logId = match.id
-  let status = useSelector(selectStatus)
-
-  let logFormDisplay = status.view.log.sectionId
-
-  console.log('[Log Main] logId', logId)
-  const [arrayOrder, setArrayOrder] = useState(false)
-
-  const handleSwitchState = (newState) => {
-    setArrayOrder(newState)
-    // 
-  }
-
-
-  
-
-  return (
-    <OuterContainer> 
-
-      {logId === 'newLog'  && <> new log page here</>}
-      {logId !== 'newLog'  && <> 
-      <LogHeader/>
-
-    <MainWrapper>
-      
- 
-<FilterWrapper> 
-
-<SliderComponent
-  handleSwitchState={handleSwitchState} //gets new state from child switch
-  leftLabel='oldest first'
-  rightLabel='latest first'
-/>
-</FilterWrapper>
- 
-      <Container>
-
-        {logFormDisplay === 'new'  &&  
-        <FormContainer>  <LogSectionForm />  </FormContainer>
-      }
-        <SectionsContainer>
-          <SectionWrapper>
-
-             <Log/> 
-          </SectionWrapper>
-
-        </SectionsContainer>
-
-
-
-      </Container>
-
-    </MainWrapper>
-    </>}
-    </OuterContainer>
-    
-  )
-}
-
-export default  LogMain

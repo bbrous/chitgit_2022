@@ -32,6 +32,92 @@ import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+// ================================================
+function LogHeader(props) {
+ 
+  const match = useParams()
+  const dispatch = useDispatch()
+  const matchId = match.id
+  let allLogsArray = useSelector(selectLogs) //immutable
+  let allGroups = useSelector(selectGroups)
+  let allPeople = useSelector(selectPeople)
+
+
+  let headerObject = allLogsArray.find(element => element.otherPartyId === matchId)
+
+  // --- Get the name for URL Id---------------------------
+
+  // --- determine which collection the id is from based on type
+  let collection 
+
+  headerObject.type === 'person'? collection = 'people': collection = 'groups'
+  
+  // --- get the name 
+  let name
+  
+  if (collection === 'groups') {
+    let groupObject = allGroups.find(group => group.id === matchId)
+
+    name = groupObject.name
+
+  }
+  if (collection === 'people') {
+    let personObject = allPeople.find(person => person.id === matchId)
+
+    name = personObject.name
+
+  }
+
+  const handleClick = ()=>{
+ 
+   
+   console.log('[ LOG HEADER] open new form ');
+    dispatch(openLogForm('new'))
+    
+  }
+ 
+
+// ====  Main Return =======================================
+
+  return (
+    <Wrapper>
+      <TitleWrapper>
+
+        <Title>
+          {name}
+        </Title>
+      </TitleWrapper>
+      <BottomWrapper>
+        <ButtonWrapper>
+
+          <FormButton 
+          startIcon={<AddIcon/>}
+          onClick={()=>handleClick()}
+          > 
+          add Section
+          </FormButton>
+
+        </ButtonWrapper>
+
+        <IconWrapper>
+          <DeleteIcon />
+          <EditIcon />
+
+
+        </IconWrapper>
+
+      </BottomWrapper>
+
+    </Wrapper>
+
+  )
+}// end func LogDetail
+
+ 
+export default LogHeader
+
+
 // -----------------------------------------------------------------
 
 const Wrapper = styled(Paper)({
@@ -199,87 +285,3 @@ const IconWrapper= styled('div')({
 })
 
 
-
-// ================================================
-function LogHeader(props) {
- 
-  const match = useParams()
-  const dispatch = useDispatch()
-  const matchId = match.id
-  let allLogsArray = useSelector(selectLogs) //immutable
-  let allGroups = useSelector(selectGroups)
-  let allPeople = useSelector(selectPeople)
-
-
-  let headerObject = allLogsArray.find(element => element.otherPartyId === matchId)
-
-  // --- Get the name for URL Id---------------------------
-
-  // --- determine which collection the id is from based on type
-  let collection 
-
-  headerObject.type === 'person'? collection = 'people': collection = 'groups'
-  
-  // --- get the name 
-  let name
-  
-  if (collection === 'groups') {
-    let groupObject = allGroups.find(group => group.id === matchId)
-
-    name = groupObject.name
-
-  }
-  if (collection === 'people') {
-    let personObject = allPeople.find(person => person.id === matchId)
-
-    name = personObject.name
-
-  }
-
-  const handleClick = ()=>{
- 
-   
-   console.log('[ LOG HEADER] open new form ');
-    dispatch(openLogForm('new'))
-    
-  }
- 
-
-// ====  Main Return =======================================
-
-  return (
-    <Wrapper>
-      <TitleWrapper>
-
-        <Title>
-          {name}
-        </Title>
-      </TitleWrapper>
-      <BottomWrapper>
-        <ButtonWrapper>
-
-          <FormButton 
-          startIcon={<AddIcon/>}
-          onClick={()=>handleClick()}
-          > 
-          add Section
-          </FormButton>
-
-        </ButtonWrapper>
-
-        <IconWrapper>
-          <DeleteIcon />
-          <EditIcon />
-
-
-        </IconWrapper>
-
-      </BottomWrapper>
-
-    </Wrapper>
-
-  )
-}// end func LogDetail
-
- 
-export default LogHeader

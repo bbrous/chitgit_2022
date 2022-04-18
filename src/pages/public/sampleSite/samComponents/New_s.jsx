@@ -1,8 +1,14 @@
 /* New.jsx
-    New Button for all app components EXCEPT "chronicles"
-    Has Icon that Opens Modal with app specific form (ie spotlight, note, etc)
-    gets page type from URL ... 
+    New Button for all app components EXCEPT "journal"
+    There is only 1 journal
+
+    After that the new icon has two different onClickhandlers
+
+    (1) If twoPartyChit, personalChit or Spotlight Has Icon that Opens Modal with app specific form (ie spotlight, note, etc)
+    gets page type from URL ...  if  
     then  passes it to OpenModal action - in - redux/statusRedux/sam_statusSlice
+
+     (2) if log or person or topical - adds newType to URL using navigate()
 
     Contains children : 
        none
@@ -15,7 +21,7 @@ import React from 'react'
 import { useDispatch} from 'react-redux'
 import {  useParams } from 'react-router-dom'
 import {useNavigate } from 'react-router-dom'
-import{openModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
+import{openModal, updateChronicleView} from '../../../../app/redux/statusRedux/sam_statusSlice'
  
 
 import {capitalizeFirstLetter} from '../../../../app/helpers/commonHelpers'
@@ -175,21 +181,39 @@ const openForm = ()=>{
 
 }// end openForm
 
-const handleRoutToNew = (collection)=>{
+const handleNewChronicle = (collection)=>{
 
   //  define which Form to open in Modal by passing
   //  dbCollection to Modal depending on pageView in browser URL 
   // ------------------------------------------------------------
     
   // props.openModal(dbCollection, id)
-  let newType
-  if(collection === 'logs'){newType = 'newLog'}
-  if(collection === 'topicals'){newType = 'newTopical'}
-
-navigate(`/sample/${collection}/${newType}`)
-
+  let newType, pageType
+  if(collection === 'logs'){
+    newType = 'newLog'
+    pageType = 'log'
   
-}// end openForm
+  }
+  if(collection === 'topicals'){
+    newType = 'newTopical'
+    pageType = 'topical'
+  
+  }
+
+  dispatch(updateChronicleView(
+    {
+          sectionId: '',
+          pageType: pageType,
+          id: newType
+      
+    }
+
+
+
+  ))
+ navigate(`/sample/${collection}/newLog`)
+  
+}// end handleNewChronicle
 
   return (
     <> 
@@ -204,7 +228,7 @@ navigate(`/sample/${collection}/${newType}`)
     
     <LightTooltip title={formattedPage} arrow>
     <AddCircleIconWrapper
-      onClick={() => handleRoutToNew(page)}
+      onClick={() => handleNewChronicle(page)}
     />
   </LightTooltip>
     
@@ -212,7 +236,7 @@ navigate(`/sample/${collection}/${newType}`)
     {dbCollection === 'topicals'  &&
     <LightTooltip title={formattedPage} arrow>
     <AddCircleIconWrapper
-      onClick={() => handleRoutToNew(page)}
+      onClick={() => handleNewChronicle(page)}
     />
   </LightTooltip>
     

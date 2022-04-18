@@ -84,7 +84,7 @@ function Logs(props) {
 
 // ###########  TEMP  ############## 
 let logsArray = [1]
-let logId = 'spectrum'
+let logId = match.id
 let logSectionId = ''
  
  

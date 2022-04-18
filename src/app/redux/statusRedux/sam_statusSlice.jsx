@@ -184,6 +184,15 @@ export const statusSlice = createSlice({
                    
     },
 
+    updateChronicleView: (state, action) => {
+
+      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] pageType', action.payload.pageType);
+  
+      state.view[action.payload.pageType].sectionId = action.payload.sectionId
+      state.view[action.payload.pageType].id = action.payload.id
+                   
+    },
+
     updateAccordionDisplay: (state, action) => {
       state.accordionDisplay.id = action.payload.id
     
@@ -254,6 +263,7 @@ export const {
   changeStatusInitialMessage, 
   changeLastSpotlightDisplayed,
   updateStatusView,
+  updateChronicleView,
   closeJournalForm,
   openJournalForm,
   closeLogForm,

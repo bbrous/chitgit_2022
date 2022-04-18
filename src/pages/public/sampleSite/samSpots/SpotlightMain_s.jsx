@@ -33,7 +33,53 @@ import Paper from '@mui/material/Paper'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
+
+
+
+// ============================================================
+
+function SpotlightMain(props) {
+  let match = useParams()
+  // console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
+  return (
+    <>
+      <ViewNavWrapper>
+        <ViewNav />
+      </ViewNavWrapper>
+
+      <Container>
+    
+        <Parent />
+       
+        <Spotlight />
+
+        <FormContainer>
+
+ 
+
+          <SpotlightTaskForm />
+
+
+
+
+
+        </FormContainer>
+
+        <TaskWrapper>
+          <SortableTasks />
+        </TaskWrapper>
+
+
+
+      </Container>
+    </>
+  )
+}// end func SpotlightMain
+
+
+ export default SpotlightMain
+
+ // -----------------------------------------------------------------
 
 const ViewNavWrapper= styled('div')({
   display: 'flex',
@@ -128,47 +174,3 @@ const TaskWrapper = styled('div')({
     // backgroundColor: 'red'
   },
 })
-
-
-// ============================================================
-
-function SpotlightMain(props) {
-  let match = useParams()
-  // console.log('@@@ [SPOTLIGHTMAIN]- params' , match)
-  return (
-    <>
-      <ViewNavWrapper>
-        <ViewNav />
-      </ViewNavWrapper>
-
-      <Container>
-    
-        <Parent />
-       
-        <Spotlight />
-
-        <FormContainer>
-
- 
-
-          <SpotlightTaskForm />
-
-
-
-
-
-        </FormContainer>
-
-        <TaskWrapper>
-          <SortableTasks />
-        </TaskWrapper>
-
-
-
-      </Container>
-    </>
-  )
-}// end func SpotlightMain
-
-
- export default SpotlightMain

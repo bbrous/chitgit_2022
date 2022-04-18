@@ -39,6 +39,137 @@ import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+//  =====================================================================
+
+export default function LogSection(props) {
+
+  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
+
+ 
+   // convert Dates for display
+
+   let styledLogDate = ISOtoTraditional(logDate)
+   let styledLogTime = ISOtoTraditionalTime(logDate)
+   let styledLastEdit = ISOtoTraditionalTime(lastEdit)
+   let styledTimeLock
+   timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
+ 
+
+  // format keywords
+  let styledKeywords = ''
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+
+  let styledPeople = ''
+
+  if (peopleArray.length > 0) {
+    //    peopleArray.map((keyword) => {
+    //   styledPeople = styledPeople  + keyword + ' , '
+
+    //   return styledPeople
+    // }
+    // ) //end map
+
+  for(let i = 0; i < peopleArray.length; i++){
+    if(i === peopleArray.length - 1){
+      styledPeople += peopleArray[i]  
+    }else{
+    styledPeople += peopleArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (peopleArray.length === 0) {
+styledPeople = 'none'
+  }
+
+
+  return (
+    <MainWrapper>
+      <TopWrapper>
+        <DateWrapper>{styledLogDate} : <span> {styledLogTime} </span></DateWrapper>
+        <IconWrapper>
+
+          <LightTooltip title='Edit' arrow>
+            <StyledEditIcon />
+          </LightTooltip>
+
+          <ChitIcon />
+          <LightTooltip title='Content Time Lock' arrow>
+            <StyledLockClockIcon />
+          </LightTooltip>
+
+          <LightTooltip title='Attachment' arrow>
+            <StyledAttachmentIcon />
+          </LightTooltip>
+
+          <LightTooltip title='Delete' arrow>
+            <StyledDeleteIcon />
+          </LightTooltip>
+        </IconWrapper>
+      </TopWrapper>
+  
+    <OuterContentWrapper> 
+
+      <ContentWrapper>
+
+        <MetaWrapper>
+        {meta}
+          <TimesWrapper>
+            <div> timestamp:  {} </div>
+            <div> last edit:  {styledLastEdit} : </div>
+            
+          </TimesWrapper>
+        </MetaWrapper>
+        
+     
+        <Content>
+          <HeadlineWrapper> {title}</HeadlineWrapper>
+    
+          <div dangerouslySetInnerHTML={{__html: detail}}/>
+        </Content>
+
+
+      </ContentWrapper>
+      <SearchWrapper>
+        <PeopleWrapper><SearchTitle>people:</SearchTitle>{styledPeople}</PeopleWrapper>
+        <KeyWordWrapper>  <SearchTitle> keywords:  </SearchTitle>{styledKeywords}</KeyWordWrapper>
+
+      </SearchWrapper>
+      </OuterContentWrapper>
+
+
+    </MainWrapper>
+  )
+}
+
+
+
 // -----------------------------------------------------------------
 //--- STYLES begin --------------------------
 
@@ -427,132 +558,3 @@ const LightTooltip = withStyles({
 
 
 
-
-
-//  =====================================================================
-
-export default function LogSection(props) {
-
-  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
-
- 
-   // convert Dates for display
-
-   let styledLogDate = ISOtoTraditional(logDate)
-   let styledLogTime = ISOtoTraditionalTime(logDate)
-   let styledLastEdit = ISOtoTraditionalTime(lastEdit)
-   let styledTimeLock
-   timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
- 
-
-  // format keywords
-  let styledKeywords = ''
-
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
-    //   styledKeywords = styledKeywords  + keyword + ' , '
-
-    //   return styledKeywords
-    // }
-    // ) //end map
-
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
-    }else{
-    styledKeywords += keyWordArray[i] + ' , '
-    }
-  }
- 
-
-  }//end if keyword.length > 0
-
-  if (keyWordArray.length === 0) {
-styledKeywords = 'none'
-  }
-
-
-  let styledPeople = ''
-
-  if (peopleArray.length > 0) {
-    //    peopleArray.map((keyword) => {
-    //   styledPeople = styledPeople  + keyword + ' , '
-
-    //   return styledPeople
-    // }
-    // ) //end map
-
-  for(let i = 0; i < peopleArray.length; i++){
-    if(i === peopleArray.length - 1){
-      styledPeople += peopleArray[i]  
-    }else{
-    styledPeople += peopleArray[i] + ' , '
-    }
-  }
- 
-
-  }//end if keyword.length > 0
-
-  if (peopleArray.length === 0) {
-styledPeople = 'none'
-  }
-
-
-  return (
-    <MainWrapper>
-      <TopWrapper>
-        <DateWrapper>{styledLogDate} : <span> {styledLogTime} </span></DateWrapper>
-        <IconWrapper>
-
-          <LightTooltip title='Edit' arrow>
-            <StyledEditIcon />
-          </LightTooltip>
-
-          <ChitIcon />
-          <LightTooltip title='Content Time Lock' arrow>
-            <StyledLockClockIcon />
-          </LightTooltip>
-
-          <LightTooltip title='Attachment' arrow>
-            <StyledAttachmentIcon />
-          </LightTooltip>
-
-          <LightTooltip title='Delete' arrow>
-            <StyledDeleteIcon />
-          </LightTooltip>
-        </IconWrapper>
-      </TopWrapper>
-  
-    <OuterContentWrapper> 
-
-      <ContentWrapper>
-
-        <MetaWrapper>
-        {meta}
-          <TimesWrapper>
-            <div> timestamp:  {} </div>
-            <div> last edit:  {styledLastEdit} : </div>
-            
-          </TimesWrapper>
-        </MetaWrapper>
-        
-     
-        <Content>
-          <HeadlineWrapper> {title}</HeadlineWrapper>
-    
-          <div dangerouslySetInnerHTML={{__html: detail}}/>
-        </Content>
-
-
-      </ContentWrapper>
-      <SearchWrapper>
-        <PeopleWrapper><SearchTitle>people:</SearchTitle>{styledPeople}</PeopleWrapper>
-        <KeyWordWrapper>  <SearchTitle> keywords:  </SearchTitle>{styledKeywords}</KeyWordWrapper>
-
-      </SearchWrapper>
-      </OuterContentWrapper>
-
-
-    </MainWrapper>
-  )
-}
