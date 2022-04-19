@@ -228,13 +228,23 @@ export const statusSlice = createSlice({
 
     },
 
-    closeLogForm: (state, action) => {
+    closeLogSectionForm: (state, action) => {
       // state.modal.modalType = ''
       // state.modal.dbCollection = ''
       // state.modal.id = ''
 
        
       state.view.log.sectionId = ''
+
+    },
+
+    closeNewLogForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.log.id = ''
 
     },
 
@@ -266,7 +276,8 @@ export const {
   updateChronicleView,
   closeJournalForm,
   openJournalForm,
-  closeLogForm,
+  closeLogSectionForm,
+  closeNewLogForm,
   openLogForm,
   updateAccordionDisplay,
   changeMonthView

@@ -31,7 +31,7 @@ import { string, object  } from 'yup';
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 import {
-  closeLogForm, selectStatus
+  closeLogSectionForm, closeNewLogForm, selectStatus
 
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -82,8 +82,12 @@ const formSchema = object({
 export default function LogSectionForm_s(props) {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const status = useSelector(selectStatus)
   const logSectionId = status.view.log.sectionId
+  const logId = status.view.log.id
+
+  console.log('[ LOG SECTION FORM FORM FORM ] logId ', logId);
 
 // ----create default paramters if note exists ---------------------
 
@@ -116,10 +120,10 @@ logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId
   };
 
   // --- close / cancel form 
-  const cancelForm = () => {
+  const cancelNewForm = () => {
 
-    dispatch(closeLogForm())
-
+    dispatch(closeNewLogForm())
+    navigate(`/sample/logs`)
   }
 // ===========  FORM  ==================================================
 
@@ -135,7 +139,25 @@ logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId
     console.log('[LogSectionForm]...data ', data)
 
 
-    dispatch(closeLogForm())
+    /* ###########################################
+
+if newLog --- 
+   1. if person or group is new 
+      a) add person or group
+      b)async get id
+      c) create new log section 
+
+   2. if person or group exists
+       create new log section
+
+   3. dispatch(closeNewLogForm) with update to status view with
+      person or group id
+
+
+
+    ########################################### */
+
+    dispatch(closeLogSectionForm())
 
   };
 
@@ -150,55 +172,55 @@ logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId
 <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm) } >
   
 
-<MainWrapper>
-      <TopWrapper>
-        <DateWrapper>
+          <MainWrapper>
+            <TopWrapper>
+              <DateWrapper>
 
-        <Controller
+                <Controller
 
-name="dateTime"
-control={control}
-defaultValue = {defaultValues.dateTime}
+                  name="dateTime"
+                  control={control}
+                  defaultValue={defaultValues.dateTime}
 
-render={({ field }) => (
-  <StyledDateTimePicker {...field} ref = {null} />
-)}
-/><CalendarTodayIcon  style = {{
-   color: '#A7A7A8', 
-   fontSize: '1.2rem',
-   marginLeft: '5px'
-   }}
-/>
+                  render={({ field }) => (
+                    <StyledDateTimePicker {...field} ref={null} />
+                  )}
+                /><CalendarTodayIcon style={{
+                  color: '#A7A7A8',
+                  fontSize: '1.2rem',
+                  marginLeft: '5px'
+                }}
+                />
 
-        </DateWrapper>
+              </DateWrapper>
 
-      </TopWrapper>
-  
-    <OuterContentWrapper> 
+            </TopWrapper>
 
-      <ContentWrapper>
+            <OuterContentWrapper>
 
-        <MetaWrapper>
-      
+              <ContentWrapper>
+
+                <MetaWrapper>
 
 
-              <Controller
 
-                name="meta"
-                control={control}
-                initialNote={'hi quill description'}
-               
-                render={({ field }) => (
-                  <EditorShort 
-                  {...field} 
-                  ref={null}  
-                  IniitalValue = {defaultValues.noteContent}/>
-                )}
-                
-              />
+                  <Controller
 
-         
-        </MetaWrapper>
+                    name="meta"
+                    control={control}
+                    initialNote={'hi quill description'}
+
+                    render={({ field }) => (
+                      <EditorShort
+                        {...field}
+                        ref={null}
+                        IniitalValue={defaultValues.noteContent} />
+                    )}
+
+                  />
+
+
+                </MetaWrapper>
         
      
         <Content>
@@ -271,15 +293,29 @@ render={({ field }) => (
             Submit
           </StyledButton>
 
+          {logId !== 'newLog' && 
           <StyledButton 
              
             variant="contained" 
             color="primary"
             style={{textTransform: 'none'}}
-            onClick = {()=>dispatch(closeLogForm())}
+            onClick = {()=>dispatch(closeLogSectionForm())}
             >
             Cancel
           </StyledButton> 
+        }
+
+{logId === 'newLog' && 
+          <StyledButton 
+             
+            variant="contained" 
+            color="primary"
+            style={{textTransform: 'none'}}
+            onClick = {()=>cancelNewForm()}
+            >
+            Cancel
+          </StyledButton> 
+        }
 
         </ButtonWrapper>
       </FormWrapper>

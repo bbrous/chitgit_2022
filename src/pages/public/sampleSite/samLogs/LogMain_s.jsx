@@ -51,8 +51,16 @@ function LogMain(props) {
   let status = useSelector(selectStatus)
 
   let logFormDisplay = status.view.log.sectionId
-  let logId = status.view.log.id
-  console.log('[Log Main] logId', logId)
+  let statusId = status.view.log.id
+ 
+
+const [logId, setLogId] = useState(statusId)
+useEffect(()=>{
+setLogId(statusId)
+
+},[statusId])
+
+console.log('[Log Main] logId', logId)
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {
@@ -66,7 +74,7 @@ function LogMain(props) {
   return (
     <OuterContainer> 
 
-      {logId === 'newLog'  && 
+      {urlId === 'newLog'  && 
  <> 
     
 
@@ -102,7 +110,7 @@ function LogMain(props) {
 
 
 
-      {logId !== 'newLog'  &&
+      {urlId !== 'newLog'  &&
 
         <>
           <LogHeader />
