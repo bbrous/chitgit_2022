@@ -27,6 +27,7 @@ import { closeLogForm, selectStatus } from '../../../../app/redux/statusRedux/sa
 
 import Log from './Log_s'
 import LogSectionForm from '../samForms/LogSectionForm_s'
+import LogForm from '../samForms/LogForm_s'
 import LogHeader from './LogHeader_s'
 import SliderComponent from '../../../../common_components/SliderComponent'
 //  ---- Material Ui ------------------
@@ -74,44 +75,32 @@ console.log('[Log Main] logId', logId)
   return (
     <OuterContainer> 
 
-      {urlId === 'newLog'  && 
- <> 
-    
+{/* --- New Log Icon prssed --- puts 'newLog' in URL id param ---------*/}
 
- {/* <LogHeader /> */}
+      {urlId === 'newLog' &&
+        <>
 
- <MainWrapper>
+          {/* <LogHeader /> */}
 
- <HeaderWrapper>New Log</HeaderWrapper>
+          <MainWrapper>
 
+            <HeaderWrapper>New Log</HeaderWrapper>
 
-   <Container>
+            <Container>
 
-  
-       <FormContainer>  <LogSectionForm />  </FormContainer>
- 
+              <FormContainer>  <LogForm />  </FormContainer>
 
+            </Container>
 
+          </MainWrapper>
 
-
-   </Container>
-
- </MainWrapper>
-
-
-
-
-
-</>
+        </>
   
       }
 
-
-
-
+{/* --- Something other than 'newLog' in URL id param ------------- */}
 
       {urlId !== 'newLog'  &&
-
         <>
           <LogHeader />
 
@@ -128,6 +117,11 @@ console.log('[Log Main] logId', logId)
             </FilterWrapper>
 
             <Container>
+
+            {/* --- if Redux store has a sectionId,
+                   Show new log section form on top of other logs
+                    other wise - only show other logs
+            */}
 
               {logFormDisplay === 'new' &&
                 <FormContainer>  <LogSectionForm />  </FormContainer>

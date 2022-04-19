@@ -100,12 +100,12 @@ function LogHeader(props) {
 
         </ButtonWrapper>
 
-        <IconWrapper>
+        {/* <IconWrapper>
           <DeleteIcon />
           <EditIcon />
 
 
-        </IconWrapper>
+        </IconWrapper> */}
 
       </BottomWrapper>
 

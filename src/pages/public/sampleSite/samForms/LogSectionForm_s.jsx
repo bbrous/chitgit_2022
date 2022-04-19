@@ -248,7 +248,7 @@ if newLog ---
 
       </ContentWrapper>
           <SearchWrapper>
-            <SearchTitle>Add search terms</SearchTitle>
+            <SearchTitle>Add search termsxxx Section Form</SearchTitle>
             <PeopleWrapper>
 
             <StyledChronicleMultiselect
@@ -293,7 +293,7 @@ if newLog ---
             Submit
           </StyledButton>
 
-          {logId !== 'newLog' && 
+   
           <StyledButton 
              
             variant="contained" 
@@ -303,19 +303,9 @@ if newLog ---
             >
             Cancel
           </StyledButton> 
-        }
+    
 
-{logId === 'newLog' && 
-          <StyledButton 
-             
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
-            onClick = {()=>cancelNewForm()}
-            >
-            Cancel
-          </StyledButton> 
-        }
+
 
         </ButtonWrapper>
       </FormWrapper>

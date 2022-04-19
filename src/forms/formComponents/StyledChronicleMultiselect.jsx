@@ -146,6 +146,7 @@ export const StyledChronicleMultiselect = ({ name, control, label, type, default
           <StyledWrapper
           autoSelect
           filterSelectedOptions
+          
           classes={{ paper: classes.paper }}
           fullWidth
           size="small"
@@ -168,7 +169,8 @@ export const StyledChronicleMultiselect = ({ name, control, label, type, default
               variant="standard"
               // label="freeSolo"
               placeholder= {placeholder}
-
+              error={!!error}
+              helperText={error ? error.message : null}
               InputProps={{...params.InputProps, disableUnderline: true}}
             />
           )}
