@@ -77,21 +77,21 @@ const theme = createTheme(); // allows use of mui theme in styled component
 //  -- Input requirements for user for each component (if any)
 
 const formSchema = object({
-  person: string().required('Name is required'),
-//   logType: string().required('Person or group required'),
-//   person: string()
-//   .when('logType', {
-//     is: 'person',
-//     then: string().required('A person type is required.'),
-//   }),
+  // person: string().required('Name is required'),
+ 
+  person: string()
+  .when('logType', {
+    is: 'person',
+    then: string().required('A person type is required.'),
+  }),
 
  
 
-// group: string()
-// .when('logType', {
-//   is: 'group',
-//   then: string().required('A group type is required.'),
-// }),
+group: string()
+.when('logType', {
+  is: 'group',
+  then: string().required('A group type is required.'),
+}),
 
 });
 
@@ -205,6 +205,7 @@ if newLog ---
             </ComponentName>
 
             <ComponentWrapper>
+              <RadiotWrapper>  
               <ChronicleRadio
                 name={"logType"}
                 control={control}
@@ -221,9 +222,9 @@ if newLog ---
                  
                 ]}
               />
+               </RadiotWrapper>
 
-
-
+<SelectWrapper>  
                 {showLogTypeInput === 'person' && <>   
                                 <ChronicleSelectMuiCreatable
                                 name={'person'}
@@ -231,30 +232,32 @@ if newLog ---
                                 options={['help', 'me']}
                                 // defaultValue = {{ value: 'ge423', label: 'home'}}
                                 defaultValue={defaultValues.categories}
-                
+                                placeholder = 'select or type person'
                 
                               />
 
-                              {errors.person && <div>This is required.</div>}
+                              {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
  </>
                 }
 
 
                 {showLogTypeInput === 'group' &&
+                <>  
                     <ChronicleSelectMuiCreatable
                     name={'group'}
                     control={control}
                     options={['angels', 'on my shoulder']}
                     // defaultValue = {{ value: 'ge423', label: 'home'}}
                     defaultValue={defaultValues.categories}
-    
+                    placeholder = 'select or type group'
     
                   />
 
+                  {errors.group && <ErrorMessage>This field required.</ErrorMessage>}
 
-
-
+                  </>
                 }
+</SelectWrapper>
 
             </ComponentWrapper>
           </FormComponentWrapper>
@@ -734,7 +737,6 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '100%',
   margin: '.5rem',
-
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -765,7 +767,48 @@ const ComponentWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
 
+  },
+
+})
+
+const RadiotWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '30%',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const SelectWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '60%',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ErrorMessage= styled('div')({
+  fontSize: '.8rem',
+  color: 'red',
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
