@@ -13,7 +13,7 @@ import React , {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue, lightGrey} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue, lightGrey, chitBurgandy} from '../../../../styles/colors'
 
 import{ selectLogs} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
 import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -84,7 +84,7 @@ export default function Log() {
       {filteredLogs.length === 0 && displayStatus !== 'new' &&
         <LogsMessageWrapper>
           <MessageWrapper>
-            You have no logs yet for this party
+            You have no logs for this party yet .
             
 
           </MessageWrapper>
@@ -161,7 +161,7 @@ const MessageWrapper= styled('div')({
   flexDirection: 'column',
   justifyContent: 'enter',
   alignItems: 'center',
-  // backgroundColor: 'green',
+  color: chitBurgandy,
   marginBottom: '1rem',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'

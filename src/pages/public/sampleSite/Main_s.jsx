@@ -17,7 +17,7 @@
            etc.
        Colored Header with Info Icon
        Main Component Wrapper children
-           people_s,  
+           reports_s,  
            chits_s, 
            spotlights_s, etc
 
@@ -43,7 +43,7 @@ import New from './samComponents/New_s'
 import InfoIcon from './samComponents/Info_s'
 import Chits from './samChits/Chits_s'
 
-import People from './samPeople/People_s'
+import Reports from './samReports/Reports_s'
 import Journal from './samJournal/Journal_s'
 import Logs from './samLogs/Logs_s'
 import Topicals from './samTopicals/Topicals_s'
@@ -60,7 +60,7 @@ import WorkNav from '../../navComponents/publicNav/sampleNav/sideBarNav/WorkNav_
 
 import LogNav from '../../navComponents/publicNav/sampleNav/sideBarNav/LogNav_s'
 import TopicalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/TopicalNav_s'
-import PeopleNav from '../../navComponents/publicNav/sampleNav/sideBarNav/PeopleNav_s'
+import ReportsNav from '../../navComponents/publicNav/sampleNav/sideBarNav/ReportsNav_s'
 import JournalNav from '../../navComponents/publicNav/sampleNav/sideBarNav/JournalNav_s'
 import Modal from './samComponents/Modal_s.jsx'
 
@@ -138,7 +138,7 @@ function Main_s(props) {
     if (page === 'journal') { 
       background =
           {backgroundColor: chitLightGreen, fontColor: 'black'} }
-    if (page === 'people') { 
+    if (page === 'reports') { 
       background =
           {backgroundColor: chitBright, fontColor: 'black'} }
 
@@ -226,7 +226,7 @@ function Main_s(props) {
             {page === 'logs' &&  <LogNav/>  }
             {page === 'journal' &&  <JournalNav/>  }
             {page === 'topicals' &&  <TopicalNav/>  }
-            {page === 'people' &&  <PeopleNav/>  }
+            {page === 'reports' &&  <ReportsNav/>  }
 
             {page === 'personalChits' &&  <PersonalNav/>  }
             {page === 'twoPartyChits' &&  <TwoPartyNav/>  }
@@ -249,8 +249,8 @@ function Main_s(props) {
               <Chits />
             }
 
-            {page === 'people' &&
-              <People />
+            {page === 'reports' &&
+              <Reports />
             }
 
             {page === 'journal' &&

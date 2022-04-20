@@ -6,7 +6,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
-import { chitBlueDull, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -46,16 +46,13 @@ import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
 
 // --- Form component imports ---------
 
-import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
-import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
-import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
 
 import { ChronicleSelectMuiCreatable } from '../../../../forms/formComponents/ChronicleSelectMuiCreatable'
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
 
-import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
+
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -64,11 +61,6 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
-
-
-
-
-
 
 
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -81,20 +73,18 @@ const theme = createTheme(); // allows use of mui theme in styled component
 //  -- Input requirements for user for each component (if any)
 
 const formSchema = object({
-  // person: string().required('Name is required'),
- 
-  person: string()
-  .when('logType', {
-    is: 'person',
-    then: string().required('A person type is required.'),
-  }),
+
+
+  person: string().when(["logType", "newExisting"], {
+    is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
+    then: string().required('I am required now that both checkboxes are checked')
+}),
 
  
 
-group: string()
-.when('logType', {
-  is: 'group',
-  then: string().required('A group type is required.'),
+group: string().when(["logType", "newExisting"], {
+  is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
+  then: string().required('I am required now that both checkboxes are checked')
 }),
 
 });
@@ -114,28 +104,18 @@ export default function LogForm_s(props) {
 
 // ----create default paramters if note exists ---------------------
 
-let defaultValues, log,  sectionId, logContent, logMeta, logKeywordArray, 
-logPeopleArray, logDateTime
+let defaultValues, sectionId
 
 
 // ##### Sample only  ###########
-logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId  
-
-// logSectionId === 'new' ? log =  {} : log =  selectLogFromArray(logArray, logId)
-
-
-// logSectionId === 'new' ? logContent = ''  : sectionId =  logSectionId  
-
-    
-  // !logId ? formlogHolderId = id  : formlogHolderId = log.logHolderId
-  let keywordsOptionsArray = []
-  let peopleOptionsArray = []
+// logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId  
 
 
   defaultValues = {
     content: '',
     meta: '',
     logType: 'person',
+    newExisting: 'existing',
     person: '',
     group: '',
     keywords: [],
@@ -201,8 +181,6 @@ if newLog ---
 
           <MainWrapper>
 
-
-
             <FormComponentWrapper>
               <ComponentName>
                 New Log Type
@@ -228,144 +206,90 @@ if newLog ---
                   />
                 </RadiotWrapper>
 
-                <SelectWrapper>
-                  {showLogTypeInput === 'person' && <>
-                    <ChronicleSelectMuiCreatable
-                      name={'person'}
-                      control={control}
-                      options={['help', 'me']}
-                      // defaultValue = {{ value: 'ge423', label: 'home'}}
-                      defaultValue={defaultValues.categories}
-                      placeholder='select or type person'
-
-                    />
-
-                    {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
-                  </>
-                  }
-
-
-                  {showLogTypeInput === 'group' &&
-                    <>
-                      <ChronicleSelectMuiCreatable
-                        name={'group'}
-                        control={control}
-                        options={['angels', 'on my shoulder']}
-                        // defaultValue = {{ value: 'ge423', label: 'home'}}
-                        defaultValue={defaultValues.categories}
-                        placeholder='select or type group'
-
-                      />
-
-                      {errors.group && <ErrorMessage>This field required.</ErrorMessage>}
-
-                    </>
-                  }
-                </SelectWrapper>
 
               </ComponentWrapper>
             </FormComponentWrapper>
 
 
-            <TopWrapper>
-              <DateWrapper>
+            <FormComponentWrapperIndent>
+ 
 
-                <Controller
-
-                  name="dateTime"
-                  control={control}
-                  defaultValue={defaultValues.dateTime}
-
-                  render={({ field }) => (
-                    <StyledDateTimePicker {...field} ref={null} />
-                  )}
-                /><CalendarTodayIcon style={{
-                  color: '#A7A7A8',
-                  fontSize: '1.2rem',
-                  marginLeft: '5px'
-                }}
-                />
-
-              </DateWrapper>
-
-            </TopWrapper>
-
-            <OuterContentWrapper>
-
-              <ContentWrapper>
-
-                <MetaWrapper>
-
-
-
-                  <Controller
-
-                    name="meta"
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChronicleRadio
+                    name={"newExisting"}
                     control={control}
-                    initialNote={'hi quill description'}
+                    label={"logType"}
+                    options={[
+                      {
+                        label: "existing",
+                        value: "existing",
+                      },
+                      {
+                        label: "new",
+                        value: "new",
+                      },
 
-                    render={({ field }) => (
-                      <EditorShort
-                        {...field}
-                        ref={null}
-                        IniitalValue={defaultValues.noteContent} />
-                    )}
-
+                    ]}
                   />
+                </RadiotWrapper>
 
-                </MetaWrapper>
 
-                <Content>
+              </ComponentWrapper>
+            </FormComponentWrapperIndent>
 
-                  <Controller
+            
 
-                    name="content"
+
+            <FormComponentWrapperDoubleIndent>
+
+
+              <ComponentWrapper>
+        
+        
+              <SelectWrapper>
+                {showLogTypeInput === 'person' && <>
+                  <ChronicleSelectMuiCreatable
+                    name={'person'}
                     control={control}
-                    initialNote={'hi quill description'}
-
-                    render={({ field }) => (
-                      <Editor
-                        {...field}
-                        ref={null}
-                        IniitalValue={defaultValues.noteContent} />
-                    )}
-
-                  />
-
-                </Content>
-
-              </ContentWrapper>
-              <SearchWrapper>
-                <SearchTitle>Add search termsaaa</SearchTitle>
-                <PeopleWrapper>
-
-                  <StyledChronicleMultiselect
-                    name={'people'}
-                    control={control}
-                    options={peopleOptionsArray}
+                    options={['help', 'me']}
                     // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.people}
-                    placeholder='select or type people'
+                    defaultValue={defaultValues.categories}
+                    placeholder='select or type person'
 
                   />
-                </PeopleWrapper>
 
-                <KeyWordWrapper>
-                  <StyledChronicleMultiselect
-                    name={'keywords'}
-                    control={control}
-                    options={keywordsOptionsArray}
-                    placeholder='select or type keywords'
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.keywords}
+                  {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
+                </>
+                }
 
 
-                  />
-                </KeyWordWrapper>
+                {showLogTypeInput === 'group' &&
+                  <>
+                    <ChronicleSelectMuiCreatable
+                      name={'group'}
+                      control={control}
+                      options={['angels', 'on my shoulder']}
+                      // defaultValue = {{ value: 'ge423', label: 'home'}}
+                      defaultValue={defaultValues.categories}
+                      placeholder='select or type group'
 
-              </SearchWrapper>
-            </OuterContentWrapper>
+                    />
 
+                    {errors.group && <ErrorMessage>This field required.</ErrorMessage>}
+
+                  </>
+                }
+              </SelectWrapper>
+
+
+
+
+
+              </ComponentWrapper>
+            </FormComponentWrapperDoubleIndent>
+
+           
 
           </MainWrapper>
 
@@ -453,239 +377,14 @@ const MainWrapper= styled('div')({
   position: 'relative',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  alignItems: 'center',
-  // backgroundColor: 'green',
-  width: '100%',
+  alignItems: 'flex-start',
+  width: '98%',
   height: '100%',
   marginBottom: '6px',
   paddingBottom: '6px',
-overflow: 'auto',
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-
-const TopWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  backgroundColor: veryLightGrey,
-  width: '100%',
-  margin: '3px 0',
-  borderRadius: '5px 5px 0 0',
-  borderLeft: '1px solid #CFD0D1',
-  borderTop: '1px solid #CFD0D1',
-  borderRight: '1px solid #CFD0D1',
-  height: '2rem',
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const DateWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
+ 
   // backgroundColor: 'green',
-  width: '35%',
-  padding: '2px 6px',
 
-  fontSize: '.8rem',
-  height: '.8rem',
-
-  '& span': {
-    color: mediumGrey,
-    marginLeft: '6px',
-     
-  },
-
-  [theme.breakpoints.down('sm')] : {
-    width: '100%'
-  },
-
-
-})
-
-
-const OuterContentWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'Column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-
-  width: '100%',
-  
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const ContentWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-
-  width: '100%',
-  // marginTop:'6px',
-  margin: 'auto',
-  
-  
-  
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-
-const MetaWrapper= styled('div')({
-
-  display: 'flex',
- 
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
-  fontSize: '.75rem',
-  width: '30%',
-  minHeight: '100%',
- 
-  backgroundColor: veryLightGrey,
-
- 
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const TimesWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-
-  width: '100%',
-  padding: '2px 6px',
-
-  fontSize: '.65rem',
-  color: mediumGrey,
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const HeadlineWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  color: chitBlueDull,
-  width: '99%',
-  padding: '6px 0',
-
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const SearchWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-
-  width: '99%',
-  padding: '2px 0',
-  margin: '3px 0',
-backgroundColor: veryLightGrey,
-  fontSize: '.6rem',
-  height: '2rem',
-  color: mediumGrey,
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const SearchTitle= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-
-  marginRight: '1.5rem',
-  fontSize: '.85rem',
-  fontStyle: 'italic',
-  height: '100%',
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-
-const PeopleWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // backgroundColor: 'aqua',
-  width: '30%',
-height: '100%',
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
-
-const KeyWordWrapper= styled('div')({
-
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // backgroundColor: 'orange',
-  marginLeft: '8px',
-  width: '40%',
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -696,26 +395,7 @@ const KeyWordWrapper= styled('div')({
 
 
 
-const Content= styled('div')({
-  flexGrow: 1,
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  fontSize: '.85rem',
-  width: '70%',
 
-   
-  // borderLeft: '1px solid #E6E7E8',
-  backgroundColor: 'white',
-   
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-
-})
 
 
 
@@ -727,9 +407,47 @@ const FormComponentWrapper= styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  width: '100%',
-  margin: '.5rem',
+  width: '90%',
+  // margin: '.25rem',
  
+// backgroundColor: 'yellow',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const FormComponentWrapperIndent= styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '90%',
+  marginLeft: '2rem',
+
+// backgroundColor: 'yellow',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const FormComponentWrapperDoubleIndent= styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '90%',
+  marginLeft: '3rem',
+
+// backgroundColor: 'yellow',
+
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
@@ -743,7 +461,8 @@ const ComponentName= styled('div')({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  color: 'darkGrey',
+  color: darkGrey,
+  fontSize: '.9rem',
 
 
   [theme.breakpoints.down('sm')]: {

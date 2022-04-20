@@ -221,8 +221,10 @@ const handleNewChronicle = (collection)=>{
     <NewWrapper elevation={1}>
 
     
-
+    {page !== 'reports'  &&  
     <NewTitle> add {title} </NewTitle>
+    }
+
 
     {dbCollection === 'logs'  &&
     

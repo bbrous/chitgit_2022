@@ -29,7 +29,7 @@ import { Controller } from "react-hook-form";
  
 import { styled, createTheme  } from "@mui/material/styles"
 import { withStyles  } from "@mui/styles"
-import { chitBlueDull } from "../../styles/colors";
+import { chitBlueDull, darkGrey } from "../../styles/colors";
 
 
 
@@ -42,7 +42,7 @@ const OptionsWrapper= styled('div')({
 })
 
 const StyledLabel= styled(FormControlLabel)({
-  color: 'grey',
+  color: darkGrey,
   fontSize: '.5rem',
   '& .MuiFormControlLabel-label ': {
     fontSize: '.8rem'
