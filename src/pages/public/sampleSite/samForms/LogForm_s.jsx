@@ -37,7 +37,11 @@ import {
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
  
+// --- imports to create options for selectors
 
+import { selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
 
 
 // --- Form component imports ---------
@@ -188,81 +192,79 @@ if newLog ---
 
   return (
     <Wrapper>
-      
-     
+
+
 
       <FormProvider {...methods}>
-<FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm) } >
-  
+        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+
 
           <MainWrapper>
 
 
 
-          <FormComponentWrapper>
-            <ComponentName>
-              New Log Type
-            </ComponentName>
+            <FormComponentWrapper>
+              <ComponentName>
+                New Log Type
+              </ComponentName>
 
-            <ComponentWrapper>
-              <RadiotWrapper>  
-              <ChronicleRadio
-                name={"logType"}
-                control={control}
-                label={"logType"}
-                options = {[
-                  {
-                    label: "person",
-                    value: "person",
-                  },
-                  {
-                    label: "group",
-                    value: "group",
-                  },
-                 
-                ]}
-              />
-               </RadiotWrapper>
-
-<SelectWrapper>  
-                {showLogTypeInput === 'person' && <>   
-                                <ChronicleSelectMuiCreatable
-                                name={'person'}
-                                control={control}
-                                options={['help', 'me']}
-                                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                                defaultValue={defaultValues.categories}
-                                placeholder = 'select or type person'
-                
-                              />
-
-                              {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
- </>
-                }
-
-
-                {showLogTypeInput === 'group' &&
-                <>  
-                    <ChronicleSelectMuiCreatable
-                    name={'group'}
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChronicleRadio
+                    name={"logType"}
                     control={control}
-                    options={['angels', 'on my shoulder']}
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.categories}
-                    placeholder = 'select or type group'
-    
+                    label={"logType"}
+                    options={[
+                      {
+                        label: "person",
+                        value: "person",
+                      },
+                      {
+                        label: "group",
+                        value: "group",
+                      },
+
+                    ]}
                   />
+                </RadiotWrapper>
 
-                  {errors.group && <ErrorMessage>This field required.</ErrorMessage>}
+                <SelectWrapper>
+                  {showLogTypeInput === 'person' && <>
+                    <ChronicleSelectMuiCreatable
+                      name={'person'}
+                      control={control}
+                      options={['help', 'me']}
+                      // defaultValue = {{ value: 'ge423', label: 'home'}}
+                      defaultValue={defaultValues.categories}
+                      placeholder='select or type person'
 
+                    />
+
+                    {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
                   </>
-                }
-</SelectWrapper>
-
-            </ComponentWrapper>
-          </FormComponentWrapper>
+                  }
 
 
+                  {showLogTypeInput === 'group' &&
+                    <>
+                      <ChronicleSelectMuiCreatable
+                        name={'group'}
+                        control={control}
+                        options={['angels', 'on my shoulder']}
+                        // defaultValue = {{ value: 'ge423', label: 'home'}}
+                        defaultValue={defaultValues.categories}
+                        placeholder='select or type group'
+
+                      />
+
+                      {errors.group && <ErrorMessage>This field required.</ErrorMessage>}
+
+                    </>
+                  }
+                </SelectWrapper>
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
 
 
             <TopWrapper>
@@ -311,98 +313,88 @@ if newLog ---
 
                   />
 
-
                 </MetaWrapper>
-        
-     
-        <Content>
+
+                <Content>
+
+                  <Controller
+
+                    name="content"
+                    control={control}
+                    initialNote={'hi quill description'}
+
+                    render={({ field }) => (
+                      <Editor
+                        {...field}
+                        ref={null}
+                        IniitalValue={defaultValues.noteContent} />
+                    )}
+
+                  />
+
+                </Content>
+
+              </ContentWrapper>
+              <SearchWrapper>
+                <SearchTitle>Add search termsaaa</SearchTitle>
+                <PeopleWrapper>
+
+                  <StyledChronicleMultiselect
+                    name={'people'}
+                    control={control}
+                    options={peopleOptionsArray}
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.people}
+                    placeholder='select or type people'
+
+                  />
+                </PeopleWrapper>
+
+                <KeyWordWrapper>
+                  <StyledChronicleMultiselect
+                    name={'keywords'}
+                    control={control}
+                    options={keywordsOptionsArray}
+                    placeholder='select or type keywords'
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.keywords}
 
 
+                  />
+                </KeyWordWrapper>
 
-              <Controller
-
-                name="content"
-                control={control}
-                initialNote={'hi quill description'}
-               
-                render={({ field }) => (
-                  <Editor 
-                  {...field} 
-                  ref={null}  
-                  IniitalValue = {defaultValues.noteContent}/>
-                )}
-                
-              />
+              </SearchWrapper>
+            </OuterContentWrapper>
 
 
-        </Content>
+          </MainWrapper>
 
+          {/* ------Submit ---------- -------------------------- */}
+          <ButtonWrapper>
 
-      </ContentWrapper>
-          <SearchWrapper>
-            <SearchTitle>Add search termsaaa</SearchTitle>
-            <PeopleWrapper>
-
-            <StyledChronicleMultiselect
-                name={'people'}
-                control={control}
-                options={peopleOptionsArray}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.people}
-                placeholder = 'select or type people'
-
-              />
-            </PeopleWrapper>
-
-            <KeyWordWrapper>
-              <StyledChronicleMultiselect
-                name={'keywords'}
-                control={control}
-                options={keywordsOptionsArray}
-                placeholder = 'select or type keywords'
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.keywords}
-
-
-              />
-            </KeyWordWrapper>
-
-          </SearchWrapper>
-      </OuterContentWrapper>
-
-
-    </MainWrapper>
-  
-        {/* ------Submit ---------- -------------------------- */}
-        <ButtonWrapper>
-
-          <StyledButton 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
             >
-            Submit
-          </StyledButton>
+              Submit
+            </StyledButton>
 
+            <StyledButton
 
-
-
-          <StyledButton 
-             
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
-            onClick = {()=>cancelNewForm()}
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
+              onClick={() => cancelNewForm()}
             >
-            Cancel
-          </StyledButton> 
-        
+              Cancel
+            </StyledButton>
 
-        </ButtonWrapper>
-      </FormWrapper>
+          </ButtonWrapper>
+        </FormWrapper>
 
-    </FormProvider>
+      </FormProvider>
 
     </Wrapper>
   );

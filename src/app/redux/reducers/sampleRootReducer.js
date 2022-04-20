@@ -22,10 +22,13 @@ import statusReducer from '../statusRedux/sam_statusSlice'
 
 import taskReducer from '../taskRedux/sam_tasksSlice'
 import logReducer from '../logRedux/sam_logsSlice'
+import logHolderReducer from '../logHolderRedux/sam_logHolderSlice'
+
 import journalReducer from '../journalRedux/sam_journalSlice'
 
 import noteReducer from '../noteRedux/sam_notesSlice'
 import categoryReducer from '../categoryRedux/sam_categorySlice'
+
 import keywordReducer from '../keywordRedux/sam_keywordSlice'
 import groupReducer from '../groupRedux/sam_groupSlice'
 import peopleReducer from '../peopleRedux/sam_peopleSlice'
@@ -50,6 +53,7 @@ const sampleRootReducer = combineReducers({
 
     tasks: taskReducer,
     logs: logReducer,
+    logHolders: logHolderReducer,
     topicals: topicalReducer,
     journal: journalReducer,
     notes: noteReducer,

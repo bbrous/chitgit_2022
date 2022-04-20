@@ -33,7 +33,9 @@ import { unformattedUTCtoDate, DatetoUTC} from '../../../../../app/helpers/dateH
 import { ascendSorter, descendSorter, uniqueItemsInObjectField} from '../../../../../app/helpers/commonHelpers'
 
 //--- redux store slices --------------------------
-import { selectlogHolders } from '../../../../../app/redux/logHolderRedux/sam_logHolderSlice'
+import { 
+  selectLogs
+} from '../../../../../app/redux/logRedux/sam_logsSlice'
 
 import{ updateStatusView, selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
 
@@ -71,98 +73,163 @@ function LogNav() {
 
   let displayId = match.id
 
-  const allLogHolders = useSelector(selectlogHolders)
-  const allPeople = useSelector(selectPeople)
-  const allGroups = useSelector(selectGroups)
+  //  --- get and update all Logs when new log added  ---  
 
-  const [logHolderArray, setLogHolderArray] = useState(allLogHolders)
+  const allLogs = useSelector(selectLogs)
+  
+  const [LogsArray, setLogsArray] = useState(allLogs)
+
   useEffect(() => {
-    setLogHolderArray(allLogHolders)
-  }, [allLogHolders])
+    setLogsArray(allLogs)
+  }, [allLogs])
 
 
+   // ---1b get all people -----
+
+    const allPeople = useSelector(selectPeople)
+
+    const [peopleArray, setPeopleArray] = useState(allPeople)
+    useEffect(() => {
+      setPeopleArray(allPeople)
+    }, [allPeople])
+
+   // ---1c get all groups -----
+
+    const allGroups = useSelector(selectGroups)
+
+    const [groupsArray, setGroupsArray] = useState(allGroups)
+    useEffect(() => {
+    setGroupsArray(allGroups)
+    }, [allGroups])
 
 
-    // --- Map the categories for display in side panel
+  //  --- set the filter selector for Logs  ---
+  
+  const [filter, setFilter] = useState('allLogs')
 
-    let unsortedLogHoldersArray = [] 
-    let logHolderObject
-    logHolderArray.map((logHolder, index) => {
+  const changeFilter = (evt)=>{
 
-      if(logHolder.collection === 'people') {
-
-      
-        const person = allPeople.find(person =>  person.id === logHolder.id)
-
-        logHolderObject = {id: person.id, name: person.name}
-        // console.log('[ LogNav ] Ima person ', logHolderObject);
-        // nameObject = {id: person.id, name: person.name}
-        // console.log('[ LogSection ] Person Here ', nameObject);
-      }
-      
-      if(logHolder.collection === 'groups') {
-
-        const group = allGroups.find(group =>  group.id === logHolder.id)
-        logHolderObject = {id: group.id, name: group.name}
-        // console.log('[ LogNav ] Ima group ', logHolderObject);
-      
-   
-
-      }
-
-      unsortedLogHoldersArray.push(logHolderObject)
+    setFilter(evt.target.value)
     
-      return unsortedLogHoldersArray
-      
+  }
 
-    }) // end function displayCategory
+  /* --- make options for select filter
+      From all the people and groups in those collections,
+      only display an option for the specific types 
+      that have a log ... ie (person, company, charity, etc)
+  */
+
+  let uniqueTypes = uniqueItemsInObjectField(allLogs, 'type')
+      let uniqueOptions = uniqueTypes.map((log, index) => {
+
+        return (
+          <option value= {log}  key = {index} >{log} </option>
+        )
+    
+      }
+    
+      ) //end map uniqueTypes
+
+  /* --- filter logsArray ---------------------
+      1. show all logs or,
+      2. show logs only for give type
+  */
+
+    let filteredLogsArray  
+
+    if(filter === 'allLogs'){ filteredLogsArray = allLogs }else{
+      filteredLogsArray = allLogs.filter(log => log.type === filter)
+    }
+
+
+
+  // --- create array of name objects that has duplicates 
+  //     (nameObjectArray)
+
+    let nameObject
+    let nameObjectArray = []
+
+    filteredLogsArray.map((log, index) => {
+
+      if(log.type === 'person') {
+      
+        const person = allPeople.find(person =>  person.id === log.otherPartyId)
+        nameObject = {id: person.id, name: person.name}
+        // console.log('[ LogSection ] Person Here ', nameObject);
+      }else{
+        const group = allGroups.find(group =>  group.id === log.otherPartyId)
+        nameObject = {id: group.id, name: group.name}
+        // console.log('[ LogSection ] Group Here ', nameObject);
+      }
+
+      nameObjectArray.push(nameObject)
+      return (
+        nameObjectArray
+      )
+
+    }
+
+
+  ) //end map filteredLogsArray
+  
+
+
+  
+ // ---create array of name objects with NO  duplicates
+
+  const ids = nameObjectArray.map(o => o.id)
+  const uniqueLogNames = nameObjectArray.filter(({id}, index) => !ids.includes(id, index + 1))
+
+  // --- order names a-Z
+
+  const orderedUniqueLogNames = descendSorter(uniqueLogNames, 'name')
 
  
 
-const orderedLogHoldersArray = descendSorter(unsortedLogHoldersArray, 'name')
-
-let displayLogHolderName = orderedLogHoldersArray.map((log, index) => {
-
-
-
-  return (
-    <Wrapper key={log.id} >
-      {displayId === log.id &&
-        <SelectorWrapperSelected elevation={1}
-
-          id={log.id}
-          onClick={(evt) => {
-            handleChangeLog(evt)
-          }}
-        >
-
-          {log.name}
-
-        </SelectorWrapperSelected>
-
-
-      }
-
-      {displayId !== log.id &&
-
-        <SelectorWrapper elevation={1}
-
-          id={log.id}
-          onClick={(evt) => {
-            handleChangeLog(evt)
-          }}
-        >
-          {log.name}
-
-        </SelectorWrapper>
+  // --- displayLogName --- maps the jsx of uniqueLogNames 
+ 
+  let displayLogName = orderedUniqueLogNames.map((log, index) => {
 
 
 
-      }
-    </Wrapper>
-  )
-}) //end map displayLogName
+    return (
+      <Wrapper key={log.id} >
+        {displayId === log.id &&
+          <SelectorWrapperSelected elevation={1}
 
+            id={log.id}
+            onClick={(evt) => {
+              handleChangeLog(evt)
+            }}
+          >
+
+            {log.name}
+
+          </SelectorWrapperSelected>
+
+
+        }
+
+        {displayId !== log.id &&
+
+          <SelectorWrapper elevation={1}
+
+            id={log.id}
+            onClick={(evt) => {
+              handleChangeLog(evt)
+            }}
+          >
+            {log.name}
+
+          </SelectorWrapper>
+
+
+
+        }
+      </Wrapper>
+    )
+  }) //end map displayLogName
+  
 
   // --- on click function that changes URL and Redux store status
   
@@ -176,14 +243,26 @@ let displayLogHolderName = orderedLogHoldersArray.map((log, index) => {
     }))
   }
 
-
+    
 // === MAIN return ===================================================
 
   return (
 <>
   
 
+<FilterWrapper  >
 
+<StyledSelectField name="filters" id="filters"
+  onChange={(evt) => changeFilter(evt)}
+>
+  <option key = '99' value="allLogs" >All logs  </option>
+  {uniqueOptions}
+ 
+  
+
+</StyledSelectField>
+
+</FilterWrapper>
 
 <OrderWrapper>
 
@@ -191,7 +270,7 @@ let displayLogHolderName = orderedLogHoldersArray.map((log, index) => {
 </OrderWrapper>
 
 <DisplayWrapper>
-  {displayLogHolderName}
+  {displayLogName}
 </DisplayWrapper>
 
 

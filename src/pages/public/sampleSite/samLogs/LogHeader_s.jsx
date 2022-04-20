@@ -13,8 +13,11 @@ import {useParams} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
 
-import EditIcon from '../samComponents/Edit_icon_s'
-import DeleteIcon from '../samComponents/Delete_icon_s'
+
+import { Scrollbars } from 'react-custom-scrollbars';
+
+import Edit_icon from '../samComponents/Edit_icon_s'
+import Delete_icon from '../samComponents/Delete_icon_s'
 
 //  ---- Material Ui ------------------
 
@@ -83,12 +86,12 @@ function LogHeader(props) {
   return (
     <Wrapper>
       <TitleWrapper>
-
+        <TitleWrapperLeft>
         <Title>
           {name}
         </Title>
-      </TitleWrapper>
-      <BottomWrapper>
+
+
         <ButtonWrapper>
 
           <FormButton 
@@ -99,15 +102,40 @@ function LogHeader(props) {
           </FormButton>
 
         </ButtonWrapper>
+        </TitleWrapperLeft>
 
-        {/* <IconWrapper>
-          <DeleteIcon />
-          <EditIcon />
+        <IconWrapper> 
+        <Delete_icon/>
+        <Edit_icon/>
 
 
-        </IconWrapper> */}
+      </IconWrapper>
 
-      </BottomWrapper>
+
+        {collection !== 'people' && 
+          <DetailWrapper> 
+        <Scrollbars style={{ height: 50 }}>
+      
+            <div>  800-555-1212</div>
+            <div>  444 Water street</div>
+            <div>  San Francisco Pa</div>
+
+            <div>  800-555-1212</div>
+            <div>  444 Water street</div>
+            <div>  San Francisco Pa</div>
+            <div>  800-555-1212</div>
+            <div>  444 Water street</div>
+            <div>  San Francisco Pa</div>
+            <div>  800-555-1212</div>
+            <div>  444 Water street</div>
+            <div>  San Francisco Pa</div>
+            
+         </Scrollbars>
+        </DetailWrapper>
+        
+}
+      </TitleWrapper>
+
 
     </Wrapper>
 
@@ -126,9 +154,10 @@ const Wrapper = styled(Paper)({
   // justifyContent: 'flex-start',
   // alignItems: 'center',
   margin: '1rem  0 .5rem 0',
-  paddingBottom: '.5rem',
+  padding: '.25rem',
+ 
 
-
+// backgroundColor: 'pink',
   width: '95%',
  
 
@@ -141,54 +170,69 @@ const Wrapper = styled(Paper)({
 
 const TitleWrapper= styled('div')({
   display: 'flex',
-   
-  justifyContent: 'flex-start',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
-   
+  
+  width: '100%',
   
  
- 
-  width: '98%',
-  padding: '0 .5rem',
-  marginBottom: '.5rem',
+   
 
   fontSize: '1rem',
-  
-  '&.backgroundCompleted' : {
-     
-    color: 'white', 
-     
-  
-  },
 
-
+  // backgroundColor: 'orange',
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
     // backgroundColor: 'red'
   },
 })
 
-const TitleLabel= styled('div')({
+const TitleWrapperLeft= styled('div')({
   display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  height: '100%',
+  width: '40%',
+  padding: ' .5rem',
+ 
+ 
+  fontSize: '1rem',
   
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-   
-  margin: '0 8px ',
+//  backgroundColor: 'yellow',
   
-
-  flexWrap: 'wrap',
-
-  fontSize: '.9rem',
-  color: darkGrey,
-  fontStyle: 'italic',
-
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
     // backgroundColor: 'red'
   },
 })
 
+
+
+const DetailWrapper= styled('div')({
+  display: 'block',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+ 
+
+  padding: '4px 8px',
+  // width: '18rem',
+  width: '35%',
+  height: '95%',
+  border: '1px solid #E6E7E8',
+  fontSize: '.75rem',
+  backgroundColor: '#F6F7F8',
+  margin: '.25rem',
+ 
+  overflow:'auto',
+ 
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    
+  },
+})
 const Title = styled('div')({
   display: 'flex',
   
@@ -210,21 +254,7 @@ const Title = styled('div')({
   },
 })
 
-const BottomWrapper = styled('div')({
-  display: 'flex',
-  
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
  
- 
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
-
 const ButtonWrapper = styled('div')({
   display: 'flex',
   
@@ -253,7 +283,7 @@ const FormButton = styled(Button)({
   padding: '0 1.5rem',
   width: '9.5rem',
   height: '1.2rem',
-margin: '0 1rem',
+// margin: '0 1rem',
   
   '&:hover' : {
     // backgroundColor: chitBlueDull,
@@ -269,19 +299,23 @@ margin: '0 1rem',
 const IconWrapper= styled('div')({
   display: 'flex',
   
-  justifyContent: 'flex-end',
-  alignItems: 'center',
+  justifyContent: 'center',
+  alignItems: 'flex-end',
  
-  marginRight: '6px',
+ height: '98%',
+ width: '30%',
+ marginRight: '5%',
 
-
-  
-
+  // backgroundColor: 'pink',
 
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
     // backgroundColor: 'red'
   },
 })
+
+
+
+
 
 

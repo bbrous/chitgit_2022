@@ -26,6 +26,52 @@ import Button from '@mui/material/Button'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+
+
+// ================================================
+function TopicalHeader(props) {
+ 
+  const match = useParams()
+
+  const matchId = match.id
+
+return (
+<Wrapper>
+    <TitleWrapper>
+      <TitleLabel> Topic : </TitleLabel>
+      <Title>
+        Layout
+      </Title>
+    </TitleWrapper>
+    <BottomWrapper>
+      <ButtonWrapper>
+
+        <FormButton startIcon={<AddIcon />}> add Section</FormButton>
+        <FormButton startIcon={<AddIcon />}> add Note</FormButton>
+      </ButtonWrapper>
+
+      <IconWrapper> 
+        <Delete_icon/>
+        <Edit_icon/>
+
+
+      </IconWrapper>
+
+    </BottomWrapper>
+
+</Wrapper>
+
+
+
+
+  )}// end func TopicalDetail
+
+ 
+export default TopicalHeader
+
+
 // -----------------------------------------------------------------
 
 const Wrapper = styled(Paper)({
@@ -191,46 +237,3 @@ const IconWrapper= styled('div')({
     // backgroundColor: 'red'
   },
 })
-
-
-
-// ================================================
-function TopicalHeader(props) {
- 
-  const match = useParams()
-
-  const matchId = match.id
-
-return (
-<Wrapper>
-    <TitleWrapper>
-      <TitleLabel> Topic : </TitleLabel>
-      <Title>
-        Layout
-      </Title>
-    </TitleWrapper>
-    <BottomWrapper>
-      <ButtonWrapper>
-
-        <FormButton startIcon={<AddIcon />}> add Section</FormButton>
-        <FormButton startIcon={<AddIcon />}> add Note</FormButton>
-      </ButtonWrapper>
-
-      <IconWrapper> 
-        <Delete_icon/>
-        <Edit_icon/>
-
-
-      </IconWrapper>
-
-    </BottomWrapper>
-
-</Wrapper>
-
-
-
-
-  )}// end func TopicalDetail
-
- 
-export default TopicalHeader
