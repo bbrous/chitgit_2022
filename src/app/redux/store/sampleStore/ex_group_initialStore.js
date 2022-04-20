@@ -16,7 +16,7 @@ const SampleGroups =  [
   { 
     id: 'group_1',
     name: 'IRS',
-    groupType: 'organization',
+    type: 'organization',
     meta: '',
     groupHolders: []
   },
@@ -24,7 +24,7 @@ const SampleGroups =  [
   { 
     id: 'group_2',
     name: 'Water Ski club',
-    groupType: 'group',
+    type: 'group',
     meta: 'Tony - president. 858-555-1422',
     groupHolders: [
       {dbCollection: 'journal', id: 'jsection_6' }, 
@@ -36,7 +36,7 @@ const SampleGroups =  [
   { 
     id: 'group_3',
     name: 'ATT',
-    groupType: 'company',
+    type: 'company',
     meta: '4134 Profit Ln. 800-355-1334 ',
     groupHolders: []
    
@@ -45,7 +45,7 @@ const SampleGroups =  [
   { 
     id: 'group_4',
     name: 'Beach cleanup',
-    groupType: 'group',
+    type: 'group',
     meta: '',
     groupHolders: [
       {dbCollection: 'journal', id: 'jsection_6' }, 
@@ -57,7 +57,7 @@ const SampleGroups =  [
   { 
     id: 'group_10',
     name: 'Toys for tots',
-    groupType: 'charity',
+    type: 'charity',
     meta: '',
     groupHolders: [
       {dbCollection: 'journal', id: 'jsection_6' }, 

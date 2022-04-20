@@ -33,7 +33,12 @@ const SampleLogHolders =  [
    
   },
  
- 
+  { 
+    id: 'person_2',
+    collection: 'people',
+
+   
+  },
  
  ] // end SampleLogHolders  ============================================
  

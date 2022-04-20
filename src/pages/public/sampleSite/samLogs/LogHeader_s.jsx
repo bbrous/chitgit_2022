@@ -16,8 +16,8 @@ import{lightGrey, darkGrey} from '../../../../styles/colors'
 
 import { Scrollbars } from 'react-custom-scrollbars';
 
-import Edit_icon from '../samComponents/Edit_icon_s'
-import Delete_icon from '../samComponents/Delete_icon_s'
+import EditIcon from '../samComponents/Edit_icon_s'
+import DeleteIcon from '../samComponents/Delete_icon_s'
 
 //  ---- Material Ui ------------------
 
@@ -46,32 +46,17 @@ function LogHeader(props) {
   let allGroups = useSelector(selectGroups)
   let allPeople = useSelector(selectPeople)
 
+  let allPeopleAndGroups = [...allGroups, ...allPeople]
 
-  let headerObject = allLogsArray.find(element => element.otherPartyId === matchId)
+  console.log('[ LogHeader ] allPeopleAndGroups ', allPeopleAndGroups);
 
-  // --- Get the name for URL Id---------------------------
 
-  // --- determine which collection the id is from based on type
-  let collection 
-
-  headerObject.type === 'person'? collection = 'people': collection = 'groups'
-  
   // --- get the name 
-  let name
+  let name, type, collection
+  let nameObject = allPeopleAndGroups.find(element => element.id === matchId)
   
-  if (collection === 'groups') {
-    let groupObject = allGroups.find(group => group.id === matchId)
-
-    name = groupObject.name
-
-  }
-  if (collection === 'people') {
-    let personObject = allPeople.find(person => person.id === matchId)
-
-    name = personObject.name
-
-  }
-
+  nameObject.type === 'person'? collection = 'people' : collection = 'groups'
+  name = nameObject.name
   const handleClick = ()=>{
  
    
@@ -104,12 +89,10 @@ function LogHeader(props) {
         </ButtonWrapper>
         </TitleWrapperLeft>
 
-        <IconWrapper> 
-        <Delete_icon/>
-        <Edit_icon/>
-
-
-      </IconWrapper>
+        <IconWrapper>
+          <DeleteIcon />
+          <EditIcon />
+        </IconWrapper>
 
 
         {collection !== 'people' && 

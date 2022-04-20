@@ -8,6 +8,7 @@ const People =  [
     {
       id: 'unknown',
 
+      type: 'person',
       name: 'Unknown',
       meta: 'Unknown',
 
@@ -17,6 +18,7 @@ const People =  [
     {
       id: 'person_0',
 
+      type: 'person',
       name: 'Bob B',
       meta: 'account holder',
   
@@ -26,6 +28,7 @@ const People =  [
     {
       id: 'person_1',
 
+      type: 'person',
       name: 'Cyn Ter',
       meta: 'Project Team',
    
@@ -41,6 +44,7 @@ const People =  [
     {
       id: 'person_2',
       
+      type: 'person',
       name: "Mark D",
       meta: 'engineer genius',
 
@@ -55,6 +59,7 @@ const People =  [
     {
       id: 'person_3',
       
+      type: 'person',
       name: "Mary B",
       meta: 'mi amore',
 
@@ -68,6 +73,7 @@ const People =  [
     
     {
       id: 'person_4',
+      type: 'person',
       name: "Shelly-neighbor",
       meta: '',
 
@@ -79,6 +85,7 @@ const People =  [
     
     {
       id: 'person_5',
+      type: 'person',
       name: "Linda",
       meta: 'Project Team, software girl',
       
@@ -89,6 +96,7 @@ const People =  [
 
     {
       id: 'person_6',
+      type: 'person',
       name: "Steve",
       meta: 'Project Team, finance guy',
       
@@ -102,6 +110,7 @@ const People =  [
 
     {
       id: 'person_7',
+      type: 'person',
       name: 'Jerry G',
       meta: 'best friend',
     
@@ -112,6 +121,7 @@ const People =  [
 
     {
       id: 'person_8',
+      type: 'person',
       name: "Billy",
       meta: "Jerry's brother",
       
