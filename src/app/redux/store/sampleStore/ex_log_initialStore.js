@@ -1,4 +1,4 @@
-// Samp Spotlights
+// Samp Logs
 
 
 const SampleLogs =  [

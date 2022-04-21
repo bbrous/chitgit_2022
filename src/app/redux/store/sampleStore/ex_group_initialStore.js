@@ -1,14 +1,15 @@
 /*
-other
-company
-firm
-group
-club
-agency
-church
-charity
-organization
 
+
+'agency',
+'charity',
+'church',
+'club',
+'company',
+'firm',
+'group',
+'organization',
+'other'
 */
 
 const SampleGroups =  [

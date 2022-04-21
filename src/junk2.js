@@ -6,3 +6,17 @@ Yup.object().shape({
       then: Yup.string().required('I am required now that both checkboxes are checked')
   })
 });
+
+
+
+
+<ChronicleSelectMui
+name={'group'}
+control={control}
+options = {peopleOptionsArray}
+// or
+// defaultValue = {{ value: 'ge423', label: 'home'}}
+defaultValue={defaultValues.categories}
+placeholder='make a new group'
+
+/>

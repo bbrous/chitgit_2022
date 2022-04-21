@@ -103,7 +103,7 @@ export const ChronicleSelectMuiCreatable =({ name, control, label, type, default
 const StyledWrapper= styled(Autocomplete)({
   
   display: 'flex',
- 
+  
    // border: 'none',
    padding: 0,
   

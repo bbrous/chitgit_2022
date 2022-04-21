@@ -46,12 +46,10 @@ import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
 
 // --- Form component imports ---------
 
-
+import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
 import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
 
-
-
-import { StyledInput } from '../../../../forms/formComponents/StyledInput'
+ 
 import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
 
 
@@ -135,14 +133,14 @@ export default function LogForm_s(props) {
     let personExists = logsIdArray.includes(person.id)
     let personObject = { id: person.id, label: person.name }
     if (personExists) {
-      console.log('[ LOG SECTION FORM  ] Yes INCLUDED', personObject);
+      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', personObject);
 
 
 
 
     }
     if (!personExists) {
-      console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', personObject);
+      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', personObject);
       peopleOptionsArray.push(personObject)
 
     }
@@ -175,14 +173,14 @@ export default function LogForm_s(props) {
     let groupExists = logsIdArray.includes(group.id)
     let groupObject = { id: group.id, label: group.name }
     if (groupExists) {
-      console.log('[ LOG SECTION FORM  ] Yes INCLUDED', groupObject);
+      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', groupObject);
 
 
 
 
     }
     if (!groupExists) {
-      console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupObject);
+      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupObject);
       groupOptionsArray.push(groupObject)
 
     }
@@ -193,10 +191,9 @@ export default function LogForm_s(props) {
  
  
 
-console.log('[ LOG SECTION ] groupObjectArray ', groupObjectArray);
+// console.log('[ LOG SECTION ] groupObjectArray ', groupObjectArray);
 // console.log('[ LOG SECTION  ] logsIdArray ', logsIdArray);
-console.log('[ LOG SECTION  - FINAL *** ] groupOptionsArray ', groupOptionsArray);
-
+ 
 // ----create default paramters if note exists ---------------------
 
 let defaultValues, sectionId
@@ -207,15 +204,18 @@ let defaultValues, sectionId
 
 
   defaultValues = {
-    content: '',
+  
     meta: '',
     logType: 'person',
     newExisting: 'existing',
     person: '',
     group: '',
+    newName: '',
+    newGroup: '',
+    groupType: '',
     keywords: [],
     people: [],
-    dateTime: 1615741420000  // Bob's login time Mar 14
+  
 
   };
 
@@ -262,6 +262,7 @@ if newLog ---
   };
 
   const showLogTypeInput = watch('logType')
+  const showNewExisting = watch('newExisting')
 
   // ==== return - Form JSX  ======================================
 
@@ -334,6 +335,7 @@ if newLog ---
             </FormComponentWrapperIndent>
 
             
+{showNewExisting === 'existing' && <>  
 
 
             <FormComponentWrapperDoubleIndent>
@@ -343,7 +345,9 @@ if newLog ---
         
         
               <SelectWrapper>
-                {showLogTypeInput === 'person' && <>
+                {showLogTypeInput === 'person' && 
+                <>
+                
                   <ChronicleSelectMui
                     name={'person'}
                     control={control}
@@ -356,6 +360,10 @@ if newLog ---
                   />
 
                   {errors.person && <ErrorMessage> This field required.</ErrorMessage>}
+
+
+
+
                 </>
                 }
 
@@ -384,6 +392,151 @@ if newLog ---
 
               </ComponentWrapper>
             </FormComponentWrapperDoubleIndent>
+            </>}
+
+
+
+
+    {showNewExisting === 'new' &&
+
+    <NewWrapper>
+      
+
+
+          <CreateNewWrapper>
+            {showLogTypeInput === 'person' &&
+              <NewWrapper>
+
+
+
+               
+
+
+                 
+
+
+                    <NewInputContainer>
+
+
+<ChronicleInput
+                name={"newName"}
+                control={control}
+                label={"newName"}
+                defaultValue= {''}
+                placeholder = ' Add new name'
+                 
+                 
+              />
+
+                    </NewInputContainer>
+               
+
+
+
+
+
+                
+
+
+
+
+
+              </NewWrapper>
+            }
+
+{/* ############################################################# */}
+{showLogTypeInput === 'group' &&
+              <NewWrapper>
+
+
+
+              
+                  
+
+
+              <NewInputContainer>
+
+
+                  <ChronicleInput
+                    name={"newGroup"}
+                    control={control}
+                    label={"newGroup"}
+                    defaultValue={''}
+                    placeholder=' Add new group name'
+
+
+                  />
+
+                </NewInputContainer>
+
+
+                <NewSelectContainer>
+
+
+                  <ChronicleSelectMui
+                    name={'group'}
+                    control={control}
+                    options={[
+                      'agency',
+                      'charity',
+                      'church',
+                      'club',
+                      'company',
+                      'firm',
+                      'group',
+                      'organization',
+                      'other'
+                    ]}
+                    // or
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.groupType}
+                    placeholder='choose a group type'
+
+                  />
+
+                </NewSelectContainer>
+                <NewMetaContainer>
+                  Meta here
+                </NewMetaContainer>
+                
+
+
+
+
+
+                
+
+
+
+
+
+              </NewWrapper>
+            }
+  </CreateNewWrapper>
+
+
+
+
+
+
+
+</NewWrapper>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
            
 
@@ -575,13 +728,60 @@ const ComponentWrapper= styled('div')({
   alignItems: 'center',
   width: '100%',
  
- 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
   },
 
 })
+
+const NewInputContainer= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '13rem',
+  marginLeft: '9px',
+ 
+ backgroundColor: 'orange',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const NewMetaContainer= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '20rem',
+  marginLeft: '9px',
+ 
+ backgroundColor: 'orange',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const NewSelectContainer= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '15.5rem',
+ 
+ backgroundColor: 'orange',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
 
 const RadiotWrapper= styled('div')({
   display: 'flex',
@@ -612,6 +812,54 @@ const SelectWrapper= styled('div')({
   },
 
 })
+
+
+
+
+
+
+
+const CreateNewWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+  backgroundColor: 'pink',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const NewWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '80%',
+  backgroundColor: 'grey',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+
+
+
+
+
+
+
 
 const ErrorMessage= styled('div')({
   fontSize: '.8rem',
