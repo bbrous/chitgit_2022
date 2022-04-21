@@ -39,7 +39,7 @@ import {
  
 // --- imports to create options for selectors
 
-import { selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectlogHolders } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
 
@@ -47,7 +47,9 @@ import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
 // --- Form component imports ---------
 
 
-import { ChronicleSelectMuiCreatable } from '../../../../forms/formComponents/ChronicleSelectMuiCreatable'
+import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
+
+
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
@@ -97,10 +99,103 @@ export default function LogForm_s(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const status = useSelector(selectStatus)
+  const allPeople = useSelector(selectPeople)
+  const allGroups = useSelector(selectGroups)
+  const allLogHolders = useSelector(selectlogHolders)
+
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
 
-  console.log('[ LOG SECTION FORM FORM FORM ] logId ', logId);
+
+// create selector Options -----------------------------
+  let logsIdArray = []
+
+  allLogHolders.map((log, index) => {
+    logsIdArray.push(log.id)
+
+    return logsIdArray
+  }
+  ) //end map
+
+
+// -- create Options for  people select ----- 
+  let peopleObjectArray = []
+  let peopleOptionsArray = []
+
+  allPeople.map((person, index) => {
+    peopleObjectArray.push({ id: person.id, name: person.name })
+
+
+    return peopleObjectArray
+  }
+  ) //end map
+
+  peopleObjectArray.map((person, index) => {
+
+    let personExists = logsIdArray.includes(person.id)
+    let personObject = { id: person.id, label: person.name }
+    if (personExists) {
+      console.log('[ LOG SECTION FORM  ] Yes INCLUDED', personObject);
+
+
+
+
+    }
+    if (!personExists) {
+      console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', personObject);
+      peopleOptionsArray.push(personObject)
+
+    }
+
+    return peopleOptionsArray
+  }
+  ) //end map
+
+
+
+  // -- create Options for  group select ----- 
+  
+  let groupObjectArray = []
+  let groupOptionsArray = []
+
+
+
+
+
+  allGroups.map((group, index) => {
+    groupObjectArray.push({ id: group.id, name: group.name })
+
+
+    return groupObjectArray
+  }
+  ) //end map
+
+  groupObjectArray.map((group, index) => {
+
+    let groupExists = logsIdArray.includes(group.id)
+    let groupObject = { id: group.id, label: group.name }
+    if (groupExists) {
+      console.log('[ LOG SECTION FORM  ] Yes INCLUDED', groupObject);
+
+
+
+
+    }
+    if (!groupExists) {
+      console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupObject);
+      groupOptionsArray.push(groupObject)
+
+    }
+
+    return groupOptionsArray
+  }
+  ) //end map
+ 
+ 
+
+console.log('[ LOG SECTION ] groupObjectArray ', groupObjectArray);
+// console.log('[ LOG SECTION  ] logsIdArray ', logsIdArray);
+console.log('[ LOG SECTION  - FINAL *** ] groupOptionsArray ', groupOptionsArray);
 
 // ----create default paramters if note exists ---------------------
 
@@ -249,13 +344,14 @@ if newLog ---
         
               <SelectWrapper>
                 {showLogTypeInput === 'person' && <>
-                  <ChronicleSelectMuiCreatable
+                  <ChronicleSelectMui
                     name={'person'}
                     control={control}
-                    options={['help', 'me']}
+                    options = {peopleOptionsArray}
+                    // or
                     // defaultValue = {{ value: 'ge423', label: 'home'}}
                     defaultValue={defaultValues.categories}
-                    placeholder='select or type person'
+                    placeholder='select a person'
 
                   />
 
@@ -266,13 +362,13 @@ if newLog ---
 
                 {showLogTypeInput === 'group' &&
                   <>
-                    <ChronicleSelectMuiCreatable
+                    <ChronicleSelectMui
                       name={'group'}
                       control={control}
-                      options={['angels', 'on my shoulder']}
+                      options={groupOptionsArray}
                       // defaultValue = {{ value: 'ge423', label: 'home'}}
                       defaultValue={defaultValues.categories}
-                      placeholder='select or type group'
+                      placeholder='select a group'
 
                     />
 
