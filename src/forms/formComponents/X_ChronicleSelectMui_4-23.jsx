@@ -93,7 +93,7 @@ export const ChronicleSelectMui =({ name, control, label, type, defaultValue, op
           )}
           name={name}
           control={control}
-          defaultValue = {defaultValue}
+          
         />
       )}
     />
@@ -172,6 +172,5 @@ const useStyles = makeStyles({
     border: '1px solid #CFD0D1',
   }
 });
-
 
 

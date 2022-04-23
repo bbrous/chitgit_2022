@@ -132,33 +132,9 @@ const People =  [
       
     },
 
-    
-    {
-      id: 'person_15',
-      name: "Steve",
-      meta: 'finance guy',
-
-      group: 'project team',
-      
-      peopleHolders: []
-
-      
-    },
 
         
-    {
-      id: 'person_16',
-      name: "Mary B",
-      meta: 'wife',
 
-      peopleHolders: [
-        {dbCollection: 'journal', id: 'jsection_2' }, 
-        {dbCollection: 'journal', id: 'jsection_6' },
-        {dbCollection: 'journal', id: 'jsection_4' },
-      ]
-
-      
-    },
 
     {
       id: 'person_17',

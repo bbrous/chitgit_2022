@@ -100,32 +100,7 @@ person: object().shape({
     id: string().required("Is required")
   }).required('You must choose a person')
   .nullable()
-}).nullable(),
-
-
-group: object().shape({
-  label: string().required("Is required"), 
-  id: string().required("Is required")
-}).when(["logType", "newExisting"], {
-  is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
-  then: object().shape({
-    label: string().required("Is required"), 
-    id: string().required("Is required")
-  }).required('You must choose a group')
-  .nullable()
-}).nullable(),
-
-// person: object().shape({
-//   label: string().required("Is required"), 
-//   id: string().required("Is required")
-// }).when(["logType", "newExisting"], {
-//   is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
-//   then: object().shape({
-//     label: string().required("Is required"), 
-//     id: string().required("Is required")
-//   }).required('You must choose a person')
-//   .nullable()
-// }),
+}),
 
 
 
