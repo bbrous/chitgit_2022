@@ -43,8 +43,21 @@ const SampleGroups =  [
    
   },
 
+
+
   { 
     id: 'group_4',
+    name: 'Toys for tots',
+    type: 'charity',
+    meta: '',
+    groupHolders: [
+      {dbCollection: 'journal', id: 'jsection_6' }, 
+    ]
+   
+  },
+
+  { 
+    id: 'group_10',
     name: 'Beach cleanup',
     type: 'group',
     meta: '',
@@ -54,17 +67,6 @@ const SampleGroups =  [
    
   },
 
-
-  { 
-    id: 'group_10',
-    name: 'Toys for tots',
-    type: 'charity',
-    meta: '',
-    groupHolders: [
-      {dbCollection: 'journal', id: 'jsection_6' }, 
-    ]
-   
-  },
 
 
 ]//end SampleGroups

@@ -10,6 +10,10 @@ isArrayDifferent(arrA, arrB)                   - compares 2 arrays
 doesArrayIncludeItem(item, array)
 uniqueItemsInObjectField(array, parameterKey)  - gets unique values from
                                                  field in array of objects
+doesArrayOfObjectsIncludeItem(item, arrayOfObjects, objectField) 
+
+
+
 */
 
 // ==========================================================================
@@ -182,11 +186,9 @@ if(collection === 'keywords'){
 
  } // end findArrayDifference
 
-  /* --- func isArrayDifferent -------------
-  @desc - compares 2 arrays and outputs what of array1 is not
-          in array2
-  
-   @params array1 items - type string, array2 items - type string
+  /* --- func doesArrayIncludeItem -------------
+  @desc - does the array include an item
+   @params array1 item - type string, array - type array of strings
    @return  array of strings - if empty array - the same
           
 
@@ -195,6 +197,42 @@ if(collection === 'keywords'){
  export function doesArrayIncludeItem(item, array) {
 
   let included =  array.includes(item)
+
+  return included
+
+
+ } // end findArrayDifference
+
+
+   /* --- func doesArrayOfObjectsIncludeItem -------------
+  @desc - does the array of Objects include an item
+   @params array item - type string,
+    array - type array of Objects
+    field name- type string
+   @return  true or false
+          
+
+ ---------------------*/
+
+ export function doesArrayOfObjectsIncludeItem(item, arrayOfObjects, objectField) {
+
+  let arrayOfItems = []
+  arrayOfObjects.map((arrayObject, index) => {
+  
+
+    
+    arrayOfItems.push(arrayObject[objectField])
+
+
+  return arrayOfItems
+
+  }
+
+  
+  ) //end map
+
+
+  let included =  arrayOfObjects.includes(item)
 
   return included
 

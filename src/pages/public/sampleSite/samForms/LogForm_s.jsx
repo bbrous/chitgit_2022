@@ -14,7 +14,8 @@ import {
         cleanOptions ,
         optionDescendSorter,
         isArrayDifferent,
-        doesArrayIncludeItem
+        doesArrayIncludeItem,
+        doesArrayOfObjectsIncludeItem
 
       } from '../../../../app/helpers/commonHelpers'
 
@@ -43,7 +44,7 @@ import {
 import { selectlogHolders } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
-
+ 
 
 // --- Form component imports ---------
 
@@ -52,7 +53,7 @@ import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSe
 
  import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
 import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
-
+import { descendSorter } from '../../../../app/helpers/commonHelpers'
 
 // --- MUI imports ---------
 
@@ -71,89 +72,10 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // ---functions --------------------------------------------
 
 
-//  -- Input requirements for user for each component (if any)
 
-
-const isEven = (score) => score !== 'Joe'
-
-
-
-// #########################################################
-
-
-// person: object().shape({
-//   label: string().required("Is required"), 
-//   id: string().required("Is required")
-// })
-
-// #########################################################
-
-const formSchema = object({
-
-person: object().shape({
-  label: string().required("Is required"), 
-  id: string().required("Is required")
-}).when(["logType", "newExisting"], {
-  is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
-  then: object().shape({
-    label: string().required("Is required"), 
-    id: string().required("Is required")
-  }).required('You must choose a person')
-  .nullable()
-}).nullable(),
-
-
-group: object().shape({
-  label: string().required("Is required"), 
-  id: string().required("Is required")
-}).when(["logType", "newExisting"], {
-  is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
-  then: object().shape({
-    label: string().required("Is required"), 
-    id: string().required("Is required")
-  }).required('You must choose a group')
-  .nullable()
-}).nullable(),
-
-// person: object().shape({
-//   label: string().required("Is required"), 
-//   id: string().required("Is required")
-// }).when(["logType", "newExisting"], {
-//   is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
-//   then: object().shape({
-//     label: string().required("Is required"), 
-//     id: string().required("Is required")
-//   }).required('You must choose a person')
-//   .nullable()
-// }),
-
-
-
-
-
-
-//   person: string().when(["logType", "newExisting"], {
-//     is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
-//     then: string().required('You must choose a person')
-// }),
 
  
 
-// group: string().when(["logType", "newExisting"], {
-//   is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
-//   then: string().required('You must choose a group')
-// }),
-
-// newPerson: string()
-// .required('new person is required')
-// // .test("email-include-domain", "Email Must include domain", (value) => companyName.some((val) => value.includes(val))
-// .test('test-name', 'oops i did it again', 
-// (score) => score !== 'Joe'
-  
-//   )
-
-
-});
 
 // ==============================================================
 // ==== MAIN FUNCTION ===========================================
@@ -169,6 +91,150 @@ export default function LogForm_s(props) {
 
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
+
+  // --- form Schema tests   ------------------------------
+
+  // --- does newPerson already exist in people collection
+
+  const doesPersonExist = (inputValue) => {
+
+    let peopleNamesArray = []
+    allPeople.map((person, index) => {
+     
+      peopleNamesArray.push(person.name)
+  
+    return peopleNamesArray
+
+    }) //end map
+   
+    let personExists = doesArrayIncludeItem(inputValue, peopleNamesArray)
+    // returns true if exists ... schema test requires false to proceed
+    // so return the opposite of person exists
+   return !personExists
+  
+  
+  }// end doePersonExist
+
+
+
+  // --- does newGroup already exist in groups collection
+
+  const doesGroupExist = (inputValue) => {
+
+    let groupsNamesArray = []
+    allGroups.map((group, index) => {
+     
+      groupsNamesArray.push(group.name)
+  
+    return groupsNamesArray
+
+    }) //end map
+
+    let groupExists = doesArrayIncludeItem(inputValue, groupsNamesArray)
+
+  // returns true if exists ... schema test requires false to proceed
+  // so return the opposite of group exists
+   return !groupExists
+  
+  }// end doeGroupExist
+
+
+  // const doesNameAlreadyHaveLog = (inputValue) => {
+
+  //   let logHolderNamesArray = []
+  //   let peopleAndGroups = [...allPeople, ...allGroups]
+
+  //   console.log('[ peopleAndGroups ] myVar ', peopleAndGroups);
+
+  //   peopleAndGroups.map((item, index) => {
+
+  //     logHolderNamesArray.push(item.name)
+
+  //     return logHolderNamesArray
+
+  //   }) //end map
+
+  //  let isLogItem =  doesArrayIncludeItem(inputValue, logHolderNamesArray)
+
+
+  //   console.log('[ doesNameAlreadyHaveLog ] is it a log item ', isLogItem);
+
+  //  return !isLogItem
+  
+  // }// end doeGroupExist
+
+
+  const formSchema = object({
+
+    person: object().shape({
+      label: string().required("Is required"), 
+      id: string().required("Is required")
+    }).when(["logType", "newExisting"], {
+      is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
+      then: object().shape({
+        label: string().required("Is required"), 
+        id: string().required("Is required")
+      }).required('You must choose a person')
+      .nullable()
+    })
+    .nullable(),
+    
+    
+    group: object().shape({
+      label: string().required("Is required"), 
+      id: string().required("Is required")
+    }).when(["logType", "newExisting"], {
+      is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
+      then: object().shape({
+        label: string().required("Is required"), 
+        id: string().required("Is required")
+      }).required('You must choose a group')
+      .nullable()
+    }).nullable(),
+    
+    
+    
+    
+    
+    
+    
+    
+      newPerson: string().when(["logType", "newExisting"], {
+        is: (logType, newExisting) => logType === 'person' && newExisting === 'new',
+        then: string().required('You must enter a new person')
+    })
+    .test('test-name', 'Person exists - create new name - or - check existing box above', 
+    doesPersonExist
+    ) ,
+    
+    newGroup: string().when(["logType", "newExisting"], {
+      is: (logType, newExisting) => logType === 'group' && newExisting === 'new',
+      then: string().required('You must enter a new group')
+    })
+    .test('test-name', 'Group exists - create new name - or - check existing box above', 
+    doesGroupExist
+    ) ,
+    
+    //############  .TEST here  ###############
+    
+    // group: string().when(["logType", "newExisting"], {
+    //   is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
+    //   then: string().required('You must choose a group')
+    // }),
+    
+    // newPerson: string()
+    // .required('new person is required')
+    // // .test("email-include-domain", "Email Must include domain", (value) => companyName.some((val) => value.includes(val))
+    // .test('test-name', 'oops i did it again', 
+    // (score) => score !== 'Joe'
+      
+    //   )
+    //############  .TEST here  ###############
+    
+    });
+
+
+   
 
 
 // create selector Options -----------------------------
@@ -186,7 +252,12 @@ export default function LogForm_s(props) {
   let peopleObjectArray = []
   let peopleOptionsArray = []
 
-  allPeople.map((person, index) => {
+  // -- get rid of "unknown" from all people
+  let filteredPeople = allPeople.filter(item => item.id !== 'unknown')
+  
+  let sortedFilteredPeople = descendSorter(filteredPeople, 'name')
+
+  sortedFilteredPeople.map((person, index) => {
     peopleObjectArray.push({ id: person.id, name: person.name })
 
 
@@ -234,7 +305,9 @@ export default function LogForm_s(props) {
   }
   ) //end map
 
-  groupObjectArray.map((group, index) => {
+  let sortedGroupObjectArray = descendSorter(groupObjectArray, 'name')
+
+  sortedGroupObjectArray.map((group, index) => {
 
     let groupExists = logsIdArray.includes(group.id)
     let groupObject = { id: group.id, label: group.name }
@@ -278,7 +351,7 @@ let defaultValues, sectionId
     group: '',
     newPerson: '',
     newGroup: '',
-    groupType: '',
+    groupType: 'other',
     keywords: [],
     people: [],
   
@@ -540,7 +613,7 @@ if newLog ---
 
 
                   <ChronicleSelectMui
-                    name={'group'}
+                    name={'groupType'}
                     control={control}
                     options={[
                       'agency',
