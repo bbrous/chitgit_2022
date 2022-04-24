@@ -100,6 +100,8 @@ export function descendSorter(arrayOfObjects, objectParameter){
 
 
 
+
+
   /* -- func stripWhiteSpace ------------------
    @desc - removes excess spaces from a string - replaces with a single space
            between each word

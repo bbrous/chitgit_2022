@@ -1,13 +1,14 @@
 
 
-##  File - NoteForm_s.jsx -- Sample Site
+##  File - LogForm_s.jsx -- Sample Site
 <br>
 ###  -- overview --
 
 
 The log form handles both create-new and edit-update functions for log holders, people, and groups.
 <br>
----  Add new logHolder logic ---
+
+---  Add new logHolder logic --------------------------
 
 <br>
   A.  if log id from params = 'newLog' ... add newLog --- 
@@ -59,4 +60,4 @@ The log form handles both create-new and edit-update functions for log holders, 
 
   B. if logId from params === an id ... update something
 
-<br></br>
+<br>

@@ -15,26 +15,11 @@ export const logsSlice = createSlice({
 
   reducers: {
 
-    addLogsToStore: (state, action) => {
+    addLogToStore: (state, action) => {
 
-      // let logsId = action.payload.logsId
-      // let logs = action.payload.logs
-      // let logsHolder = action.payload.logsHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newlogsHolder = {dbCollection: dbCollection, id: logsHolder}
+      // let log = action.payload
 
-      // let logsObject = {
-      //   id: logsId,
-      //   logs: logs,
-      //   logsHolders: [newlogsHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_logsSlice ] logsId ', logsId)
-      // console.log('[ sam_logsSlice ] newlogsHolder ', newlogsHolder)
-      // console.log('[ sam_logsSlice ] dbCollection ', dbCollection)
-
-      // state.push(logsObject)
+      // state.push(log)
     },
 
 
@@ -58,10 +43,9 @@ export const logsSlice = createSlice({
   addLogsHolder: (state, action) => {
 
 
-    // let logsId = action.payload.logsId
-    // let logsHolder = action.payload.logsHolder
-    // let dbCollection = action.payload.dbCollection
-    // let newlogsHolder = {dbCollection: dbCollection, id: logsHolder}
+      // let log = action.payload
+
+      // state.push(log)
     
 
 

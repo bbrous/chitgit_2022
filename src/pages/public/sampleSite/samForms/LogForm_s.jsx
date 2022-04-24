@@ -1,4 +1,15 @@
+/*---- File - filename.jsx 
+   What file does
 
+   View Logic in LogForm read me ...
+           src\readMe\LogForm_info.md
+
+
+   Contains children: 
+       input components
+       src\forms\formComponents\ChronicleSelectMui.jsx
+   parent: New 
+*/
 
 
 
@@ -53,7 +64,7 @@ import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSe
 
  import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
 import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
-import { descendSorter } from '../../../../app/helpers/commonHelpers'
+import { descendSorter, stripWhiteSpace } from '../../../../app/helpers/commonHelpers'
 
 // --- MUI imports ---------
 
@@ -89,8 +100,8 @@ export default function LogForm_s(props) {
   const allGroups = useSelector(selectGroups)
   const allLogHolders = useSelector(selectlogHolders)
 
-  const logSectionId = status.view.log.sectionId
-  const logId = status.view.log.id
+
+
 
   // --- form Schema tests   ------------------------------
 
@@ -100,14 +111,18 @@ export default function LogForm_s(props) {
 
     let peopleNamesArray = []
     allPeople.map((person, index) => {
+
+      let cleanPerson = stripWhiteSpace(person.name).toLowerCase()
      
-      peopleNamesArray.push(person.name)
+      peopleNamesArray.push(cleanPerson)
   
     return peopleNamesArray
 
     }) //end map
+
+    let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
    
-    let personExists = doesArrayIncludeItem(inputValue, peopleNamesArray)
+    let personExists = doesArrayIncludeItem(cleanInputValue, peopleNamesArray)
     // returns true if exists ... schema test requires false to proceed
     // so return the opposite of person exists
    return !personExists
@@ -123,14 +138,17 @@ export default function LogForm_s(props) {
 
     let groupsNamesArray = []
     allGroups.map((group, index) => {
-     
-      groupsNamesArray.push(group.name)
+
+      let cleanGroup = stripWhiteSpace(group.name).toLowerCase()
+      groupsNamesArray.push(cleanGroup)
   
     return groupsNamesArray
 
     }) //end map
 
-    let groupExists = doesArrayIncludeItem(inputValue, groupsNamesArray)
+    let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
+
+    let groupExists = doesArrayIncludeItem(cleanInputValue, groupsNamesArray)
 
   // returns true if exists ... schema test requires false to proceed
   // so return the opposite of group exists
@@ -139,29 +157,6 @@ export default function LogForm_s(props) {
   }// end doeGroupExist
 
 
-  // const doesNameAlreadyHaveLog = (inputValue) => {
-
-  //   let logHolderNamesArray = []
-  //   let peopleAndGroups = [...allPeople, ...allGroups]
-
-  //   console.log('[ peopleAndGroups ] myVar ', peopleAndGroups);
-
-  //   peopleAndGroups.map((item, index) => {
-
-  //     logHolderNamesArray.push(item.name)
-
-  //     return logHolderNamesArray
-
-  //   }) //end map
-
-  //  let isLogItem =  doesArrayIncludeItem(inputValue, logHolderNamesArray)
-
-
-  //   console.log('[ doesNameAlreadyHaveLog ] is it a log item ', isLogItem);
-
-  //  return !isLogItem
-  
-  // }// end doeGroupExist
 
 
   const formSchema = object({
@@ -238,7 +233,7 @@ export default function LogForm_s(props) {
   }
   ) //end map
 
-  console.log('[ LogForm ] sortedFilteredPeople ', sortedFilteredPeople);
+  // console.log('[ LogForm ] sortedFilteredPeople ', sortedFilteredPeople);
 
   sortedFilteredPeople.map((person, index) => {
 
@@ -260,7 +255,7 @@ export default function LogForm_s(props) {
     return peopleOptionsArray
   }
   ) //end map
-  console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', peopleOptionsArray)
+  // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', peopleOptionsArray)
 
 
   // -- create Options for  group select ----- 
@@ -281,7 +276,7 @@ export default function LogForm_s(props) {
   }
   ) //end map
 
-  console.log('[ LogForm ] sortedFilteredGroups ', sortedFilteredGroups);
+  // console.log('[ LogForm ] sortedFilteredGroups ', sortedFilteredGroups);
 
   sortedFilteredGroups.map((group, index) => {
 
@@ -303,7 +298,7 @@ export default function LogForm_s(props) {
     return groupsOptionsArray
   }
   ) //end map
-  console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupsOptionsArray)
+  // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupsOptionsArray)
 
  
 // ----create default paramters if note exists ---------------------
@@ -350,24 +345,17 @@ let defaultValues, sectionId
     
     console.log('[LogSectionForm]...data ', data)
 
-
-    /* ###########################################
-
-if newLog --- 
-   1. if person or group is new 
-      a) add person or group
-      b)async get id
-      c) create new log section 
-
-   2. if person or group exists
-       create new log section
-
-   3. dispatch(closeNewLogForm) with update to status view with
-      person or group id
+//  ##############################################################
+// #############################################################
 
 
 
-    ########################################### */
+
+
+
+
+
+
 
     dispatch(closeLogSectionForm())
 

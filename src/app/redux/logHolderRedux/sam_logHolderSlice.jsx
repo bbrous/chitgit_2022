@@ -10,20 +10,20 @@ export const logHoldersSlice = createSlice({
 
     addLogHolderToStore: (state, action) => {
 
-      let logHolderId = action.payload.id
-      let logHolder = action.payload.logHolder
+      // let logHolderId = action.payload.id
+      // let logHolder = action.payload.logHolder
       
   
 
-      let logHolderObject = {
-        id: logHolderId,
-        logHolder: logHolder,
+      // let logHolderObject = {
+      //   id: logHolderId,
+      //   logHolder: logHolder,
        
-      }
+      // }
 
 
 
-      state.push(logHolderObject)
+      // state.push(logHolderObject)
     },// end addlogHolderToStore
 
 
@@ -31,14 +31,14 @@ export const logHoldersSlice = createSlice({
   updateEditedLogHolder: (state, action) => {
 
 
-    let logHolderId = action.payload.id
-    let newlogHolder = action.payload.logHolder
+    // let logHolderId = action.payload.id
+    // let newlogHolder = action.payload.logHolder
     
     
 
-    let logHolderIndex = state.findIndex(index => index.id === logHolderId)
+    // let logHolderIndex = state.findIndex(index => index.id === logHolderId)
     
-    state[logHolderIndex].logHolder  = newlogHolder
+    // state[logHolderIndex].logHolder  = newlogHolder
    
 
 
@@ -47,22 +47,22 @@ export const logHoldersSlice = createSlice({
   addLogHolderHolder: (state, action) => {
 
 
-    let logHolderId = action.payload.logHolderId
-    let logHolderHolder = action.payload.logHolderHolder
-    let dbCollection = action.payload.dbCollection
-    let newlogHolderHolder = {dbCollection: dbCollection, id: logHolderHolder}
+    // let logHolderId = action.payload.logHolderId
+    // let logHolderHolder = action.payload.logHolderHolder
+    // let dbCollection = action.payload.dbCollection
+    // let newlogHolderHolder = {dbCollection: dbCollection, id: logHolderHolder}
     
-    console.log('===============================================================')
-    console.log('[ sam_logHolderSlice ] logHolderId ', logHolderId)
-    console.log('[ sam_logHolderSlice ] newlogHolderHolder ', newlogHolderHolder)
-    console.log('[ sam_logHolderSlice ] dbCollection ', dbCollection)
+    // console.log('===============================================================')
+    // console.log('[ sam_logHolderSlice ] logHolderId ', logHolderId)
+    // console.log('[ sam_logHolderSlice ] newlogHolderHolder ', newlogHolderHolder)
+    // console.log('[ sam_logHolderSlice ] dbCollection ', dbCollection)
 
 
-    let logHolderIndex = state.findIndex(index => index.id === logHolderId)
+    // let logHolderIndex = state.findIndex(index => index.id === logHolderId)
 
-    console.log('[ sam_logHolderSlice >>>>>>>] logHolderIndex ', state[logHolderIndex].logHolderHolders)   
+    // console.log('[ sam_logHolderSlice >>>>>>>] logHolderIndex ', state[logHolderIndex].logHolderHolders)   
     
-    state[logHolderIndex].logHolderHolders.push(newlogHolderHolder)
+    // state[logHolderIndex].logHolderHolders.push(newlogHolderHolder)
    
   }, // end addlogHolderHolder
 
@@ -70,16 +70,16 @@ export const logHoldersSlice = createSlice({
   deleteLogHolderHolder: (state, action) => {
 
 
-    let logHolder = action.payload.logHolder
-    let logHolderHolder = action.payload.logHolderHolder
+    // let logHolder = action.payload.logHolder
+    // let logHolderHolder = action.payload.logHolderHolder
  
  
 
-    let logHolderIndex = state.findIndex(index => index.logHolder === logHolder)
+    // let logHolderIndex = state.findIndex(index => index.logHolder === logHolder)
 
   
 
-    state[logHolderIndex].logHolderHolders = state[logHolderIndex].logHolderHolders.filter(item => item.id !== logHolderHolder)
+    // state[logHolderIndex].logHolderHolders = state[logHolderIndex].logHolderHolders.filter(item => item.id !== logHolderHolder)
 
   }, // end deletelogHolderHolder
 

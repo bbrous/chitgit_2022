@@ -27,7 +27,7 @@ const categoryArray = ['to do', 'work', 'family', 'product team' , 'personal pro
 
 // -----------------------------------------------------------------
 export const ChronicleSelectMui =({ name, control, label, type, defaultValue, options, placeholder } ) => {
-console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options);
+// console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options);
   const [value, setValue] = React.useState(null);
   const classes = useStyles();
   return (
