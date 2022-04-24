@@ -165,73 +165,46 @@ export default function LogForm_s(props) {
 
 
   const formSchema = object({
-
-    person: object().shape({
-      label: string().required("Is required"), 
-      id: string().required("Is required")
-    }).when(["logType", "newExisting"], {
+    person: string().when(["logType", "newExisting"], {
       is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
-      then: object().shape({
-        label: string().required("Is required"), 
-        id: string().required("Is required")
-      }).required('You must choose a person')
+      then: string().required('You must choose a person')
       .nullable()
     })
     .nullable(),
-    
-    
-    group: object().shape({
-      label: string().required("Is required"), 
-      id: string().required("Is required")
-    }).when(["logType", "newExisting"], {
+   
+    group: string().when(["logType", "newExisting"], {
       is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
-      then: object().shape({
-        label: string().required("Is required"), 
-        id: string().required("Is required")
-      }).required('You must choose a group')
+      then: string().required('You must choose a group')
       .nullable()
-    }).nullable(),
-    
-    
-    
-    
-    
-    
-    
-    
-      newPerson: string().when(["logType", "newExisting"], {
-        is: (logType, newExisting) => logType === 'person' && newExisting === 'new',
-        then: string().required('You must enter a new person')
     })
-    .test('test-name', 'Person exists - create new name - or - check existing box above', 
-    doesPersonExist
-    ) ,
-    
-    newGroup: string().when(["logType", "newExisting"], {
-      is: (logType, newExisting) => logType === 'group' && newExisting === 'new',
-      then: string().required('You must enter a new group')
-    })
-    .test('test-name', 'Group exists - create new name - or - check existing box above', 
-    doesGroupExist
-    ) ,
-    
-    //############  .TEST here  ###############
-    
-    // group: string().when(["logType", "newExisting"], {
-    //   is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
-    //   then: string().required('You must choose a group')
-    // }),
-    
-    // newPerson: string()
-    // .required('new person is required')
-    // // .test("email-include-domain", "Email Must include domain", (value) => companyName.some((val) => value.includes(val))
-    // .test('test-name', 'oops i did it again', 
-    // (score) => score !== 'Joe'
-      
-    //   )
-    //############  .TEST here  ###############
-    
+    .nullable(),
+
+  
+    newPerson: string().when(["logType", "newExisting"], {
+      is: (logType, newExisting) => logType === 'person' && newExisting === 'new',
+      then: string().required('You must enter a new person')
+  })
+  .test('test-name', 'Person exists - create new name - or - check existing box above', 
+  doesPersonExist
+  ) ,
+  
+  newGroup: string().when(["logType", "newExisting"], {
+    is: (logType, newExisting) => logType === 'group' && newExisting === 'new',
+    then: string().required('You must enter a new group')
+  })
+  .test('test-name', 'Group exists - create new name - or - check existing box above', 
+  doesGroupExist
+  ) ,
+
+
+
+
     });
+
+ 
+   
+    
+ 
 
 
    
@@ -258,80 +231,80 @@ export default function LogForm_s(props) {
   let sortedFilteredPeople = descendSorter(filteredPeople, 'name')
 
   sortedFilteredPeople.map((person, index) => {
-    peopleObjectArray.push({ id: person.id, name: person.name })
+    peopleObjectArray.push(person.name)
 
 
     return peopleObjectArray
   }
   ) //end map
 
-  peopleObjectArray.map((person, index) => {
+  console.log('[ LogForm ] sortedFilteredPeople ', sortedFilteredPeople);
+
+  sortedFilteredPeople.map((person, index) => {
 
     let personExists = logsIdArray.includes(person.id)
-    let personObject = { id: person.id, label: person.name }
+  //   let personObject = person.name
     if (personExists) {
-      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', personObject);
+      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', person.id);
 
 
 
 
     }
     if (!personExists) {
-      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', personObject);
-      peopleOptionsArray.push(personObject)
+      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  person.id);
+      peopleOptionsArray.push(person.name)
 
     }
 
     return peopleOptionsArray
   }
   ) //end map
-
+  console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', peopleOptionsArray)
 
 
   // -- create Options for  group select ----- 
+  let groupsObjectArray = []
+  let groupsOptionsArray = []
+
+  // -- get rid of "unknown" from all people
+  let filteredGroups = allGroups.filter(item => item.id !== 'unknown')
+   
   
-  let groupObjectArray = []
-  let groupOptionsArray = []
+  let sortedFilteredGroups = descendSorter(filteredGroups, 'name')
+
+  sortedFilteredGroups.map((group, index) => {
+    groupsObjectArray.push(group.name)
 
 
-
-
-
-  allGroups.map((group, index) => {
-    groupObjectArray.push({ id: group.id, name: group.name })
-
-
-    return groupObjectArray
+    return groupsObjectArray
   }
   ) //end map
 
-  let sortedGroupObjectArray = descendSorter(groupObjectArray, 'name')
+  console.log('[ LogForm ] sortedFilteredGroups ', sortedFilteredGroups);
 
-  sortedGroupObjectArray.map((group, index) => {
+  sortedFilteredGroups.map((group, index) => {
 
     let groupExists = logsIdArray.includes(group.id)
-    let groupObject = { id: group.id, label: group.name }
+  //   let groupObject = group.name
     if (groupExists) {
-      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', groupObject);
+      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', group.id);
 
 
 
 
     }
     if (!groupExists) {
-      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupObject);
-      groupOptionsArray.push(groupObject)
+      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  group.id);
+      groupsOptionsArray.push(group.name)
 
     }
 
-    return groupOptionsArray
+    return groupsOptionsArray
   }
   ) //end map
- 
- 
+  console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupsOptionsArray)
 
-// console.log('[ LOG SECTION ] groupObjectArray ', groupObjectArray);
-// console.log('[ LOG SECTION  ] logsIdArray ', logsIdArray);
  
 // ----create default paramters if note exists ---------------------
 
@@ -348,7 +321,7 @@ let defaultValues, sectionId
     logType: 'person',
     newExisting: 'existing',
     person: null,
-    group: '',
+    group: null,
     newPerson: '',
     newGroup: '',
     groupType: 'other',
@@ -493,12 +466,12 @@ if newLog ---
                     options = {peopleOptionsArray}
                     // or
                     // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.categories}
+                    defaultValue={defaultValues.person}
                     placeholder='select a person'
 
                   />
 
-                  {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>}
+                  {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>} 
 
 
 
@@ -509,19 +482,24 @@ if newLog ---
 
                 {showLogTypeInput === 'group' &&
                   <>
-                    <ChronicleSelectMui
-                      name={'group'}
-                      control={control}
-                      options={groupOptionsArray}
-                      // defaultValue = {{ value: 'ge423', label: 'home'}}
-                      defaultValue={defaultValues.categories}
-                      placeholder='select a group'
+                
+                  <ChronicleSelectMui
+                    name={'group'}
+                    control={control}
+                    options = {groupsOptionsArray}
+                    // or
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.categories}
+                    placeholder='select a group'
 
-                    />
+                  />
 
-                    {errors.group && <ErrorMessage>{ errors.group.message}</ErrorMessage>}
+                  {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>}
 
-                  </>
+
+
+
+                </>
                 }
               </SelectWrapper>
 

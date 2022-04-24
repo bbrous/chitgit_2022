@@ -1,18 +1,3 @@
-/*   Strip excess white spaces
-
---------------------------------------
-const mySentence = '    My string with a    lot   of Whitespace.  '
-const cleanSentence = mySentence.replace(/\s+/g, ' ').trim()
-//  result --- 'My string with a lot of Whitespace.'
-
---------------------------------------
-
-
-*/
-
-
-
-
 
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -33,7 +18,6 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
-
 const filter = createFilterOptions();
 
 // Category Array 
@@ -43,7 +27,7 @@ const categoryArray = ['to do', 'work', 'family', 'product team' , 'personal pro
 
 // -----------------------------------------------------------------
 export const ChronicleSelectMui =({ name, control, label, type, defaultValue, options, placeholder } ) => {
-// console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options);
+console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options);
   const [value, setValue] = React.useState(null);
   const classes = useStyles();
   return (
@@ -69,7 +53,7 @@ export const ChronicleSelectMui =({ name, control, label, type, defaultValue, op
  
         // freeSolo
         id="mui_autocomplete_creatable"
-        disableClearable
+        // disableClearable
         options={options.map((option) => option)}
         renderInput={(params) => (
           <StyledTextBox
@@ -93,13 +77,15 @@ export const ChronicleSelectMui =({ name, control, label, type, defaultValue, op
           )}
           name={name}
           control={control}
-          defaultValue = {defaultValue}
+          
         />
       )}
     />
   );
 
 };
+
+// --------------------------------------
 const StyledWrapper= styled(Autocomplete)({
   
   display: 'flex',

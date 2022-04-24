@@ -46,7 +46,7 @@ const SampleGroups =  [
 
 
   { 
-    id: 'group_4',
+    id: 'group_10',
     name: 'Toys for tots',
     type: 'charity',
     meta: '',
@@ -57,7 +57,7 @@ const SampleGroups =  [
   },
 
   { 
-    id: 'group_10',
+    id: 'group_4',
     name: 'Beach cleanup',
     type: 'group',
     meta: '',

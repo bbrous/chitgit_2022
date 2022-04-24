@@ -554,6 +554,7 @@ if(keywordExists) {
                 options={sortedCategoryOptions}
                 // defaultValue = {{ value: 'ge423', label: 'home'}}
                 defaultValue={defaultValues.categories}
+                placeholder='select a category'
 
 
               />
