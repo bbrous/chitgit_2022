@@ -59,8 +59,8 @@ import {
   addLogHolderToStore
 } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
 
-import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
-import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
+import { selectPeople, addPersonToStore } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
  
 
 // --- Form component imports ---------
@@ -390,14 +390,35 @@ let defaultValues, sectionId
 
           if (newExisting === 'new') {
 
+              /* 1. clean the form input - strip whitespace
+               2. create new person Id in sample
+                  x - add newPerson to people collection in database
+                  x- get new person's Id back
+               3. create the object to add to logHolders collection
+               4. dispatch to store 
+            */
+
+
+            let newPersonId = cuid()
+            let cleanedNewPerson = stripWhiteSpace(data.newPerson)
+            let newPersonObject  = {
+              id: newPersonId,
+              type: 'person',
+              name: cleanedNewPerson,
+              meta: '',
+              peopleHolders: [
+                {
+                  id: newPersonId,
+                  dbCollection: 'logHolders'}
+              ]
+            }
 
 
 
-console.log('[ Log FORM ] newExisting  Person is new', newExisting);
+            dispatch(addPersonToStore(newPersonObject))
 
-
-      
-
+            newLogHolderData = {id: newPersonId, collection: 'people'}
+            dispatch(addLogHolderToStore(newLogHolderData))
 
 
           } // person && new
@@ -435,6 +456,41 @@ console.log('[ Log FORM ] newExisting  Person is new', newExisting);
 
 
       console.log('[ Log FORM ] newExisting  group is new', newExisting);
+
+
+              /* 1. clean the form input - strip whitespace
+               2. create new person Id in sample
+                  x - add newPerson to people collection in database
+                  x- get new person's Id back
+               3. create the object to add to logHolders collection
+               4. dispatch to store 
+            */
+
+
+               let newGroupId = cuid()
+               let cleanedNewGroup = stripWhiteSpace(data.newGroup)
+               let newGroupObject  = {
+                 id: newGroupId,
+                 type: 'data.groupType',
+                 name: cleanedNewGroup,
+                 meta: '',
+                 groupHolders: [
+                   {
+                     id: newGroupId,
+                     dbCollection: 'logHolders'}
+                 ]
+               }
+   
+   
+   
+               dispatch(addGroupToStore(newGroupObject))
+   
+               newLogHolderData = {id: newGroupId, collection: 'groups'}
+               dispatch(addLogHolderToStore(newLogHolderData))
+
+
+
+
 
 
 

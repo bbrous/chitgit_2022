@@ -10,22 +10,24 @@ export const groupsSlice = createSlice({
 
     addGroupToStore: (state, action) => {
 
-      let groupId = action.payload.groupId
-      let group = action.payload.group
-      let groupHolder = action.payload.groupHolder
-      let dbCollection = action.payload.dbCollection
-      let newgroupHolder = {dbCollection: dbCollection, id: groupHolder}
+      let groupObject = action.payload
+      console.log('[ sam_GROUP SLICE ] newExisting  group is new', groupObject);
+      // let groupId = action.payload.groupId
+      // let group = action.payload.group
+      // let groupHolder = action.payload.groupHolder
+      // let dbCollection = action.payload.dbCollection
+      // let newgroupHolder = {dbCollection: dbCollection, id: groupHolder}
 
-      let groupObject = {
-        id: groupId,
-        group: group,
-        groupHolders: [newgroupHolder]
-      }
+      // let groupObject = {
+      //   id: groupId,
+      //   group: group,
+      //   groupHolders: [newgroupHolder]
+      // }
 
-      console.log('===============================================================')
-      console.log('[ sam_groupSlice ] groupId ', groupId)
-      console.log('[ sam_groupSlice ] newgroupHolder ', newgroupHolder)
-      console.log('[ sam_groupSlice ] dbCollection ', dbCollection)
+      // console.log('===============================================================')
+      // console.log('[ sam_groupSlice ] groupId ', groupId)
+      // console.log('[ sam_groupSlice ] newgroupHolder ', newgroupHolder)
+      // console.log('[ sam_groupSlice ] dbCollection ', dbCollection)
 
       state.push(groupObject)
     },

@@ -9,23 +9,7 @@ export const peopleSlice = createSlice({
   reducers: {
 
     addPersonToStore: (state, action) => {
-
-      let personId = action.payload.id
-      let name = action.payload.name
-      let personHolder = action.payload.personHolder
-      let meta = action.payload.meta
-      let dbCollection = action.payload.dbCollection
-      let newPersonHolder = {dbCollection: dbCollection, id: personHolder}
-
-      let personObject = {
-        id: personId,
-        person: name,
-        meta: meta,
-        personHolders: [newPersonHolder]
-      }
-
-
-
+      let personObject = action.payload
       state.push(personObject)
     },// end addPersonToStore
 
