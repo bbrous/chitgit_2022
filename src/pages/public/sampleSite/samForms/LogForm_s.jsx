@@ -357,8 +357,6 @@ let defaultValues, sectionId
  
     try {
 
-
-
       // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
       // --- create new logHolder ------------
@@ -369,47 +367,44 @@ let defaultValues, sectionId
 
         if (logType === 'person') {
 
-          // --- 1a.  does the person exist already 
+          // --- 1a.  does the person exist already ---
+
           if (newExisting === 'existing') {
 
+            /* 1. clean the form input - strip whitespace
+               2. find the person in the peopleArray
+               3. create the object to add to logHolders collection
+               4. dispatch to store 
+            */
             let newPerson = stripWhiteSpace(data.person)
+            
             let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
 
-
-   
             newLogHolderData = {id: newPersonObject.id, collection: 'people'}
-
-
-
-      console.log('[ Log FORM ]  Person Object ID is @@@@@@@@@@ ',  newLogHolderData);
 
             dispatch(addLogHolderToStore(newLogHolderData))
 
+          } // end person and existing
 
+          // --- 1b  is it a new person ------------------
 
-          }
-
-          // --- 1b  is it a new person 
           if (newExisting === 'new') {
 
 
 
-      console.log('[ Log FORM ] newExisting  Person is new', newExisting);
+
+console.log('[ Log FORM ] newExisting  Person is new', newExisting);
+
+
+      
 
 
 
-          }
+          } // person && new
 
 
 
-        }
-
-
-
-
-
-
-
+        } // logType = person
 
 
        
@@ -418,13 +413,21 @@ let defaultValues, sectionId
           // --- 1a.  does the group exist already 
           if (newExisting === 'existing') {
 
+            /* 1. clean the form input - strip whitespace
+               2. find the group in the groupsArray
+               3. create the object to add to logHolders collection
+               4. dispatch to store 
+            */
+               let newGroup = stripWhiteSpace(data.group)
+            
+               let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
+   
+               newLogHolderData = {id: newGroupObject.id, collection: 'groups'}
+   
+               dispatch(addLogHolderToStore(newLogHolderData))
 
 
-
-      console.log('[ Log FORM ] newExisting  group exists', newExisting);
-
-
-          }
+          }// end group and existing
 
           // --- 1b  is it a new group 
           if (newExisting === 'new') {
@@ -435,11 +438,11 @@ let defaultValues, sectionId
 
 
 
-          }
+          } // end group && new
 
 
 
-        }
+        } // end logType = group
 
 
 
