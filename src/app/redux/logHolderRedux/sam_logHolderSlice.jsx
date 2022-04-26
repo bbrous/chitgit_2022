@@ -10,6 +10,8 @@ export const logHoldersSlice = createSlice({
 
     addLogHolderToStore: (state, action) => {
 
+      let logHolderObect = action.payload
+
       // let logHolderId = action.payload.id
       // let logHolder = action.payload.logHolder
       
@@ -23,7 +25,7 @@ export const logHoldersSlice = createSlice({
 
 
 
-      // state.push(logHolderObject)
+      state.push(logHolderObect)
     },// end addlogHolderToStore
 
 

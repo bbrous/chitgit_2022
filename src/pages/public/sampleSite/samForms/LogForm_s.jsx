@@ -16,7 +16,7 @@
 
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate } from 'react-router-dom'
+import {useNavigate, useParams } from 'react-router-dom'
 import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
@@ -42,17 +42,23 @@ import { string, object  } from 'yup';
 import * as Yup from 'yup';
 
 // --- Redux slices imports ---------------------------------
-
-import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
+import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice'
 import {
-  closeLogSectionForm, closeNewLogForm, selectStatus
+  closeLogSectionForm, 
+  closeNewLogForm, 
+  selectStatus, 
+   
 
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
  
 // --- imports to create options for selectors
 
-import { selectlogHolders } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
+import { 
+  selectlogHolders,
+  addLogHolderToStore
+} from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
+
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
  
@@ -95,13 +101,14 @@ export default function LogForm_s(props) {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  let match = useParams()
   const status = useSelector(selectStatus)
   const allPeople = useSelector(selectPeople)
   const allGroups = useSelector(selectGroups)
   const allLogHolders = useSelector(selectlogHolders)
 
-
-
+  let URLId = match.id
+// console.log('[ Log FROM ] URLId ', URLId);
 
   // --- form Schema tests   ------------------------------
 
@@ -340,26 +347,121 @@ let defaultValues, sectionId
   });
   const { handleSubmit, reset, control, setValue, onChange, watch, ref , formState: { errors } } = methods;
 
-  const submitForm = (data) => {
+  const submitForm = async (data) => {
 
-    
+    const {logType, newExisting,  person, newPerson, 
+                          group, newGroup, groupType} = data
+
     console.log('[LogSectionForm]...data ', data)
-
-//  ##############################################################
-// #############################################################
-
-
+    console.log('[LogSectionForm]...logType ', logType)
+ 
+    try {
 
 
 
+      // --- start the loading spinner ---
+      dispatch(changeLoadingStatus(true))
+      // --- create new logHolder ------------
+  
+        let newLogHolderData = {}
+
+        // --- 1.  is logType a person -----
+
+        if (logType === 'person') {
+
+          // --- 1a.  does the person exist already 
+          if (newExisting === 'existing') {
+
+            let newPerson = stripWhiteSpace(data.person)
+            let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
+
+
+   
+            newLogHolderData = {id: newPersonObject.id, collection: 'people'}
+
+
+
+      console.log('[ Log FORM ]  Person Object ID is @@@@@@@@@@ ',  newLogHolderData);
+
+            dispatch(addLogHolderToStore(newLogHolderData))
+
+
+
+          }
+
+          // --- 1b  is it a new person 
+          if (newExisting === 'new') {
+
+
+
+      console.log('[ Log FORM ] newExisting  Person is new', newExisting);
+
+
+
+          }
+
+
+
+        }
 
 
 
 
 
-    dispatch(closeLogSectionForm())
 
-  };
+
+
+
+       
+        if (logType === 'group') {
+
+          // --- 1a.  does the group exist already 
+          if (newExisting === 'existing') {
+
+
+
+
+      console.log('[ Log FORM ] newExisting  group exists', newExisting);
+
+
+          }
+
+          // --- 1b  is it a new group 
+          if (newExisting === 'new') {
+
+
+
+      console.log('[ Log FORM ] newExisting  group is new', newExisting);
+
+
+
+          }
+
+
+
+        }
+
+
+
+        dispatch(changeLoadingStatus(false))
+        reset()
+
+        dispatch(closeLogSectionForm())
+        reset(defaultValues)
+
+ 
+
+
+    } catch (error) {
+      alert(error.message)
+      dispatch(changeLoadingStatus(false))
+
+      reset(defaultValues)
+
+    } // end catch
+  } // end async submit
+
+   
 
   const showLogTypeInput = watch('logType')
   const showNewExisting = watch('newExisting')

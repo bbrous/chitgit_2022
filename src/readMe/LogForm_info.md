@@ -4,14 +4,17 @@
 <br>
 ###  -- overview --
 
+The log form handles adding new  entries for 3 distinct collections.
+  - logHolders
+  - people
+  - groups
 
-The log form handles both create-new and edit-update functions for log holders, people, and groups.
-<br>
+
 
 ---  Add new logHolder logic --------------------------
 
 <br>
-  A.  if log id from params = 'newLog' ... add newLog --- 
+
 
     let newLogObject = {}
 
@@ -58,6 +61,5 @@ The log form handles both create-new and edit-update functions for log holders, 
 
       5. dispatch(updateStatusView) 
 
-  B. if logId from params === an id ... update something
 
 <br>
