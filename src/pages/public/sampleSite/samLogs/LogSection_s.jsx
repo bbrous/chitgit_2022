@@ -142,7 +142,7 @@ styledPeople = 'none'
 
         <MetaWrapper>
     
-        <div dangerouslySetInnerHTML={{__html: meta}}/>
+        <QuillMetaDiv dangerouslySetInnerHTML={{__html: meta}}/>
           <TimesWrapper>
             <div> timestamp:  {} </div>
             <div> last edit:  {styledLastEdit} : </div>
@@ -437,6 +437,24 @@ fontSize: '14px',
 }
 
 })
+
+const QuillMetaDiv= styled('div')({
+
+  fontSize: '14px',
+  
+   '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
+  
+  })
 
 
 

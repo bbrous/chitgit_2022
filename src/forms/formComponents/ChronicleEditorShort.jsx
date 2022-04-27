@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+ 
 import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
-
+import MagicUrl from 'quill-magic-url'
 
 // ******   CRITICAL  ******************************************
 // ******   CRITICAL  ******************************************
@@ -48,6 +48,14 @@ console.log('[ EditorShort ] IniitalValue ', IniitalValue);
           },
         },
         ...EditorShort.modules,
+        magicUrl: {
+          // Regex used to check URLs during typing
+            urlRegularExpression: /(https?:\/\/[\S]+)|(www.[\S]+)|(tel:[\S]+)/g,
+          // Regex used to check URLs on paste
+            globalRegularExpression: /(https?:\/\/|www\.|tel:)[\S]+/g,
+
+            mailRegularExpression: false
+        },
       }}
       formats={EditorShort.formats}
       bounds={".app"}
@@ -69,7 +77,8 @@ EditorShort.modules = {
     // [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ["bold", "italic", "underline"],
 
-    ["link" ],
+    [{ color: [] } ], // dropdown with defaults from theme
+    // ["clean"],
     
 
 
@@ -98,11 +107,6 @@ EditorShort.formats = [
   "color"
 ];
 
-/*
- * PropType validation
- */
-EditorShort.propTypes = {
-  placeholder: PropTypes.string,
-};
+
 
  

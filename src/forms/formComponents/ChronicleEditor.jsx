@@ -1,9 +1,15 @@
 import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+
 import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
+import './quillChronicleStyle.css'
+import { styled, createTheme  } from "@mui/material/styles"
+import MagicUrl from 'quill-magic-url'
+import Quill from 'quill'
 
 
+
+Quill.register('modules/magicUrl', MagicUrl)
 // ******   CRITICAL  ******************************************
 // ******   CRITICAL  ******************************************
 
@@ -14,8 +20,7 @@ import ReactQuill from "react-quill";
 
 
 
-import './quillChronicleStyle.css'
-import { styled, createTheme  } from "@mui/material/styles"
+
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // ******   CRITICAL  ******************************************
@@ -48,6 +53,14 @@ console.log('[ Editor ] IniitalValue ', IniitalValue);
           },
         },
         ...Editor.modules,
+        magicUrl: {
+          // Regex used to check URLs during typing
+            urlRegularExpression: /(https?:\/\/[\S]+)|(www.[\S]+)|(tel:[\S]+)/g,
+          // Regex used to check URLs on paste
+            globalRegularExpression: /(https?:\/\/|www\.|tel:)[\S]+/g,
+
+            mailRegularExpression: false
+        },
       }}
       formats={Editor.formats}
       bounds={".app"}
@@ -69,11 +82,7 @@ Editor.modules = {
     // [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ["bold", "italic", "underline"],
 
-    ["link", 
-    // "image",
-    //  "video"
-    ],
-    
+ 
     [{ color: [] } ], // dropdown with defaults from theme
     // ["clean"],
  
@@ -112,11 +121,5 @@ Editor.formats = [
   "color"
 ];
 
-/*
- * PropType validation
- */
-Editor.propTypes = {
-  placeholder: PropTypes.string,
-};
 
  
