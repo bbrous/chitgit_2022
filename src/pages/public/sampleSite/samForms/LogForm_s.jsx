@@ -362,7 +362,7 @@ let defaultValues, sectionId
       // --- create new logHolder ------------
   
         let newLogHolderData = {}
-
+        let newlogId
         // --- 1.  is logType a person -----
 
         if (logType === 'person') {
@@ -381,7 +381,7 @@ let defaultValues, sectionId
             let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
 
             newLogHolderData = {id: newPersonObject.id, collection: 'people'}
-
+            newlogId = newPersonObject.id
             dispatch(addLogHolderToStore(newLogHolderData))
 
           } // end person and existing
@@ -414,7 +414,7 @@ let defaultValues, sectionId
             }
 
 
-
+            newlogId = newPersonId
             dispatch(addPersonToStore(newPersonObject))
 
             newLogHolderData = {id: newPersonId, collection: 'people'}
@@ -446,7 +446,7 @@ let defaultValues, sectionId
                newLogHolderData = {id: newGroupObject.id, collection: 'groups'}
    
                dispatch(addLogHolderToStore(newLogHolderData))
-
+               newlogId = newGroupObject.id
 
           }// end group and existing
 
@@ -482,7 +482,7 @@ let defaultValues, sectionId
                }
    
    
-   
+               newlogId = newGroupId
                dispatch(addGroupToStore(newGroupObject))
    
                newLogHolderData = {id: newGroupId, collection: 'groups'}
@@ -508,7 +508,7 @@ let defaultValues, sectionId
         dispatch(closeLogSectionForm())
         reset(defaultValues)
 
- 
+        navigate(`/sample/logs/${newlogId}`)
 
 
     } catch (error) {

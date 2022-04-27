@@ -48,7 +48,7 @@ function LogHeader(props) {
 
   let allPeopleAndGroups = [...allGroups, ...allPeople]
 
-  console.log('[ LogHeader ] allPeopleAndGroups ', allPeopleAndGroups);
+  // console.log('[ LogHeader ] allPeopleAndGroups ', allPeopleAndGroups);
 
 
   // --- get the name 
@@ -60,7 +60,7 @@ function LogHeader(props) {
   const handleClick = ()=>{
  
    
-   console.log('[ LOG HEADER] open new form ');
+  //  console.log('[ LOG HEADER] open new form ');
     dispatch(openLogForm('new'))
     
   }

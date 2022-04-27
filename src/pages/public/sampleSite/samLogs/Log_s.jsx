@@ -9,7 +9,7 @@
 ------------------------------------*/
 
 
-import React , {useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
@@ -39,9 +39,17 @@ export default function Log() {
   const allLogsArray = useSelector(selectLogs)
   const status = useSelector(selectStatus)
 
+  const [allLogs, setAllLogs] = useState(allLogsArray)
+
+  useEffect(()=>{
+
+    setAllLogs(allLogsArray)
+
+  },[allLogsArray])
+
   const displayStatus = status.view.log.sectionId
 
-  var logsArray = [...allLogsArray]; // mutable copy of allLogsArray
+  var logsArray = [...allLogs]; // mutable copy of allLogsArray
 
 
 

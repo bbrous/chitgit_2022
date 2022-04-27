@@ -87,7 +87,7 @@ function Main_s(props) {
   let page, formattedPage
   page = match.pageView
 
-  console.log('[ PAGE in  MAIN ] page ', page);
+  // console.log('[ PAGE in  MAIN ] page ', page);
 
   switch(page){
 
@@ -107,7 +107,7 @@ function Main_s(props) {
     default: formattedPage = capitalizeFirstLetter(page)
   }
 
-  console.log('MAIN S -- params ', match )
+  // console.log('MAIN S -- params ', match )
   
 
 

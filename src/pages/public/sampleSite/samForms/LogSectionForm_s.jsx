@@ -5,7 +5,7 @@
 
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate } from 'react-router-dom'
+import {useNavigate, useParams } from 'react-router-dom'
  
 import { 
 
@@ -49,7 +49,7 @@ import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/Style
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 
-
+import { addLogToStore } from '../../../../app/redux/logRedux/sam_logsSlice'
 import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
 // --- MUI imports ---------
 
@@ -80,19 +80,25 @@ const formSchema = object({
 // ==== MAIN FUNCTION ===========================================
 
 export default function LogSectionForm_s(props) {
+  let match = useParams()
 
+  let logURLId = match.id
+ 
+
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const status = useSelector(selectStatus)
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
 
-  console.log('[ LOG SECTION FORM FORM FORM ] logId ', logId);
+
 
 // ----create default paramters if note exists ---------------------
 
 let defaultValues, log,  sectionId, logContent, logMeta, logKeywordArray, 
-logPeopleArray, logDateTime
+logPeopleArray, sectionCreatedDate, dateTime
+
 
 
 // ##### Sample only  ###########
@@ -108,13 +114,14 @@ logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId
   // !logId ? formlogHolderId = id  : formlogHolderId = log.logHolderId
   let keywordsOptionsArray = []
   let peopleOptionsArray = []
-
+  sectionCreatedDate = Date.now()
 
   defaultValues = {
     content: '',
     meta: '',
     keywords: [],
     people: [],
+    sectionCreatedDate:  sectionCreatedDate,
     dateTime: 1615741420000  // Bob's login time Mar 14
 
   };
@@ -134,28 +141,47 @@ logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId
   const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
 
   const submitForm = (data) => {
-
-    
-    console.log('[LogSectionForm]...data ', data)
+    console.log('[ LOG SECTION FORM FORM FORM ] data ',data);
 
 
-    /* ###########################################
+    const {content, meta,  keywords, people, dateTime} = data
+ 
+ 
+// ###########################################
+let newKeywords
+let logDateTime = new Date(dateTime).toISOString();
 
-if newLog --- 
-   1. if person or group is new 
-      a) add person or group
-      b)async get id
-      c) create new log section 
+let noPtagContent = content.replaceAll('<p>' , '<div>')
+let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
-   2. if person or group exists
-       create new log section
-
-   3. dispatch(closeNewLogForm) with update to status view with
-      person or group id
-
+console.log('[ LogSection FOrm ] before clean ', content);
+console.log('[ LogSection FOrm ] after clean ', cleanContent);
 
 
-    ########################################### */
+let newLogData = {
+
+  id: '22',
+  type: 'person',
+  otherPartyId: logURLId,
+  logDate: logDateTime,
+  lastEdit: logDateTime,
+  timeLock: '',
+  meta: meta,
+  title: 'test title',
+  detail: cleanContent,
+  attachment: '',
+  chitLink: {},
+  peopleArray: people,
+  keyWordArray:  keywords
+}
+
+dispatch(addLogToStore(newLogData))
+
+ 
+
+
+
+//  ########################################### 
 
     dispatch(closeLogSectionForm())
 

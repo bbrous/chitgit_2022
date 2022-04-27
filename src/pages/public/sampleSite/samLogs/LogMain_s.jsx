@@ -61,7 +61,7 @@ setLogId(statusId)
 
 },[statusId])
 
-console.log('[Log Main] logId', logId)
+// console.log('[Log Main] logId', logId)
   const [arrayOrder, setArrayOrder] = useState(false)
 
   const handleSwitchState = (newState) => {

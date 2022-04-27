@@ -17,9 +17,9 @@ export const logsSlice = createSlice({
 
     addLogToStore: (state, action) => {
 
-      // let log = action.payload
+      let log = action.payload
 
-      // state.push(log)
+      state.push(log)
     },
 
 
@@ -66,7 +66,7 @@ export const logsSlice = createSlice({
 // --- Export actions ---------------------------------------------
 
 export const { 
-  addLogsToStore, 
+  addLogToStore, 
   updateEditedLogs,
   addLogsHolder 
 
