@@ -54,6 +54,203 @@ import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+ 
+//  =====================================================================
+
+export default function JSection(props) {
+
+
+
+/*   #### - keywords code for creating displayed string (Apr 2022)
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+*/
+
+
+
+  let dispatch = useDispatch()
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // const[sectionId, setSectionId] = useState('')
+
+  let journalViewId = useSelector(selectStatus).view.journal.sectionId
+
+ 
+
+  const handleClick = (id)=>{
+ 
+    let sectionId = id
+   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+    dispatch(openJournalForm(sectionId))
+    
+  }
+ 
+
+   
+
+  const handleClickAway = () => {
+    setOpen(true);
+  };
+
+
+
+
+
+
+
+  const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
+  }  = props
+ 
+  let formattedDate = ISOtoTraditionalWithDay(dateCreated)
+  return (
+<>
+<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You have a section currently being edited. 
+            Would you like to save your changes to that section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <button
+  form="submit-form"
+  variant="contained"
+  color="primary"
+  type="submit"
+  onClick={handleClose}
+>
+Save Edits
+</button>
+
+<button
+  form="submit-form"
+  variant="contained"
+  color="primary"
+ 
+  onClick={handleClose}
+>
+Cancel
+</button>
+
+        </DialogActions>
+      </Dialog>
+
+
+
+    {journalViewId !== id && 
+    <MainWrapper>
+
+
+    
+      <TopWrapper>
+        <DateWrapper>{formattedDate}</DateWrapper>
+        
+        <IconWrapper>
+
+          <LightTooltip title='Edit' arrow>
+            <StyledEditIcon id = {id} 
+            onClick={()=>handleClick(id)}
+            />
+          </LightTooltip>
+
+
+          <LightTooltip title='Copy in Logs or Topicals' arrow>
+            <StyledDuplicateIcon />
+          </LightTooltip>
+
+  
+          <ChitIcon />
+
+          <LightTooltip title='Delete' arrow>
+            <StyledDeleteIcon />
+          </LightTooltip>
+        </IconWrapper>
+      </TopWrapper>
+      
+      <CategoryWrapper></CategoryWrapper>
+      <ContentWrapper>
+
+
+        <Content>
+          <HeadlineWrapper> {title} </HeadlineWrapper>
+          {/* {content} */}
+          <div dangerouslySetInnerHTML={{__html: content}}>
+  </div>  
+
+        </Content>
+
+        <SearchWrapper>
+      <PeopleWrapper>People: Joi Me</PeopleWrapper>
+        <CategoryWrapper>category: aaaa</CategoryWrapper>
+        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+
+      </SearchWrapper>
+
+      </ContentWrapper>
+
+    </MainWrapper>
+    } 
+
+{journalViewId === id  && 
+ <ClickAwayListener 
+ onClickAway={handleClickAway}
+ mouseEvent="onMouseDown"
+ touchEvent="onTouchStart"
+ >
+
+<JournalFormWrapper>  
+
+<JournalForm id="submit-form"/>
+
+</JournalFormWrapper>
+
+</ClickAwayListener>
+
+}
+
+    </>
+  )
+}
+
 // -----------------------------------------------------------------
 //--- STYLES begin --------------------------
 
@@ -399,198 +596,3 @@ const StyledDetail= styled('div')({
  
  
  })
- 
-//  =====================================================================
-
-export default function JSection(props) {
-
-
-
-/*   #### - keywords code for creating displayed string (Apr 2022)
-
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
-    //   styledKeywords = styledKeywords  + keyword + ' , '
-
-    //   return styledKeywords
-    // }
-    // ) //end map
-
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
-    }else{
-    styledKeywords += keyWordArray[i] + ' , '
-    }
-  }
- 
-
-  }//end if keyword.length > 0
-
-  if (keyWordArray.length === 0) {
-styledKeywords = 'none'
-  }
-
-*/
-
-
-
-  let dispatch = useDispatch()
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // const[sectionId, setSectionId] = useState('')
-
-  let journalViewId = useSelector(selectStatus).view.journal.sectionId
-
- 
-
-  const handleClick = (id)=>{
- 
-    let sectionId = id
-   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
-    dispatch(openJournalForm(sectionId))
-    
-  }
- 
-
-   
-
-  const handleClickAway = () => {
-    setOpen(true);
-  };
-
-
-
-
-
-
-
-  const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
-  }  = props
- 
-  let formattedDate = ISOtoTraditionalWithDay(dateCreated)
-  return (
-<>
-<Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You have a section currently being edited. 
-            Would you like to save your changes to that section?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-        <button
-  form="submit-form"
-  variant="contained"
-  color="primary"
-  type="submit"
-  onClick={handleClose}
->
-Save Edits
-</button>
-
-<button
-  form="submit-form"
-  variant="contained"
-  color="primary"
- 
-  onClick={handleClose}
->
-Cancel
-</button>
-
-        </DialogActions>
-      </Dialog>
-
-
-
-    {journalViewId !== id && 
-    <MainWrapper>
-
-
-    
-      <TopWrapper>
-        <DateWrapper>{formattedDate}</DateWrapper>
-        
-        <IconWrapper>
-
-          <LightTooltip title='Edit' arrow>
-            <StyledEditIcon id = {id} 
-            onClick={()=>handleClick(id)}
-            />
-          </LightTooltip>
-
-
-          <LightTooltip title='Copy in Logs or Topicals' arrow>
-            <StyledDuplicateIcon />
-          </LightTooltip>
-
-  
-          <ChitIcon />
-
-          <LightTooltip title='Delete' arrow>
-            <StyledDeleteIcon />
-          </LightTooltip>
-        </IconWrapper>
-      </TopWrapper>
-      
-      <CategoryWrapper></CategoryWrapper>
-      <ContentWrapper>
-
-
-        <Content>
-          <HeadlineWrapper> {title} </HeadlineWrapper>
-          {/* {content} */}
-          <div dangerouslySetInnerHTML={{__html: content}}>
-  </div>  
-
-        </Content>
-
-        <SearchWrapper>
-      <PeopleWrapper>People: Joi Me</PeopleWrapper>
-        <CategoryWrapper>category: aaaa</CategoryWrapper>
-        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
-
-      </SearchWrapper>
-
-      </ContentWrapper>
-
-    </MainWrapper>
-    } 
-
-{journalViewId === id  && 
- <ClickAwayListener 
- onClickAway={handleClickAway}
- mouseEvent="onMouseDown"
- touchEvent="onTouchStart"
- >
-
-<JournalFormWrapper>  
-
-<JournalForm id="submit-form"/>
-
-</JournalFormWrapper>
-
-</ClickAwayListener>
-
-}
-
-    </>
-  )
-}

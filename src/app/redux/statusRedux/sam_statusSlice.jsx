@@ -228,6 +228,16 @@ export const statusSlice = createSlice({
 
     },
 
+    openLogForm: (state, action) => {
+      
+      let newLogId = action.payload
+
+      // console.log('[ sam_StatusSlice ] sectionId ', newJournalId);
+      state.view.log.sectionId = newLogId
+
+    },
+
+
     closeLogSectionForm: (state, action) => {
       // state.modal.modalType = ''
       // state.modal.dbCollection = ''
@@ -248,14 +258,7 @@ export const statusSlice = createSlice({
 
     },
 
-    openLogForm: (state, action) => {
-      
-      let newLogId = action.payload
 
-      // console.log('[ sam_StatusSlice ] sectionId ', newLogId);
-      state.view.log.sectionId = newLogId
-
-    },
 
 
 
@@ -276,6 +279,7 @@ export const {
   updateChronicleView,
   closeJournalForm,
   openJournalForm,
+  
   closeLogSectionForm,
   closeNewLogForm,
   openLogForm,

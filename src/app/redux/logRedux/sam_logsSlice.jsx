@@ -78,7 +78,12 @@ export const {
 
 export const selectLogs = state => state.sample.logs
 
-
+export const selectLogFromArray = (logArray, id) => {
+ 
+  let log = logArray.find(log => log.id === id) 
+ 
+  return log
+}
 
 
 // --- default Export reducers -----------------------------------

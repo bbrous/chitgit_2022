@@ -179,26 +179,27 @@ console.log('[ POPOVER ] pageType ', pageType);
 
 {pageType === 'twoPartyChits' &&
           <Content>
-            <div> Two party Chit Git <em>Chits</em> are tokens... <br/>
-            Tokens that represent things you've done for others, or that 
-            others have done for you.
+            <div>
+              Chits are at the heart of all Chit Git apps.
+            </div>
+            <div> <em>Chits</em> are tokens...  
+            Tokens that you can give or receive to someone for something they did for you or something you did for them... Or tokens you give yourself for something you accomplished.
+             </div>
+             <div>
+               Here you can choose between 2-party chits or Personal chits.
+               <br/>There are different views specific for each chit type ... 
+                 <ul>
+                   <li>
+                   ledger and karmic views for 2-Party
+                   </li>
+                   <li>
+                   ledger and calendar view for Personal
+                   </li>
+                   </ul>  
              </div>
                          
-             <div>
-             There are several types of two party chits,  each of which serve different purposes.  There are also several colors of each type of chit to indicate a "value" for the chit.  These values (set by you) are used to calculate your personal karmic balance.
-            </div>
 
-            <div> 
-             You create two party chits here whether or not the action taken was done by you for someone else... or by someone else for you.  Two party chits are privateby default, unless you choose to share them with the other party.   If you choose to give a chit to someone else, they do not have to be Chit Git members (or sign up for Chit Git) in order to receive / view it.  
-             </div>
-             
-             <div> Chit Git does not require or want you to provide any of the other party's contact info in order for you to send them a chit or for them to view it.
-             </div>
-
-          
-
-
-            <MoreInfo> For details click the info icon <Info />  at top of the chits page </MoreInfo>
+            <MoreInfo> For details on chits, click the info icon <Info />  at top of the chits page </MoreInfo>
           </Content>
         }
 
@@ -208,8 +209,8 @@ console.log('[ POPOVER ] pageType ', pageType);
           <Content>
             <div> <em>Spotlights</em> is a "decomposition" tool. </div>
             <div>
-              As used here, a "decomposition" tool is a cross between a to-do list and a project manager.
-
+              They are a kind of cross between a to-do list and a personal project manager.
+              </div><div>
               The tool is designed  to allow you to break down a complex goal, objective or activity
               into smaller, more manageable chunks...
               and then to place those chunks in the order that they
@@ -221,18 +222,47 @@ console.log('[ POPOVER ] pageType ', pageType);
 
 {pageType === 'logs' &&
           <Content>
+            <div> Logs are 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            
             <div> <em>Logs</em> are designed to help you keep track of
             interactions between you and another party or entity.
             </div>
-            <div> For instance - document calls between you and a company about 
-              an issue... or exhanges between you and a neighbor or coworker.
-            </div>
-            <div> Chit Git logs can be timestamped.  In Chit Git a timestamped 
-               log, can not be edited once invoked ... a feature which can be useful in legal disputes.
+            <div> Chit Git log sections can be converted into chits.</div>
+            <div> Chit Git logs sections can be timestamped.  A timestamped 
+               log section can NOT be edited once invoked ... a feature which can be useful in legal disputes.
             </div>
             <MoreInfo> Get detail info from <Info />  at top of logs page </MoreInfo>
           </Content>
         }
+{pageType === 'topicals' &&
+          <Content>
+            <div> Topicals are 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            <div> <em>Topicals</em> are designed to help you keep a record of, and store information about a specific topic for your personal pursuits.
+             
+            </div>
+            <div> Chit Git topicals sections can be converted into chits.</div>
+
+            <div> Chit Git topical sections can also be timestamped.  A timestamped  topical section can Not be edited once invoked ... a feature which can be useful in legal disputes.
+            </div>
+            <MoreInfo> Get detail info from <Info />  at top of topicals page </MoreInfo>
+          </Content>
+        }
+
+{pageType === 'journal' &&
+          <Content>
+            <div> Your journal is 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            <div> <em>Your journal</em> is designed to record your stream of consciousness.  Write about anything you thing, feel, or that happened in your day.
+            </div>
+
+            <div> Any journal section can be turned into either a log section or topical section.  When converted, a duplicate or modified version is created in logs or topicals - while the original journal section remains intact in the journal.
+            </div>
+            <MoreInfo> Get detail info from <Info />  at top of logs page </MoreInfo>
+          </Content>
+        }
+
+
+
+
       </ModalDisplay>
     </>
   )

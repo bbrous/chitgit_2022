@@ -37,7 +37,7 @@ import {
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
  
 
-
+import { selectLogs, selectLogFromArray } from '../../../../app/redux/logRedux/sam_logsSlice'
 
 // --- Form component imports ---------
 
@@ -83,7 +83,7 @@ export default function LogSectionForm_s(props) {
   let match = useParams()
 
   let logURLId = match.id
- 
+  let allLogs = useSelector(selectLogs)
 
   
   const dispatch = useDispatch()
@@ -96,28 +96,30 @@ export default function LogSectionForm_s(props) {
 
 // ----create default paramters if note exists ---------------------
 
-let defaultValues, log,  sectionId, logContent, logMeta, logKeywordArray, 
-logPeopleArray, sectionCreatedDate, dateTime
+let defaultValues,   sectionId, content, meta, keywordArray, 
+peopleArray, sectionCreatedDate, dateTime, log
 
-
-
+let a = selectLogFromArray(allLogs, logSectionId)
+ 
 // ##### Sample only  ###########
-logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId  
 
-// logSectionId === 'new' ? log =  {} : log =  selectLogFromArray(logArray, logId)
+logId === 'newLog' ? sectionId = cuid()  : sectionId =  logSectionId  
+
+  log =  selectLogFromArray(allLogs, logSectionId)
+
+logId === 'newLog' ? content = ''  : content =  log.detail 
 
 
-// logSectionId === 'new' ? logContent = ''  : sectionId =  logSectionId  
-
-
-    
+console.log('[ LogSectioForm ] log ', log);
+console.log('[ LogSectioForm ] log ', log.detail);
+console.log('[ LogSectioForm ] log @@@@@ ', content); 
   // !logId ? formlogHolderId = id  : formlogHolderId = log.logHolderId
   let keywordsOptionsArray = []
   let peopleOptionsArray = []
   sectionCreatedDate = Date.now()
 
   defaultValues = {
-    content: '',
+    content: content,
     meta: '',
     keywords: [],
     people: [],
@@ -263,7 +265,7 @@ dispatch(addLogToStore(newLogData))
                   <Editor 
                   {...field} 
                   ref={null}  
-                  IniitalValue = {defaultValues.noteContent}/>
+                  IniitalValue = {defaultValues.content}/>
                 )}
                 
               />

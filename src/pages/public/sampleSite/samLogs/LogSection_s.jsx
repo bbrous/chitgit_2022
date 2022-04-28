@@ -13,7 +13,7 @@
 
 
 import React , {useState} from 'react'
-import {connect} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
@@ -25,6 +25,9 @@ import{ selectLogs
 
 import { ISOtoTraditional, ISOtoTraditionalTime } from '../../../../app/helpers/dateHelper'
 
+import LogSectionForm from '../samForms/LogSectionForm_s'
+
+import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import ChitIcon from '../samComponents/Chit_icon_s'
  
 //  ---- Material Ui ------------------
@@ -43,11 +46,11 @@ const theme = createTheme(); // allows use of mui theme in styled component
 //  =====================================================================
 
 export default function LogSection(props) {
-
+let dispatch = useDispatch()
   const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
 
  console.log('[ LogSection  ] props ', props);
-
+ let sectionViewId = useSelector(selectStatus).view.log.sectionId
  
    // convert Dates for display
 
@@ -110,16 +113,28 @@ styledKeywords = 'none'
 styledPeople = 'none'
   }
 
-
+  const handleClick = (id)=>{
+ 
+    let sectionId = id
+   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+    dispatch(openLogForm(sectionId))
+    
+  }
   return (
+    <> 
+    {sectionViewId !== id &&
     <MainWrapper>
       <TopWrapper>
         <DateWrapper>{styledLogDate} : <span> {styledLogTime} </span></DateWrapper>
         <IconWrapper>
 
-          <LightTooltip title='Edit' arrow>
-            <StyledEditIcon />
+
+        <LightTooltip title='Edit' arrow>
+            <StyledEditIcon id = {id} 
+            onClick={()=>handleClick(id)}
+            />
           </LightTooltip>
+
 
           <ChitIcon />
           <LightTooltip title='Content Time Lock' arrow>
@@ -168,6 +183,15 @@ styledPeople = 'none'
 
 
     </MainWrapper>
+
+    }
+
+{sectionViewId === id &&
+<LogSectionForm/>
+ 
+}
+
+    </>
   )
 }
 
