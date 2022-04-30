@@ -51,7 +51,7 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
+      peopleArray: ['Bruce'],
       keyWordArray: ['Product team'],
       
     },
@@ -74,7 +74,7 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
+      peopleArray: ['Rhonda', 'joe', 'curly'],
       keyWordArray: ['Product team'],
 
     },
@@ -227,7 +227,7 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: [], 
   
   keyWordArray: ['Product team'],
 

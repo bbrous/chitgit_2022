@@ -3,19 +3,19 @@
 
 
 
-import React, {useState, useEffect}  from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate, useParams } from 'react-router-dom'
- 
-import { 
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
-        checkIfWordExists, 
-        cleanOptions ,
-        optionDescendSorter,
-        isArrayDifferent,
-        doesArrayIncludeItem
+import {
 
-      } from '../../../../app/helpers/commonHelpers'
+  checkIfWordExists,
+  cleanOptions,
+  optionDescendSorter,
+  isArrayDifferent,
+  doesArrayIncludeItem
+
+} from '../../../../app/helpers/commonHelpers'
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -23,11 +23,13 @@ import cuid from 'cuid'  // #### for sample site only ####
 // --- React-hook-form imports ---------
 
 import { FormProvider, useForm, Controller } from "react-hook-form";
- 
-import { yupResolver } from '@hookform/resolvers/yup';
-import { string, object  } from 'yup';
 
-// --- Redux slices imports ---------------------------------
+import { yupResolver } from '@hookform/resolvers/yup';
+import { string, object } from 'yup';
+
+
+// ---Retrieve all needed collections from Redux store -------
+
 
 import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
 import {
@@ -35,11 +37,15 @@ import {
 
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
- 
+
 
 import { selectLogs, selectLogFromArray } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
+import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
-// --- Form component imports ---------
+import { descendSorter } from '../../../../app/helpers/commonHelpers'
+// --- Form inputcomponent imports ---------
+
 
 import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
 import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
@@ -57,7 +63,7 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-import { styled, createTheme} from '@mui/material/styles'
+import { styled, createTheme } from '@mui/material/styles'
 import { chitBlueDull, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -83,7 +89,6 @@ export default function LogSectionForm_s(props) {
   let match = useParams()
 
   let logURLId = match.id
-  let allLogs = useSelector(selectLogs)
 
   
   const dispatch = useDispatch()
@@ -92,39 +97,95 @@ export default function LogSectionForm_s(props) {
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
 
+  // (1) ---Retrieve all needed collections from Redux store -------
+
+  let allLogs, allKeywordsArray, allPeopleArray
+
+  allLogs = useSelector(selectLogs)
+  allKeywordsArray = useSelector(selectKeywords) // get all keywords
+  allPeopleArray = useSelector(selectPeople) // get all keywords
+
+  // (2) --- Create form Options for Autocomplete multi-selectors --
+
+  let keywordOption, personOption
+
+
+    let keywordsOptionsArray = []
+    let peopleOptionsArray = []
+
+    // --- create keyword options array 
+
+    allKeywordsArray.map((keyword, index) => {
+      // code 
+      keywordOption = keyword.keyword
+      keywordsOptionsArray.push(keywordOption)
+
+      return keywordsOptionsArray
+    }) //end map
+
+    // --- create people options array 
+
+    // eliminate "unknown from list of people"
+    let filteredPeople = allPeopleArray.filter(item => item.id !== 'unknown')
+
+    filteredPeople.map((person, index) => {
+      // code 
+     
+      personOption = person.name
+      peopleOptionsArray.push(personOption)
+
+      return peopleOptionsArray
+    }) //end map
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ----create default paramters if note exists ---------------------
 
 let defaultValues,   sectionId, content, meta, keywordArray, 
-peopleArray, sectionCreatedDate, dateTime, log
+peopleArray, sectionCreatedDate, dateTime, log, logDate
 
-let a = selectLogFromArray(allLogs, logSectionId)
+
  
-// ##### Sample only  ###########
-
 logId === 'newLog' ? sectionId = cuid()  : sectionId =  logSectionId  
-
-  log =  selectLogFromArray(allLogs, logSectionId)
-
-logId === 'newLog' ? content = ''  : content =  log.detail 
+log =  selectLogFromArray(allLogs, logSectionId)
 
 
-console.log('[ LogSectioForm ] log ', log);
-console.log('[ LogSectioForm ] log ', log.detail);
-console.log('[ LogSectioForm ] log @@@@@ ', content); 
-  // !logId ? formlogHolderId = id  : formlogHolderId = log.logHolderId
-  let keywordsOptionsArray = []
-  let peopleOptionsArray = []
+console.log('[ Form Section ] logObject ----------    ', allLogs );
+
+logSectionId  === 'new' ? content = ''  : content =  log.detail 
+logSectionId  === 'new' ? meta = ''  : meta =  log.meta 
+
+logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =  new Date(log.logDate).toISOString() 
+
+
+
+
   sectionCreatedDate = Date.now()
 
   defaultValues = {
     content: content,
-    meta: '',
+    meta: meta,
     keywords: [],
     people: [],
     sectionCreatedDate:  sectionCreatedDate,
-    dateTime: 1615741420000  // Bob's login time Mar 14
+    dateTime: logDate  // Bob's login time Mar 14
 
   };
 
@@ -151,7 +212,7 @@ console.log('[ LogSectioForm ] log @@@@@ ', content);
  
 // ###########################################
 let newKeywords
-let logDateTime = new Date(dateTime).toISOString();
+let logDateTime = new Date(dateTime);
 
 let noPtagContent = content.replaceAll('<p>' , '<div>')
 let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
@@ -165,8 +226,8 @@ let newLogData = {
   id: '22',
   type: 'person',
   otherPartyId: logURLId,
-  logDate: logDateTime,
-  lastEdit: logDateTime,
+  logDate: logDateTime.toISOString(),
+  lastEdit: logDateTime.toISOString(),
   timeLock: '',
   meta: meta,
   title: 'test title',
@@ -208,7 +269,7 @@ dispatch(addLogToStore(newLogData))
 
                   name="dateTime"
                   control={control}
-                  defaultValue={defaultValues.dateTime}
+                  
 
                   render={({ field }) => (
                     <StyledDateTimePicker {...field} ref={null} />
@@ -237,12 +298,12 @@ dispatch(addLogToStore(newLogData))
                     name="meta"
                     control={control}
                     initialNote={'hi quill description'}
-
+                    
                     render={({ field }) => (
                       <EditorShort
                         {...field}
                         ref={null}
-                        IniitalValue={defaultValues.noteContent} />
+                        IniitalValue={defaultValues.meta} />
                     )}
 
                   />

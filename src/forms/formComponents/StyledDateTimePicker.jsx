@@ -71,7 +71,7 @@ export const StyledDateTimePicker = ({
                       selected={field.value}
                       dateFormat="d MMMM , yyyy - h:mm aa"
                       popperPlacement="bottom"
-                      // defaultValue= {defaultValue}
+                      defaultValue= {defaultValue}
                       showTimeInput
                       maxDate={new Date(field.value)}
                     />
