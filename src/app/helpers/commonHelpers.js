@@ -91,9 +91,9 @@ export function descendSorter(arrayOfObjects, objectParameter){
    @return white space stripped string
  
  ---------------------*/
- export function stripWhiteSpace(stringArray){
+ export function stripWhiteSpace(stringData){
  
-  let cleanSentence = stringArray.replace(/\s+/g, ' ').trim()
+  let cleanSentence = stringData.replace(/\s+/g, ' ').trim()
   return cleanSentence
 
 }

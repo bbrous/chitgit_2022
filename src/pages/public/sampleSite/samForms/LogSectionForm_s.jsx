@@ -11,6 +11,7 @@ import {
 
   checkIfWordExists,
   cleanOptions,
+  stripWhiteSpace,
   optionDescendSorter,
   isArrayDifferent,
   doesArrayIncludeItem
@@ -113,24 +114,23 @@ export default function LogSectionForm_s(props) {
     let keywordsOptionsArray = []
     let peopleOptionsArray = []
 
-    // --- create keyword options array 
+    // --- create keyword options array --
 
     allKeywordsArray.map((keyword, index) => {
-      // code 
+      
       keywordOption = keyword.keyword
       keywordsOptionsArray.push(keywordOption)
 
       return keywordsOptionsArray
     }) //end map
 
-    // --- create people options array 
+    // --- create people options array --
 
     // eliminate "unknown from list of people"
     let filteredPeople = allPeopleArray.filter(item => item.id !== 'unknown')
 
     filteredPeople.map((person, index) => {
-      // code 
-     
+
       personOption = person.name
       peopleOptionsArray.push(personOption)
 
@@ -139,27 +139,10 @@ export default function LogSectionForm_s(props) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ----create default paramters if note exists ---------------------
+// ----create default paramters if log exists ---------------------
 
 let defaultValues,   sectionId, content, meta, keywordArray, 
-peopleArray, sectionCreatedDate, dateTime, log, logDate
+peopleArray, sectionCreatedDate, dateTime, log, logDate, defaultKeywordOptions, defaultPeopleOptions
 
 
  
@@ -172,20 +155,22 @@ console.log('[ Form Section ] logObject ----------    ', allLogs );
 logSectionId  === 'new' ? content = ''  : content =  log.detail 
 logSectionId  === 'new' ? meta = ''  : meta =  log.meta 
 
-logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =  new Date(log.logDate).toISOString() 
+logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =  new Date('2021-03-14T17:03:40.000Z')
+
+logSectionId  === 'new' ? defaultKeywordOptions = []  : defaultKeywordOptions = log.keyWordArray
+
+logSectionId  === 'new' ? defaultPeopleOptions = []  : defaultPeopleOptions = log.peopleArray
 
 
 
-
-  sectionCreatedDate = Date.now()
 
   defaultValues = {
     content: content,
     meta: meta,
-    keywords: [],
-    people: [],
-    sectionCreatedDate:  sectionCreatedDate,
-    dateTime: logDate  // Bob's login time Mar 14
+    keywords: defaultKeywordOptions,
+    people: defaultPeopleOptions,
+    sectionCreatedDate:  logDate,  // used in last Edit (auto)
+    dateTime: logDate  // Bob's login time Mar 14 - used in input field  
 
   };
 
@@ -206,47 +191,131 @@ logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logD
   const submitForm = (data) => {
     console.log('[ LOG SECTION FORM FORM FORM ] data ',data);
 
+//  --- retrieve data from form ---------------------------
 
     const {content, meta,  keywords, people, dateTime} = data
  
- 
-// ###########################################
-let newKeywords
-let logDateTime = new Date(dateTime);
 
+// - replace the <p>s with <div>s in Quill editor to make it appear better
 let noPtagContent = content.replaceAll('<p>' , '<div>')
 let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
-console.log('[ LogSection FOrm ] before clean ', content);
-console.log('[ LogSection FOrm ] after clean ', cleanContent);
+// --- clean the input data from multiselectors (people and keywords)
+// --- keywords - strip whitespace and make lower case
+// --- people - just strip whitespace
 
+let noPtagMeta = meta.replaceAll('<p>' , '<div>')
+let cleanMeta = noPtagMeta.replaceAll('</p>', '</div>')
+
+let passedKeyWordArray = data.keywords
+let cleanKeywordArray =  []
+
+passedKeyWordArray.map((keyword, index) => {
+  cleanKeywordArray.push(cleanOptions(keyword, 'keywords'))
+
+return cleanKeywordArray
+}
+) //end map
+
+let passedPeopleArray = data.people
+let cleanPeopleArray =  []
+
+passedPeopleArray.map((person, index) => {
+  cleanPeopleArray.push(stripWhiteSpace(person))
+
+return cleanPeopleArray
+}
+) //end map
+
+
+// console.log('[ LOG SECTION FORM FORM FORM ] ---- CLEANED Keyword ARRAY',cleanKeywordArray);
+
+// console.log('[ LOG SECTION FORM FORM FORM ] ---- CLEANED people ARRAY',cleanPeopleArray);
+
+
+
+
+
+ // --- start the loading spinner ---
+//  dispatch(changeLoadingStatus(true))
+
+try{
+
+// === create new log if log does NOT exists ====================
+
+// --- define the log data to create new log
 
 let newLogData = {
 
   id: '22',
   type: 'person',
   otherPartyId: logURLId,
-  logDate: logDateTime.toISOString(),
-  lastEdit: logDateTime.toISOString(),
+  logDate: dateTime.toISOString(),
+  lastEdit: dateTime.toISOString(),
   timeLock: '',
-  meta: meta,
+  meta: cleanMeta,
   title: 'test title',
   detail: cleanContent,
   attachment: '',
   chitLink: {},
-  peopleArray: people,
-  keyWordArray:  keywords
+  peopleArray: cleanPeopleArray,
+  keyWordArray:  cleanKeywordArray
 }
+
+//  === New  log ======================================
+
+if (logSectionId === 'new') {
+
+  console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
 
 dispatch(addLogToStore(newLogData))
 
- 
+}
+
+//  === EDIT log ======================================
+
+if (logSectionId !== 'new') {
+
+  console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
+
+
+
+
+
+
+
+
+  // dispatch(addLogToStore(newLogData))
+  
+  }
 
 
 
 //  ########################################### 
 
     dispatch(closeLogSectionForm())
+
+
+
+
+
+
+
+
+    
+
+  // end try ----------------------------------------------
+  }catch(error){
+
+    // --- alert error + navigate + end spinner + reset form ---
+    alert(error.message)
+    dispatch(changeLoadingStatus(false))
+
+reset(defaultValues)
+
+
+  }// end try-catch ---------------------------------------
+
 
   };
 
