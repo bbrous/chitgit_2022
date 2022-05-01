@@ -40,7 +40,7 @@ import {
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
-import { selectLogs, selectLogFromArray } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectLogs, selectLogFromArray, updateEditedLog } from '../../../../app/redux/logRedux/sam_logsSlice'
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
@@ -157,7 +157,7 @@ logSectionId  === 'new' ? meta = ''  : meta =  log.meta
 
 logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =  new Date('2021-03-14T17:03:40.000Z')
 
-logSectionId  === 'new' ? defaultKeywordOptions = []  : defaultKeywordOptions = log.keyWordArray
+logSectionId  === 'new' ? defaultKeywordOptions = []  : defaultKeywordOptions = log.keywordArray
 
 logSectionId  === 'new' ? defaultPeopleOptions = []  : defaultPeopleOptions = log.peopleArray
 
@@ -247,7 +247,7 @@ try{
 
 let newLogData = {
 
-  id: '22',
+  id: logSectionId,
   type: 'person',
   otherPartyId: logURLId,
   logDate: dateTime.toISOString(),
@@ -259,7 +259,7 @@ let newLogData = {
   attachment: '',
   chitLink: {},
   peopleArray: cleanPeopleArray,
-  keyWordArray:  cleanKeywordArray
+  keywordArray:  cleanKeywordArray
 }
 
 //  === New  log ======================================
@@ -285,7 +285,7 @@ if (logSectionId !== 'new') {
 
 
 
-  // dispatch(addLogToStore(newLogData))
+  dispatch(updateEditedLog(newLogData))
   
   }
 

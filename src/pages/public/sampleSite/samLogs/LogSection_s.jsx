@@ -47,7 +47,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 export default function LogSection(props) {
 let dispatch = useDispatch()
-  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
+  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
 
  console.log('[ LogSection  ] props ', props);
  let sectionViewId = useSelector(selectStatus).view.log.sectionId
@@ -64,21 +64,21 @@ let dispatch = useDispatch()
   // format keywords
   let styledKeywords = ''
 
-  if (keyWordArray.length > 0) {
+  if (keywordArray.length > 0) {
     
 
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
+  for(let i = 0; i < keywordArray.length; i++){
+    if(i === keywordArray.length - 1){
+      styledKeywords += keywordArray[i]  
     }else{
-    styledKeywords += keyWordArray[i] + ' , '
+    styledKeywords += keywordArray[i] + ' , '
     }
   }
  
 
   }//end if keyword.length > 0
 
-  if (keyWordArray.length === 0) {
+  if (keywordArray.length === 0) {
 styledKeywords = 'none'
   }
 

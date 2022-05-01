@@ -27,7 +27,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Rhonda'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
 
     },
 
@@ -52,7 +52,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Bruce'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
       
     },
 
@@ -75,7 +75,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Rhonda', 'joe', 'curly'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
 
     },
 
@@ -97,7 +97,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Rhonda'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
    
     },
 
@@ -122,7 +122,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Rhonda'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
       
     },
 
@@ -148,7 +148,7 @@ const SampleLogs =  [
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Rhonda'],
-      keyWordArray: ['Product team'],
+      keywordArray: ['Product team'],
       
     },
 
@@ -179,7 +179,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
@@ -204,7 +204,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
   
 },
 
@@ -229,7 +229,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: [], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
@@ -253,7 +253,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
@@ -287,7 +287,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
@@ -312,7 +312,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
   
 },
 
@@ -337,7 +337,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
@@ -361,7 +361,7 @@ const SampleLogs =  [
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Rhonda'], 
   
-  keyWordArray: ['Product team'],
+  keywordArray: ['Product team'],
 
 },
 
