@@ -50,7 +50,12 @@ import {
   deleteKeywordHolder
  } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
  
-import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { 
+  selectPeople,
+  addPersonToStore, 
+  addPersonHolder,
+  deletePersonHolder
+} from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
 // --- Form inputcomponent imports ---------
 
@@ -286,7 +291,8 @@ let newLogData = {
 
   }
 
-//  === EDIT log ======================================
+//  === EDIT log ==============================================
+//  ===========================================================
 
 if (logSectionId !== 'new') {
 
@@ -298,113 +304,227 @@ if (logSectionId !== 'new') {
 
 
 //  === update Keywords ===================================
-let defaultKeywordArray = defaultKeywordOptions
-let formKeywordArray   = passedKeyWordArray // cleaned keyword array from form
+  let defaultKeywordArray = defaultKeywordOptions
+  let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
 
-// a. check if keyword form data submitted is different from default 
-let kewwordArrayDifference =   isArrayDifferent(defaultKeywordArray, formKeywordArray)
+  //  check if keyword form data submitted is different from default 
+  let kewwordArrayDifference = isArrayDifferent(defaultKeywordArray, formKeywordArray)
 
 
-// --- only update keywords if keywordArrayDifference === [... someItems] ---
+  // --- only update keywords if keywordArrayDifference === [... someItems] ---
 
-if(kewwordArrayDifference.length > 0) {
+  if (kewwordArrayDifference.length > 0) {
 
-      
+    // map each keyword in the keyword difference array
 
-  // map each keyword in the keyword difference array
+    kewwordArrayDifference.forEach((item) => {
 
-  kewwordArrayDifference.forEach((item) => {
+      // --- check if each keyword form data submitted is  different from default 
 
-    //  7a. check if each keyword form data submitted is  different from default 
+      let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
 
-    let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+      if (!arrayItemInludedInDefault) {  // then it was added
 
-    if(!arrayItemInludedInDefault) {  // then it was added
+        let keywordExists = checkIfWordExists(item, allKeywordsArray, 'keywords')
 
-      let keywordExists = checkIfWordExists(item, allKeywordsArray , 'keywords')
-    
-      console.log('[ where ]DOES KEYWORD EXIST _ item ', item);
-      console.log('[ where ]DOES KEYWORD EXIST _ allKeywordsArray ', allKeywordsArray);
-    
-    console.log('[ where ]DOES KEYWORD EXIST _ GIVE ITS ID ', keywordExists);
-      // --- keyword from form is new  -----------------------------------------
-    
-      if (!keywordExists) {
-    
-        // create new keyword 
-        let keywordId = cuid() // #####   temp ############
-    
-        let newKeywordData = {
-          id: keywordId,
+
+        // --- keyword from form is new  -------------------------------
+        // --- brand new keyword - add to keyword collection
+
+        if (!keywordExists) {
+
+          // create new keyword 
+          let keywordId = cuid() // #####   temp ############
+
+          let newKeywordData = {
+            id: keywordId,
+            keyword: item,
+            dbCollection: 'logs',
+            keywordHolder: logSectionId
+
+          }
+          dispatch(addKeywordToStore(newKeywordData))
+
+        } // end newKeywordData
+
+
+        // --- keyword just new in form --- update keyword holders
+        if (keywordExists) {
+          let updatedKeywordData = {
+            keywordId: keywordExists.id,
+            keywordHolder: logSectionId,
+            dbCollection: 'logs'
+
+          }
+          // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+
+
+
+          dispatch(addKeywordHolder(updatedKeywordData))
+
+
+        }// end if keywordExists 
+
+
+      }  // end if arrayItemInludedInDefault
+
+
+      // --- keyword missing from default - delete  
+
+      if (arrayItemInludedInDefault) {  // then it was deleted in form
+
+        // delete logSectionId from keyword item
+
+        let keywordHolderToBeDeleted = {
           keyword: item,
+          keywordHolder: logSectionId,
+          // id: noteId
+        }
+
+
+        dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+
+
+
+      }  // end if arrayItemInludedInDefault
+
+
+
+    }) // end map kewwordArrayDifference
+
+
+  } // end if kewwordArrayDifference --- 
+
+//  ########################################### 
+
+
+//  === update People ===================================
+
+let defaultPeopledArray =defaultPeopleOptions
+let formPeopledArray =passedPeopleArray
+
+
+//  check if person form data submitted is different from default 
+let peopleArrayDifference = isArrayDifferent(defaultPeopledArray, formPeopledArray)
+
+
+// --- only update people if peopleArrayDifference === [... someItems] ---
+
+
+
+
+
+if (peopleArrayDifference.length > 0) {
+
+  // map each person in the person difference array
+
+  peopleArrayDifference.forEach((item) => {
+
+    // --- check if each person form data submitted is  different from default 
+
+    let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultPeopledArray)
+
+    if (!arrayItemInludedInDefault) {  // then it was added
+
+      let personExists = checkIfWordExists(item, allPeopleArray, 'people')
+
+
+      // --- person from form is new  -------------------------------
+      // --- brand new person - add to person collection
+
+      if (!personExists) {
+
+        console.log('[ OOOOOOOO - LOG section FORM ] person does NOT exist ');
+
+        // create new person 
+        let personId = cuid() // #####   temp ############
+
+        let newPersonData = {
+          id: personId,
+          name: item,
           dbCollection: 'logs',
-          keywordHolder:  logSectionId 
-    
-      }
-      dispatch(addKeywordToStore(newKeywordData))
-    
-    } // end newKeywordData
-    
-    
-    
-    if(keywordExists) { 
-      let updatedKeywordData = {
-        keywordId: keywordExists.id,
-        keywordHolder: logSectionId,
-        dbCollection: 'logs'
-    
-      }
-    // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
-    
-    
-    
-       dispatch(addKeywordHolder(updatedKeywordData))
-    
-    
-    }// end if keywordExists 
-    
-    
-    
+          keywordHolder: logSectionId
+
+        }
+        dispatch(addPersonToStore(newPersonData))
+
+      } // end newPersonData
+
+
+      // --- person just new in form --- update person holders
+      if (personExists) {
+
+        console.log('[ OOOOOOOO +  LOG section FORM ] person EXISTS ', personExists);
+
+        let updatedPersonData = {
+          id: personExists.id,
+          personHolder: logSectionId,
+          dbCollection: 'logs'
+
+        }
+        // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+
+
+
+        dispatch(addPersonHolder(updatedPersonData))
+
+
+      }// end if personExists 
+
+
     }  // end if arrayItemInludedInDefault
 
 
-// --- keyword missing delete  -----------------------------------------
-if(arrayItemInludedInDefault) {  // then it was deleted
+    // --- person missing from default - delete  
 
-  // delete logSectionId from keyword item
+    if (arrayItemInludedInDefault) {  // then it was deleted in form
 
-  // console.log('[Dispatch_Form]...... arrayItemInluded ...... DELETE noteId ')
+      // delete logSectionId from keyword item
 
-  
-  // console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
-  // console.log('[Dispatch_Form].----------------------------------------' )
-
-   
-
-  let keywordHolderToBeDeleted = {
-    keyword: item,
-    keywordHolder: logSectionId,
-    // id: noteId
-  }
+      let personHolderToBeDeleted = {
+        person: item,
+        personHolder: logSectionId,
+        // id: noteId
+      }
 
 
-  dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
-
-}  // end if arrayItemInludedInDefault
+      dispatch(deletePersonHolder(personHolderToBeDeleted))
 
 
 
-}) // end map kewwordArrayDifference
+
+    }  // end if arrayItemInludedInDefault
 
 
-} // end if kewwordArrayDifference --- 
+
+  }) // end map peopleArrayDifference
+
+
+} // end if peopleArrayDifference --- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //  ########################################### 
-    dispatch(changeLoadingStatus(false))
-    dispatch(closeLogSectionForm())
+
+    dispatch(changeLoadingStatus(false)) // stop spinner
+    dispatch(closeLogSectionForm()) // close the form
 
 
-  
   // end try ----------------------------------------------
   }catch(error){
 
@@ -412,7 +532,7 @@ if(arrayItemInludedInDefault) {  // then it was deleted
     alert(error.message)
     dispatch(changeLoadingStatus(false))
 
-reset(defaultValues)
+    reset(defaultValues)
 
 
   }// end try-catch ---------------------------------------
@@ -424,12 +544,12 @@ reset(defaultValues)
 
   return (
     <Wrapper>
-      
-     
+
+
 
       <FormProvider {...methods}>
-<FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm) } >
-  
+        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+
 
           <MainWrapper>
             <TopWrapper>
@@ -439,7 +559,7 @@ reset(defaultValues)
 
                   name="dateTime"
                   control={control}
-                  
+
 
                   render={({ field }) => (
                     <StyledDateTimePicker {...field} ref={null} />
@@ -468,7 +588,7 @@ reset(defaultValues)
                     name="meta"
                     control={control}
                     initialNote={'hi quill description'}
-                    
+
                     render={({ field }) => (
                       <EditorShort
                         {...field}
@@ -480,96 +600,96 @@ reset(defaultValues)
 
 
                 </MetaWrapper>
-        
-     
-        <Content>
+
+
+                <Content>
 
 
 
-              <Controller
+                  <Controller
 
-                name="content"
-                control={control}
-                initialNote={'hi quill description'}
-               
-                render={({ field }) => (
-                  <Editor 
-                  {...field} 
-                  ref={null}  
-                  IniitalValue = {defaultValues.content}/>
-                )}
-                
-              />
+                    name="content"
+                    control={control}
+                    initialNote={'hi quill description'}
 
+                    render={({ field }) => (
+                      <Editor
+                        {...field}
+                        ref={null}
+                        IniitalValue={defaultValues.content} />
+                    )}
 
-        </Content>
+                  />
 
 
-      </ContentWrapper>
-          <SearchWrapper>
-            <SearchTitle>Add search termsxxx Section Form</SearchTitle>
-            <PeopleWrapper>
-
-            <StyledChronicleMultiselect
-                name={'people'}
-                control={control}
-                options={peopleOptionsArray}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.people}
-                placeholder = 'select or type people'
-
-              />
-            </PeopleWrapper>
-
-            <KeyWordWrapper>
-              <StyledChronicleMultiselect
-                name={'keywords'}
-                control={control}
-                options={keywordsOptionsArray}
-                placeholder = 'select or type keywords'
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.keywords}
+                </Content>
 
 
-              />
-            </KeyWordWrapper>
+              </ContentWrapper>
+              <SearchWrapper>
+                <SearchTitle>Add search termsxxx Section Form</SearchTitle>
+                <PeopleWrapper>
 
-          </SearchWrapper>
-      </OuterContentWrapper>
+                  <StyledChronicleMultiselect
+                    name={'people'}
+                    control={control}
+                    options={peopleOptionsArray}
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.people}
+                    placeholder='select or type people'
+
+                  />
+                </PeopleWrapper>
+
+                <KeyWordWrapper>
+                  <StyledChronicleMultiselect
+                    name={'keywords'}
+                    control={control}
+                    options={keywordsOptionsArray}
+                    placeholder='select or type keywords'
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.keywords}
 
 
-    </MainWrapper>
-  
-        {/* ------Submit ---------- -------------------------- */}
-        <ButtonWrapper>
+                  />
+                </KeyWordWrapper>
 
-          <StyledButton 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
+              </SearchWrapper>
+            </OuterContentWrapper>
+
+
+          </MainWrapper>
+
+          {/* ------Submit ---------- -------------------------- */}
+          <ButtonWrapper>
+
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
             >
-            Submit
-          </StyledButton>
+              Submit
+            </StyledButton>
 
-   
-          <StyledButton 
-             
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
-            onClick = {()=>dispatch(closeLogSectionForm())}
+
+            <StyledButton
+
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
+              onClick={() => dispatch(closeLogSectionForm())}
             >
-            Cancel
-          </StyledButton> 
-    
+              Cancel
+            </StyledButton>
 
 
 
-        </ButtonWrapper>
-      </FormWrapper>
 
-    </FormProvider>
+          </ButtonWrapper>
+        </FormWrapper>
+
+      </FormProvider>
 
     </Wrapper>
   );

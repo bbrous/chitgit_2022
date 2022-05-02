@@ -488,6 +488,35 @@ if(keywordExists) {
 // XXXXXXXXXXXXX  problem here XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
+//  ##############################################################
+
+
+
+
+
+
+        // 1.  check if item has any keyword holders
+               // keywordHolders.length > 0
+                // if yes - do nothing
+                // if no - eliminate keyword from collection
+
+
+
+
+
+
+//  ##############################################################
+
+
+
+
+
+
+
+
+
+
+
 
         }  // end if arrayItemInludedInDefault
 

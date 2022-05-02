@@ -139,9 +139,9 @@ export function descendSorter(arrayOfObjects, objectParameter){
   let collection = dbCollection
   let wordExists
 
-  // console.log('[ COMMON HELPERS checkIfWordExists] word ', word);
-  // console.log('[ COMMON HELPERS checkIfWordExists] array ', array);
-  // console.log('[ COMMON HELPERS checkIfWordExists] dbCollection ', dbCollection);
+  console.log('[ COMMON HELPERS checkIfWordExists] word ', word);
+  console.log('[ COMMON HELPERS checkIfWordExists] array ', array);
+  console.log('[ COMMON HELPERS checkIfWordExists] dbCollection ', dbCollection);
   
 
   if(collection === 'categories'){
@@ -158,13 +158,27 @@ if(collection === 'keywords'){
 
   wordExists = array.find( ({ keyword }) => keyword === word );
 
-  // console.log('[ COMMON HELPERS checkIfWordExists] FINAL FINAL ', wordExists);
+  console.log('[ COMMON HELPERS checkIfWordExists] FINAL FINAL ', wordExists);
 
   return wordExists
 
 } // end if collection === category
 
+if(collection === 'people'){
+
+  wordExists = array.find( ({ name }) => name === word );
+
+  console.log('[ COMMON HELPERS checkIfWordExists] FINAL FINAL ', wordExists);
+
+  return wordExists
+
+} // end if collection === category
+
+
+
  }// end function checkIfWordExists
+
+ 
 
 
  /* --- func isArrayDifferent -------------

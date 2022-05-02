@@ -1,62 +1,97 @@
 
 
-##  File - NoteForm_s.jsx -- Sample Site
-<br>
-###  -- overview --
 
 
-The log form handles both create-new and edit-update functions for log holders, people, and groups.
-<br>
----  Add new logHolder logic ---
+//  === update Keywords ===================================
 
-<br>
-  A.  if log id from params = 'newLog' ... add newLog --- 
+let defaultKeywordArray = defaultKeywordOptions
+let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
 
-    let newLogObject = {}
-
-      1. if logType === 'person' {
-          1.a if newExisting === 'existing'{
-            - take 'data.person' find id in people collection
-            - newLogObject = {id:  person.id, collection: 'people'}
-
-          }
+//  check if keyword form data submitted is different from default 
+let kewwordArrayDifference = isArrayDifferent(defaultKeywordArray, formKeywordArray)
 
 
-          1.b if newExisting === 'new'
+// --- only update keywords if keywordArrayDifference === [... someItems] ---
 
-            1.b -1  add new person to people collection
-            1.b -2  retrieve new id of new person
-            1.b. -3 add newLogObject = {id:  new person id, collection: 'people'}
+if (kewwordArrayDifference.length > 0) {
+
+  // map each keyword in the keyword difference array
+
+  kewwordArrayDifference.forEach((item) => {
+
+    // --- check if each keyword form data submitted is  different from default 
+
+    let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+
+    if (!arrayItemInludedInDefault) {  // then it was added
+
+      let keywordExists = checkIfWordExists(item, allKeywordsArray, 'keywords')
 
 
-        }
+      // --- keyword from form is new  -------------------------------
+      // --- brand new keyword - add to keyword collection
 
-      2. if logType === 'group' {
+      if (!keywordExists) {
 
-          2.a if newExisting === 'existing' {
-            - take 'data.group' find id in groups collection
-            - newLogObject = {id:  group.id, collection: 'groups'}
+        // create new keyword 
+        let keywordId = cuid() // #####   temp ############
 
-          }
-
-          2.b if newExisting === 'new'
-
-            2.b -1  add new group to people collection
-            2.b -2  retrieve new id of new group
-            2.b. -3 add newLogObject = {id:  new group id, collection: 'groups'}
-
+        let newKeywordData = {
+          id: keywordId,
+          keyword: item,
+          dbCollection: 'logs',
+          keywordHolder: logSectionId
 
         }
+        dispatch(addKeywordToStore(newKeywordData))
 
+      } // end newKeywordData
+
+
+      // --- keyword just new in form --- update keyword holders
+      if (keywordExists) {
+        let updatedKeywordData = {
+          keywordId: keywordExists.id,
+          keywordHolder: logSectionId,
+          dbCollection: 'logs'
 
         }
+        // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
 
-      3. dispatch newLogObject to logHolders collection
 
-      4. navigate(`/sample/logs/${id}`)
 
-      5. dispatch(updateStatusView) 
+        dispatch(addKeywordHolder(updatedKeywordData))
 
-  B. if logId from params === an id ... update something
 
-<br></br>
+      }// end if keywordExists 
+
+
+    }  // end if arrayItemInludedInDefault
+
+
+    // --- keyword missing from default - delete  
+
+    if (arrayItemInludedInDefault) {  // then it was deleted in form
+
+      // delete logSectionId from keyword item
+
+      let keywordHolderToBeDeleted = {
+        keyword: item,
+        keywordHolder: logSectionId,
+        // id: noteId
+      }
+
+
+      dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+
+
+
+    }  // end if arrayItemInludedInDefault
+
+
+
+  }) // end map kewwordArrayDifference
+
+
+} // end if kewwordArrayDifference --- 

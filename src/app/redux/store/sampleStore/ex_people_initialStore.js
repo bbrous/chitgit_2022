@@ -12,7 +12,7 @@ const People =  [
       name: 'Unknown',
       meta: 'Unknown',
 
-      peopleHolders: []
+      personHolders: []
       
     },
     {
@@ -22,7 +22,7 @@ const People =  [
       name: 'Bob B',
       meta: 'account holder',
   
-      peopleHolders: []
+      personHolders: []
       
     },
     {
@@ -33,7 +33,7 @@ const People =  [
       meta: 'Project Team',
    
 
-      peopleHolders: [
+      personHolders: [
         {collection: 'twoPartyChits', id: 'tp_1'},
         {dbCollection: 'journal', id: 'jsection_3' }
       ]
@@ -48,7 +48,7 @@ const People =  [
       name: "Mark D",
       meta: 'engineer genius',
 
-      peopleHolders:  [
+      personHolders:  [
         {collection: 'twoPartyChits', id: 'tp_2'},
         {dbCollection: 'journal', id: 'jsection_3' }
       ]
@@ -63,7 +63,7 @@ const People =  [
       name: "Mary B",
       meta: 'mi amore',
 
-      peopleHolders:  [{collection: 'journals', id: 'jsection_2'}]
+      personHolders:  [{collection: 'journals', id: 'jsection_2'}]
       
      
 
@@ -77,7 +77,7 @@ const People =  [
       name: "Shelly-neighbor",
       meta: '',
 
-      peopleHolders: [
+      personHolders: [
         {dbCollection: 'logs', id: 'log_1' }, 
         {dbCollection: 'logs', id: 'log_9' }, 
         {dbCollection: 'logs', id: 'log_8' }, 
@@ -94,7 +94,7 @@ const People =  [
       name: "Linda",
       meta: 'Project Team, software girl',
       
-      peopleHolders: []
+      personHolders: []
 
       
     },
@@ -105,7 +105,7 @@ const People =  [
       name: "Steve",
       meta: 'Project Team, finance guy',
       
-      peopleHolders: [
+      personHolders: [
         {dbCollection: 'logs', id: 'log_8' }, 
       ]
 
@@ -119,7 +119,7 @@ const People =  [
       name: 'Jerry G',
       meta: 'best friend',
     
-      peopleHolders: [
+      personHolders: [
         {dbCollection: 'logs', id: 'log_9' }, 
         {dbCollection: 'logs', id: 'log_4' }, 
         {dbCollection: 'logs', id: 'log_12' }, 
@@ -136,7 +136,7 @@ const People =  [
       name: "Billy",
       meta: "Jerry's brother",
       
-      peopleHolders: [
+      personHolders: [
         {dbCollection: 'journal', id: 'jsection_6' }, 
       ]
 
@@ -152,7 +152,7 @@ const People =  [
       name: "Simi B",
       meta: 'little sister',
     
-      peopleHolders: []
+      personHolders: []
 
       
     },

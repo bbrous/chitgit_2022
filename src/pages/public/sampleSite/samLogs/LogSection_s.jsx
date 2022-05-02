@@ -49,7 +49,7 @@ export default function LogSection(props) {
 let dispatch = useDispatch()
   const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
 
- console.log('[ LogSection  ] props ', props);
+//  console.log('[ LogSection  ] props ', props);
  let sectionViewId = useSelector(selectStatus).view.log.sectionId
  
    // convert Dates for display
@@ -106,7 +106,7 @@ styledPeople = 'none'
   const handleClick = (id)=>{
  
     let sectionId = id
-   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+  //  console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
     dispatch(openLogForm(sectionId))
     
   }

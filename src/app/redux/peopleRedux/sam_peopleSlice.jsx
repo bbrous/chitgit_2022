@@ -9,10 +9,59 @@ export const peopleSlice = createSlice({
   reducers: {
 
     addPersonToStore: (state, action) => {
-      let personObject = action.payload
+      console.log('[ sam+PeopleSlice ] addPersonToStore @@@  ', action.payload);
+      const {id, name, personHolder, dbCollection, meta} = action.payload
+      let personId = id
+
+      let newPersonHolder, newMeta 
+      personHolder ? newPersonHolder  = {dbCollection: dbCollection, id: personHolder}: newPersonHolder  = []
+
+      personHolder ? newMeta  = meta: newMeta  = ''
+
+      let personObject = {
+        id: personId,
+        type: 'person',
+        name: name,
+        meta: newMeta,
+        personHolders: [newPersonHolder]
+      }
+
+
       state.push(personObject)
     },// end addPersonToStore
 
+    addPersonHolder: (state, action) => {
+console.log('[ sam+PeopleSlice ] addPersonHolder ### ', action.payload);
+
+      let personId = action.payload.id
+      let personHolder = action.payload.personHolder
+      let dbCollection = action.payload.dbCollection
+      let newPersonHolder = {dbCollection: dbCollection, id: personHolder}
+
+  
+  
+      let personIndex = state.findIndex(index => index.id === personId)
+  
+       
+      state[personIndex].personHolders.push(newPersonHolder)
+     
+    }, // end addPeywordHolder
+
+    deletePersonHolder: (state, action) => {
+
+
+      let person = action.payload.person
+      let personHolder = action.payload.personHolder
+   
+   
+  
+      let personIndex = state.findIndex(index => index.person === person)
+  
+    
+  
+      state[personIndex].personHolders = state[personIndex].personHolders.filter(item => item.id !== personHolder)
+  
+    }, // end deletePersonHolder
 
 
   // updateEditedPerson: (state, action) => {
@@ -80,8 +129,8 @@ export const peopleSlice = createSlice({
 export const { 
   addPersonToStore, 
   // updateEditedPerson,
-  // addPersonHolder,
-  // deletePersonHolder 
+  addPersonHolder,
+  deletePersonHolder 
 
 } = peopleSlice.actions
 

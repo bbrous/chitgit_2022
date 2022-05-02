@@ -1,6 +1,21 @@
 /* function Reports(props) -------------------
 
 
+##########   IMPORTANT !!! ###########################################
+
+ here is where you can clean up keywords and people
+
+
+delete a person - will kill everything with that person in it -- , chits, logs, everything
+
+delete a keyword - eliminates serach term everywhere it is used
+
+
+##########   IMPORTANT !!! ###########################################
+
+
+
+
 ------------------------------------*/
 
 import React from 'react'
@@ -36,7 +51,7 @@ export default function Reports(props) {
     <Wrapper>
  <MessageWrapper>
 Reports are a premium offering not shown in Sample. <br />
-They allow you to filter and sort all chits, 
+Reports allow you to filter and sort all chits, 
 logs, topicals and journal entry to create custom 
 pdf printable reports of your data that you can save and share.  
  
