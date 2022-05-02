@@ -101,6 +101,44 @@ const SampleKeywords =  [
     ],
    
   },
+
+  { 
+    id: 'keyword_8',
+    keyword: 'billing',
+    keywordHolders: [
+      {dbCollection: 'logs', id: 'log_2' },
+      {dbCollection: 'logs', id: 'log_5' },
+      {dbCollection: 'logs', id: 'log_26' },
+      {dbCollection: 'logs', id: 'log_6' },
+      {dbCollection: 'logs', id: 'log_10' },
+       
+    ],
+   
+  },
+
+  { 
+    id: 'keyword_9',
+    keyword: 'neighbor dispute',
+    keywordHolders: [
+      {dbCollection: 'logs', id: 'log_1' },
+      {dbCollection: 'logs', id: 'log_18' },
+      {dbCollection: 'logs', id: 'log_9' },
+       
+    ],
+   
+  },
+
+  { 
+    id: 'keyword_10',
+    keyword: 'taxes',
+    keywordHolders: [
+      {dbCollection: 'logs', id: 'log_3' },
+      {dbCollection: 'logs', id: 'log_7' },
+      {dbCollection: 'logs', id: 'log_11' },
+       
+    ],
+   
+  },
  
  
  

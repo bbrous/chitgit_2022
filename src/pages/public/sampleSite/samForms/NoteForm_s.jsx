@@ -450,7 +450,7 @@ if(keywordExists) {
 }  // end if arrayItemInludedInDefault
 
 
-
+// --- keyword missing delete  -----------------------------------------
         if(arrayItemInludedInDefault) {  // then it was deleted
 
           // delete noteId from keyword item

@@ -26,8 +26,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
-      keywordArray: ['Product team'],
+      peopleArray: ['Shelly-neighbor'],
+      keywordArray: ['neighbor dispute'],
 
     },
 
@@ -51,8 +51,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Bruce'],
-      keywordArray: ['Product team'],
+      peopleArray: [],
+      keywordArray: ['billing'],
       
     },
 
@@ -74,8 +74,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda', 'joe', 'curly'],
-      keywordArray: ['Product team'],
+      peopleArray: [],
+      keywordArray: ['taxes'],
 
     },
 
@@ -96,8 +96,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
-      keywordArray: ['Product team'],
+      peopleArray: ['Jerry G'],
+      keywordArray: [],
    
     },
 
@@ -121,8 +121,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
-      keywordArray: ['Product team'],
+      peopleArray: [],
+      keywordArray: ['billing'],
       
     },
 
@@ -147,8 +147,8 @@ const SampleLogs =  [
 
       chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
-      peopleArray: ['Rhonda'],
-      keywordArray: ['Product team'],
+      peopleArray: [],
+      keywordArray: ['billing'],
       
     },
 
@@ -159,7 +159,7 @@ const SampleLogs =  [
 
 
 {
-  id: 'log_5', // person - Shelly
+  id: 'log_18', // person - Shelly
   type: 'person', // company, group, organization, topic, story, other
   
   
@@ -177,9 +177,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: ['Shelly-neighbor'], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['neighbor dispute'],
 
 },
 
@@ -202,9 +202,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: [], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['billing'],
   
 },
 
@@ -222,14 +222,14 @@ const SampleLogs =  [
   meta: 'IRS meta 2 ',
   title: '#2 Taxes 2020',
  
-  detail : '#2 Taxes - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 
+  detail : '#2 Taxes - Asked STEVE --- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 
 
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: [], 
+ peopleArray: ['Steve'], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['taxes'],
 
 },
 
@@ -251,9 +251,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: ['Jerry G'], 
   
-  keywordArray: ['Product team'],
+  keywordArray: [],
 
 },
 
@@ -280,14 +280,14 @@ const SampleLogs =  [
   meta: 'meta Shelly 3',
   title: '#3 Left poop on my driveway',
  
-  detail : '#3 Poop poop and more poop - Lorem officia deserunt mollit anim id est laborum.', 
+  detail : '#3 Poop poop and more poop - Lorem officia deserunt mollit anim id est laborum.  TOLD JERRY', 
 
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: ['Shelly-neighbor', 'Jerry G'], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['neighbor dispute'],
 
 },
 
@@ -310,9 +310,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: [], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['billing'],
   
 },
 
@@ -335,9 +335,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: [], 
   
-  keywordArray: ['Product team'],
+  keywordArray: ['taxes'],
 
 },
 
@@ -359,9 +359,9 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Rhonda'], 
+ peopleArray: ['Jerry G'], 
   
-  keywordArray: ['Product team'],
+  keywordArray: [],
 
 },
 

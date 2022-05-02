@@ -77,7 +77,12 @@ const People =  [
       name: "Shelly-neighbor",
       meta: '',
 
-      peopleHolders: []
+      peopleHolders: [
+        {dbCollection: 'logs', id: 'log_1' }, 
+        {dbCollection: 'logs', id: 'log_9' }, 
+        {dbCollection: 'logs', id: 'log_8' }, 
+
+      ]
       
        
     },
@@ -101,7 +106,7 @@ const People =  [
       meta: 'Project Team, finance guy',
       
       peopleHolders: [
-        
+        {dbCollection: 'logs', id: 'log_8' }, 
       ]
 
       
@@ -114,7 +119,13 @@ const People =  [
       name: 'Jerry G',
       meta: 'best friend',
     
-      peopleHolders: []
+      peopleHolders: [
+        {dbCollection: 'logs', id: 'log_9' }, 
+        {dbCollection: 'logs', id: 'log_4' }, 
+        {dbCollection: 'logs', id: 'log_12' }, 
+        {dbCollection: 'logs', id: 'log_8' }, 
+      ]
+
 
       
     },

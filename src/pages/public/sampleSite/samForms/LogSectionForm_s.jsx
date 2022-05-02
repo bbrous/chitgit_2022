@@ -14,7 +14,8 @@ import {
   stripWhiteSpace,
   optionDescendSorter,
   isArrayDifferent,
-  doesArrayIncludeItem
+  doesArrayIncludeItem,
+  descendSorter
 
 } from '../../../../app/helpers/commonHelpers'
 
@@ -41,10 +42,16 @@ import {
 
 
 import { selectLogs, selectLogFromArray, updateEditedLog } from '../../../../app/redux/logRedux/sam_logsSlice'
-import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
+
+import { 
+  selectKeywords,
+  addKeywordToStore, 
+  addKeywordHolder,
+  deleteKeywordHolder
+ } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
+ 
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
-import { descendSorter } from '../../../../app/helpers/commonHelpers'
 // --- Form inputcomponent imports ---------
 
 
@@ -98,11 +105,17 @@ export default function LogSectionForm_s(props) {
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
 
+  console.log('[ where ]THIS SIS THE REDUX ID ', logSectionId);
+
+
   // (1) ---Retrieve all needed collections from Redux store -------
 
   let allLogs, allKeywordsArray, allPeopleArray
 
   allLogs = useSelector(selectLogs)
+
+
+  
   allKeywordsArray = useSelector(selectKeywords) // get all keywords
   allPeopleArray = useSelector(selectPeople) // get all keywords
 
@@ -146,16 +159,16 @@ peopleArray, sectionCreatedDate, dateTime, log, logDate, defaultKeywordOptions, 
 
 
  
-logId === 'newLog' ? sectionId = cuid()  : sectionId =  logSectionId  
+logSectionId  === 'new' ? sectionId = cuid()  : sectionId =  logSectionId  
+
 log =  selectLogFromArray(allLogs, logSectionId)
+ 
 
-
-console.log('[ Form Section ] logObject ----------    ', allLogs );
 
 logSectionId  === 'new' ? content = ''  : content =  log.detail 
 logSectionId  === 'new' ? meta = ''  : meta =  log.meta 
 
-logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =  new Date('2021-03-14T17:03:40.000Z')
+logSectionId  === 'new' ? logDate = new Date('2021-03-14T17:03:40.000Z')  : logDate =   new Date(log.logDate)
 
 logSectionId  === 'new' ? defaultKeywordOptions = []  : defaultKeywordOptions = log.keywordArray
 
@@ -247,7 +260,7 @@ try{
 
 let newLogData = {
 
-  id: logSectionId,
+  id: sectionId,
   type: 'person',
   otherPartyId: logURLId,
   logDate: dateTime.toISOString(),
@@ -264,46 +277,134 @@ let newLogData = {
 
 //  === New  log ======================================
 
-if (logSectionId === 'new') {
+// --- logSectionId from Redux store view
+  if (logSectionId === 'new') {
 
-  console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
+    console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
 
-dispatch(addLogToStore(newLogData))
+    dispatch(addLogToStore(newLogData))
 
-}
+  }
 
 //  === EDIT log ======================================
 
 if (logSectionId !== 'new') {
 
-  console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
-
-
-
-
-
-
-
+  // console.log('[ LogSectionForm ] new Log dispatch here ', logSectionId);
 
   dispatch(updateEditedLog(newLogData))
   
   }
 
 
+//  === update Keywords ===================================
+let defaultKeywordArray = defaultKeywordOptions
+let formKeywordArray   = passedKeyWordArray // cleaned keyword array from form
+
+// a. check if keyword form data submitted is different from default 
+let kewwordArrayDifference =   isArrayDifferent(defaultKeywordArray, formKeywordArray)
+
+
+// --- only update keywords if keywordArrayDifference === [... someItems] ---
+
+if(kewwordArrayDifference.length > 0) {
+
+      
+
+  // map each keyword in the keyword difference array
+
+  kewwordArrayDifference.forEach((item) => {
+
+    //  7a. check if each keyword form data submitted is  different from default 
+
+    let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+
+    if(!arrayItemInludedInDefault) {  // then it was added
+
+      let keywordExists = checkIfWordExists(item, allKeywordsArray , 'keywords')
+    
+      console.log('[ where ]DOES KEYWORD EXIST _ item ', item);
+      console.log('[ where ]DOES KEYWORD EXIST _ allKeywordsArray ', allKeywordsArray);
+    
+    console.log('[ where ]DOES KEYWORD EXIST _ GIVE ITS ID ', keywordExists);
+      // --- keyword from form is new  -----------------------------------------
+    
+      if (!keywordExists) {
+    
+        // create new keyword 
+        let keywordId = cuid() // #####   temp ############
+    
+        let newKeywordData = {
+          id: keywordId,
+          keyword: item,
+          dbCollection: 'logs',
+          keywordHolder:  logSectionId 
+    
+      }
+      dispatch(addKeywordToStore(newKeywordData))
+    
+    } // end newKeywordData
+    
+    
+    
+    if(keywordExists) { 
+      let updatedKeywordData = {
+        keywordId: keywordExists.id,
+        keywordHolder: logSectionId,
+        dbCollection: 'logs'
+    
+      }
+    // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+    
+    
+    
+       dispatch(addKeywordHolder(updatedKeywordData))
+    
+    
+    }// end if keywordExists 
+    
+    
+    
+    }  // end if arrayItemInludedInDefault
+
+
+// --- keyword missing delete  -----------------------------------------
+if(arrayItemInludedInDefault) {  // then it was deleted
+
+  // delete logSectionId from keyword item
+
+  // console.log('[Dispatch_Form]...... arrayItemInluded ...... DELETE noteId ')
+
+  
+  // console.log('[Dispatch_Form]...... arrayItemInluded item...... ', item)
+  // console.log('[Dispatch_Form].----------------------------------------' )
+
+   
+
+  let keywordHolderToBeDeleted = {
+    keyword: item,
+    keywordHolder: logSectionId,
+    // id: noteId
+  }
+
+
+  dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+}  // end if arrayItemInludedInDefault
+
+
+
+}) // end map kewwordArrayDifference
+
+
+} // end if kewwordArrayDifference --- 
 
 //  ########################################### 
-
+    dispatch(changeLoadingStatus(false))
     dispatch(closeLogSectionForm())
 
 
-
-
-
-
-
-
-    
-
+  
   // end try ----------------------------------------------
   }catch(error){
 
