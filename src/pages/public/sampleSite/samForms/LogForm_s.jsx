@@ -473,7 +473,7 @@ let defaultValues, sectionId
                  id: newGroupId,
                  type: 'data.groupType',
                  name: cleanedNewGroup,
-                 meta: '',
+                 meta: data.meta,
                  groupHolders: [
                    {
                      id: newGroupId,

@@ -52,11 +52,12 @@ function LogHeader(props) {
 
 
   // --- get the name 
-  let name, type, collection
+  let name, type, collection, meta
   let nameObject = allPeopleAndGroups.find(element => element.id === matchId)
   
   nameObject.type === 'person'? collection = 'people' : collection = 'groups'
   name = nameObject.name
+  meta = nameObject.meta
   const handleClick = ()=>{
  
    
@@ -99,19 +100,7 @@ function LogHeader(props) {
           <DetailWrapper> 
         <Scrollbars style={{ height: 50 }}>
       
-            <div>  800-555-1212</div>
-            <div>  444 Water street</div>
-            <div>  San Francisco Pa</div>
-
-            <div>  800-555-1212</div>
-            <div>  444 Water street</div>
-            <div>  San Francisco Pa</div>
-            <div>  800-555-1212</div>
-            <div>  444 Water street</div>
-            <div>  San Francisco Pa</div>
-            <div>  800-555-1212</div>
-            <div>  444 Water street</div>
-            <div>  San Francisco Pa</div>
+            {meta}
             
          </Scrollbars>
         </DetailWrapper>

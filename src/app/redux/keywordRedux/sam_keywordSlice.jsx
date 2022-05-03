@@ -63,7 +63,7 @@ export const keywordsSlice = createSlice({
 
     deleteKeywordHolder: (state, action) => {
 
-
+      console.log('[ sam+KeywordSlice ] deleteKeywordHolder #====', action.payload);
       let keyword = action.payload.keyword
       let keywordHolder = action.payload.keywordHolder
    

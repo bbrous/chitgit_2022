@@ -114,15 +114,27 @@ export default function LogSectionForm_s(props) {
 
 
   // (1) ---Retrieve all needed collections from Redux store -------
+  let retrievedLogs = useSelector(selectLogs)
+  const [allLogs, setAllLogs ] = useState(retrievedLogs)
+  useEffect(()=>{
+    setAllLogs(retrievedLogs)
+  },[retrievedLogs])
 
-  let allLogs, allKeywordsArray, allPeopleArray
+  let retrievedKeywordsArray = useSelector(selectKeywords)
+  const [allKeywordsArray, setAllKeywordsArray ] = useState(retrievedKeywordsArray)
+  useEffect(()=>{
+    setAllKeywordsArray(retrievedKeywordsArray)
+  },[retrievedKeywordsArray])
 
-  allLogs = useSelector(selectLogs)
+  let retrievedPeopleArray = useSelector(selectPeople)
+  const [allPeopleArray, setAllPeopleArray ] = useState(retrievedPeopleArray)
+  useEffect(()=>{
+    setAllPeopleArray(retrievedPeopleArray)
+  },[retrievedPeopleArray])
 
+ 
 
   
-  allKeywordsArray = useSelector(selectKeywords) // get all keywords
-  allPeopleArray = useSelector(selectPeople) // get all keywords
 
   // (2) --- Create form Options for Autocomplete multi-selectors --
 
@@ -444,7 +456,7 @@ if (peopleArrayDifference.length > 0) {
           id: personId,
           name: item,
           dbCollection: 'logs',
-          keywordHolder: logSectionId
+          personHolder: logSectionId
 
         }
         dispatch(addPersonToStore(newPersonData))
@@ -488,7 +500,7 @@ if (peopleArrayDifference.length > 0) {
         // id: noteId
       }
 
-
+      console.log('[ LogSectionForm ] Person 2020202020 to be deleteed ', item);
       dispatch(deletePersonHolder(personHolderToBeDeleted))
 
 

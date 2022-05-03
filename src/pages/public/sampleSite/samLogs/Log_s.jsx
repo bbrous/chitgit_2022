@@ -19,8 +19,9 @@ import{ selectLogs} from '../../../../app/redux/logRedux/X_sam_selectors_Logs'
 import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
-import { sortLogsByDate, logFilter } from '../../../../app/helpers/chronicleHelpers';
+import { sortLogsByDateAscending, sortLogsByDateDescending, logFilter } from '../../../../app/helpers/chronicleHelpers';
 
+import SliderComponent from '../../../../common_components/SliderComponent'
 import LogSection from './LogSection_s'
  
 //  ---- Material Ui ------------------
@@ -52,10 +53,21 @@ export default function Log() {
   var logsArray = [...allLogs]; // mutable copy of allLogsArray
 
 
+  const [arrayOrder, setArrayOrder] = useState(true)
+
+console.log('[ LOG_s] arrayOrder ', arrayOrder);
 
    //sort and filter all logs
+   
 
-   let sortedLogsByDate = sortLogsByDate(logsArray)
+   let sortedLogsByDate  
+   if(arrayOrder=== true){
+    sortedLogsByDate =sortLogsByDateAscending(logsArray)
+   }
+
+   if(arrayOrder=== false){
+    sortedLogsByDate= sortLogsByDateDescending(logsArray)
+    }
    let filteredLogs = logFilter(sortedLogsByDate, id)
 
 
@@ -81,9 +93,24 @@ export default function Log() {
      dispatch(openLogForm('new'))
      
    }
+
+   const handleSwitchState = (newState) => {
+    newState === false? setArrayOrder(true): setArrayOrder(false)
+    // 
+  }
    
   return (
     <Wrapper>
+            <FilterWrapper>
+
+<SliderComponent
+  handleSwitchState={handleSwitchState} //gets new state from child switch
+  leftLabel='latest first'
+  rightLabel='oldest first'
+/>
+</FilterWrapper>
+
+      
       {filteredLogs.length > 0 && 
       <> 
      {logRows()}
@@ -221,3 +248,26 @@ const FormButton = styled(Button)({
 
 })
 
+const FilterWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+// backgroundColor: 'yellow',
+  width: '90%',
+  padding: '0 12px',
+  // height: '3rem',
+  margin: '.5rem  0 .5rem 0',
+ 
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+})

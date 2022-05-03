@@ -31,7 +31,7 @@ export const peopleSlice = createSlice({
     },// end addPersonToStore
 
     addPersonHolder: (state, action) => {
-console.log('[ sam+PeopleSlice ] addPersonHolder ### ', action.payload);
+
 
       let personId = action.payload.id
       let personHolder = action.payload.personHolder
@@ -48,14 +48,14 @@ console.log('[ sam+PeopleSlice ] addPersonHolder ### ', action.payload);
     }, // end addPeywordHolder
 
     deletePersonHolder: (state, action) => {
-
+      console.log('[ sam+PeopleSlice ] deletePersonHolder ### ', action.payload);
 
       let person = action.payload.person
       let personHolder = action.payload.personHolder
    
    
   
-      let personIndex = state.findIndex(index => index.person === person)
+      let personIndex = state.findIndex(index => index.name === person)
   
     
   

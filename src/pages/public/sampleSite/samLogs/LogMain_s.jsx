@@ -62,12 +62,9 @@ setLogId(statusId)
 },[statusId])
 
 // console.log('[Log Main] logId', logId)
-  const [arrayOrder, setArrayOrder] = useState(false)
 
-  const handleSwitchState = (newState) => {
-    setArrayOrder(newState)
-    // 
-  }
+
+
 
 
   
@@ -107,14 +104,7 @@ setLogId(statusId)
           <MainWrapper>
 
 
-            <FilterWrapper>
 
-              <SliderComponent
-                handleSwitchState={handleSwitchState} //gets new state from child switch
-                leftLabel='oldest first'
-                rightLabel='latest first'
-              />
-            </FilterWrapper>
 
             <Container>
 
@@ -215,29 +205,7 @@ const HeaderWrapper = styled(Paper)({
   },
 })
 
-const FilterWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  
-// backgroundColor: 'yellow',
-  width: '90%',
-  padding: '0 12px',
-  // height: '3rem',
-  margin: '.5rem  0 .5rem 0',
- 
-  // height: '90%',
 
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
 
 const LeftTopWrapper = styled('div')({
   display: 'flex',

@@ -17,7 +17,7 @@ import { ISOtoUTC } from "./dateHelper"
 
 
 
-export function sortLogsByDate(logs){
+export function sortLogsByDateAscending(logs){
 
   
   logs.sort((a, b) => (ISOtoUTC(a.logDate) > ISOtoUTC(b.logDate)) ? -1 : 1)
@@ -27,7 +27,15 @@ export function sortLogsByDate(logs){
 
 }
 
+export function sortLogsByDateDescending(logs){
 
+  
+  logs.sort((a, b) => (ISOtoUTC(a.logDate) < ISOtoUTC(b.logDate)) ? -1 : 1)
+
+  return logs
+
+
+}
 
 
 /* -- func logsFilter ------------------
