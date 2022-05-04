@@ -1,13 +1,35 @@
-/*---- File - PersonalChitForm_s.jsx 
- 
-   
+/*---- File - filename.jsx 
+   What file does
+
+   View Logic in LogForm read me ...
+           src\readMe\LogForm_info.md
+
+
+   Contains children: 
+       input components
+       src\forms\formComponents\ChronicleSelectMui.jsx
+   parent: New 
 */
 
-import React  from 'react'
+
+
+
+import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate } from 'react-router-dom'
- 
+import {useNavigate, useParams } from 'react-router-dom'
+import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 import { Scrollbars } from 'react-custom-scrollbars';
+import { 
+
+        checkIfWordExists, 
+        cleanOptions ,
+        optionDescendSorter,
+        isArrayDifferent,
+        doesArrayIncludeItem,
+        doesArrayOfObjectsIncludeItem
+
+      } from '../../../../app/helpers/commonHelpers'
+
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -17,19 +39,21 @@ import { FormProvider, useForm, Controller } from "react-hook-form";
  
 import { yupResolver } from '@hookform/resolvers/yup';
 import { string, object  } from 'yup';
+import * as Yup from 'yup';
 
-// --- Redux slices imports
+// --- Redux slices imports ---------------------------------
+import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice'
+import {
+  closeLogSectionForm, 
+  closeNewLogForm, 
+  selectStatus, 
+   
 
-import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
-import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
+ 
 
-import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
-
-
-
-// --- Form component imports ---------
-
+// --- form components ---------------
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
 import { StyledRadio } from '../../../../forms/formComponents/StyledRadio';
@@ -37,7 +61,25 @@ import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/Style
 
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
 import {Editor} from '../../../../forms/formComponents/QuillEditor';
+// --- imports to create options for selectors
 
+import { 
+  selectlogHolders,
+  addLogHolderToStore
+} from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
+
+import { selectPeople, addPersonToStore } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
+ 
+
+// --- Form component imports ---------
+
+import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
+import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
+
+ import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
+import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
+import { descendSorter, stripWhiteSpace } from '../../../../app/helpers/commonHelpers'
 
 // --- MUI imports ---------
 
@@ -46,197 +88,136 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
+import {withStyles} from '@mui/styles'
+
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
-
-//  -- Input requirements for user for each component (if any)
-
-const formSchema = object({
-
-  title: string().required('A title for your spotlight is required'),
-
-
-});
+// ---functions --------------------------------------------
 
 
 
 
+ 
 
 
-
-// ==============================
+// ==============================================================
+// ==== MAIN FUNCTION ===========================================
 
 export default function TwoPartyChitForm_s(props) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  // retrieve spot id if passed from edit
-  let personalChitId = props.params.id
 
 
-  // --- set up options for the selector input (parentId) 
-
-  let categoriesArray = useSelector(selectCategories) // get all spotlights
-  
-  // --- initial and fill  the options 
-
-  let categoriesOptionsArray = [
-    { value: 'none', label: 'none' }
-  ] //  defining an initial value in array
-
-  let categoryOption
-
-  categoriesArray.map((category, index) => {
-    // code 
-    categoryOption = { value: category.id, label: category.title }
-    categoriesOptionsArray.push(categoryOption)
-
-    return categoriesOptionsArray
-  }) //end map
-  
-
-
-  // --- Yup setup ----------
-
-  //  --- default values conditioned on whether new or edit existing spotlight 
-
-  let defaultValues, category, id,title,  headerMessage
-
-  !personalChitId ? headerMessage = 'Create New Two Party Chit'  : headerMessage = 'Edit Personal Chit'
- 
+  let defaultValues, sectionId
  
 
-    
-    defaultValues = {
-      title: title,
-      chitValue: 2
-       
+  defaultValues = {
+    otherParty: '', 
+    deedPerformedBy: '', 
+    description: '', 
+    chitDate: '', 
+    chitValue: '', 
+    workRelated: '', 
+    keywords: [], 
+  
 
-    };
+  };
+
+
+
+    // --- close / cancel form 
+    const cancelNewForm = () => {
+
+      // dispatch(closeNewLogForm())
+      // navigate(`/sample/logs`)
+    }
+// ===========  FORM  ==================================================
 
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(formSchema)
   });
-
-  //======= SUBMIT =========================================================
-
-  const { handleSubmit, reset, control, watch } = methods;
+  const { handleSubmit, reset, control, setValue, onChange, watch, ref , formState: { errors } } = methods;
 
   const submitForm = async (data) => {
-console.log('[ Two Party CHit Form ] data ', data);
-    // let submitData = data
-    // console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
 
-    try {
+    const {logType, newExisting,  person, newPerson, 
+                          group, newGroup, groupType} = data
 
-      // --- start the loading spinner ---
-      dispatch(changeLoadingStatus(true))
-
-
-
-        // --- new data to be passed to store (firebase)
-
-        let newPersonalChitData = {
-          id: id,
-          type: 'personalChit',
-        
-
-        }
-
-
-      // #### await Firebase  -- add + return newPersonalChitId ############ 
-
-      // -- if no personalChitId -- form is for new - else form is for edit/update
-
-      if (!personalChitId) {
-
-        // --- create new chit ------------
-        
-
-      }
-
-      // --- edit/ update personalChit ------------
-
-      if (personalChitId) {
-        
-      }
-
+    console.log('[LogSectionForm]...data ', data)
+    console.log('[LogSectionForm]...logType ', logType)
  
+   
+  } // end  submit
 
+  const myValue = watch("chitValue");
+  let myColor
 
-        
+  if( myValue < 25 ) { myColor = 'copper' } 
+  if (myValue > 24 && myValue < 60 ) { myColor = 'silver' } 
+  if (myValue > 59 ){ myColor= 'gold' }
 
-      dispatch(changeLoadingStatus(false))
-      reset()
-       
-
-      reset(defaultValues)
-      dispatch(closeModal())
-
-    } catch (error) {
-
-      // --- alert error + navigate + end spinner + reset form ---
-      alert(error.message)
-      dispatch(changeLoadingStatus(false))
-
-      reset(defaultValues)
-    }// end try-catch
-
-  } // end submitForm
-    
-  
-       // --- Actual Form ---------------------------------------------
-
-       const myValue = watch("chitValue");
-       let myColor
-
-       if( myValue < 25 ) { myColor = 'copper' } 
-       if (myValue > 24 && myValue < 60 ) { myColor = 'silver' } 
-       if (myValue > 59 ){ myColor= 'gold' }
-
-
-
-       // #############  TEMP ##############
-let sortedCategoryOptions = ['red', 'blue','green']
+  const showLogTypeInput = watch('logType')
+  const showNewExisting = watch('newExisting')
+                      // #############  TEMP ##############
+                      let sortedCategoryOptions = ['red', 'blue','green']
+                      let peopleOptionsArray = ['Bob', 'Carol', 'Ted', 'Alice']
+  // ==== return - Form JSX  ======================================
 
   return (
-    <>
     <Wrapper>
-     
-      <HeaderWrapper> {headerMessage} </HeaderWrapper>
-      <Scrollbars>
-    {/* --- Form -------------------------- */}
-    <FormProvider {...methods}>
-      <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
-          {/* ------Who -------------------------- */}
+<HeaderWrapper> Create New Two Party Chit </HeaderWrapper>
+                                <Scrollbars>
+                              {/* --- Form -------------------------- */}
 
-          <FormComponentWrapper>
-          <ComponentName>
-            Who is the other party?
-          </ComponentName>
+      <FormProvider {...methods}>
+        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
-          <ComponentWrapper>
-            <StyledInput name="title" control={control} label="Title" type = "text"/>
 
-          </ComponentWrapper>
-        </FormComponentWrapper>
+          <>
 
-      {/* ------Who -------------------------- */}
+            {/* ------Who -------------------------- */}
 
             <FormComponentWrapper>
-          <ComponentName>
-            Who performed the action ? 
-          </ComponentName>
+              <ComponentName>
+                Who is the other party?
+              </ComponentName>
 
-          <ComponentWrapper>
+              <ComponentWrapper>
+                <StyledSelectMuiCreatable
+                  name={'otherParty'}
+                  control={control}
+                  options={peopleOptionsArray}
+                  // or
+                  // defaultValue = {{ value: 'ge423', label: 'home'}}
+                  defaultValue={defaultValues.person}
+                  placeholder='select a person'
+
+                />
+
+                {/* {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>}  */}
+
+
+
+
+
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
+
+            {/* ------DeedPerformed by ------------- */}
+
+            <FormComponentWrapper>
+              <ComponentName>
+                Who performed the action ?
+              </ComponentName>
+
+              <ComponentWrapper>
                 <RadiotWrapper>
                   <StyledRadio
-                    name={"logType"}
+                    name={"deedPerformedBy"}
                     control={control}
                     label={"logType"}
                     options={[
@@ -256,84 +237,78 @@ let sortedCategoryOptions = ['red', 'blue','green']
 
               </ComponentWrapper>
             </FormComponentWrapper>
-        {/* ------When  -------------------------- */}
+            {/* ------When  -------------------------- */}
 
-        <FormComponentWrapper>
-          <ComponentName>
-            Description ? <StyledCalendarIcon/>
-          </ComponentName>
+            <FormComponentWrapper>
+              <ComponentName>
+                Description ? <StyledCalendarIcon />
+              </ComponentName>
 
-          <QuillComponentWrapper>
-          <Controller
+              <QuillComponentWrapper>
+                <Controller
 
-name="meta"
-control={control}
-initialNote={'hi quill description'}
+                  name="description"
+                  control={control}
+                  initialNote={'hi quill description'}
 
-render={({ field }) => (
-  <Editor
-    {...field}
-    ref={null}
-    IniitalValue={defaultValues.meta} />
-)}
+                  render={({ field }) => (
+                    <Editor
+                      {...field}
+                      ref={null}
+                      IniitalValue='hello there' />
+                  )}
 
-/>
-
-
-            </QuillComponentWrapper>
-          </FormComponentWrapper>
-      {/* ------When  -------------------------- */}
-
-      <FormComponentWrapper>
-          <ComponentName>
-            When did the action occur ? <StyledCalendarIcon/>
-          </ComponentName>
-
-          <ComponentWrapper>
-              <Controller
-
-                name="endEst"
-                control={control}
-                initialNote={'hi'}
-
-                render={({ field }) => (
-                  <StyledDatePicker {...field} ref={null} />
-                )}
-              />
-
-            </ComponentWrapper>
-          </FormComponentWrapper>
+                />
 
 
+              </QuillComponentWrapper>
+            </FormComponentWrapper>
+            {/* ------When  -------------------------- */}
+
+            <FormComponentWrapper>
+              <ComponentName>
+                When did the action occur ? <StyledCalendarIcon />
+              </ComponentName>
+
+              <ComponentWrapper>
+                <Controller
+
+                  name="chitDate"
+                  control={control}
+                  initialNote={'hi'}
+
+                  render={({ field }) => (
+                    <StyledDatePicker {...field} ref={null} />
+                  )}
+                />
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
+
+            {/* ------Selector Component  (parentId) -------------------------- */}
 
 
-        {/* ------Selector Component  (parentId) -------------------------- */}
+            <FormComponentWrapper>
+              <ComponentName>
+                Slider - {myColor}
+              </ComponentName>
 
+              <SliderComponentWrapper>
+                <StyledSliderMui name="chitValue" control={control} label="Chit Value" type="text" />
 
-        <FormComponentWrapper>
-          <ComponentName>
-            Slider - {myColor}
-          </ComponentName>
+              </SliderComponentWrapper>
+            </FormComponentWrapper>
+            {/* ------Work related -------------------------- */}
 
-          <SliderComponentWrapper>
-          <StyledSliderMui name = "chitValue" control={control} label="Chit Value" type = "text" />
+            <FormComponentWrapper>
+              <ComponentName>
+                Is this chit work related ?
+              </ComponentName>
 
-          </SliderComponentWrapper>
-        </FormComponentWrapper>
-
-
-
-      {/* ------Work related -------------------------- */}
-
-      <FormComponentWrapper>
-          <ComponentName>
-            Is this chit work related ? 
-          </ComponentName>
-
-          <ComponentWrapper>
+              <ComponentWrapper>
                 <RadiotWrapper>
                   <StyledRadio
-                    name={"logType"}
+                    name={"workRelated"}
                     control={control}
                     label={"logType"}
                     options={[
@@ -354,54 +329,72 @@ render={({ field }) => (
               </ComponentWrapper>
             </FormComponentWrapper>
 
- 
-          {/* ------select Creatable (categories) -------------------------- */}
 
-          <FormComponentWrapper>
-            <ComponentName>
-              Add keywords
-            </ComponentName>
+            {/* ------select Creatable (categories) -------------------------- */}
 
-            <ComponentWrapper>
-              <StyledSelectMuiCreatable
-                name={'keywords'}
-                control={control}
-                options={sortedCategoryOptions}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.categories}
-                placeholder='select a category'
+            <FormComponentWrapper>
+              <ComponentName>
+                Add keywords
+              </ComponentName>
 
-
-              />
+              <ComponentWrapper>
+                <StyledSelectMuiCreatable
+                  name={'keywords'}
+                  control={control}
+                  options={sortedCategoryOptions}
+                  // defaultValue = {{ value: 'ge423', label: 'home'}}
+                  defaultValue={defaultValues.keywords}
+                  placeholder='select a category'
 
 
-            </ComponentWrapper>
-          </FormComponentWrapper>
+                />
 
 
-        {/* ------Submit ---------- -------------------------- */}
-        <ButtonWrapper>
+              </ComponentWrapper>
+            </FormComponentWrapper>
 
-          <StyledButton 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
+          </>
+
+          {/* ------Submit ---------- -------------------------- */}
+          <ButtonWrapper>
+
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
             >
-            Submit
-          </StyledButton>
-        </ButtonWrapper>
-      </FormWrapper>
+              Submit
+            </StyledButton>
 
-    </FormProvider>
-    </Scrollbars>
-   
+            <StyledButton
+
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
+              onClick={() => cancelNewForm()}
+            >
+              Cancel
+            </StyledButton>
+
+          </ButtonWrapper>
+        </FormWrapper>
+
+      </FormProvider>
+      </Scrollbars>
     </Wrapper>
- </>
   );
 }
 
-// ---------------------------------------------
+const formSchema = object({
+  
+
+
+  });
+// ==== Styles ===========================================
+
+
+// ==== Styles ===========================================
 const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -412,9 +405,9 @@ const Wrapper = styled('div')({
   width: 'calc(100%-12px)',
   height: '100%',
   overflow: 'auto',
-  paddingLeft: '16px',
+  padding: '0 0 3px 16px',
 backgroundColor: '#F6F7F8',
-
+borderRadius: '5px',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
     // backgroundColor: 'red'
@@ -482,7 +475,7 @@ const ComponentName= styled('div')({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  color: 'darkGrey',
+  color: darkGrey,
 
 
   [theme.breakpoints.down('sm')]: {
@@ -592,4 +585,3 @@ const RadiotWrapper= styled('div')({
   },
 
 })
-
