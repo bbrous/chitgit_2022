@@ -59,8 +59,6 @@ import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMu
 import { StyledRadio } from '../../../../forms/formComponents/StyledRadio';
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
-import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
-
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
 import {Editor} from '../../../../forms/formComponents/QuillEditor';
 // --- imports to create options for selectors
@@ -115,8 +113,7 @@ export default function TwoPartyChitForm_s(props) {
  
 
   defaultValues = {
-    person: '',
-    newPerson: '', 
+    otherParty: '', 
     deedPerformedBy: '', 
     description: '', 
     chitDate: '', 
@@ -166,9 +163,7 @@ export default function TwoPartyChitForm_s(props) {
                       // #############  TEMP ##############
                       let sortedCategoryOptions = ['red', 'blue','green']
                       let peopleOptionsArray = ['Bob', 'Carol', 'Ted', 'Alice']
-                      let keywordsOptionsArray = ['ideas', 'work']
   // ==== return - Form JSX  ======================================
- 
 
   return (
     <Wrapper>
@@ -190,83 +185,27 @@ export default function TwoPartyChitForm_s(props) {
                 Who is the other party?
               </ComponentName>
 
-
               <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChronicleRadio
-                    name={"newExisting"}
-                    control={control}
-                    label={"logType"}
-                    options={[
-                      {
-                        label: "existing",
-                        value: "existing",
-                      },
-                      {
-                        label: "new",
-                        value: "new",
-                      },
+                <StyledSelectMuiCreatable
+                  name={'otherParty'}
+                  control={control}
+                  options={peopleOptionsArray}
+                  // or
+                  // defaultValue = {{ value: 'ge423', label: 'home'}}
+                  defaultValue={defaultValues.person}
+                  placeholder='select a person'
 
-                    ]}
-                  />
-                </RadiotWrapper>
+                />
+
+                {/* {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>}  */}
 
 
-                
+
+
 
 
               </ComponentWrapper>
             </FormComponentWrapper>
-            {showNewExisting === 'existing' && 
-  
-
-              <ComponentWrapper>
-                
-                <ChronicleSelectMui
-                    name={'person'}
-                    control={control}
-                    options = {peopleOptionsArray}
-                    // or
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.person}
-                    placeholder='select a person'
-
-                  />
-
-                  {/* {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>}  */}
-
-
-              </ComponentWrapper>
-       
-}
-
-{showNewExisting === 'new' &&
-
-
-<ComponentWrapper>
-  
-<NewInputContainer>
-
-
-<ChronicleInput
-                name={"newPerson"}
-                control={control}
-                label={"newPerson"}
-                defaultValue= {''}
-                placeholder = ' Add new person name'
-                 
-                 
-              />
-
-                    </NewInputContainer>
-    {/* {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>}  */}
-
-
-</ComponentWrapper>
-
-
-}
-
 
             {/* ------DeedPerformed by ------------- */}
 
@@ -275,10 +214,9 @@ export default function TwoPartyChitForm_s(props) {
                 Who performed the action ?
               </ComponentName>
 
-
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <StyledRadio
                     name={"deedPerformedBy"}
                     control={control}
                     label={"logType"}
@@ -288,16 +226,13 @@ export default function TwoPartyChitForm_s(props) {
                         value: "me",
                       },
                       {
-                        label: "other party",
-                        value: "otherParty",
+                        label: "the other person",
+                        value: "otherPerson",
                       },
 
                     ]}
                   />
                 </RadiotWrapper>
-
-
-                
 
 
               </ComponentWrapper>
@@ -370,10 +305,9 @@ export default function TwoPartyChitForm_s(props) {
                 Is this chit work related ?
               </ComponentName>
 
-              
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <StyledRadio
                     name={"workRelated"}
                     control={control}
                     label={"logType"}
@@ -392,9 +326,6 @@ export default function TwoPartyChitForm_s(props) {
                 </RadiotWrapper>
 
 
-                
-
-
               </ComponentWrapper>
             </FormComponentWrapper>
 
@@ -407,16 +338,16 @@ export default function TwoPartyChitForm_s(props) {
               </ComponentName>
 
               <ComponentWrapper>
-              <StyledChronicleMultiselect
-                    name={'keywords'}
-                    control={control}
-                    options={keywordsOptionsArray}
-                    placeholder='select or type keywords'
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.keywords}
+                <StyledSelectMuiCreatable
+                  name={'keywords'}
+                  control={control}
+                  options={sortedCategoryOptions}
+                  // defaultValue = {{ value: 'ge423', label: 'home'}}
+                  defaultValue={defaultValues.keywords}
+                  placeholder='select a category'
 
 
-                  />
+                />
 
 
               </ComponentWrapper>
@@ -647,21 +578,6 @@ const RadiotWrapper= styled('div')({
   alignItems: 'center',
   width: '30%',
  
- 
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const NewInputContainer= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '13rem',
-  marginLeft: '9px',
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
