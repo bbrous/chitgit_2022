@@ -598,7 +598,7 @@ export default function PersonalLedgerRow(props) {
   
   let status = useSelector(selectStatus)
   let allCategories = useSelector(selectCategories)
-  console.log('[ PersonalLedgerRow ] allCategories ', allCategories);
+  // console.log('[ PersonalLedgerRow ] allCategories ', allCategories);
   
  
 

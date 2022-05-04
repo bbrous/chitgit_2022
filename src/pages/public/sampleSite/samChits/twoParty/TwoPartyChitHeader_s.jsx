@@ -323,14 +323,14 @@ function TwoPartyChitHeader(props) {
       let groupObject = allGroups.find(group => group.id === matchId)
   
       title = groupObject.name
-      console.log('[ Two Party Chit Header ] we got a group ', title);
+      // console.log('[ Two Party Chit Header ] we got a group ', title);
     }
     if(collection === 'people' ){
       let personObject = allPeople.find(person => person.id === matchId)
 
     title = personObject.name
   
-      console.log('[ Two Party Chit Header ] we got People ', title);
+      // console.log('[ Two Party Chit Header ] we got People ', title);
     }
    
   }

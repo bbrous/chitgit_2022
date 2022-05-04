@@ -134,8 +134,8 @@ let chitId
     let newPage = evt.target.value
     newPage === 'personalChits' ? chitId = personalChitId: chitId = twoPartyChitId
 
-console.log('[ PAGE NAV ] newPage ', newPage);
-console.log('[ PAGE NAV ] chitId ', chitId);
+// console.log('[ PAGE NAV ] newPage ', newPage);
+// console.log('[ PAGE NAV ] chitId ', chitId);
 
     navigate(`/sample/${evt.target.value}/${chitId}`)
   }

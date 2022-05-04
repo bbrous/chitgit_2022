@@ -290,7 +290,7 @@ function TwoPartyNav() {
   let allGroupsArray = uniqueItemsInObjectField(allGroupsChits, 'otherPartyId')
 
 
-  console.log('[ TwoPartyNav ] allGroupsChits ', allGroupsChits);
+  // console.log('[ TwoPartyNav ] allGroupsChits ', allGroupsChits);
  
 
 
@@ -316,7 +316,7 @@ function TwoPartyNav() {
   let sortedPeople
   if (arrayOrder === true) { sortedPeople = ascendingPeople } else if (arrayOrder === false) { sortedPeople = descendingPeople }
 
-  console.log('[ PersonalNav ] sortedPeople ', sortedPeople);
+  // console.log('[ PersonalNav ] sortedPeople ', sortedPeople);
 
 const handleSwitchState = (newState) => {
   setArrayOrder(newState)
@@ -414,7 +414,7 @@ let descendingGroups = descendSorter(unsortedNamesOfGroups, 'name')
 
 let  sortedGroups = descendingGroups
 
-console.log('[ PersonalNav ] sortedGroups ', sortedGroups);
+// console.log('[ PersonalNav ] sortedGroups ', sortedGroups);
  
 
 const handleChangeGroup = (evt) => {

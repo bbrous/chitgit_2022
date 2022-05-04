@@ -7,9 +7,9 @@
       parent: LogMain -./LogsMain
 */
 
-import React  from 'react'
+import React, {useState} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
 
@@ -24,10 +24,16 @@ import DeleteIcon from '../samComponents/Delete_icon_s'
 import Paper from '@mui/material/Paper'
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
  
 import { selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
 import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
+import { deleteLogHolder } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
 import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 
 import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice';
@@ -41,6 +47,7 @@ function LogHeader(props) {
  
   const match = useParams()
   const dispatch = useDispatch()
+  let navigate = useNavigate()
   const matchId = match.id
   let allLogsArray = useSelector(selectLogs) //immutable
   let allGroups = useSelector(selectGroups)
@@ -48,8 +55,26 @@ function LogHeader(props) {
 
   let allPeopleAndGroups = [...allGroups, ...allPeople]
 
-  // console.log('[ LogHeader ] allPeopleAndGroups ', allPeopleAndGroups);
+  console.log('[ LogHeader ] matchId ', matchId);
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (evt)=>{
+ 
+    let logHolderId = evt.currentTarget.id
+      console.log('[ LOG HEADER] delete clicked', logHolderId);
+       dispatch(deleteLogHolder(logHolderId))
+       navigate(`/sample/logs`)
+       
+     }
 
   // --- get the name 
   let name, type, collection, meta
@@ -65,12 +90,55 @@ function LogHeader(props) {
     dispatch(openLogForm('new'))
     
   }
+
+
  
 
 // ====  Main Return =======================================
 
   return (
     <Wrapper>
+
+<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are your sure you want to delete this section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            id={matchId}
+            onClick={(evt) => handleDelete(evt)}
+          >
+            Yes
+          </StyledButton>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleClose}
+          >
+            No
+          </StyledButton>
+
+        </DialogActions>
+      </Dialog>
+
+
       <TitleWrapper>
         <TitleWrapperLeft>
         <Title>
@@ -90,9 +158,8 @@ function LogHeader(props) {
         </ButtonWrapper>
         </TitleWrapperLeft>
 
-        <IconWrapper>
-          <DeleteIcon />
-          <EditIcon />
+        <IconWrapper id = {matchId} onClick={(evt)=>handleDelete(evt)}>
+          <DeleteIcon  />
         </IconWrapper>
 
 
@@ -104,6 +171,16 @@ function LogHeader(props) {
             
          </Scrollbars>
         </DetailWrapper>
+        
+}
+
+{collection === 'people' && 
+          <DetailWrapperEmpty> 
+    
+      
+            {/*  formatting only */}
+ 
+        </DetailWrapperEmpty>
         
 }
       </TitleWrapper>
@@ -205,6 +282,30 @@ const DetailWrapper= styled('div')({
     
   },
 })
+
+const DetailWrapperEmpty= styled('div')({
+  display: 'block',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+ 
+
+  padding: '4px 8px',
+  // width: '18rem',
+  width: '35%',
+  height: '95%',
+  border: '1px solid white',
+  fontSize: '.75rem',
+  backgroundColor: 'white',
+  margin: '.25rem',
+ 
+  overflow:'auto',
+ 
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    
+  },
+})
 const Title = styled('div')({
   display: 'flex',
   
@@ -287,6 +388,14 @@ const IconWrapper= styled('div')({
 })
 
 
+const StyledButton= styled(Button)({
+  color: 'white',
+  margin: '0 8px',
+  fontSize: '.8rem',
+  padding: '2px'
+
+
+})
 
 
 

@@ -57,23 +57,14 @@ export const logsSlice = createSlice({
 
   }, // end updateEditedLogs
 
-  addLogsHolder: (state, action) => {
+  deleteLogSection: (state, action) => {
 
 
-      // let log = action.payload
+      let logSectionId = action.payload
 
-      // state.push(log)
-    
-
-
-
-    // let logsIndex = state.findIndex(index => index.id === logsId)
-
-    // console.log('[ sam_logsSlice ] logsIndex ', logsIndex)   
-    
-    // state[logsIndex].logsHolders.push(newlogsHolder)
+      return state.filter(item => item.id !== logSectionId)
    
-  }, // end addLogsHolder
+  }, // end deleteLogSection
 
 }
 
@@ -85,7 +76,7 @@ export const logsSlice = createSlice({
 export const { 
   addLogToStore, 
   updateEditedLog,
-  addLogsHolder 
+  deleteLogSection 
 
 } = logsSlice.actions
 

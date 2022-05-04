@@ -37,7 +37,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
- 
+import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
  
@@ -151,7 +151,7 @@ styledKeywords = 'none'
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <button
+        <StyledButton
   form="submit-form"
   variant="contained"
   color="primary"
@@ -159,9 +159,9 @@ styledKeywords = 'none'
   onClick={handleClose}
 >
 Save Edits
-</button>
+</StyledButton>
 
-<button
+<StyledButton
   form="submit-form"
   variant="contained"
   color="primary"
@@ -169,7 +169,7 @@ Save Edits
   onClick={handleClose}
 >
 Cancel
-</button>
+</StyledButton>
 
         </DialogActions>
       </Dialog>
@@ -585,7 +585,14 @@ const LightTooltip = withStyles({
   }
 })(Tooltip);
 
+const StyledButton= styled(Button)({
+  color: 'white',
+  margin: '0 8px',
+  fontSize: '.8rem',
+  padding: '4px 6px'
 
+
+})
 
 const StyledDetail= styled('div')({
 

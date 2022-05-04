@@ -131,10 +131,10 @@ export default function PersonalCalendar(props) {
   let allChitsArray = useSelector(selectAllPersonalChits)
  
    
-  console.log('[PersonalCalendar] personalChitArray ', allChitsArray);
+  // console.log('[PersonalCalendar] personalChitArray ', allChitsArray);
   
   let personalChitArray  = categoryChitFilter(allChitsArray, id)
-console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
+// console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
 
   // --- 2a. get calendar month to display
   let currentUTCMonth = useSelector(selectStatus).calendarMonthDisplay.utc

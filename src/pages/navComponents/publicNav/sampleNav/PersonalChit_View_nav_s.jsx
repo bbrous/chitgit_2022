@@ -88,7 +88,7 @@ function PersonalChitViewNav(props) {
   const dispatch = useDispatch()
   let view = useSelector(selectStatus).view.personalChit.display
   let categoryId = useSelector(selectStatus).view.personalChit.id
-   console.log('Chit VIEW NAV state: ' , view)
+  //  console.log('Chit VIEW NAV state: ' , view)
 
   /* func handleViewChange ---------------------------------
      changes the sample/statusview/Chit - display - in store

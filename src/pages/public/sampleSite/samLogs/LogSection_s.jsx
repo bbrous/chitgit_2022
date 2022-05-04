@@ -18,7 +18,9 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
 
-import{ selectLogs
+import{ 
+  selectLogs,
+  deleteLogSection
   // selectSpotlightTaskArray
   
 } from '../../../../app/redux/logRedux/sam_logsSlice'
@@ -37,6 +39,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
  
 import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -48,6 +56,22 @@ const theme = createTheme(); // allows use of mui theme in styled component
 export default function LogSection(props) {
 let dispatch = useDispatch()
   const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (evt) => {
+    
+    dispatch(deleteLogSection(evt.currentTarget.id))
+    setOpen(false);
+  };
 
 //  console.log('[ LogSection  ] props ', props);
  let sectionViewId = useSelector(selectStatus).view.log.sectionId
@@ -112,6 +136,51 @@ styledPeople = 'none'
   }
   return (
     <> 
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are your sure you want to delete this section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            id={id}
+            onClick={(evt) => handleDelete(evt)}
+          >
+            Yes
+          </StyledButton>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleClose}
+          >
+            No
+          </StyledButton>
+
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
     {sectionViewId !== id &&
     <MainWrapper>
       <TopWrapper>
@@ -136,7 +205,7 @@ styledPeople = 'none'
           </LightTooltip>
 
           <LightTooltip title='Delete' arrow>
-            <StyledDeleteIcon />
+            <StyledDeleteIcon  onClick = {()=>handleClickOpen()} />
           </LightTooltip>
         </IconWrapper>
       </TopWrapper>
@@ -583,6 +652,14 @@ const StyledAttachmentIcon= styled(AttachmentIcon)({
   },
 })
 
+const StyledButton= styled(Button)({
+  color: 'white',
+  margin: '0 8px',
+  fontSize: '.8rem',
+  padding: '2px'
+
+
+})
 
 const LightTooltip = withStyles({
   tooltip: {

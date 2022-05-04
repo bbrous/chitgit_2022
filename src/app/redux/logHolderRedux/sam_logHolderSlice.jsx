@@ -69,25 +69,20 @@ export const logHoldersSlice = createSlice({
   }, // end addlogHolderHolder
 
 
-  deleteLogHolderHolder: (state, action) => {
+  deleteLogHolder: (state, action) => {
 
-
-    // let logHolder = action.payload.logHolder
-    // let logHolderHolder = action.payload.logHolderHolder
  
- 
+    let logHolderId = action.payload
 
-    // let logHolderIndex = state.findIndex(index => index.logHolder === logHolder)
+    return state.filter(item => item.id !== logHolderId)
 
-  
-
-    // state[logHolderIndex].logHolderHolders = state[logHolderIndex].logHolderHolders.filter(item => item.id !== logHolderHolder)
-
-  }, // end deletelogHolderHolder
+  }, // end deletelogHolder
 
 } //----- end reducers
 
 }) // end slice logHoldersSlice 
+
+
 
 
 // --- Export actions ---------------------------------------------
@@ -96,7 +91,7 @@ export const {
   addLogHolderToStore, 
   updateEditedLogHolder,
   addLogHolderHolder,
-  deleteLogHolderHolder 
+  deleteLogHolder 
 
 } = logHoldersSlice.actions
 

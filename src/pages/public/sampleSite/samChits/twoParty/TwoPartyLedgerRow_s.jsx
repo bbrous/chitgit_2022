@@ -646,7 +646,7 @@ export default function TwoPartyLedgerRow(props) {
 
   const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
 
-  console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
+  // console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
 
   let dispatch = useDispatch()
   

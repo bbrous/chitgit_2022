@@ -125,8 +125,8 @@ function Chits(props) {
   let status = useSelector(selectStatus)
   const displayPopoverModalMessage = status.initialMessage[pageDisplayed]
 
-  console.log('[ Chits_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
-  console.log('[ Chits_s ] match params ChitId', ChitId);
+  // console.log('[ Chits_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
+  // console.log('[ Chits_s ] match params ChitId', ChitId);
 
  
 
