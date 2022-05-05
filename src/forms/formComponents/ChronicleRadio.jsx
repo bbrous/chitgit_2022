@@ -73,9 +73,13 @@ const StyledRadio = withStyles({
       height: '1rem',
       // backgroundColor: 'green'
     
-    }
+    },
 
+    '& label ' : {
+     
+  
     
+    } 
     
   },
 

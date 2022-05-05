@@ -123,7 +123,7 @@ const useStyles = makeStyles({
 });
 
 // -----------------------------------------------------------------
-export const StyledChronicleMultiselect = ({ name, control, label, type, defaultValue, options , placeholder} ) => {
+export const StyledChronicleMultiselect = ({ name, control, label, type, defaultValue, options , placeholder, disabled} ) => {
   const classes = useStyles();
   return (
     <Controller

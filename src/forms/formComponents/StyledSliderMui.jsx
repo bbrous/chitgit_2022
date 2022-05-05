@@ -17,7 +17,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-
+import { darkGrey } from "../../styles/colors";
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -105,7 +105,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 export const StyledSliderMui = ({ name, control, label, type, defaultValue, options } ) => {
-  console.log('[ WWWWWWWWWWWWWWWWWW  ] defaultValue ', defaultValue);
+  // console.log('[ WWWWWWWWWWWWWWWWWW  ] defaultValue ', defaultValue);
   return (
     <Controller
       name={name}
@@ -119,13 +119,14 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
         <Controller
           render={({ field }) => (
             <Box width={300}>
-            <Slider
+            <ChitSlider
                   onChange={(_, value) => {
                     field.onChange(value);
                   }}
                   valueLabelDisplay="auto"
                   max={100}
                   step={1}
+                  size = 'small'
             />
             
           </Box>
@@ -138,3 +139,42 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
     />
   );
 };
+
+const ChitSlider = styled(Slider)({
+  color: darkGrey,
+  height: 2,
+  '& .MuiSlider-track': {
+    border: 'none',
+  },
+  '& .MuiSlider-thumb': {
+    height: 12,
+    width: 12,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+      boxShadow: 'inherit',
+    },
+    '&:before': {
+      display: 'none',
+    },
+  },
+  '& .MuiSlider-valueLabel': {
+    lineHeight: 1.2,
+    fontSize: 12,
+    background: 'unset',
+    padding: 0,
+    width: 32,
+    height: 32,
+    borderRadius: '50% 50% 50% 0',
+    backgroundColor: '#52af77',
+    transformOrigin: 'bottom left',
+    transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
+    '&:before': { display: 'none' },
+    '&.MuiSlider-valueLabelOpen': {
+      transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+    },
+    '& > *': {
+      transform: 'rotate(45deg)',
+    },
+  },
+});

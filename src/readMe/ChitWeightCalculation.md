@@ -17,6 +17,17 @@ Two sliders determine the color and weight of chits.  Each slider has a value be
 - (1) value or importance to receiver of the action
 - (2) burden or importance on the provider of the action
 
+- if(I performed the action) {
+
+   How valuable or important to George M was what up did?
+   How weighty or burdenson was the action on you?
+}
+
+- if(the other party performed the action) {
+   How valuable or important to you was what George M did for you?
+   How weighty or burdenson was the action on George M?
+}
+
 The chit color is calulated by the sum total of the 2 sliders with a minimum of 5 each slider. (10 - 100).
 
 

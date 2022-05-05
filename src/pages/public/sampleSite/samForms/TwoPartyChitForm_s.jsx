@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBurgandy, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 import { Scrollbars } from 'react-custom-scrollbars';
 import { 
 
@@ -49,20 +49,28 @@ import {
   selectStatus, 
    
 
-
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
+
+
  
 
 // --- form components ---------------
-import { StyledInput } from '../../../../forms/formComponents/StyledInput'
+
 import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
-import { StyledRadio } from '../../../../forms/formComponents/StyledRadio';
-import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
 import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
 
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
 import {Editor} from '../../../../forms/formComponents/QuillEditor';
+
+import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
+import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
+
+ import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
+import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
+
+
+
 // --- imports to create options for selectors
 
 import { 
@@ -74,13 +82,9 @@ import { selectPeople, addPersonToStore } from '../../../../app/redux/peopleRedu
 import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
  
 
-// --- Form component imports ---------
+ 
 
-import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
-import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
 
- import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
-import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
 import { descendSorter, stripWhiteSpace } from '../../../../app/helpers/commonHelpers'
 
 // --- MUI imports ---------
@@ -88,6 +92,11 @@ import { descendSorter, stripWhiteSpace } from '../../../../app/helpers/commonHe
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+ 
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
@@ -109,6 +118,38 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // ==== MAIN FUNCTION ===========================================
 
 export default function TwoPartyChitForm_s(props) {
+  let match = useParams()
+  const dispatch = useDispatch()
+  const allPeople = useSelector(selectPeople)
+
+  const popoverMessage = () => {
+    return <div>  
+
+      <div>Come and get it</div>
+      <div>Come and get it</div>
+    </div>
+  }
+
+  let URLId = match.id
+
+
+// --- popovers ---
+
+const [anchorEl, setAnchorEl] = React.useState(null);
+
+const handlePopoverOpen = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handlePopoverClose = () => {
+  setAnchorEl(null);
+};
+
+const open = Boolean(anchorEl);
+
+
+
+
 
 
   let defaultValues, sectionId
@@ -117,11 +158,14 @@ export default function TwoPartyChitForm_s(props) {
   defaultValues = {
     person: '',
     newPerson: '', 
+    newExisting: 'existing',
+    chitType: 'done',
     deedPerformedBy: '', 
     description: '', 
     chitDate: '', 
-    chitValue: '', 
-    workRelated: '', 
+    chitValue: 10, 
+    chitBurden: 10,
+    workRelated: 'notWorkRelated', 
     keywords: [], 
   
 
@@ -149,23 +193,82 @@ export default function TwoPartyChitForm_s(props) {
                           group, newGroup, groupType} = data
 
     console.log('[LogSectionForm]...data ', data)
-    console.log('[LogSectionForm]...logType ', logType)
+    console.log('[LogSectionForm]...logType ', typeof data.chitValue)
  
    
   } // end  submit
 
-  const myValue = watch("chitValue");
+  const totalChitValue = watch("chitValue");
+  const burden = watch('chitBurden')
+  const promise = watch('chitType')
   let myColor
 
-  if( myValue < 25 ) { myColor = 'copper' } 
-  if (myValue > 24 && myValue < 60 ) { myColor = 'silver' } 
-  if (myValue > 59 ){ myColor= 'gold' }
+  if( totalChitValue < 25 ) { myColor = 'copper' } 
+  if (totalChitValue > 24 && totalChitValue < 60 ) { myColor = 'silver' } 
+  if (totalChitValue > 59 ){ myColor= 'gold' }
 
+
+    // --- does newPerson already exist in people collection
+
+    const doesPersonExist = (inputValue) => {
+
+      let peopleNamesArray = []
+      allPeople.map((person, index) => {
+  
+        let cleanPerson = stripWhiteSpace(person.name).toLowerCase()
+       
+        peopleNamesArray.push(cleanPerson)
+    
+      return peopleNamesArray
+  
+      }) //end map
+  
+      let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
+     
+      let personExists = doesArrayIncludeItem(cleanInputValue, peopleNamesArray)
+      // returns true if exists ... schema test requires false to proceed
+      // so return the opposite of person exists
+     return !personExists
+    
+    
+    }// end doePersonExist
+
+
+// -- create Options for  people select ----- 
+let peopleObjectArray = []
+let peopleOptionsArray = []
+
+// -- get rid of "unknown" from all people
+let filteredPeople = allPeople.filter(item => item.id !== 'unknown')
+
+let sortedFilteredPeople = descendSorter(filteredPeople, 'name')
+
+sortedFilteredPeople.map((person, index) => {
+  peopleObjectArray.push(person.name)
+
+
+  return peopleObjectArray
+}
+) //end map
+
+sortedFilteredPeople.map((person, index) => {
+ 
+    // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  person.id);
+    peopleOptionsArray.push(person.name)
+
+ 
+
+  return peopleOptionsArray
+}
+) //end map
+
+
+  const when = watch('chitType')
   const showLogTypeInput = watch('logType')
   const showNewExisting = watch('newExisting')
                       // #############  TEMP ##############
                       let sortedCategoryOptions = ['red', 'blue','green']
-                      let peopleOptionsArray = ['Bob', 'Carol', 'Ted', 'Alice']
+                      // let peopleOptionsArray = ['Bob', 'Carol', 'Ted', 'Alice']
                       let keywordsOptionsArray = ['ideas', 'work']
   // ==== return - Form JSX  ======================================
  
@@ -203,7 +306,7 @@ export default function TwoPartyChitForm_s(props) {
                         value: "existing",
                       },
                       {
-                        label: "new",
+                        label: "new person",
                         value: "new",
                       },
 
@@ -216,7 +319,7 @@ export default function TwoPartyChitForm_s(props) {
 
 
               </ComponentWrapper>
-            </FormComponentWrapper>
+           
             {showNewExisting === 'existing' && 
   
 
@@ -226,8 +329,7 @@ export default function TwoPartyChitForm_s(props) {
                     name={'person'}
                     control={control}
                     options = {peopleOptionsArray}
-                    // or
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    disabled='disabled'
                     defaultValue={defaultValues.person}
                     placeholder='select a person'
 
@@ -238,7 +340,7 @@ export default function TwoPartyChitForm_s(props) {
 
               </ComponentWrapper>
        
-}
+} 
 
 {showNewExisting === 'new' &&
 
@@ -267,12 +369,99 @@ export default function TwoPartyChitForm_s(props) {
 
 }
 
+</FormComponentWrapper>
 
             {/* ------DeedPerformed by ------------- */}
 
             <FormComponentWrapper>
               <ComponentName>
+                 Choose a chit type 
+            
+        
+                <Question  
+                aria-owns={open ? 'mouse-over-popover' : undefined}
+                aria-haspopup="true"
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
+                
+                />
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>
+          {popoverMessage()}
+          
+          
+          </Typography>
+      </Popover>
+              </ComponentName>
+
+
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChronicleRadio
+                    name={"chitType"}
+                    control={control}
+                    label={"logType"}
+                    options={[
+                      {
+                        label: "standard",
+                        value: "standard",
+                      },
+                      {
+                        label: "promise",
+                        value: "promise",
+                      },
+
+                      {
+                        label: "good will",
+                        value: "good will",
+                      },
+
+                    ]}
+                  />
+                </RadiotWrapper>
+
+
+                
+
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
+            {/* ------When  -------------------------- */}
+
+
+
+            {/* ------DeedPerformed by ------------- */}
+
+            <FormComponentWrapper>
+              <ComponentName>
+                {when === 'done' && 
+                <>
                 Who performed the action ?
+                </>
+                }
+                {when === 'promised' && 
+                <>
+                Who will perform the action ?
+                </>
+                }
+                
               </ComponentName>
 
 
@@ -310,6 +499,9 @@ export default function TwoPartyChitForm_s(props) {
               </ComponentName>
 
               <QuillComponentWrapper>
+                <QuillWrapper>
+
+               
                 <Controller
 
                   name="description"
@@ -325,7 +517,7 @@ export default function TwoPartyChitForm_s(props) {
 
                 />
 
-
+</QuillWrapper>
               </QuillComponentWrapper>
             </FormComponentWrapper>
             {/* ------When  -------------------------- */}
@@ -350,16 +542,42 @@ export default function TwoPartyChitForm_s(props) {
               </ComponentWrapper>
             </FormComponentWrapper>
 
-            {/* ------Selector Component  (parentId) -------------------------- */}
+            {/* ------Chit Value -------------------------- */}
 
 
             <FormComponentWrapper>
               <ComponentName>
-                Slider - {myColor}
+                Chit Value - {myColor}
               </ComponentName>
 
               <SliderComponentWrapper>
-                <StyledSliderMui name="chitValue" control={control} label="Chit Value" type="text" />
+                <StyledSliderMui 
+                name="chitValue" 
+                control={control} 
+                label="Chit Value" 
+                type="text" 
+                defaultValue = {defaultValues.chitValue}
+                />
+
+              </SliderComponentWrapper>
+            </FormComponentWrapper>
+
+                        {/* ------Chit Value -------------------------- */}
+
+
+                        <FormComponentWrapper>
+              <ComponentName>
+                Chit Burden - {myColor}
+              </ComponentName>
+
+              <SliderComponentWrapper>
+                <StyledSliderMui 
+                name="chitBurden" 
+                control={control} 
+                label="Chit Burden" 
+                type="text" 
+                defaultValue = {defaultValues.chitBurden}
+                />
 
               </SliderComponentWrapper>
             </FormComponentWrapper>
@@ -388,6 +606,7 @@ export default function TwoPartyChitForm_s(props) {
                       },
 
                     ]}
+                    defaultValue = {defaultValues.workRelated}
                   />
                 </RadiotWrapper>
 
@@ -425,6 +644,17 @@ export default function TwoPartyChitForm_s(props) {
           </>
 
           {/* ------Submit ---------- -------------------------- */}
+          <BottomWrapper> 
+
+            <ChitWrapper>
+              <Preview>preview</Preview>
+              <ChitInnerWrapper>
+
+              
+              <Chit> 000</Chit>
+              <ChitTitle> owed to Brad</ChitTitle>
+              </ChitInnerWrapper>
+            </ChitWrapper>
           <ButtonWrapper>
 
             <StyledButton
@@ -447,6 +677,8 @@ export default function TwoPartyChitForm_s(props) {
             </StyledButton>
 
           </ButtonWrapper>
+
+          </BottomWrapper>
         </FormWrapper>
 
       </FormProvider>
@@ -475,7 +707,8 @@ const Wrapper = styled('div')({
   height: '100%',
   overflow: 'auto',
   padding: '0 0 3px 16px',
-backgroundColor: '#F6F7F8',
+backgroundColor: 'white',
+
 borderRadius: '5px',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -489,6 +722,7 @@ const HeaderWrapper = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
+  color: chitBurgandy,
   padding: '.5rem 0 .5rem 0',
   marginBottom: '.5rem',
   borderBottom: '2px solid #CFD0D1',
@@ -510,7 +744,7 @@ const FormWrapper = styled('form')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '80%',
+  width: '95%',
 
 
 
@@ -529,6 +763,7 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '100%',
   margin: '.5rem',
+  borderBottom: '4px solid lightgrey',
 
  
   [theme.breakpoints.down('sm')]: {
@@ -575,14 +810,31 @@ const QuillComponentWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
-  border: '1px solid orange',
-  backgroundColor: 'white',
- 
+// border: '1px solid grey',
+borderRadius: '5px',
+// backgroundColor: 'white',
+ padding: '10px',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
   },
+})
 
+const QuillWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '95%',
+  height: '95%',
+border: '1px solid grey',
+borderRadius: '5px',
+backgroundColor: 'white',
+ padding: '2px',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
 })
 
 const SliderComponentWrapper= styled('div')({
@@ -600,13 +852,27 @@ const SliderComponentWrapper= styled('div')({
   },
 
 })
+const BottomWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+   backgroundColor: 'yellow',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
 const ButtonWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '60%',
-  margin: '.75rem',
+  width: '50%',
+  backgroundColor: 'orange',
 
   
   [theme.breakpoints.down('sm')]: {
@@ -616,9 +882,85 @@ const ButtonWrapper= styled('div')({
 
 })
 
-const StyledButton= styled(Button)({
-  color: 'white'
+const ChitWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '50%',
+ 
+  backgroundColor: 'green',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
 
+  },
+
+})
+
+const Preview= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '100%',
+  fontSize: '.8rem',
+  color: 'grey',
+  backgroundColor: 'white',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+const ChitInnerWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+ width: '100%',
+ height: '8rem',
+ 
+  backgroundColor: 'aqua',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+const Chit= styled('div')({
+  width: '2rem',
+  height: '2rem',
+  backgroundColor: 'pink',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ChitTitle= styled('div')({
+  width: '70%',
+  backgroundColor: 'blue',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+
+const StyledButton= styled(Button)({
+  color: 'white',
+  margin: '0 8px'
 })
 
 
@@ -643,9 +985,9 @@ const StyledCalendarIcon = styled(CalendarTodayIcon)({
 const RadiotWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '30%',
+  width: '100%',
  
  
   [theme.breakpoints.down('sm')]: {
@@ -663,6 +1005,20 @@ const NewInputContainer= styled('div')({
   width: '13rem',
   marginLeft: '9px',
  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+const Question = styled(HelpOutlineIcon)({
+ 
+  color: mediumGrey , 
+  fontSize: '1.1rem',
+  marginLeft: '1.5rem',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
