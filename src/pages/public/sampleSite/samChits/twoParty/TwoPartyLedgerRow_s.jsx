@@ -37,6 +37,267 @@ import { withStyles } from '@mui/styles'
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+// ==============================================================
+
+export default function TwoPartyLedgerRow(props) {
+
+  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
+
+  // console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
+
+  let dispatch = useDispatch()
+  
+  let passedId = id
+  
+  let status = useSelector(selectStatus)
+  let allGroups = useSelector(selectGroups)
+  let allPeople = useSelector(selectPeople)
+
+
+  // --- set up accordion display ----
+  let accordionId = status.accordionDisplay.id
+ 
+  let displayDetail 
+  if(passedId === accordionId){displayDetail = true}
+
+  const openDetailPanel = (passedId)=>{
+    dispatch(updateAccordionDisplay({id: passedId}))
+
+  }
+
+  const closeDetailPanel = (passedId)=>{
+    dispatch(updateAccordionDisplay({id: ''}))
+
+  }
+
+  //  --- define which coin is displayed
+
+  let coinAddress = chooseTwoPartyChitCoin(chitType, chitColor)
+ 
+  const pathToCoinImages = '../../../'
+  const coinDisplayed = pathToCoinImages + coinAddress
+
+  let chitDescription
+  chitType ==='kindness'? chitDescription = 'good will': chitDescription = chitType
+
+  //--- get Name to be displayed  ---
+  let nameDisplayed, personObject, groupObject
+
+  if(otherPartyCollection === 'people'){
+    personObject = allPeople.find(person => person.id === otherPartyId)
+
+    nameDisplayed = personObject.name
+  }
+
+
+ 
+  if(otherPartyCollection === 'groups'){
+  groupObject = allGroups.find(group => group.id === otherPartyId)
+ 
+  nameDisplayed = groupObject.name
+}
+
+
+  // --- set up IOU arrow color and message ---
+  let  youOwe 
+  
+  otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
+
+
+  // convert Dates for display
+
+  let styledChitDate = ISOtoTraditional(chitDate)
+  let styledDateCreated = ISOtoTraditional(dateCreated)
+  let styledTimeLock
+  timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
+
+
+  // format workRelated
+  let styledWorkRelated
+  workRelated ? styledWorkRelated = 'yes': styledWorkRelated = 'no'
+
+  // format deepd performed by
+  let styledDeedDoneBy
+  deedPerformedBy === otherPartyId ? styledDeedDoneBy = nameDisplayed: styledDeedDoneBy = 'you'
+
+  // format keywords
+  let styledKeywords = ''
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+  for(let i = 0; i < keyWordArray.length; i++){
+    if(i === keyWordArray.length - 1){
+      styledKeywords += keyWordArray[i]  
+    }else{
+    styledKeywords += keyWordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+ 
+ 
+ 
+ 
+ 
+
+  return (
+    
+    <Wrapper key = {passedId}>
+      <HeaderWrapper>
+
+
+        <DateContainer>{styledChitDate}</DateContainer>
+
+        <NameContainer>
+          <NameWrapper>
+            {nameDisplayed}
+          </NameWrapper>
+          {!youOwe && 
+          <>
+          <IOU/>
+          <div> Owes this chit to you</div>
+          </>}
+          {youOwe && 
+          <>
+          <YouOweMe/>
+          <div> You owe this chit</div>
+          </>}      
+
+        </NameContainer>
+
+
+        <IconWrapper> 
+        <Shared/>
+        <TimeLock/>
+        <DeleteIcon/>
+        <EditIcon/>
+
+
+
+      </IconWrapper>
+       
+
+      </HeaderWrapper>
+
+
+      <AccordionWrapper>
+
+        {!displayDetail &&
+          <MoreIcon
+            onClick={() => openDetailPanel(passedId)}
+          />
+
+        }
+
+        {displayDetail &&
+          <LessIcon
+            onClick={() => closeDetailPanel(passedId)}
+          />
+        }
+
+
+        <AccordionTopWrapper >
+
+          <ChitContainer>
+          <StyledImage src={coinDisplayed} alt="coin" />
+          <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
+            
+          </ChitContainer>
+    
+          <RightContainer>
+
+            <TopRightContainer>
+              <div> Description:</div>
+
+            </TopRightContainer>
+            <BottomRightContainer>
+{description}       
+
+            </BottomRightContainer>
+          </RightContainer>   
+
+
+
+        </AccordionTopWrapper>
+
+        {displayDetail && 
+         <AccordionBottomWrapper>
+        <AccordionDetailWrapper>
+          <LeftDetailWrapper></LeftDetailWrapper>
+          <MiddleDetailWrapper>
+            <DetailWrapper>
+              <DetailTitle>Deed performed by:</DetailTitle>
+              <Detail>{styledDeedDoneBy}</Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Chit created  by:</DetailTitle>
+              <Detail> you </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Date chit created:</DetailTitle>
+              <Detail> {styledDateCreated} </Detail>
+              </DetailWrapper>
+
+
+
+
+
+          </MiddleDetailWrapper>
+
+          <RightDetailWrapper>
+          <DetailWrapper>
+              <DetailTitle>Work related:</DetailTitle>
+              <Detail> {styledWorkRelated} </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Chit value</DetailTitle>
+              <Detail> {chitValue} </Detail>
+              </DetailWrapper>
+
+              <DetailWrapper>
+              <DetailTitle>Time Lock</DetailTitle>
+              <Detail> {styledTimeLock} </Detail>
+              </DetailWrapper>
+
+
+
+          </RightDetailWrapper>
+          
+        </AccordionDetailWrapper>
+       
+            <SearchWrapper>
+              <LeftSearchWrapper />
+              <KeyWordWrapper>  <em> keywords:  </em>{styledKeywords}</KeyWordWrapper>
+
+            </SearchWrapper>
+        </AccordionBottomWrapper>
+        }
+
+      </AccordionWrapper>
+
+
+
+
+    </Wrapper>
+  );
+}
+
 // -----------------------------------------------------------------
 
 const Wrapper = styled('div')({
@@ -638,265 +899,4 @@ const KeyWordWrapper= styled('div')({
 
 
 })
-
-
-// ==============================================================
-
-export default function TwoPartyLedgerRow(props) {
-
-  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
-
-  // console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
-
-  let dispatch = useDispatch()
-  
-  let passedId = id
-  
-  let status = useSelector(selectStatus)
-  let allGroups = useSelector(selectGroups)
-  let allPeople = useSelector(selectPeople)
-
-
-  // --- set up accordion display ----
-  let accordionId = status.accordionDisplay.id
- 
-  let displayDetail 
-  if(passedId === accordionId){displayDetail = true}
-
-  const openDetailPanel = (passedId)=>{
-    dispatch(updateAccordionDisplay({id: passedId}))
-
-  }
-
-  const closeDetailPanel = (passedId)=>{
-    dispatch(updateAccordionDisplay({id: ''}))
-
-  }
-
-  //  --- define which coin is displayed
-
-  let coinAddress = chooseTwoPartyChitCoin(chitType, chitColor)
- 
-  const pathToCoinImages = '../../../'
-  const coinDisplayed = pathToCoinImages + coinAddress
-
-  let chitDescription
-  chitType ==='kindness'? chitDescription = 'good will': chitDescription = chitType
-
-  //--- get Name to be displayed  ---
-  let nameDisplayed, personObject, groupObject
-
-  if(otherPartyCollection === 'people'){
-    personObject = allPeople.find(person => person.id === otherPartyId)
-
-    nameDisplayed = personObject.name
-  }
-
-
- 
-  if(otherPartyCollection === 'groups'){
-  groupObject = allGroups.find(group => group.id === otherPartyId)
- 
-  nameDisplayed = groupObject.name
-}
-
-
-  // --- set up IOU arrow color and message ---
-  let  youOwe 
-  
-  otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
-
-
-  // convert Dates for display
-
-  let styledChitDate = ISOtoTraditional(chitDate)
-  let styledDateCreated = ISOtoTraditional(dateCreated)
-  let styledTimeLock
-  timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
-
-
-  // format workRelated
-  let styledWorkRelated
-  workRelated ? styledWorkRelated = 'yes': styledWorkRelated = 'no'
-
-  // format deepd performed by
-  let styledDeedDoneBy
-  deedPerformedBy === otherPartyId ? styledDeedDoneBy = nameDisplayed: styledDeedDoneBy = 'you'
-
-  // format keywords
-  let styledKeywords = ''
-
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
-    //   styledKeywords = styledKeywords  + keyword + ' , '
-
-    //   return styledKeywords
-    // }
-    // ) //end map
-
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
-    }else{
-    styledKeywords += keyWordArray[i] + ' , '
-    }
-  }
- 
-
-  }//end if keyword.length > 0
-
-  if (keyWordArray.length === 0) {
-styledKeywords = 'none'
-  }
-
- 
- 
- 
- 
- 
-
-  return (
-    
-    <Wrapper key = {passedId}>
-      <HeaderWrapper>
-
-
-        <DateContainer>{styledChitDate}</DateContainer>
-
-        <NameContainer>
-          <NameWrapper>
-            {nameDisplayed}
-          </NameWrapper>
-          {!youOwe && 
-          <>
-          <IOU/>
-          <div> Owes this chit to you</div>
-          </>}
-          {youOwe && 
-          <>
-          <YouOweMe/>
-          <div> You owe this chit</div>
-          </>}      
-
-        </NameContainer>
-
-
-        <IconWrapper> 
-        <Shared/>
-        <TimeLock/>
-        <DeleteIcon/>
-        <EditIcon/>
-
-
-
-      </IconWrapper>
-       
-
-      </HeaderWrapper>
-
-
-      <AccordionWrapper>
-
-        {!displayDetail &&
-          <MoreIcon
-            onClick={() => openDetailPanel(passedId)}
-          />
-
-        }
-
-        {displayDetail &&
-          <LessIcon
-            onClick={() => closeDetailPanel(passedId)}
-          />
-        }
-
-
-        <AccordionTopWrapper >
-
-          <ChitContainer>
-          <StyledImage src={coinDisplayed} alt="coin" />
-          <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
-            
-          </ChitContainer>
-    
-          <RightContainer>
-
-            <TopRightContainer>
-              <div> Description:</div>
-
-            </TopRightContainer>
-            <BottomRightContainer>
-{description}       
-
-            </BottomRightContainer>
-          </RightContainer>   
-
-
-
-        </AccordionTopWrapper>
-
-        {displayDetail && 
-         <AccordionBottomWrapper>
-        <AccordionDetailWrapper>
-          <LeftDetailWrapper></LeftDetailWrapper>
-          <MiddleDetailWrapper>
-            <DetailWrapper>
-              <DetailTitle>Deed performed by:</DetailTitle>
-              <Detail>{styledDeedDoneBy}</Detail>
-              </DetailWrapper>
-
-              <DetailWrapper>
-              <DetailTitle>Chit created  by:</DetailTitle>
-              <Detail> you </Detail>
-              </DetailWrapper>
-
-              <DetailWrapper>
-              <DetailTitle>Date chit created:</DetailTitle>
-              <Detail> {styledDateCreated} </Detail>
-              </DetailWrapper>
-
-
-
-
-
-          </MiddleDetailWrapper>
-
-          <RightDetailWrapper>
-          <DetailWrapper>
-              <DetailTitle>Work related:</DetailTitle>
-              <Detail> {styledWorkRelated} </Detail>
-              </DetailWrapper>
-
-              <DetailWrapper>
-              <DetailTitle>Chit value</DetailTitle>
-              <Detail> {chitValue} </Detail>
-              </DetailWrapper>
-
-              <DetailWrapper>
-              <DetailTitle>Time Lock</DetailTitle>
-              <Detail> {styledTimeLock} </Detail>
-              </DetailWrapper>
-
-
-
-          </RightDetailWrapper>
-          
-        </AccordionDetailWrapper>
-       
-            <SearchWrapper>
-              <LeftSearchWrapper />
-              <KeyWordWrapper>  <em> keywords:  </em>{styledKeywords}</KeyWordWrapper>
-
-            </SearchWrapper>
-        </AccordionBottomWrapper>
-        }
-
-      </AccordionWrapper>
-
-
-
-
-    </Wrapper>
-  );
-}
 

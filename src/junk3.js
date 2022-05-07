@@ -17,19 +17,10 @@ import {
   closeLogSectionForm, 
   closeNewLogForm, 
   selectStatus, 
-  updateFormPageView
+   
+
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
-
-
-// --- page imports
-import TwoPartyChitFormWho from './twoPartyChitForm_who_s'
-import TwoPartyChitFormWhen from './twoPartyChitForm_when_s'
-import TwoPartyChitFormChit from './twoPartyChitForm_chit_s'
-import TwoPartyChitFormDetails from './twoPartyChitForm_details_s'
-import TwoPartyChitFormPreview from './twoPartyChitForm_preview_s'
-
-
 // ---mui imports 
 
 import { styled, createTheme} from '@mui/material/styles'
@@ -42,7 +33,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // ==============================================================
 
-export default function TwoPartyChitForm_s(props) {
+export default function twoPartyChitForm_s(props) {
   let match = useParams()
   const dispatch = useDispatch()
   
@@ -52,22 +43,17 @@ export default function TwoPartyChitForm_s(props) {
 
   console.log('[ twoPartyChitForm ] formPage ', formPage);
 
-  let breadCrumbsArray = ['who', 'when', 'details', 'chit' , 'preview']
+  let breadCrumbsArray = ['who', 'when', 'details', 'chit' , 'preview-submit']
   
   
   let breadCrumbPage = breadCrumbsArray.map((breadCrumb, index) => {
     if (breadCrumb === formPage) {
       return (
-        <BreadCrumbDisabled key={breadCrumb} id={breadCrumb}> {breadCrumb} </BreadCrumbDisabled>
+        <BreadCrumbDisabled key={breadCrumb}> {breadCrumb} </BreadCrumbDisabled>
       )
     } else {
       return (
-        <BreadCrumb 
-        key={breadCrumb} 
-        id={breadCrumb} 
-        onClick = {(evt)=>changePage(evt)}
-        
-        > {breadCrumb} </BreadCrumb>
+        <BreadCrumb key={breadCrumb}> {breadCrumb} </BreadCrumb>
 
       )
     }
@@ -75,10 +61,8 @@ export default function TwoPartyChitForm_s(props) {
 
 
   function changePage(evt){
-    let newPage = evt.currentTarget.id
-    console.log('[ twoPartyChitForm - change page function ] evt.currentTarget.id ', evt.currentTarget.id);
 
-    dispatch(updateFormPageView({pageType: 'twoPartyChitForm', page: newPage}))
+    console.log('[ twoPartyChitForm - change page function ] evt.currentTarget.id ', evt.currentTarget.id);
   }
   // === Main Return =====================================
 
@@ -89,27 +73,7 @@ export default function TwoPartyChitForm_s(props) {
       </BreadCrumbsWrapper>
 
       <PageWrapper>
-  
-        {formPage === 'who' &&
-          <TwoPartyChitFormWho />
-        }  
-        { formPage === 'when' &&
-          <TwoPartyChitFormWhen />
-        }  
-        {formPage === 'details' &&
-          <TwoPartyChitFormDetails />
-        }  
-        {formPage === 'chit' &&
-          <TwoPartyChitFormChit />
-        }  
-
-        {formPage === 'preview' &&
-          <TwoPartyChitFormPreview />
-        }  
-
-
-
-
+        Main wrapper form here
       </PageWrapper>
       
 

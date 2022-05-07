@@ -117,7 +117,36 @@ export const statusSlice = createSlice({
         display: 'ledger'  // ledger or block
          
       },
+
+            // for Notes.jsx ----------------------------------
   
+      forms: {
+
+        twoPartyChitForm: {
+          formPage: 'who',
+          chitType: '',
+          chitValue: 10,
+          chitColor: '',
+          dateCreated: '',
+          chitDate: '',
+          timeLock: '',
+          otherPartyCollection: '',
+          otherPartyId: '',
+          deedPerformedBy: '',
+          workRelated: 'false',
+          description: '',
+          keywordArray: [],
+          duplicate: '',
+          sharedId: '',
+          sharedTitle: '',
+          message: ''
+
+        }
+
+        
+          
+      },
+
       // for Inspiration.jsx ----------------------------------
   
       inspire: {
@@ -183,6 +212,21 @@ export const statusSlice = createSlice({
       state.view[action.payload.pageType].id = action.payload.id
                    
     },
+
+    updateFormPageView: (state, action) => {
+
+      let pageType = action.payload.pageType
+      let page = action.payload.page
+
+      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView -page type', action.payload.pageType);
+      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView - just page', action.payload.page);
+  
+      state.view.forms[pageType].formPage = page
+      // state.view[action.payload.pageType].sectionId = action.payload.sectionId
+      // state.view[action.payload.pageType].id = action.payload.id
+                   
+    },
+
 
     updateChronicleView: (state, action) => {
 
@@ -280,6 +324,7 @@ export const {
   closeJournalForm,
   openJournalForm,
   
+  updateFormPageView,
   closeLogSectionForm,
   closeNewLogForm,
   openLogForm,

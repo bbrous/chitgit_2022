@@ -42,7 +42,7 @@ import HelpChronicles from '../../sampleSite/samHelp/Help_chronicles_s'
 import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
 import PersonalChitForm from '../samForms/PersonalChitForm_s'
-import TwoPartyChitForm from '../samForms/TwoPartyChitForm_s'
+import TwoPartyChitForm from '../samForms/twoPartyChitForm_s'
 
 // import WOChitDetail from '../../features/main/views/chitView/WO_ChitDetail'
 // import PEChitDetail from '../../features/main/views/chitView/PE_ChitDetail'
