@@ -1,171 +1,176 @@
-/*---- File - twoPartyChitForm.jsx 
+const submitForm = async (data) => {
 
-   container for the form wizard pages
+  const {chitType, newExisting,  person, newPerson, 
+                        group, newGroup, groupType} = data
 
+  console.log('[LogSectionForm]...data ', data)
+  console.log('[LogSectionForm]...chitType ', chitType)
 
-   Contains children: 
-       twoPartyChitForm pages 
-   parent: modal 
-*/
+  try {
 
-
-import React, {useState, useEffect}  from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate, useParams } from 'react-router-dom'
-
-import {
-  closeLogSectionForm, 
-  closeNewLogForm, 
-  selectStatus, 
-   
+    // --- start the loading spinner ---
+    dispatch(changeLoadingStatus(true))
 
 
-} from '../../../../app/redux/statusRedux/sam_statusSlice'
-// ---mui imports 
 
-import { styled, createTheme} from '@mui/material/styles'
-import {withStyles} from '@mui/styles'
-import { chitBlueDull, chitBurgandy } from '../../../../styles/colors'
+    
+    // --- create new logHolder ------------
 
+      let newLogHolderData = {}
+      let newlogId
+      // --- 1.  is chitType a person -----
 
-const theme = createTheme(); // allows use of mui theme in styled component
+      if (chitType === 'person') {
 
+        // --- 1a.  does the person exist already ---
 
-// ==============================================================
+        if (newExisting === 'existing') {
 
-export default function twoPartyChitForm_s(props) {
-  let match = useParams()
-  const dispatch = useDispatch()
-  
-  let URLId = match.id
-  const status = useSelector(selectStatus)
-  let formPage = status.view.forms.twoPartyChitForm.formPage
+          /* 1. clean the form input - strip whitespace
+             2. find the person in the peopleArray
+             3. create the object to add to logHolders collection
+             4. dispatch to store 
+          */
+          let newPerson = stripWhiteSpace(data.person)
+          
+          let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
 
-  console.log('[ twoPartyChitForm ] formPage ', formPage);
+          newLogHolderData = {id: newPersonObject.id, collection: 'people'}
+          newlogId = newPersonObject.id
+          dispatch(addLogHolderToStore(newLogHolderData))
 
-  let breadCrumbsArray = ['who', 'when', 'details', 'chit' , 'preview-submit']
-  
-  
-  let breadCrumbPage = breadCrumbsArray.map((breadCrumb, index) => {
-    if (breadCrumb === formPage) {
-      return (
-        <BreadCrumbDisabled key={breadCrumb}> {breadCrumb} </BreadCrumbDisabled>
-      )
-    } else {
-      return (
-        <BreadCrumb key={breadCrumb}> {breadCrumb} </BreadCrumb>
+        } // end person and existing
 
-      )
-    }
-  }) // end if else
+        // --- 1b  is it a new person ------------------
 
+        if (newExisting === 'new') {
 
-  function changePage(evt){
-
-    console.log('[ twoPartyChitForm - change page function ] evt.currentTarget.id ', evt.currentTarget.id);
-  }
-  // === Main Return =====================================
-
-  return (
-    <Wrapper>
-      <BreadCrumbsWrapper>
-        {breadCrumbPage}
-      </BreadCrumbsWrapper>
-
-      <PageWrapper>
-        Main wrapper form here
-      </PageWrapper>
-      
+            /* 1. clean the form input - strip whitespace
+             2. create new person Id in sample
+                x - add newPerson to people collection in database
+                x- get new person's Id back
+             3. create the object to add to logHolders collection
+             4. dispatch to store 
+          */
 
 
-      
-    </Wrapper>
-  )
-} // --- end breadCrumbPage
+          let newPersonId = cuid()
+          let cleanedNewPerson = stripWhiteSpace(data.newPerson)
+          let newPersonObject  = {
+            id: newPersonId,
+            type: 'person',
+            name: cleanedNewPerson,
+            meta: '',
+            peopleHolders: [
+              {
+                id: newPersonId,
+                dbCollection: 'logHolders'}
+            ]
+          }
 
 
-// ==== Styles ===========================================
-const Wrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // zIndex: '95',
-  
-  width: 'calc(100%-12px)',
-  height: '100%',
-  overflow: 'auto',
-  padding: '0 0 3px 4px',
-backgroundColor: 'red',
+          newlogId = newPersonId
+          dispatch(addPersonToStore(newPersonObject))
 
-borderRadius: '5px',
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
+          newLogHolderData = {id: newPersonId, collection: 'people'}
+          dispatch(addLogHolderToStore(newLogHolderData))
 
-})
 
-const PageWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // zIndex: '95',
-  backgroundColor: 'yellow',
+        } // person && new
 
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
 
-})
 
-const BreadCrumbsWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  fontSize: '.8rem',
-  width: '100%',
+      } // chitType = person
 
-  padding: '0 0 3px 16px',
 
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
+     
+      if (chitType === 'group') {
 
-})
+        // --- 1a.  does the group exist already 
+        if (newExisting === 'existing') {
 
-const BreadCrumb = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  cursor: 'pointer',
-  marginRight: '1.5rem',
-  color: chitBlueDull,
-   
+          /* 1. clean the form input - strip whitespace
+             2. find the group in the groupsArray
+             3. create the object to add to logHolders collection
+             4. dispatch to store 
+          */
+             let newGroup = stripWhiteSpace(data.group)
+          
+             let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
+ 
+             newLogHolderData = {id: newGroupObject.id, collection: 'groups'}
+ 
+             dispatch(addLogHolderToStore(newLogHolderData))
+             newlogId = newGroupObject.id
 
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
+        }// end group and existing
 
-})
+        // --- 1b  is it a new group 
+        if (newExisting === 'new') {
 
-const BreadCrumbDisabled = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  color: chitBurgandy,
-  marginRight: '1.5rem',
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
 
-})
 
+    console.log('[ Log FORM ] newExisting  group is new', newExisting);
+
+
+            /* 1. clean the form input - strip whitespace
+             2. create new person Id in sample
+                x - add newPerson to people collection in database
+                x- get new person's Id back
+             3. create the object to add to logHolders collection
+             4. dispatch to store 
+          */
+
+
+             let newGroupId = cuid()
+             let cleanedNewGroup = stripWhiteSpace(data.newGroup)
+             let newGroupObject  = {
+               id: newGroupId,
+               type: 'data.groupType',
+               name: cleanedNewGroup,
+               meta: data.meta,
+               groupHolders: [
+                 {
+                   id: newGroupId,
+                   dbCollection: 'logHolders'}
+               ]
+             }
+ 
+ 
+             newlogId = newGroupId
+             dispatch(addGroupToStore(newGroupObject))
+ 
+             newLogHolderData = {id: newGroupId, collection: 'groups'}
+             dispatch(addLogHolderToStore(newLogHolderData))
+
+
+
+
+
+
+
+        } // end group && new
+
+
+
+      } // end chitType = group
+
+
+
+      dispatch(changeLoadingStatus(false))
+      reset()
+
+      dispatch(closeLogSectionForm())
+      reset(defaultValues)
+
+      navigate(`/sample/logs/${newlogId}`)
+
+
+  } catch (error) {
+    alert(error.message)
+    dispatch(changeLoadingStatus(false))
+
+    reset(defaultValues)
+
+  } // end catch
+} // end async submit

@@ -218,10 +218,60 @@ export const statusSlice = createSlice({
       let pageType = action.payload.pageType
       let page = action.payload.page
 
-      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView -page type', action.payload.pageType);
-      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView - just page', action.payload.page);
+      // console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView -page type', action.payload.pageType);
+      // console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView - just page', action.payload.page);
   
       state.view.forms[pageType].formPage = page
+      // state.view[action.payload.pageType].sectionId = action.payload.sectionId
+      // state.view[action.payload.pageType].id = action.payload.id
+                   
+    },
+
+    updateTwoPartyViewData: (state, action) => {
+
+      console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who data', action.payload.data);
+
+      let pageType = action.payload.pageType
+      let page = action.payload.page
+      let data = action.payload.data
+
+      let otherPartyId, otherPartyCollection
+
+
+      switch(page){
+        case 'who': 
+          otherPartyId = data.id
+          otherPartyCollection = data.collection
+      
+          state.view.forms[pageType].formPage = 'when'
+          state.view.forms[pageType].otherPartyId = otherPartyId
+          state.view.forms[pageType].otherPartyCollection = otherPartyCollection
+
+          break;
+    
+        case 'when': 
+
+
+        
+
+          console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateTwoPartyViewData - -who data', action.payload.data);
+
+          break;
+        default:
+          console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] no data');
+
+        }
+
+
+   
+
+      console.log('[ samStatus_slice ] updateTwoPartyViewData -page type', action.payload.pageType);
+      console.log('[ samStatus_slice] updateTwoPartyViewData - just page', action.payload.page);
+    
+
+
+
+      // state.view.forms[pageType].formPage = page
       // state.view[action.payload.pageType].sectionId = action.payload.sectionId
       // state.view[action.payload.pageType].id = action.payload.id
                    
@@ -325,6 +375,7 @@ export const {
   openJournalForm,
   
   updateFormPageView,
+  updateTwoPartyViewData,
   closeLogSectionForm,
   closeNewLogForm,
   openLogForm,

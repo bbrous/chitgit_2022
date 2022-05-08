@@ -47,7 +47,7 @@ import {
   closeLogSectionForm, 
   closeNewLogForm, 
   selectStatus, 
-   
+  updateTwoPartyViewData
 
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -167,31 +167,31 @@ export default function TwoPartyChitForm_who_s(props) {
 
 
   const formSchema = object({
-    person: string().when(["chitType", "newExisting"], {
-      is: (chitType, newExisting) => chitType === 'person' && newExisting === 'existing',
+    person: string().when(["otherPartyType", "newExisting"], {
+      is: (otherPartyType, newExisting) => otherPartyType === 'person' && newExisting === 'existing',
       then: string().required('You must choose a person')
       .nullable()
     })
     .nullable(),
    
-    group: string().when(["chitType", "newExisting"], {
-      is: (chitType, newExisting) => chitType === 'group' && newExisting === 'existing',
+    group: string().when(["otherPartyType", "newExisting"], {
+      is: (otherPartyType, newExisting) => otherPartyType === 'group' && newExisting === 'existing',
       then: string().required('You must choose a group')
       .nullable()
     })
     .nullable(),
 
   
-    newPerson: string().when(["chitType", "newExisting"], {
-      is: (chitType, newExisting) => chitType === 'person' && newExisting === 'new',
+    newPerson: string().when(["otherPartyType", "newExisting"], {
+      is: (otherPartyType, newExisting) => otherPartyType === 'person' && newExisting === 'new',
       then: string().required('You must enter a new person')
   })
   .test('test-name', 'Person exists - create new name - or - check existing box above', 
   doesPersonExist
   ) ,
   
-  newGroup: string().when(["chitType", "newExisting"], {
-    is: (chitType, newExisting) => chitType === 'group' && newExisting === 'new',
+  newGroup: string().when(["otherPartyType", "newExisting"], {
+    is: (otherPartyType, newExisting) => otherPartyType === 'group' && newExisting === 'new',
     then: string().required('You must enter a new group')
   })
   .test('test-name', 'Group exists - create new name - or - check existing box above', 
@@ -322,7 +322,7 @@ let defaultValues, sectionId
   defaultValues = {
   
     meta: '',
-    chitType: 'person',
+    otherPartyType: 'person',
     newExisting: 'existing',
     person: null,
     group: null,
@@ -353,114 +353,124 @@ let defaultValues, sectionId
 
   const submitForm = async (data) => {
 
-    const {chitType, newExisting,  person, newPerson, 
+    const {otherPartyType, newExisting,  person, newPerson, 
                           group, newGroup, groupType} = data
 
-    console.log('[LogSectionForm]...data ', data)
-    console.log('[LogSectionForm]...chitType ', chitType)
+    console.log('[twoPartyChitForm]...data ', data)
+    console.log('[twoPartyChitForm]...otherPartyType ', otherPartyType)
  
     try {
 
       // --- start the loading spinner ---
       dispatch(changeLoadingStatus(true))
-      // --- create new logHolder ------------
-  
-        let newLogHolderData = {}
-        let newlogId
-        // --- 1.  is chitType a person -----
 
-        if (chitType === 'person') {
+    // --- create new logHolder ------------
 
-          // --- 1a.  does the person exist already ---
+    let newChitData = {}
+    let newChitId
 
-          if (newExisting === 'existing') {
+
+          // --- 1.  is otherPartyType a person -----
+
+          if (otherPartyType === 'person') {
+
+            // --- 1a.  does the person exist already ---
+    
+            if (newExisting === 'existing') {
+    
+              /* 1. clean the form input - strip whitespace
+                 2. find the person in the peopleArray
+                 3. create the object to add to logHolders collection
+                 4. dispatch to store 
+              */
+              let newPerson = stripWhiteSpace(data.person)
+              
+              let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
+    
+              newChitData = {id: newPersonObject.id, collection: 'people'}
+              newChitId = newPersonObject.id
+
+
+
+              dispatch(updateTwoPartyViewData( 
+                {pageType: 'twoPartyChitForm'   , 
+                page: 'who'   , 
+                data: newChitData
+              } 
+              )) // end dispatch
+    
+            } // end person and existing
+
+ // --- 1b  is it a new person ------------------
+            if (newExisting === 'new') {
 
             /* 1. clean the form input - strip whitespace
-               2. find the person in the peopleArray
-               3. create the object to add to logHolders collection
-               4. dispatch to store 
-            */
-            let newPerson = stripWhiteSpace(data.person)
-            
-            let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
+             2. create new person Id in sample
+                x - add newPerson to people collection in database
+                x- get new person's Id back
+             3. create the object to add to logHolders collection
+             4. dispatch to store 
+          */
+             let newPersonId = cuid()
+             let cleanedNewPerson = stripWhiteSpace(data.newPerson)
+             let newPersonObject  = {
+               id: newPersonId,
+               type: 'person',
+               name: cleanedNewPerson,
+               meta: '',
+               peopleHolders: [
+                 {
+                   id: newPersonId,
+                   dbCollection: 'twoPartyChits'}
+               ]
+             }
+             
+             dispatch(addPersonToStore(newPersonObject))
+             newChitData = {id: newPersonObject.id, collection: 'people'}
 
-            newLogHolderData = {id: newPersonObject.id, collection: 'people'}
-            newlogId = newPersonObject.id
-            dispatch(addLogHolderToStore(newLogHolderData))
+              dispatch(updateTwoPartyViewData(
+                {
+                  pageType: 'twoPartyChitForm',
+                  page: 'who',
+                  data: newChitData
+                }
+              )) // end dispatch
 
-          } // end person and existing
+            } // person && new
 
-          // --- 1b  is it a new person ------------------
+          } // otherPartyType = person
 
-          if (newExisting === 'new') {
+
+          if (otherPartyType === 'group') {
+
+            if (newExisting === 'existing') {
 
               /* 1. clean the form input - strip whitespace
-               2. create new person Id in sample
-                  x - add newPerson to people collection in database
-                  x- get new person's Id back
-               3. create the object to add to logHolders collection
-               4. dispatch to store 
-            */
+                 2. find the group in the groupsArray
+                 3. create the object to add to logHolders collection
+                 4. dispatch to store 
+              */
 
-
-            let newPersonId = cuid()
-            let cleanedNewPerson = stripWhiteSpace(data.newPerson)
-            let newPersonObject  = {
-              id: newPersonId,
-              type: 'person',
-              name: cleanedNewPerson,
-              meta: '',
-              peopleHolders: [
-                {
-                  id: newPersonId,
-                  dbCollection: 'logHolders'}
-              ]
-            }
-
-
-            newlogId = newPersonId
-            dispatch(addPersonToStore(newPersonObject))
-
-            newLogHolderData = {id: newPersonId, collection: 'people'}
-            dispatch(addLogHolderToStore(newLogHolderData))
-
-
-          } // person && new
-
-
-
-        } // chitType = person
-
-
-       
-        if (chitType === 'group') {
-
-          // --- 1a.  does the group exist already 
-          if (newExisting === 'existing') {
-
-            /* 1. clean the form input - strip whitespace
-               2. find the group in the groupsArray
-               3. create the object to add to logHolders collection
-               4. dispatch to store 
-            */
-               let newGroup = stripWhiteSpace(data.group)
+                 let newGroup = stripWhiteSpace(data.group)
             
-               let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
-   
-               newLogHolderData = {id: newGroupObject.id, collection: 'groups'}
-   
-               dispatch(addLogHolderToStore(newLogHolderData))
-               newlogId = newGroupObject.id
+                 let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
 
-          }// end group and existing
+                 newChitData = {id: newGroupObject.id, collection: 'groups'}
+
+                 dispatch(updateTwoPartyViewData(
+                  {
+                    pageType: 'twoPartyChitForm',
+                    page: 'who',
+                    data: newChitData
+                  }
+                )) // end dispatch
+
+
+            }// end if newExisting === existing
+
 
           // --- 1b  is it a new group 
           if (newExisting === 'new') {
-
-
-
-      console.log('[ Log FORM ] newExisting  group is new', newExisting);
-
 
               /* 1. clean the form input - strip whitespace
                2. create new person Id in sample
@@ -481,38 +491,35 @@ let defaultValues, sectionId
                  groupHolders: [
                    {
                      id: newGroupId,
-                     dbCollection: 'logHolders'}
+                     dbCollection: 'twoPartyChits'}
                  ]
                }
-   
-   
-               newlogId = newGroupId
+
                dispatch(addGroupToStore(newGroupObject))
-   
-               newLogHolderData = {id: newGroupId, collection: 'groups'}
-               dispatch(addLogHolderToStore(newLogHolderData))
+
+
+
+               newChitData = {id: newGroupObject.id, collection: 'groups'}
+
+               dispatch(updateTwoPartyViewData(
+                {
+                  pageType: 'twoPartyChitForm',
+                  page: 'who',
+                  data: newChitData
+                }
+              )) // end dispatch
+
+
+            }// end if newExisting === new
 
 
 
 
 
 
-
-          } // end group && new
-
+          }// end otherPartyType = 'group
 
 
-        } // end chitType = group
-
-
-
-        dispatch(changeLoadingStatus(false))
-        reset()
-
-        dispatch(closeLogSectionForm())
-        reset(defaultValues)
-
-        navigate(`/sample/logs/${newlogId}`)
 
 
     } catch (error) {
@@ -526,7 +533,7 @@ let defaultValues, sectionId
 
    
 
-  const showchitTypeInput = watch('chitType')
+  const showOtherPartyTypeInput = watch('otherPartyType')
   const showNewExisting = watch('newExisting')
 
   // ==== return - Form JSX  ======================================
@@ -550,9 +557,9 @@ let defaultValues, sectionId
               <ComponentWrapper>
                 <RadiotWrapper>
                   <ChronicleRadio
-                    name={"chitType"}
+                    name={"otherPartyType"}
                     control={control}
-                    label={"chitType"}
+                    label={"otherPartyType"}
                     options={[
                       {
                         label: "person",
@@ -580,7 +587,7 @@ let defaultValues, sectionId
                   <ChronicleRadio
                     name={"newExisting"}
                     control={control}
-                    label={"chitType"}
+                    label={"otherPartyType"}
                     options={[
                       {
                         label: "existing",
@@ -610,7 +617,7 @@ let defaultValues, sectionId
         
         
               <SelectWrapper>
-                {showchitTypeInput === 'person' && 
+                {showOtherPartyTypeInput === 'person' && 
                 <>
                 
                   <ChronicleSelectMui
@@ -633,7 +640,7 @@ let defaultValues, sectionId
                 }
 
 
-                {showchitTypeInput === 'group' &&
+                {showOtherPartyTypeInput === 'group' &&
                   <>
                 
                   <ChronicleSelectMui
@@ -674,7 +681,7 @@ let defaultValues, sectionId
 
 
           <CreateNewWrapper>
-            {showchitTypeInput === 'person' &&
+            {showOtherPartyTypeInput === 'person' &&
               <NewWrapper>
 
 
@@ -715,7 +722,7 @@ let defaultValues, sectionId
             }
 
 {/* ############################################################# */}
-{showchitTypeInput === 'group' &&
+{showOtherPartyTypeInput === 'group' &&
               <NewWrapper>
 
 
