@@ -77,7 +77,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme } from '@mui/material/styles'
-import { chitBlueDull, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull } from '../../../../styles/colors'
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -676,6 +676,16 @@ if (peopleArrayDifference.length > 0) {
           <ButtonWrapper>
 
             <StyledButton
+
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
+              onClick={() => dispatch(closeLogSectionForm())}
+            >
+              Cancel
+            </StyledButton>
+
+            <StyledButton
               type="submit"
               variant="contained"
               color="primary"
@@ -685,15 +695,6 @@ if (peopleArrayDifference.length > 0) {
             </StyledButton>
 
 
-            <StyledButton
-
-              variant="contained"
-              color="primary"
-              style={{ textTransform: 'none' }}
-              onClick={() => dispatch(closeLogSectionForm())}
-            >
-              Cancel
-            </StyledButton>
 
 
 
@@ -1096,8 +1097,16 @@ const ButtonWrapper= styled('div')({
 })
 
 const StyledButton= styled(Button)({
-  color: 'white',
-  margin: '0 8px'
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '5rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
 
 })
 

@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, darkGrey, lightGrey, chitBurgandyDull, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -827,14 +827,6 @@ render={({ field }) => (
           {/* ------Submit ---------- -------------------------- */}
           <ButtonWrapper>
 
-            <StyledButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ textTransform: 'none' }}
-            >
-              Submit
-            </StyledButton>
 
             <StyledButton
 
@@ -846,6 +838,14 @@ render={({ field }) => (
               Cancel
             </StyledButton>
 
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{ textTransform: 'none' }}
+            >
+              Submit
+            </StyledButton>
           </ButtonWrapper>
         </FormWrapper>
 
@@ -1181,13 +1181,21 @@ const ButtonWrapper= styled('div')({
 
 })
 
+ 
+
 const StyledButton= styled(Button)({
-  color: 'white',
-  margin: '0 8px'
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '5rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
 
 })
-
-
  
 // -----------------------------------
 

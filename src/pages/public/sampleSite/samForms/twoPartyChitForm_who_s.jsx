@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, darkGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -167,31 +167,31 @@ export default function TwoPartyChitForm_who_s(props) {
 
 
   const formSchema = object({
-    person: string().when(["logType", "newExisting"], {
-      is: (logType, newExisting) => logType === 'person' && newExisting === 'existing',
+    person: string().when(["chitType", "newExisting"], {
+      is: (chitType, newExisting) => chitType === 'person' && newExisting === 'existing',
       then: string().required('You must choose a person')
       .nullable()
     })
     .nullable(),
    
-    group: string().when(["logType", "newExisting"], {
-      is: (logType, newExisting) => logType === 'group' && newExisting === 'existing',
+    group: string().when(["chitType", "newExisting"], {
+      is: (chitType, newExisting) => chitType === 'group' && newExisting === 'existing',
       then: string().required('You must choose a group')
       .nullable()
     })
     .nullable(),
 
   
-    newPerson: string().when(["logType", "newExisting"], {
-      is: (logType, newExisting) => logType === 'person' && newExisting === 'new',
+    newPerson: string().when(["chitType", "newExisting"], {
+      is: (chitType, newExisting) => chitType === 'person' && newExisting === 'new',
       then: string().required('You must enter a new person')
   })
   .test('test-name', 'Person exists - create new name - or - check existing box above', 
   doesPersonExist
   ) ,
   
-  newGroup: string().when(["logType", "newExisting"], {
-    is: (logType, newExisting) => logType === 'group' && newExisting === 'new',
+  newGroup: string().when(["chitType", "newExisting"], {
+    is: (chitType, newExisting) => chitType === 'group' && newExisting === 'new',
     then: string().required('You must enter a new group')
   })
   .test('test-name', 'Group exists - create new name - or - check existing box above', 
@@ -213,12 +213,12 @@ export default function TwoPartyChitForm_who_s(props) {
 
 
 // create selector Options -----------------------------
-  let logsIdArray = []
+  let groupsIdArray = []
 
   allLogHolders.map((log, index) => {
-    logsIdArray.push(log.id)
+    groupsIdArray.push(log.id)
 
-    return logsIdArray
+    return groupsIdArray
   }
   ) //end map
 
@@ -243,7 +243,7 @@ export default function TwoPartyChitForm_who_s(props) {
 
   sortedFilteredPeople.map((person, index) => {
 
-    let personExists = logsIdArray.includes(person.id)
+    let personExists = groupsIdArray.includes(person.id)
   //   let personObject = person.name
     if (personExists) {
       // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', person.id);
@@ -261,49 +261,52 @@ export default function TwoPartyChitForm_who_s(props) {
     return peopleOptionsArray
   }
   ) //end map
-  // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', peopleOptionsArray)
 
 
   // -- create Options for  group select ----- 
   let groupsObjectArray = []
   let groupsOptionsArray = []
 
-  // -- get rid of "unknown" from all people
-  let filteredGroups = allGroups.filter(item => item.id !== 'unknown')
+ 
+   let validGroups = allGroups.filter(item => item.type !== 'company' &&  item.type !== 'organization')
+
    
-  
-  let sortedFilteredGroups = descendSorter(filteredGroups, 'name')
+
+    //  console.log('[ Two Party Chit Form  ] NO NO NO - Not INCLUDED', x)
+
+ 
+  let sortedFilteredGroups = descendSorter(validGroups, 'name')
 
   sortedFilteredGroups.map((group, index) => {
-    groupsObjectArray.push(group.name)
+    groupsOptionsArray.push(group.name)
 
-
-    return groupsObjectArray
-  }
-  ) //end map
-
-  // console.log('[ LogForm ] sortedFilteredGroups ', sortedFilteredGroups);
-
-  sortedFilteredGroups.map((group, index) => {
-
-    let groupExists = logsIdArray.includes(group.id)
-  //   let groupObject = group.name
-    if (groupExists) {
-      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', group.id);
-
-
-
-
-    }
-    if (!groupExists) {
-      // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  group.id);
-      groupsOptionsArray.push(group.name)
-
-    }
 
     return groupsOptionsArray
   }
   ) //end map
+
+ 
+
+  // sortedFilteredGroups.map((group, index) => {
+
+  //   let groupExists = groupsIdArray.includes(group.id)
+  // //   let groupObject = group.name
+  //   if (groupExists) {
+  //     // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', group.id);
+
+
+
+
+  //   }
+  //   if (!groupExists) {
+  //     // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  group.id);
+  //     groupsOptionsArray.push(group.name)
+
+  //   }
+
+  //   return groupsOptionsArray
+  // }
+  // ) //end map
   // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupsOptionsArray)
 
  
@@ -319,13 +322,13 @@ let defaultValues, sectionId
   defaultValues = {
   
     meta: '',
-    logType: 'person',
+    chitType: 'person',
     newExisting: 'existing',
     person: null,
     group: null,
     newPerson: '',
     newGroup: '',
-    groupType: 'other',
+    groupType: 'charity',
     keywords: [],
     people: [],
   
@@ -350,11 +353,11 @@ let defaultValues, sectionId
 
   const submitForm = async (data) => {
 
-    const {logType, newExisting,  person, newPerson, 
+    const {chitType, newExisting,  person, newPerson, 
                           group, newGroup, groupType} = data
 
     console.log('[LogSectionForm]...data ', data)
-    console.log('[LogSectionForm]...logType ', logType)
+    console.log('[LogSectionForm]...chitType ', chitType)
  
     try {
 
@@ -364,9 +367,9 @@ let defaultValues, sectionId
   
         let newLogHolderData = {}
         let newlogId
-        // --- 1.  is logType a person -----
+        // --- 1.  is chitType a person -----
 
-        if (logType === 'person') {
+        if (chitType === 'person') {
 
           // --- 1a.  does the person exist already ---
 
@@ -426,11 +429,11 @@ let defaultValues, sectionId
 
 
 
-        } // logType = person
+        } // chitType = person
 
 
        
-        if (logType === 'group') {
+        if (chitType === 'group') {
 
           // --- 1a.  does the group exist already 
           if (newExisting === 'existing') {
@@ -499,7 +502,7 @@ let defaultValues, sectionId
 
 
 
-        } // end logType = group
+        } // end chitType = group
 
 
 
@@ -523,7 +526,7 @@ let defaultValues, sectionId
 
    
 
-  const showLogTypeInput = watch('logType')
+  const showchitTypeInput = watch('chitType')
   const showNewExisting = watch('newExisting')
 
   // ==== return - Form JSX  ======================================
@@ -541,15 +544,15 @@ let defaultValues, sectionId
 
             <FormComponentWrapper>
               <ComponentName>
-                Choose or create a name for your log.
+                Who is the other party ?
               </ComponentName>
 
               <ComponentWrapper>
                 <RadiotWrapper>
                   <ChronicleRadio
-                    name={"logType"}
+                    name={"chitType"}
                     control={control}
-                    label={"logType"}
+                    label={"chitType"}
                     options={[
                       {
                         label: "person",
@@ -577,7 +580,7 @@ let defaultValues, sectionId
                   <ChronicleRadio
                     name={"newExisting"}
                     control={control}
-                    label={"logType"}
+                    label={"chitType"}
                     options={[
                       {
                         label: "existing",
@@ -607,7 +610,7 @@ let defaultValues, sectionId
         
         
               <SelectWrapper>
-                {showLogTypeInput === 'person' && 
+                {showchitTypeInput === 'person' && 
                 <>
                 
                   <ChronicleSelectMui
@@ -630,7 +633,7 @@ let defaultValues, sectionId
                 }
 
 
-                {showLogTypeInput === 'group' &&
+                {showchitTypeInput === 'group' &&
                   <>
                 
                   <ChronicleSelectMui
@@ -671,7 +674,7 @@ let defaultValues, sectionId
 
 
           <CreateNewWrapper>
-            {showLogTypeInput === 'person' &&
+            {showchitTypeInput === 'person' &&
               <NewWrapper>
 
 
@@ -712,7 +715,7 @@ let defaultValues, sectionId
             }
 
 {/* ############################################################# */}
-{showLogTypeInput === 'group' &&
+{showchitTypeInput === 'group' &&
               <NewWrapper>
 
 
@@ -744,12 +747,12 @@ let defaultValues, sectionId
                     name={'groupType'}
                     control={control}
                     options={[
-                      'agency',
+                      // 'agency',
                       'charity',
                       'church',
                       'club',
-                      'company',
-                      'firm',
+                      // 'company',
+                      // 'firm',
                       'group',
                       'organization',
                       'other'
@@ -774,7 +777,7 @@ render={({ field }) => (
     {...field}
     ref={null}
     IniitalValue={defaultValues.noteContent} 
-    placeholder = {'add general log info - phone, address, etc'}
+    placeholder = {'add general group info - phone, address, etc'}
     
     />
 )}
@@ -826,28 +829,38 @@ render={({ field }) => (
           </MainWrapper>
 
           {/* ------Submit ---------- -------------------------- */}
-          <ButtonWrapper>
-
-            <StyledButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ textTransform: 'none' }}
-            >
-              Submit
-            </StyledButton>
-
+          <BottomWrapper>
             <StyledButton
 
               variant="contained"
               color="primary"
-              style={{ textTransform: 'none' }}
+              style={{ 
+                textTransform: 'none' ,
+
+            }}
               onClick={() => cancelNewForm()}
+ 
             >
               Cancel
             </StyledButton>
 
-          </ButtonWrapper>
+            <ButtonWrapper>
+              <StyledButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ textTransform: 'none' }}
+              >
+                Next
+              </StyledButton>
+
+
+
+              
+            </ButtonWrapper>
+
+
+          </BottomWrapper>
         </FormWrapper>
 
       </FormProvider>
@@ -878,8 +891,8 @@ const Wrapper = styled(Paper)({
   width: '100%',
   height: '100%',
   overflow: 'auto',
-border: '2px solid #F285B5',
-backgroundColor: veryLightGrey,
+// border: '2px solid #F285B5',
+ 
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -1166,12 +1179,12 @@ const ErrorMessage= styled('div')({
 
 
 //  --- Buttons -----------
-const ButtonWrapper= styled('div')({
+const BottomWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  width: '60%',
+  width: '95%',
   margin: '.75rem',
 
   
@@ -1182,11 +1195,36 @@ const ButtonWrapper= styled('div')({
 
 })
 
-const StyledButton= styled(Button)({
-  color: 'white',
-  margin: '0 8px'
+const ButtonWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+   
+
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
 
 })
+
+const StyledButton= styled(Button)({
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '5rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
+
+})
+
+
 
 
  

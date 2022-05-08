@@ -132,7 +132,7 @@ const Wrapper = styled('div')({
   height: '100%',
   overflow: 'auto',
   padding: '0 0 3px 4px',
-backgroundColor: 'red',
+// backgroundColor: 'red',
 
 borderRadius: '5px',
   [theme.breakpoints.down('sm')]: {
@@ -149,6 +149,8 @@ const PageWrapper = styled('div')({
   alignItems: 'center',
   // zIndex: '95',
   backgroundColor: 'yellow',
+  width: '100%',
+  marginTop: '1rem',
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
