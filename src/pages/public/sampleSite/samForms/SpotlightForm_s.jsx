@@ -61,6 +61,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
+import { chitBurgandyDull, lightGrey } from '../../../../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -471,7 +472,16 @@ const ButtonWrapper= styled('div')({
 })
 
 const StyledButton= styled(Button)({
-  color: 'white'
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '5rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
 
 })
 

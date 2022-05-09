@@ -116,14 +116,14 @@ export default function TwoPartyChitForm_when_s(props) {
     });
 
  
-   
+   let initialChitDate = new Date('2021-03-14T17:03:40.000Z')
     
  
 
 // ----create default paramters if note exists ---------------------
 
 let defaultValues = {
-  chitDate: '', 
+  chitDate: initialChitDate, 
 
   };
 
@@ -146,9 +146,23 @@ let defaultValues = {
   const submitForm = async (data) => {
 
     const {otherPartyType, newExisting,  person, newPerson, 
-                          group, newGroup, groupType} = data
+                          group, newGroup, groupType, chitDate} = data
                           console.log('[LogSectionForm]...data ', data)
    try{
+
+    let newChitData = {}
+    let newChitId
+
+    newChitData = {
+      chitDate: chitDate.toISOString(),
+    }
+
+    dispatch(updateTwoPartyViewData( 
+      {pageType: 'twoPartyChitForm'   , 
+      page: 'when'   , 
+      data: newChitData
+    } 
+    )) // end dispatch
 
     } catch (error) {
       alert(error.message)
@@ -217,6 +231,8 @@ let defaultValues = {
             </StyledButton>
 
             <ButtonWrapper>
+
+              
               <StyledButton
                 type="submit"
                 variant="contained"

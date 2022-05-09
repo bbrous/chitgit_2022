@@ -13,7 +13,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 const ReactDatePicker= styled(DatePicker)({
-  border: '1px solid orange',
+  border: '1px solid grey',
   borderRadius: '5px',
   // width: '80%', 
 color: headerGrey,
@@ -68,6 +68,7 @@ export const StyledDatePicker = ({
                       selected={field.value}
                       dateFormat="d MMMM , yyyy"
                       popperPlacement="bottom"
+                      maxDate={new Date(field.value)}
                     />
                 )}
             />

@@ -26,7 +26,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 const StyledSelect= styled(Select)({
-  border: '1px solid orange',
+  border: '1px solid grey',
   // border: 'none',
   padding: 0,
   margin: 0,

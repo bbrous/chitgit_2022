@@ -18,8 +18,8 @@ export const StyledMultiSelect  = ({ options, value: propValue, onChange, name }
       boxShadow: state.isFocused ? null : null,
       "&:hover": {
         // Overwrittes the different states of border
-        borderColor: state.isFocused ? "orange" : '#F58634',
-        boxShadow: state.isFocused ? "none"  :"inset 1px 1px orange" 
+        borderColor: state.isFocused ? "grey" : '#F58634',
+        boxShadow: state.isFocused ? "none"  :"inset 1px 1px grey" 
       }
     }),
     

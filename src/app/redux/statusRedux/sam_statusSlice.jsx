@@ -229,13 +229,15 @@ export const statusSlice = createSlice({
 
     updateTwoPartyViewData: (state, action) => {
 
+      let BobsLoginDate = new Date('2021-03-14T17:03:40.000Z') 
+
       console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who data', action.payload.data);
 
       let pageType = action.payload.pageType
       let page = action.payload.page
       let data = action.payload.data
 
-      let otherPartyId, otherPartyCollection
+      let otherPartyId, otherPartyCollection, chitDate
 
 
       switch(page){
@@ -250,8 +252,10 @@ export const statusSlice = createSlice({
           break;
     
         case 'when': 
-
-
+         chitDate = data.chitDate
+         state.view.forms[pageType].formPage = 'details'
+         state.view.forms[pageType].chitDate = chitDate
+         state.view.forms[pageType].dateCreated = BobsLoginDate.toISOString()
         
 
           console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateTwoPartyViewData - -who data', action.payload.data);

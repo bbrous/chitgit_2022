@@ -17,7 +17,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-import { darkGrey } from "../../styles/colors";
+import { chitBlueDull, darkGrey } from "../../styles/colors";
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -124,7 +124,9 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
                     field.onChange(value);
                   }}
                   valueLabelDisplay="auto"
-                  max={100}
+                  min={0}
+                  max={50}
+           
                   step={1}
                   size = 'small'
             />
@@ -166,7 +168,7 @@ const ChitSlider = styled(Slider)({
     width: 32,
     height: 32,
     borderRadius: '50% 50% 50% 0',
-    backgroundColor: '#52af77',
+    backgroundColor: chitBlueDull,
     transformOrigin: 'bottom left',
     transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
     '&:before': { display: 'none' },
