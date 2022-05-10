@@ -73,7 +73,7 @@ const ModalWrapper= styled('div')({
   height: '100vh',
   width: '100vw',
 
-  
+   overflow: 'hidden',
   opacity: '.75',
 zIndex: '66'
 
@@ -90,7 +90,7 @@ const ModalDisplay = styled(Paper)({
   width: '30rem',
   height: '40rem',
   borderRadius: '5px',
-  
+   overflow: 'hidden',
   transform: 'translate(-50%)',
   zIndex: '166',
   

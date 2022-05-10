@@ -241,7 +241,7 @@ let defaultValues = {
       data: newChitData
     } 
     )) // end dispatch
-
+    dispatch(changeLoadingStatus(false))
     } catch (error) {
       alert(error.message)
       dispatch(changeLoadingStatus(false))
@@ -293,8 +293,8 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
   type ==='kindness'? chitDescription = 'good will': chitDescription = type
 
   let previewMessage 
-  if(youOwe === 'me') {previewMessage = `You owe the chit to ${nameDisplayed}`} 
-  if(youOwe === 'otherParty') {previewMessage = `${nameDisplayed} owes you the chit`}
+  if(youOwe === 'me') {previewMessage = `You owe this chit to ${nameDisplayed}`} 
+  if(youOwe === 'otherParty') {previewMessage = `${nameDisplayed} owes you this chit`}
 
 
  
@@ -349,7 +349,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
@@ -402,7 +402,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
               </ComponentWrapper>
             </FormComponentWrapper>
-            {/* ------When  -------------------------- */}
+          
 
             {coinType !== 'awChit' && <> 
 
@@ -410,12 +410,12 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
             <FormComponentWrapper>
               <ComponentName>
-                {when === 'done' && 
+                {chitType !== 'promise' && 
                 <>
                 Who performed the action ?
                 </>
                 }
-                {when === 'promised' && 
+                {chitType === 'promise' && 
                 <>
                 Who will perform the action ?
                 </>
@@ -464,7 +464,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
       <FormComponentWrapper>
               <ComponentName>
-                How valuable was this action to you - {chitColor}
+                How valuable was this action to you?
               </ComponentName>
 
               <SliderComponentWrapper>
@@ -484,7 +484,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
                         <FormComponentWrapper>
               <ComponentName>
-                How much of a burden or imposition was this action to Mark B - {chitColor}
+                How much of a burden was this action to Mark B?
               </ComponentName>
 
               <SliderComponentWrapper>
@@ -672,7 +672,10 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '90%',
   // margin: '.25rem',
- 
+
+  borderBottom: '2px solid grey',
+  padding: '6px 0',
+
 // backgroundColor: 'yellow',
 
   [theme.breakpoints.down('sm')]: {

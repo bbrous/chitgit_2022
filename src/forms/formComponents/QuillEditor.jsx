@@ -80,7 +80,7 @@ Editor.modules = {
  
       [{ align: [] }],
      
-     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+     
     ],
   
   clipboard: {

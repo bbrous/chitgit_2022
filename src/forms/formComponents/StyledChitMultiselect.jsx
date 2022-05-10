@@ -25,7 +25,8 @@ const StyledWrapper= styled(Autocomplete)({
   // width: '80%', 
  textAlign: 'left',
   width: '100%',
-// backgroundColor: '#F6F7F8',
+  border: '1px solid #A7A7A8',
+  borderRadius: '5px',
   
   // marginRight: '8px',
   boxShadow: 0,
@@ -66,7 +67,7 @@ backgroundColor: 'white',
 '&:hover' : {
   color:'#333333',
  padding: '0',margin: 0,
-  border: '2px solid #FEEDE2',
+  border: '1px solid #FEEDE2',
 },
 },
 
@@ -123,7 +124,7 @@ const useStyles = makeStyles({
 });
 
 // -----------------------------------------------------------------
-export const StyledChronicleMultiselect = ({ name, control, label, type, defaultValue, options , placeholder, disabled} ) => {
+export const StyledChitMultiselect = ({ name, control, label, type, defaultValue, options , placeholder, disabled} ) => {
   const classes = useStyles();
   return (
     <Controller

@@ -163,7 +163,7 @@ let defaultValues = {
       data: newChitData
     } 
     )) // end dispatch
-
+    dispatch(changeLoadingStatus(false))
     } catch (error) {
       alert(error.message)
       dispatch(changeLoadingStatus(false))

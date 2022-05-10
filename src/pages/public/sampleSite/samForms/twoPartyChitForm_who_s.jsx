@@ -519,7 +519,7 @@ let defaultValues, sectionId
 
           }// end otherPartyType = 'group
 
-
+          dispatch(changeLoadingStatus(false))
 
 
     } catch (error) {
