@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, chitBurgandy, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -82,6 +82,7 @@ import Stack from '@mui/material/Stack';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import ForwardIcon from '@mui/icons-material/Forward';
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
@@ -162,10 +163,7 @@ const popoverMessage = () => {
 }
 
 
-  // --- set up IOU arrow color and message ---
-  let  youOwe 
-  
-  // otherPartyId === deedPerformedBy? youOwe = true: youOwe = false
+
 
 
 
@@ -190,7 +188,8 @@ let defaultValues = {
   // chitDate: initialChitDate, 
   chitValue: 0,
   burden: 0,
-  chitType: 'standard'
+  chitType: 'standard',
+  deedPerformedBy: 'me'
 
   };
 
@@ -210,8 +209,18 @@ let defaultValues = {
   });
   const { handleSubmit, reset, control, setValue, onChange, watch, ref , formState: { errors } } = methods;
 
-  const when = watch('deedPerformedBy')
+  // const when = watch('deedPerformedBy')
   const type = watch('chitType')
+
+  const chitValue = watch("chitValue");
+  const burden = watch('chitBurden')
+  const coinType = watch('chitType')
+  const youOwe = watch('deedPerformedBy')
+
+  // #### Temp
+  let when = 'done'
+
+
   const submitForm = async (data) => {
 
     const {otherPartyType, newExisting,  person, newPerson, 
@@ -242,16 +251,14 @@ let defaultValues = {
     } // end catch
   } // end async submit
 
-  const chitValue = watch("chitValue");
-  const burden = watch('chitBurden')
-  const promise = watch('chitType')
+
+
 
  
-  
  
 
   console.log('[ twoPartyChitForm -- CHIT ] chitValue ',  chitValue);
-console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
+console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
   let chitColor,  totalChitValue
   if(!burden && !chitValue) {
@@ -259,23 +266,23 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
   }else{
   totalChitValue = parseInt(chitValue) + parseInt(burden)
 }
-  console.log('[ twoPartyChitForm -- CHIT ] chitValue ',  chitValue);
-  console.log('[ twoPartyChitForm -- CHIT ] burden ',  burden);
-  console.log('[ twoPartyChitForm -- CHIT ] totalChitValue ',  totalChitValue);
+ 
   
+  
+
+  if(coinType === 'awChit'){chitColor = 'red'}else{
+
   if( totalChitValue < 25 ) { chitColor = 'copper' } 
   else if (totalChitValue > 24 && totalChitValue < 55 ) { chitColor = 'silver' } 
   else if (totalChitValue > 54 ){ chitColor= 'gold' }
   else{chitColor = 'copper'}
-
-  const showOtherPartyTypeInput = watch('otherPartyType')
-  const showNewExisting = watch('newExisting')
+  }
 
   //  --- define which coin is displayed
 
   //  ### TEMP 
  
-  let chitType = 'standard'
+  let chitType = coinType
 
   let coinAddress = chooseTwoPartyChitCoin(chitType, chitColor)
  
@@ -284,6 +291,13 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
 
   let chitDescription
   type ==='kindness'? chitDescription = 'good will': chitDescription = type
+
+  let previewMessage 
+  if(youOwe === 'me') {previewMessage = `You owe the chit to ${nameDisplayed}`} 
+  if(youOwe === 'otherParty') {previewMessage = `${nameDisplayed} owes you the chit`}
+
+
+ 
 
 
   // ==== return - Form JSX  ======================================
@@ -372,9 +386,12 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
 
                       {
                         label: "good will",
-                        value: "good will",
+                        value: "kindness",
                       },
-
+                      {
+                        label: "awChit",
+                        value: "awChit",
+                      },
                     ]}
                   />
                 </RadiotWrapper>
@@ -387,7 +404,7 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
             </FormComponentWrapper>
             {/* ------When  -------------------------- */}
 
-
+            {coinType !== 'awChit' && <> 
 
             {/* ------DeedPerformed by ------------- */}
 
@@ -413,14 +430,15 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
                     name={"deedPerformedBy"}
                     control={control}
                     label={"logType"}
+                    defaultValue = {defaultValues.deedPerformedBy}
                     options={[
                       {
                         label: "me",
-                        value: "me",
+                        value: 'me',
                       },
                       {
                         label: "other party",
-                        value: "otherParty",
+                        value: 'otherParty',
                       },
 
                     ]}
@@ -457,7 +475,7 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
                 type="text" 
                 defaultValue = {defaultValues.chitValue}
                 />
-<div> Huge value </div>
+<Small> Huge value </Small>
               </SliderComponentWrapper> 
             </FormComponentWrapper>
 
@@ -477,31 +495,40 @@ console.log('[ twoPartyChitForm -- CHIT ] chitBurden ',  burden);
                 type="text" 
                 defaultValue = {defaultValues.chitBurden}
                 />
-<div>huge</div>
+<Small>huge</Small>
               </SliderComponentWrapper>
 
               </FormComponentWrapper>
+              </>
+}
+            <PreviewContainer>
+              <Preview> Preview</Preview>
 
-<PreviewContainer>
-  <div> preview</div>
+              <PreviewWrapper>
 
-<PreviewWrapper>
+                <ChitContainer>
 
+                  <StyledImage src={coinDisplayed} alt="coin" />
+                  <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
 
+                </ChitContainer>
 
-              <ChitContainer>
+                <PreviewDetailWrapper>
 
-          <StyledImage src={coinDisplayed} alt="coin" />
-          <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
+               
+               
+         
+          <PreviewDetail> {previewMessage}</PreviewDetail>
+ 
+                    
+        
+                  {coinType !== 'awChit' && 
+                  <PreviewDetail>Karmic value = {totalChitValue}</PreviewDetail>
+                }
+                </PreviewDetailWrapper>
+              </PreviewWrapper>
 
-            
-          </ChitContainer>
-          <div>
-<div>You owe Mike</div>
-<div>karmic value = {totalChitValue}</div>
-</div>
-          </PreviewWrapper>
-          </PreviewContainer>
+            </PreviewContainer>
            
 
           </MainWrapper>
@@ -738,7 +765,7 @@ const ButtonWrapper= styled('div')({
 const StyledButton= styled(Button)({
   backgroundColor: 'white',
   border: '1px solid #E6E7E8',
-  color: chitBurgandyDull,
+  color: chitBurgandy,
   margin: '0 8px',
   width: '5rem',
   height: '1.5rem',
@@ -837,7 +864,37 @@ const PreviewContainer = styled(Paper)({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   width: '100%',
+  margin: '1rem 0',
+  
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+const Preview = styled('div')({
  
+  fontSize: '.8rem',
+  color: chitBurgandy,
+  padding: '0 10px',
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const PreviewDetailWrapper = styled('div')({
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  
+  margin: '1rem 0',
   
 
 
@@ -847,6 +904,18 @@ const PreviewContainer = styled(Paper)({
 
 })
 
+const PreviewDetail = styled('div')({
+ 
+  fontSize: '.8rem',
+  color: mediumGrey,
+  padding: '0 10px',
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
 
 const StyledImage = styled('img')({
 
@@ -902,6 +971,46 @@ const ChitTypeWrapper = styled('div')({
   //     // width: '100%'
   //   },
 
+})
+
+const NameWrapper = styled('div')({
+
+
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.75rem',
+  color: chitBurgandy,
+
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+
+const YouOweMe = styled(ForwardIcon)({
+  transform: 'rotate(180deg)',
+  fontSize: '1rem',
+  color: 'red',
+  margin: '0 8px'
+          
+})
+
+const IOU = styled(ForwardIcon)({
+  transform: 'rotate(0deg)',
+  fontSize: '1rem',
+  color: 'green',
+  margin: '0 8px'
+          
+})
+const Small = styled('div')({
+marginLeft: '1rem',
+fontSize: '.65rem'
 })
 
 // -----------------------------------
