@@ -261,7 +261,7 @@ export const statusSlice = createSlice({
           
       
           state.view.forms[pageType].formPage = 'when'
-          state.view.forms[pageType].otherPartyType = otherPartyType
+          state.view.forms[pageType].otherPartyCollection = otherPartyType
           state.view.forms[pageType].newExisting = newExisting
           state.view.forms[pageType].person = person
           state.view.forms[pageType].newPerson = newPerson

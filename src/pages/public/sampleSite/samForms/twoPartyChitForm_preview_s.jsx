@@ -30,6 +30,8 @@ import {
 
       } from '../../../../app/helpers/commonHelpers'
 
+      import { ISOtoTraditional } from '../../../../app/helpers/dateHelper'
+
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -97,10 +99,51 @@ const theme = createTheme(); // allows use of mui theme in styled component
 export default function TwoPartyChitForm_preview_s(props) {
 
   const dispatch = useDispatch()
- 
+  
   let match = useParams()
   const status = useSelector(selectStatus)
+  let formParameters = status.view.forms.twoPartyChitForm
+
+  console.log('[ Here there Preview ] formParameters ', formParameters);
+  const {otherPartyCollection, chitType, chitValue, chitBurden,chitDate, person, group, deedPerformedBy, workRelated, description, keywordArray} = formParameters
+
+  
+  let otherPartyName 
+  otherPartyCollection === 'person'? otherPartyName = person: otherPartyName = group
+  let styledChitDate = ISOtoTraditional(chitDate)
+
+  let workRelatedAnswer
+  workRelated === 'workRelated'? workRelatedAnswer = 'yes': workRelatedAnswer = 'no'
+
+  let whoPerformedDeed
+  deedPerformedBy === 'otherParty' ? whoPerformedDeed = otherPartyName: whoPerformedDeed = 'me'
+
  
+
+
+  let chitColor,  totalChitValue
+  if(!chitBurden && !chitValue) {
+    totalChitValue = 0
+  }else{
+  totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
+}
+ 
+  
+  
+
+  if(chitType === 'awChit'){chitColor = 'red'}else{
+
+  if( totalChitValue < 25 ) { chitColor = 'copper' } 
+  else if (totalChitValue > 24 && totalChitValue < 55 ) { chitColor = 'silver' } 
+  else if (totalChitValue > 54 ){ chitColor= 'gold' }
+  else{chitColor = 'copper'}
+  }
+
+
+
+
+
+
 
   let URLId = match.id
 // console.log('[ Log FROM ] URLId ', URLId);
@@ -145,9 +188,13 @@ let defaultValues = {
 
   const submitForm = async (data) => {
 
-    const {otherPartyType, newExisting,  person, newPerson, 
+    const {otherPartyCollection, newExisting,  person, newPerson, 
                           group, newGroup, groupType, chitDate} = data
                           console.log('[LogSectionForm]...data ', data)
+
+
+
+
    try{
 
     let newChitData = {}
@@ -191,12 +238,12 @@ let defaultValues = {
   <FormLink> who </FormLink>
   <Line> 
     <LineTitle> other party type : </LineTitle>
-    <LineContent> group</LineContent>
+    <LineContent> {otherPartyCollection}</LineContent>
   </Line>
 
   <Line> 
     <LineTitle> name : </LineTitle>
-    <LineContent> MS society</LineContent>
+    <LineContent> {otherPartyName}</LineContent>
   </Line>
 </FormSection>
 
@@ -204,7 +251,7 @@ let defaultValues = {
   <FormLink> when </FormLink>
   <Line> 
     <LineTitle> chit date : </LineTitle>
-    <LineContent> March 14, 2021</LineContent>
+    <LineContent> {styledChitDate} </LineContent>
   </Line>
 
 </FormSection>
@@ -213,12 +260,12 @@ let defaultValues = {
   <FormLink> details </FormLink>
   <Line> 
     <LineTitle> work related ?  : </LineTitle>
-    <LineContent> yes </LineContent>
+    <LineContent> {workRelatedAnswer} </LineContent>
   </Line>
 
   <Line> 
     <LineTitle> description : </LineTitle>
-    <LineContent> oh whataschmuck Iam</LineContent>
+    <LineContent>{description} </LineContent>
   </Line>
 
   <Line> 
@@ -231,32 +278,32 @@ let defaultValues = {
   <FormLink> chit </FormLink>
   <Line> 
     <LineTitle> chit type  : </LineTitle>
-    <LineContent> standard </LineContent>
+    <LineContent> {chitType} </LineContent>
   </Line>
 
   <Line> 
     <LineTitle> action performed by :  </LineTitle>
-    <LineContent> Bobby D </LineContent>
+    <LineContent> {whoPerformedDeed} </LineContent>
   </Line>
 
   <Line> 
     <LineTitle> chit value :  </LineTitle>
-    <LineContent> 35 </LineContent>
+    <LineContent> {chitValue} </LineContent>
   </Line>
 
   <Line> 
     <LineTitle> chit burden :  </LineTitle>
-    <LineContent> 25 </LineContent>
+    <LineContent> {chitBurden} </LineContent>
   </Line>
 
   <Line> 
     <LineTitle> karmic total :  </LineTitle>
-    <LineContent> -70 </LineContent>
+    <LineContent> {totalChitValue}</LineContent>
   </Line>
 
   <Line> 
     <LineTitle> chit color </LineTitle>
-    <LineContent> gold </LineContent>
+    <LineContent> {chitColor} </LineContent>
   </Line>
 </FormSection>
            
