@@ -412,7 +412,7 @@ const ErrorMessage= styled('div')({
 const BottomWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   width: '95%',
   margin: '.75rem',

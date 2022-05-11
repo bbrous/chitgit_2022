@@ -273,20 +273,20 @@ export default function KarmicView_s(props) {
     if(chit.chitType === 'awChit') {
    // assets
     
-    assets = assets + chit.chitValue
+    assets = assets + chit.chitValue + chit.chitBurden
     owedChits = owedChits + 1
 
     }
 
     if(chit.chitType !== 'awChit') {
       if(chit.deedPerformedBy === chit.otherPartyId){
-        liabilities = liabilities + chit.chitValue
+        liabilities = liabilities + chit.chitValue + chit.chitBurden
         chitsOwed = chitsOwed + 1
       }
   
       // assets
       if(chit.deedPerformedBy !== chit.otherPartyId){
-        assets = assets + chit.chitValue
+        assets = assets + chit.chitValue + chit.chitBurden
         owedChits = owedChits + 1
       }
       

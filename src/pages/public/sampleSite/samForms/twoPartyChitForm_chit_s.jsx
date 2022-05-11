@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, chitBurgandy, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, chitBurgandy, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -112,10 +112,11 @@ export default function TwoPartyChitForm_chit_s(props) {
   const allPeople = useSelector(selectPeople)
   const allGroups = useSelector(selectGroups)
 
-  let otherPartyId = status.view.forms.twoPartyChitForm.otherPartyId
-  let otherPartyCollection = status.view.forms.twoPartyChitForm.otherPartyCollection
-  console.log('[ TwoPartyChitForm - CHIT ] otherPartyId ', otherPartyId);
-  console.log('[ TwoPartyChitForm - CHIT ] otherPartyCollection ', otherPartyCollection);
+  // let otherPartyId = status.view.forms.twoPartyChitForm.otherPartyId
+
+  const {person, group, newGroup, newPerson }= status.view.forms.twoPartyChitForm
+  
+
 
 
 
@@ -148,19 +149,9 @@ const popoverMessage = () => {
   //--- get Name to be displayed  ---
   let nameDisplayed, personObject, groupObject
 
-  if(otherPartyCollection === 'people'){
-    personObject = allPeople.find(person => person.id === otherPartyId)
+  nameDisplayed = 'shelby'
 
-    nameDisplayed = personObject.name
-  }
-
-
- 
-  if(otherPartyCollection === 'groups'){
-  groupObject = allGroups.find(group => group.id === otherPartyId)
- 
-  nameDisplayed = groupObject.name
-}
+  
 
 
 
@@ -187,7 +178,7 @@ const popoverMessage = () => {
 let defaultValues = {
   // chitDate: initialChitDate, 
   chitValue: 0,
-  burden: 0,
+  chitBurden: 0,
   chitType: 'standard',
   deedPerformedBy: 'me'
 
@@ -213,7 +204,7 @@ let defaultValues = {
   const type = watch('chitType')
 
   const chitValue = watch("chitValue");
-  const burden = watch('chitBurden')
+  const chitBurden = watch('chitBurden')
   const coinType = watch('chitType')
   const youOwe = watch('deedPerformedBy')
 
@@ -223,8 +214,7 @@ let defaultValues = {
 
   const submitForm = async (data) => {
 
-    const {otherPartyType, newExisting,  person, newPerson, 
-                          group, newGroup, groupType, chitDate} = data
+    const {chitType, chitValue, chitBurden, deedPerformedBy} = data
                           console.log('[LogSectionForm]...data ', data)
    try{
 
@@ -232,12 +222,16 @@ let defaultValues = {
     let newChitId
 
     newChitData = {
-      chitDate: chitDate.toISOString(),
+     
+      chitType: chitType,
+      chitValue: chitValue,
+      chitBurden: chitBurden,
+      deedPerformedBy: deedPerformedBy
     }
 
     dispatch(updateTwoPartyViewData( 
       {pageType: 'twoPartyChitForm'   , 
-      page: 'when'   , 
+      page: 'chit'   , 
       data: newChitData
     } 
     )) // end dispatch
@@ -261,10 +255,10 @@ let defaultValues = {
 console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
   let chitColor,  totalChitValue
-  if(!burden && !chitValue) {
+  if(!chitBurden && !chitValue) {
     totalChitValue = 0
   }else{
-  totalChitValue = parseInt(chitValue) + parseInt(burden)
+  totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
 }
  
   
@@ -290,6 +284,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
   const coinDisplayed = pathToCoinImages + coinAddress
 
   let chitDescription
+  
   type ==='kindness'? chitDescription = 'good will': chitDescription = type
 
   let previewMessage 
@@ -297,7 +292,13 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
   if(youOwe === 'otherParty') {previewMessage = `${nameDisplayed} owes you this chit`}
 
 
- 
+ let noOtherParty
+ if(!person && !newPerson && !group && !newGroup){
+  noOtherParty = 'no'
+  
+ }else{noOtherParty = 'yes'}
+console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
+
 
 
   // ==== return - Form JSX  ======================================
@@ -305,7 +306,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
   return (
     <Wrapper>
 
-{!otherPartyId &&
+{noOtherParty === 'no' &&
           <Stack sx={{ width: '100%' }} spacing={2}>
             <Alert severity="error">
 
@@ -315,7 +316,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
           </Stack>
         }
-{otherPartyId &&
+{noOtherParty === 'yes' &&
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
@@ -737,7 +738,7 @@ const ErrorMessage= styled('div')({
 const BottomWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   width: '95%',
   margin: '.75rem',
@@ -768,7 +769,7 @@ const ButtonWrapper= styled('div')({
 const StyledButton= styled(Button)({
   backgroundColor: 'white',
   border: '1px solid #E6E7E8',
-  color: chitBurgandy,
+  color: chitBurgandyDull,
   margin: '0 8px',
   width: '5rem',
   height: '1.5rem',
@@ -778,7 +779,6 @@ const StyledButton= styled(Button)({
   }
 
 })
-
 
 const StyledCalendarIcon = styled(CalendarTodayIcon)({
   position: 'relative',

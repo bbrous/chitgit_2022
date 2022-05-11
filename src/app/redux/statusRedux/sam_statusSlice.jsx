@@ -125,21 +125,27 @@ export const statusSlice = createSlice({
         twoPartyChitForm: {
           formPage: 'who',
           chitType: '',
-          chitValue: 10,
-          chitColor: '',
-          dateCreated: '',
+          chitValue: 0,
+          chitBurden: 0,
+           
+          
           chitDate: '',
-          timeLock: '',
+           
           otherPartyCollection: '',
           otherPartyId: '',
+
+          newExisting: '',
+          person: '',
+          newPerson: '',
+          group: '',
+          newGroup: '',
+          groupType: '',
+          groupMeta: '',
           deedPerformedBy: '',
           workRelated: 'false',
           description: '',
           keywordArray: [],
-          duplicate: '',
-          sharedId: '',
-          sharedTitle: '',
-          message: ''
+ 
 
         }
 
@@ -237,17 +243,36 @@ export const statusSlice = createSlice({
       let page = action.payload.page
       let data = action.payload.data
 
-      let otherPartyId, otherPartyCollection, chitDate
+      let otherPartyType, newExisting, chitDate, workRelated, description, keywords, chitType, chitValue, chitBurden, deedPerformedBy, person, newPerson, group,newGroup, groupType, groupMeta, test
 
 
       switch(page){
         case 'who': 
-          otherPartyId = data.id
-          otherPartyCollection = data.collection
+        otherPartyType = data.otherPartyType
+        newExisting = data.newExisting
+        person = data.person
+        newPerson = data.newPerson
+        group = data.group
+        newGroup = data.newGroup
+        groupType = data.groupType
+        groupMeta = data.groupMeta
+        test = data.test
+        console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who TEST TEST  data', action.payload.data.test);
+          
       
           state.view.forms[pageType].formPage = 'when'
-          state.view.forms[pageType].otherPartyId = otherPartyId
-          state.view.forms[pageType].otherPartyCollection = otherPartyCollection
+          state.view.forms[pageType].otherPartyType = otherPartyType
+          state.view.forms[pageType].newExisting = newExisting
+          state.view.forms[pageType].person = person
+          state.view.forms[pageType].newPerson = newPerson
+          state.view.forms[pageType].group = group
+          state.view.forms[pageType].newGroup = newGroup
+          state.view.forms[pageType].groupType = groupType
+          state.view.forms[pageType].groupMeta = groupMeta
+           
+          
+          
+           
 
           break;
     
@@ -258,9 +283,49 @@ export const statusSlice = createSlice({
          state.view.forms[pageType].dateCreated = BobsLoginDate.toISOString()
         
 
-          console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateTwoPartyViewData - -who data', action.payload.data);
+         
 
           break;
+
+        case 'details': 
+
+        console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateTwoPartyViewData - -detail data keywords', action.payload.data.keywords);
+       
+
+          workRelated = data.workRelated
+          description = data.description
+          keywords = data.keywords
+          state.view.forms[pageType].formPage = 'chit'
+          state.view.forms[pageType].workRelated = workRelated
+          state.view.forms[pageType].description = description
+          state.view.forms[pageType].keywordArray = keywords
+         
+  
+ 
+           break;
+
+
+           case 'chit': 
+
+          //  console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateTwoPartyViewData - -detail data keywords', action.payload.data.keywords);
+          
+   
+             chitType = data.chitType
+             chitValue = data.chitValue
+             chitBurden = data.chitBurden
+ 
+
+             deedPerformedBy = data.deedPerformedBy
+             state.view.forms[pageType].formPage = 'preview'
+             state.view.forms[pageType].chitType = chitType
+             state.view.forms[pageType].chitValue = chitValue
+             state.view.forms[pageType].chitBurden = chitBurden
+             state.view.forms[pageType].deedPerformedBy = deedPerformedBy
+            
+     
+    
+              break;
+
         default:
           console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] no data');
 

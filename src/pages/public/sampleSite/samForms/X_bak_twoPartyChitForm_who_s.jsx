@@ -65,16 +65,15 @@ import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/
 
 // --- Form component imports ---------
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
-import {Editor} from '../../../../forms/formComponents/QuillEditor';
-import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
-import { StyledChitMultiselect } from '../../../../forms/formComponents/StyledChitMultiselect';
+
+
 
 import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
- 
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
@@ -95,7 +94,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // ==============================================================
 // ==== MAIN FUNCTION ===========================================
 
-export default function TwoPartyChitForm_details_s(props) {
+export default function TwoPartyChitForm_when_s(props) {
 
   const dispatch = useDispatch()
  
@@ -124,9 +123,8 @@ export default function TwoPartyChitForm_details_s(props) {
 // ----create default paramters if note exists ---------------------
 
 let defaultValues = {
-  workRelated: 'notWorkRelated', 
-  description: '', 
-  keywords: [], 
+  chitDate: initialChitDate, 
+
   };
 
   // --- close / cancel form 
@@ -147,23 +145,21 @@ let defaultValues = {
 
   const submitForm = async (data) => {
 
-    const {workRelated, description, keywords} = data
-                          console.log('[twoPartyChitForm details]...data ', data)
+    const {otherPartyType, newExisting,  person, newPerson, 
+                          group, newGroup, groupType, chitDate} = data
+                          console.log('[LogSectionForm]...data ', data)
    try{
 
     let newChitData = {}
     let newChitId
 
     newChitData = {
-      workRelated: workRelated,
-      description: description,
-      keywords: keywords
-      
+      chitDate: chitDate.toISOString(),
     }
 
     dispatch(updateTwoPartyViewData( 
       {pageType: 'twoPartyChitForm'   , 
-      page: 'details'   , 
+      page: 'when'   , 
       data: newChitData
     } 
     )) // end dispatch
@@ -182,9 +178,6 @@ let defaultValues = {
   const showOtherPartyTypeInput = watch('otherPartyType')
   const showNewExisting = watch('newExisting')
 
-  // ### TEMP 
-  let keywordsOptionsArray = ['ideas' , 'jad']
-
   // ==== return - Form JSX  ======================================
 
   return (
@@ -197,109 +190,27 @@ let defaultValues = {
 
 
           <MainWrapper>
- 
 
-            {/* ------Work related -------------------------- */}
-
-            <FormComponentWrapper>
+          <FormComponentWrapper>
               <ComponentName>
-                Is this chit work related ?
+                When did the action occur ? <StyledCalendarIcon />
               </ComponentName>
 
-              
               <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChronicleRadio
-                    name={"workRelated"}
-                    control={control}
-                    label={"logType"}
-                    options={[
-                      {
-                        label: "yes",
-                        value: "workRelated",
-                      },
-                      {
-                        label: "no",
-                        value: "notWorkRelated",
-                      },
-
-                    ]}
-                    defaultValue = {defaultValues.workRelated}
-                  />
-                </RadiotWrapper>
-
-
-                
-
-
-              </ComponentWrapper>
-            </FormComponentWrapper>
-
-
-
-            {/* ------Description  -------------------------- */}
-
-            <FormComponentWrapper>
-              <ComponentName>
-                Description  of chit
-              </ComponentName>
-
-              <QuillComponentWrapper>
-                <QuillWrapper>
-
-               
                 <Controller
 
-                  name="description"
+                  name="chitDate"
                   control={control}
-                  initialNote={'hi quill description'}
+                  initialNote={'hi'}
 
                   render={({ field }) => (
-                    <Editor
-                      {...field}
-                      ref={null}
-                      IniitalValue='hello there' />
+                    <StyledDatePicker {...field} ref={null} />
                   )}
-
                 />
-
-</QuillWrapper>
-              </QuillComponentWrapper>
-            </FormComponentWrapper>
-
-
-
-
-
-
-            {/* ------select keywords  -------------------------- */}
-
-            <FormComponentWrapper>
-              <ComponentName>
-                Add keywords
-              </ComponentName>
-
-              <ComponentWrapper>
-              <StyledChitMultiselect
-                    name={'keywords'}
-                    control={control}
-                    options={keywordsOptionsArray}
-                    placeholder='select or type keywords'
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.keywords}
-
-
-                  />
-
 
               </ComponentWrapper>
             </FormComponentWrapper>
-
-
-
-
-
-
+           
 
           </MainWrapper>
 
@@ -440,10 +351,6 @@ const FormComponentWrapper= styled('div')({
   width: '90%',
   // margin: '.25rem',
  
-  padding: '6px 0',
-
-  // margin: '.25rem',
- 
 // backgroundColor: 'yellow',
 
   [theme.breakpoints.down('sm')]: {
@@ -505,7 +412,7 @@ const ErrorMessage= styled('div')({
 const BottomWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   alignItems: 'center',
   width: '95%',
   margin: '.75rem',
@@ -547,14 +454,19 @@ const StyledButton= styled(Button)({
 
 })
 
-const RadiotWrapper= styled('div')({
+
+const StyledCalendarIcon = styled(CalendarTodayIcon)({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
+  marginLeft: '8px',
+  width: '16px',
+  color: '#CFD0D1',
+  
  
- 
+
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
@@ -562,39 +474,8 @@ const RadiotWrapper= styled('div')({
 
 })
 
+
  
-const QuillComponentWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-// border: '1px solid grey',
-borderRadius: '5px',
-// backgroundColor: 'white',
- padding: '10px',
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-
-  },
-})
-
-const QuillWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '95%',
-  height: '95%',
-border: '1px solid grey',
-borderRadius: '5px',
-backgroundColor: 'white',
- padding: '2px',
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-
-  },
-})
 // -----------------------------------
 
 
@@ -602,6 +483,3 @@ backgroundColor: 'white',
 
 
 
-
-
- 

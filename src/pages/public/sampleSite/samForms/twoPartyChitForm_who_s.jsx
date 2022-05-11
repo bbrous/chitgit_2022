@@ -66,6 +66,10 @@ import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/
 // --- Form component imports ---------
 
 import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
+import { StyledChitSelectMuiCreatable } from '../../../../forms/formComponents/StyledChitSelectMuiCreatable'
+
+
+
 import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
 
  import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
@@ -321,7 +325,7 @@ let defaultValues, sectionId
 
   defaultValues = {
   
-    meta: '',
+    
     otherPartyType: 'person',
     newExisting: 'existing',
     person: null,
@@ -329,8 +333,10 @@ let defaultValues, sectionId
     newPerson: '',
     newGroup: '',
     groupType: 'charity',
+    groupMeta: '',
     keywords: [],
     people: [],
+    test: ''
   
 
   };
@@ -354,10 +360,10 @@ let defaultValues, sectionId
   const submitForm = async (data) => {
 
     const {otherPartyType, newExisting,  person, newPerson, 
-                          group, newGroup, groupType} = data
+                          group, newGroup, groupType, groupMeta, test} = data
 
     console.log('[twoPartyChitForm]...data ', data)
-    console.log('[twoPartyChitForm]...otherPartyType ', otherPartyType)
+    console.log('[twoPartyChitForm]...otherPartyType ', test)
  
     try {
 
@@ -370,63 +376,23 @@ let defaultValues, sectionId
     let newChitId
 
 
-          // --- 1.  is otherPartyType a person -----
+          
 
-          if (otherPartyType === 'person') {
+  
+             newChitData = {
 
-            // --- 1a.  does the person exist already ---
-    
-            if (newExisting === 'existing') {
-    
-              /* 1. clean the form input - strip whitespace
-                 2. find the person in the peopleArray
-                 3. create the object to add to logHolders collection
-                 4. dispatch to store 
-              */
-              let newPerson = stripWhiteSpace(data.person)
+              otherPartyType: otherPartyType, 
+              newExisting: newExisting ,
+              person: person ,
+              newPerson: newPerson ,
+              group: group ,
+              newGroup: newGroup,
+              groupType: groupType ,
+              groupMeta: groupMeta,
+              test: test
+
               
-              let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
-    
-              newChitData = {id: newPersonObject.id, collection: 'people'}
-              newChitId = newPersonObject.id
-
-
-
-              dispatch(updateTwoPartyViewData( 
-                {pageType: 'twoPartyChitForm'   , 
-                page: 'who'   , 
-                data: newChitData
-              } 
-              )) // end dispatch
-    
-            } // end person and existing
-
- // --- 1b  is it a new person ------------------
-            if (newExisting === 'new') {
-
-            /* 1. clean the form input - strip whitespace
-             2. create new person Id in sample
-                x - add newPerson to people collection in database
-                x- get new person's Id back
-             3. create the object to add to logHolders collection
-             4. dispatch to store 
-          */
-             let newPersonId = cuid()
-             let cleanedNewPerson = stripWhiteSpace(data.newPerson)
-             let newPersonObject  = {
-               id: newPersonId,
-               type: 'person',
-               name: cleanedNewPerson,
-               meta: '',
-               peopleHolders: [
-                 {
-                   id: newPersonId,
-                   dbCollection: 'twoPartyChits'}
-               ]
-             }
-             
-             dispatch(addPersonToStore(newPersonObject))
-             newChitData = {id: newPersonObject.id, collection: 'people'}
+              }
 
               dispatch(updateTwoPartyViewData(
                 {
@@ -436,88 +402,9 @@ let defaultValues, sectionId
                 }
               )) // end dispatch
 
-            } // person && new
+             
 
-          } // otherPartyType = person
-
-
-          if (otherPartyType === 'group') {
-
-            if (newExisting === 'existing') {
-
-              /* 1. clean the form input - strip whitespace
-                 2. find the group in the groupsArray
-                 3. create the object to add to logHolders collection
-                 4. dispatch to store 
-              */
-
-                 let newGroup = stripWhiteSpace(data.group)
-            
-                 let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
-
-                 newChitData = {id: newGroupObject.id, collection: 'groups'}
-
-                 dispatch(updateTwoPartyViewData(
-                  {
-                    pageType: 'twoPartyChitForm',
-                    page: 'who',
-                    data: newChitData
-                  }
-                )) // end dispatch
-
-
-            }// end if newExisting === existing
-
-
-          // --- 1b  is it a new group 
-          if (newExisting === 'new') {
-
-              /* 1. clean the form input - strip whitespace
-               2. create new person Id in sample
-                  x - add newPerson to people collection in database
-                  x- get new person's Id back
-               3. create the object to add to logHolders collection
-               4. dispatch to store 
-            */
-
-
-               let newGroupId = cuid()
-               let cleanedNewGroup = stripWhiteSpace(data.newGroup)
-               let newGroupObject  = {
-                 id: newGroupId,
-                 type: 'data.groupType',
-                 name: cleanedNewGroup,
-                 meta: data.meta,
-                 groupHolders: [
-                   {
-                     id: newGroupId,
-                     dbCollection: 'twoPartyChits'}
-                 ]
-               }
-
-               dispatch(addGroupToStore(newGroupObject))
-
-
-
-               newChitData = {id: newGroupObject.id, collection: 'groups'}
-
-               dispatch(updateTwoPartyViewData(
-                {
-                  pageType: 'twoPartyChitForm',
-                  page: 'who',
-                  data: newChitData
-                }
-              )) // end dispatch
-
-
-            }// end if newExisting === new
-
-
-
-
-
-
-          }// end otherPartyType = 'group
+        
 
           dispatch(changeLoadingStatus(false))
 
@@ -548,6 +435,11 @@ let defaultValues, sectionId
 
 
           <MainWrapper>
+            
+
+
+
+
 
             <FormComponentWrapper>
               <ComponentName>
@@ -579,35 +471,9 @@ let defaultValues, sectionId
             </FormComponentWrapper>
 
 
-            <FormComponentWrapperIndent>
- 
-
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChronicleRadio
-                    name={"newExisting"}
-                    control={control}
-                    label={"otherPartyType"}
-                    options={[
-                      {
-                        label: "existing",
-                        value: "existing",
-                      },
-                      {
-                        label: "new",
-                        value: "new",
-                      },
-
-                    ]}
-                  />
-                </RadiotWrapper>
-
-
-              </ComponentWrapper>
-            </FormComponentWrapperIndent>
 
             
-{showNewExisting === 'existing' && <>  
+<>  
 
 
             <FormComponentWrapperDoubleIndent>
@@ -620,20 +486,16 @@ let defaultValues, sectionId
                 {showOtherPartyTypeInput === 'person' && 
                 <>
                 
-                  <ChronicleSelectMui
-                    name={'person'}
-                    control={control}
-                    options = {peopleOptionsArray}
-                    // or
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.person}
-                    placeholder='select a person'
-
-                  />
-
-                  {errors.person && <ErrorMessage>{ errors.person.message} </ErrorMessage>} 
+                <StyledChitSelectMuiCreatable
+                name={'person'}
+                control={control}
+                options={peopleOptionsArray}
+                // defaultValue = {{ value: 'ge423', label: 'home'}}
+                defaultValue={defaultValues.person}
+                placeholder='select a test person'
 
 
+              />
 
 
                 </>
@@ -643,16 +505,16 @@ let defaultValues, sectionId
                 {showOtherPartyTypeInput === 'group' &&
                   <>
                 
-                  <ChronicleSelectMui
-                    name={'group'}
-                    control={control}
-                    options = {groupsOptionsArray}
-                    // or
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.categories}
-                    placeholder='select a group'
+                <StyledChitSelectMuiCreatable
+                name={'group'}
+                control={control}
+                options={groupsOptionsArray}
+                // defaultValue = {{ value: 'ge423', label: 'home'}}
+                defaultValue={defaultValues.group}
+                placeholder='select a test person'
 
-                  />
+
+              />
 
                   {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>}
 
@@ -669,57 +531,19 @@ let defaultValues, sectionId
 
               </ComponentWrapper>
             </FormComponentWrapperDoubleIndent>
-            </>}
+            </>
 
 
 
 
-    {showNewExisting === 'new' &&
+
 
     <NewWrapper>
       
 
 
           <CreateNewWrapper>
-            {showOtherPartyTypeInput === 'person' &&
-              <NewWrapper>
-
-
-
-               
-
-
-                 
-
-
-                    <NewInputContainer>
-
-
-<ChronicleInput
-                name={"newPerson"}
-                control={control}
-                label={"newPerson"}
-                defaultValue= {''}
-                placeholder = ' Add new person name'
-                 
-                 
-              />
-
-                    </NewInputContainer>
-               
-                    
-
-
-
-
-                
-
-
-
-
-
-              </NewWrapper>
-            }
+            
 
 {/* ############################################################# */}
 {showOtherPartyTypeInput === 'group' &&
@@ -731,66 +555,10 @@ let defaultValues, sectionId
                   
 
 
-              <NewInputContainer>
 
 
-                  <ChronicleInput
-                    name={"newGroup"}
-                    control={control}
-                    label={"newGroup"}
-                    defaultValue={''}
-                    placeholder=' Add new group name'
 
-
-                  />
-
-                </NewInputContainer>
-
-
-                <NewSelectContainer>
-
-
-                  <ChronicleSelectMui
-                    name={'groupType'}
-                    control={control}
-                    options={[
-                      // 'agency',
-                      'charity',
-                      'church',
-                      'club',
-                      // 'company',
-                      // 'firm',
-                      'group',
-                      'organization',
-                      'other'
-                    ]}
-                    // or
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.groupType}
-                    placeholder='choose a group type'
-
-                  />
-
-                </NewSelectContainer>
-                <NewMetaContainer>
-                <Controller
-
-name="meta"
-control={control}
-initialNote={'hi quill description'}
-
-render={({ field }) => (
-  <EditorShort
-    {...field}
-    ref={null}
-    IniitalValue={defaultValues.noteContent} 
-    placeholder = {'add general group info - phone, address, etc'}
-    
-    />
-)}
-
-/>
-                </NewMetaContainer>
+                
                 
 
 
@@ -815,7 +583,7 @@ render={({ field }) => (
 
 </NewWrapper>
 
-}
+
 
 
 
@@ -1189,7 +957,7 @@ const ErrorMessage= styled('div')({
 const BottomWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   width: '95%',
   margin: '.75rem',

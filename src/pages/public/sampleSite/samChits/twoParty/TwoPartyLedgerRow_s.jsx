@@ -42,7 +42,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 export default function TwoPartyLedgerRow(props) {
 
-  const {id, chitType, chitValue, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
+  const {id, chitType, chitValue, chitBurden, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
 
   // console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
 
@@ -148,7 +148,9 @@ styledKeywords = 'none'
   }
 
  
- 
+//  get total chit value
+
+let totalChitValue = chitBurden + chitValue
  
  
  
@@ -267,7 +269,7 @@ styledKeywords = 'none'
 
               <DetailWrapper>
               <DetailTitle>Chit value</DetailTitle>
-              <Detail> {chitValue} </Detail>
+              <Detail> {totalChitValue} </Detail>
               </DetailWrapper>
 
               <DetailWrapper>

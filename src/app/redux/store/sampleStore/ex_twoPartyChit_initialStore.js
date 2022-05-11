@@ -10,7 +10,8 @@ const TwoPartyChits =  [
       id: 'tp1',
 
       chitType: 'standard', //promise, kindness, awChit
-      chitValue: 60,    
+      chitBurden: 10,
+      chitValue: 50,    
       chitColor: 'gold',   //gold, silver, copper, red, 
 
       dateCreated: '2021-01-04T12:20:16.000Z',// date - 01/03/21
@@ -41,7 +42,8 @@ const TwoPartyChits =  [
       id: 'tp2',
 
       chitType: 'awChit', //promise, kindness, awChit
-      chitValue: 20,    
+      chitBurden: 10,
+      chitValue: 10,    
       chitColor: 'red',   //gold, silver,copper, red, 
 
       dateCreated: '2021-01-27T12:20:16.000Z', // date - 01/27/21
@@ -69,7 +71,8 @@ const TwoPartyChits =  [
       id: 'tp3',
 
       chitType: 'standard', //promise, kindness, awChit
-      chitValue: 45,    
+      chitBurden: 10,
+      chitValue: 35,    
       chitColor: 'silver',   //gold, silver,copper, red, 
 
       dateCreated: '2021-01-04T12:20:16.000Z',// date - 01/04/21
@@ -99,6 +102,7 @@ const TwoPartyChits =  [
       id: 'tp5',
 
       chitType: 'kindness', //promise, kindness, awChit
+      chitBurden: 0,
       chitValue: 10,    
       chitColor: 'copper',   //gold, silver, copper red, 
 
@@ -127,6 +131,7 @@ const TwoPartyChits =  [
       id: 'tp6',
 
       chitType: 'promise', //promise, kindness, awChit
+      chitBurden: 0,
       chitValue: 0,    // promise chits have 0 value
       chitColor: 'gold',   //gold, silver, copper red, 
 
@@ -155,7 +160,8 @@ const TwoPartyChits =  [
       id: 'tp7',
 
       chitType: 'kindness', //promise, kindness, awChit
-      chitValue: 80,    
+      chitBurden: 50,
+      chitValue: 20,    
       chitColor: 'gold',   //gold, silver, copper red, 
 
       dateCreated: '2021-02-21T21:57:49.000Z', // date - 02/21/21
@@ -183,6 +189,7 @@ const TwoPartyChits =  [
       id: 'tp8',
 
       chitType: 'kindness', //promise, kindness, awChit
+      chitBurden: 10,
       chitValue: 30,    
       chitColor: 'silver',   //gold, silver, copper red, 
 
