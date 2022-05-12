@@ -494,7 +494,7 @@ const StyledCalendarIcon = styled(CalendarTodayIcon)({
   alignItems: 'center',
   marginLeft: '8px',
   width: '16px',
-  color: '#CFD0D1',
+  color: '#F8C6A0',
 
  
 

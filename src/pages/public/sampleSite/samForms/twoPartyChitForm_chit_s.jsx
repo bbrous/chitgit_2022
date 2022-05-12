@@ -66,7 +66,7 @@ import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/
 // --- form components ---------------
 
 import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
-import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
+import { ChitRadio } from '../../../../forms/formComponents/ChitRadio'
 import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
 
 
@@ -114,7 +114,7 @@ export default function TwoPartyChitForm_chit_s(props) {
 
   // let otherPartyId = status.view.forms.twoPartyChitForm.otherPartyId
 
-  const {person, group, newGroup, newPerson }= status.view.forms.twoPartyChitForm
+  const {person, group }= status.view.forms.twoPartyChitForm
   
 
 
@@ -293,7 +293,7 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
 
 
  let noOtherParty
- if(!person && !newPerson && !group && !newGroup){
+ if(!person &&  !group ){
   noOtherParty = 'no'
   
  }else{noOtherParty = 'yes'}
@@ -370,7 +370,7 @@ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
 
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <ChitRadio
                     name={"chitType"}
                     control={control}
                     label={"logType"}
@@ -427,7 +427,7 @@ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
 
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <ChitRadio
                     name={"deedPerformedBy"}
                     control={control}
                     label={"logType"}

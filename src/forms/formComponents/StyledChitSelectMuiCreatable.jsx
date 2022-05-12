@@ -41,7 +41,7 @@ const categoryArray = ['to do', 'work', 'family', 'product team' , 'personal pro
 
 
 // -----------------------------------------------------------------
-export const StyledChitSelectMuiCreatable =({ name, control, label, type, defaultValue, options } ) => {
+export const StyledChitSelectMuiCreatable =({ name, control, label, type, defaultValue, options, placeholder } ) => {
 console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options);
   const [value, setValue] = React.useState(null);
   const classes = useStyles();
@@ -74,7 +74,7 @@ console.log('[ XXXXXXXXXXXXX   Select Createable = options ] options ', options)
           <StyledTextBox
             {...params}
             onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
-            placeholder="select or type new category"
+            placeholder={placeholder}
             InputProps={{
               ...params.InputProps,
               type: 'search',

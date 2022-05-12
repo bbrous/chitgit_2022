@@ -134,13 +134,12 @@ export const statusSlice = createSlice({
           otherPartyCollection: '',
           otherPartyId: '',
 
-          newExisting: '',
+         
           person: '',
-          newPerson: '',
+          
           group: '',
-          newGroup: '',
-          groupType: '',
-          groupMeta: '',
+         
+         
           deedPerformedBy: '',
           workRelated: 'false',
           description: '',
@@ -243,32 +242,27 @@ export const statusSlice = createSlice({
       let page = action.payload.page
       let data = action.payload.data
 
-      let otherPartyType, newExisting, chitDate, workRelated, description, keywords, chitType, chitValue, chitBurden, deedPerformedBy, person, newPerson, group,newGroup, groupType, groupMeta, test
+      let otherPartyType,  chitDate, workRelated, description, keywords, chitType, chitValue, chitBurden, deedPerformedBy, person, group
 
 
       switch(page){
         case 'who': 
         otherPartyType = data.otherPartyType
-        newExisting = data.newExisting
+        
         person = data.person
-        newPerson = data.newPerson
+      
         group = data.group
-        newGroup = data.newGroup
-        groupType = data.groupType
-        groupMeta = data.groupMeta
-        test = data.test
+    
         console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who TEST TEST  data', action.payload.data.test);
           
       
           state.view.forms[pageType].formPage = 'when'
           state.view.forms[pageType].otherPartyCollection = otherPartyType
-          state.view.forms[pageType].newExisting = newExisting
+         
           state.view.forms[pageType].person = person
-          state.view.forms[pageType].newPerson = newPerson
+          
           state.view.forms[pageType].group = group
-          state.view.forms[pageType].newGroup = newGroup
-          state.view.forms[pageType].groupType = groupType
-          state.view.forms[pageType].groupMeta = groupMeta
+          
            
           
           

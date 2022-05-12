@@ -76,7 +76,8 @@ import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
 
@@ -221,113 +222,147 @@ let defaultValues = {
   } // end async submit
 
   
+ let noOtherParty
+ if(!person &&  !group ){
+  noOtherParty = 'no'
+  
+ }else{noOtherParty = 'yes'}
+console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
+
+  
+let noDate
+if(!chitDate){
+ noDate = 'no'
+ 
+}else{noDate = 'yes'}
+console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
+
 
   // ==== return - Form JSX  ======================================
 
   return (
     <Wrapper>
 
+      {noOtherParty === 'no' &&
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="error">
+
+            <div> No second party has been chosen by you yet. </div>
+            <div> Click on "who" link above and choose the other party. </div>
+          </Alert>
+
+        </Stack>
+      }
+
+      {noDate === 'no' &&
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="warning">
+
+            <div> No date has been chosen yet. </div>
+            <div> Click on "when" link above and a date. </div>
+          </Alert>
+
+        </Stack>
+      }
+
+      {noOtherParty === 'yes' && noDate === 'yes' &&
+
+        <FormProvider {...methods}>
+          <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+
+            <MainWrapper>
+              <FormSection>
+                <FormLink> who </FormLink>
+                <Line>
+                  <LineTitle> other party type : </LineTitle>
+                  <LineContent> {otherPartyCollection}</LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> name : </LineTitle>
+                  <LineContent> {otherPartyName}</LineContent>
+                </Line>
+              </FormSection>
+
+              <FormSection>
+                <FormLink> when </FormLink>
+                <Line>
+                  <LineTitle> chit date : </LineTitle>
+                  <LineContent> {styledChitDate} </LineContent>
+                </Line>
+
+              </FormSection>
+
+              <FormSection>
+                <FormLink> details </FormLink>
+                <Line>
+                  <LineTitle> work related ?  : </LineTitle>
+                  <LineContent> {workRelatedAnswer} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> description : </LineTitle>
+                  <LineContent>{description} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> keywords : </LineTitle>
+                  <LineContent> schmuck, me </LineContent>
+                </Line>
+              </FormSection>
+
+              <FormSection>
+                <FormLink> chit </FormLink>
+                <Line>
+                  <LineTitle> chit type  : </LineTitle>
+                  <LineContent> {chitType} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> action performed by :  </LineTitle>
+                  <LineContent> {whoPerformedDeed} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> chit value :  </LineTitle>
+                  <LineContent> {chitValue} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> chit burden :  </LineTitle>
+                  <LineContent> {chitBurden} </LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> karmic total :  </LineTitle>
+                  <LineContent> {totalChitValue}</LineContent>
+                </Line>
+
+                <Line>
+                  <LineTitle> chit color </LineTitle>
+                  <LineContent> {chitColor} </LineContent>
+                </Line>
+              </FormSection>
 
 
-      <FormProvider {...methods}>
-        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+            </MainWrapper>
 
+            {/* ------Submit ---------- -------------------------- */}
+            <BottomWrapper>
+              <StyledButton
 
-          <MainWrapper>
-<FormSection>
-  <FormLink> who </FormLink>
-  <Line> 
-    <LineTitle> other party type : </LineTitle>
-    <LineContent> {otherPartyCollection}</LineContent>
-  </Line>
+                variant="contained"
+                color="primary"
+                style={{
+                  textTransform: 'none',
 
-  <Line> 
-    <LineTitle> name : </LineTitle>
-    <LineContent> {otherPartyName}</LineContent>
-  </Line>
-</FormSection>
+                }}
+                onClick={() => cancelNewForm()}
 
-<FormSection>
-  <FormLink> when </FormLink>
-  <Line> 
-    <LineTitle> chit date : </LineTitle>
-    <LineContent> {styledChitDate} </LineContent>
-  </Line>
+              >
+                Cancel
+              </StyledButton>
 
-</FormSection>
-
-<FormSection>
-  <FormLink> details </FormLink>
-  <Line> 
-    <LineTitle> work related ?  : </LineTitle>
-    <LineContent> {workRelatedAnswer} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> description : </LineTitle>
-    <LineContent>{description} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> keywords : </LineTitle>
-    <LineContent> schmuck, me </LineContent>
-  </Line>
-</FormSection>
-
-<FormSection>
-  <FormLink> chit </FormLink>
-  <Line> 
-    <LineTitle> chit type  : </LineTitle>
-    <LineContent> {chitType} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> action performed by :  </LineTitle>
-    <LineContent> {whoPerformedDeed} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> chit value :  </LineTitle>
-    <LineContent> {chitValue} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> chit burden :  </LineTitle>
-    <LineContent> {chitBurden} </LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> karmic total :  </LineTitle>
-    <LineContent> {totalChitValue}</LineContent>
-  </Line>
-
-  <Line> 
-    <LineTitle> chit color </LineTitle>
-    <LineContent> {chitColor} </LineContent>
-  </Line>
-</FormSection>
-           
-
-          </MainWrapper>
-
-          {/* ------Submit ---------- -------------------------- */}
-          <BottomWrapper>
-            <StyledButton
-
-              variant="contained"
-              color="primary"
-              style={{ 
-                textTransform: 'none' ,
-
-            }}
-              onClick={() => cancelNewForm()}
- 
-            >
-              Cancel
-            </StyledButton>
-
-
-              
               <StyledSubmitButton
                 type="submit"
                 variant="contained"
@@ -337,16 +372,11 @@ let defaultValues = {
                 Submit Form
               </StyledSubmitButton>
 
+            </BottomWrapper>
+          </FormWrapper>
 
-
-
-
-
-          </BottomWrapper>
-        </FormWrapper>
-
-      </FormProvider>
-
+        </FormProvider>
+      }
     </Wrapper>
   );
 }

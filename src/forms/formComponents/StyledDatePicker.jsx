@@ -13,7 +13,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
 const ReactDatePicker= styled(DatePicker)({
-  border: '1px solid grey',
+  border: '1px solid orange',
   borderRadius: '5px',
   // width: '80%', 
 color: headerGrey,

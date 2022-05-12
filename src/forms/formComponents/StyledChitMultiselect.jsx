@@ -25,7 +25,7 @@ const StyledWrapper= styled(Autocomplete)({
   // width: '80%', 
  textAlign: 'left',
   width: '100%',
-  border: '1px solid #A7A7A8',
+  border: '1px solid orange',
   borderRadius: '5px',
   
   // marginRight: '8px',

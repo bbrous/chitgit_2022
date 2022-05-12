@@ -74,6 +74,8 @@ import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
@@ -101,7 +103,7 @@ export default function TwoPartyChitForm_when_s(props) {
   let match = useParams()
   const status = useSelector(selectStatus)
  
-
+  const {person, group  }= status.view.forms.twoPartyChitForm
   let URLId = match.id
 // console.log('[ Log FROM ] URLId ', URLId);
 
@@ -111,7 +113,7 @@ export default function TwoPartyChitForm_when_s(props) {
 
   
   const formSchema = object({
-  
+    chitDate: string().required('You must choose a date')
 
     });
 
@@ -123,7 +125,7 @@ export default function TwoPartyChitForm_when_s(props) {
 // ----create default paramters if note exists ---------------------
 
 let defaultValues = {
-  chitDate: initialChitDate, 
+  chitDate: '', 
 
   };
 
@@ -159,7 +161,7 @@ let defaultValues = {
 
     dispatch(updateTwoPartyViewData( 
       {pageType: 'twoPartyChitForm'   , 
-      page: 'when'   , 
+      page: 'when', 
       data: newChitData
     } 
     )) // end dispatch
@@ -176,15 +178,34 @@ let defaultValues = {
    
 
   const showOtherPartyTypeInput = watch('otherPartyType')
-  const showNewExisting = watch('newExisting')
+ 
+  let noOtherParty
+  if(!person &&  !group ){
+   noOtherParty = 'no'
+   
+  }else{noOtherParty = 'yes'}
+ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
+ 
+ 
+
+
 
   // ==== return - Form JSX  ======================================
 
   return (
     <Wrapper>
 
+{noOtherParty === 'no' &&
+          <Stack sx={{ width: '100%' }} spacing={2}>
+            <Alert severity="error">
 
+              <div> No second party has been chosen by you yet. </div>
+              <div> Click on "who" link above and choose the other party. </div>
+            </Alert>
 
+          </Stack>
+        }
+{noOtherParty === 'yes' &&
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
@@ -207,8 +228,9 @@ let defaultValues = {
                     <StyledDatePicker {...field} ref={null} />
                   )}
                 />
-
+                
               </ComponentWrapper>
+              {errors.chitDate && <ErrorMessage>{errors.chitDate.message} </ErrorMessage>}
             </FormComponentWrapper>
            
 
@@ -252,7 +274,7 @@ let defaultValues = {
         </FormWrapper>
 
       </FormProvider>
-
+}
     </Wrapper>
   );
 }
@@ -463,7 +485,7 @@ const StyledCalendarIcon = styled(CalendarTodayIcon)({
   alignItems: 'center',
   marginLeft: '8px',
   width: '16px',
-  color: '#CFD0D1',
+  color: '#F8C6A0',
   
  
 

@@ -65,15 +65,11 @@ import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/
 
 // --- Form component imports ---------
 
-import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput'
+
 import { StyledChitSelectMuiCreatable } from '../../../../forms/formComponents/StyledChitSelectMuiCreatable'
 
+import { ChitRadio } from '../../../../forms/formComponents/ChitRadio'
 
-
-import { ChronicleSelectMui } from '../../../../forms/formComponents/ChronicleSelectMui'
-
- import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
-import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
 import { descendSorter, stripWhiteSpace } from '../../../../app/helpers/commonHelpers'
 import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
 // --- MUI imports ---------
@@ -114,93 +110,24 @@ export default function TwoPartyChitForm_who_s(props) {
   let URLId = match.id
 // console.log('[ Log FROM ] URLId ', URLId);
 
-  // --- form Schema tests   ------------------------------
-
-  // --- does newPerson already exist in people collection
-
-  const doesPersonExist = (inputValue) => {
-
-    let peopleNamesArray = []
-    allPeople.map((person, index) => {
-
-      let cleanPerson = stripWhiteSpace(person.name).toLowerCase()
-     
-      peopleNamesArray.push(cleanPerson)
-  
-    return peopleNamesArray
-
-    }) //end map
-
-    let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
-   
-    let personExists = doesArrayIncludeItem(cleanInputValue, peopleNamesArray)
-    // returns true if exists ... schema test requires false to proceed
-    // so return the opposite of person exists
-   return !personExists
-  
-  
-  }// end doePersonExist
-
-
-
-  // --- does newGroup already exist in groups collection
-
-  const doesGroupExist = (inputValue) => {
-
-    let groupsNamesArray = []
-    allGroups.map((group, index) => {
-
-      let cleanGroup = stripWhiteSpace(group.name).toLowerCase()
-      groupsNamesArray.push(cleanGroup)
-  
-    return groupsNamesArray
-
-    }) //end map
-
-    let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
-
-    let groupExists = doesArrayIncludeItem(cleanInputValue, groupsNamesArray)
-
-  // returns true if exists ... schema test requires false to proceed
-  // so return the opposite of group exists
-   return !groupExists
-  
-  }// end doeGroupExist
-
-
+ 
 
 
   const formSchema = object({
-    person: string().when(["otherPartyType", "newExisting"], {
-      is: (otherPartyType, newExisting) => otherPartyType === 'person' && newExisting === 'existing',
+    person: string().when(["otherPartyType" ], {
+      is: (otherPartyType) => otherPartyType === 'person' ,
       then: string().required('You must choose a person')
       .nullable()
     })
     .nullable(),
    
-    group: string().when(["otherPartyType", "newExisting"], {
-      is: (otherPartyType, newExisting) => otherPartyType === 'group' && newExisting === 'existing',
+    group: string().when(["otherPartyType" ], {
+      is: (otherPartyType) => otherPartyType === 'group' ,
       then: string().required('You must choose a group')
       .nullable()
     })
     .nullable(),
 
-  
-    newPerson: string().when(["otherPartyType", "newExisting"], {
-      is: (otherPartyType, newExisting) => otherPartyType === 'person' && newExisting === 'new',
-      then: string().required('You must enter a new person')
-  })
-  .test('test-name', 'Person exists - create new name - or - check existing box above', 
-  doesPersonExist
-  ) ,
-  
-  newGroup: string().when(["otherPartyType", "newExisting"], {
-    is: (otherPartyType, newExisting) => otherPartyType === 'group' && newExisting === 'new',
-    then: string().required('You must enter a new group')
-  })
-  .test('test-name', 'Group exists - create new name - or - check existing box above', 
-  doesGroupExist
-  ) ,
 
 
 
@@ -327,7 +254,7 @@ let defaultValues, sectionId
   
     
     otherPartyType: 'person',
-    newExisting: 'existing',
+     
     person: null,
     group: null,
     newPerson: '',
@@ -359,11 +286,11 @@ let defaultValues, sectionId
 
   const submitForm = async (data) => {
 
-    const {otherPartyType, newExisting,  person, newPerson, 
-                          group, newGroup, groupType, groupMeta, test} = data
+    const {otherPartyType,   person, 
+                          group  } = data
 
     console.log('[twoPartyChitForm]...data ', data)
-    console.log('[twoPartyChitForm]...otherPartyType ', test)
+
  
     try {
 
@@ -373,25 +300,12 @@ let defaultValues, sectionId
     // --- create new logHolder ------------
 
     let newChitData = {}
-    let newChitId
-
-
-          
-
-  
+ 
              newChitData = {
-
+            
               otherPartyType: otherPartyType, 
-              newExisting: newExisting ,
               person: person ,
-              newPerson: newPerson ,
-              group: group ,
-              newGroup: newGroup,
-              groupType: groupType ,
-              groupMeta: groupMeta,
-              test: test
-
-              
+              group: group
               }
 
               dispatch(updateTwoPartyViewData(
@@ -402,9 +316,6 @@ let defaultValues, sectionId
                 }
               )) // end dispatch
 
-             
-
-        
 
           dispatch(changeLoadingStatus(false))
 
@@ -421,25 +332,17 @@ let defaultValues, sectionId
    
 
   const showOtherPartyTypeInput = watch('otherPartyType')
-  const showNewExisting = watch('newExisting')
+ 
 
   // ==== return - Form JSX  ======================================
 
   return (
     <Wrapper>
 
-
-
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
-
           <MainWrapper>
-            
-
-
-
-
 
             <FormComponentWrapper>
               <ComponentName>
@@ -448,7 +351,7 @@ let defaultValues, sectionId
 
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <ChitRadio
                     name={"otherPartyType"}
                     control={control}
                     label={"otherPartyType"}
@@ -471,59 +374,54 @@ let defaultValues, sectionId
             </FormComponentWrapper>
 
 
-
-            
-<>  
-
-
             <FormComponentWrapperDoubleIndent>
 
 
               <ComponentWrapper>
-        
-        
-              <SelectWrapper>
-                {showOtherPartyTypeInput === 'person' && 
-                <>
-                
-                <StyledChitSelectMuiCreatable
-                name={'person'}
-                control={control}
-                options={peopleOptionsArray}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.person}
-                placeholder='select a test person'
 
 
-              />
+                <SelectWrapper>
+                  {showOtherPartyTypeInput === 'person' &&
+                    <>
+
+                      <StyledChitSelectMuiCreatable
+                        name={'person'}
+                        control={control}
+                        options={peopleOptionsArray}
+                        // defaultValue = {{ value: 'ge423', label: 'home'}}
+                        defaultValue={defaultValues.person}
+                        placeholder='select a person... or type in a new person'
 
 
-                </>
-                }
+                      />
+                      {errors.person && <ErrorMessage>{errors.person.message} </ErrorMessage>}
+
+                    </>
+                  }
 
 
-                {showOtherPartyTypeInput === 'group' &&
-                  <>
-                
-                <StyledChitSelectMuiCreatable
-                name={'group'}
-                control={control}
-                options={groupsOptionsArray}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.group}
-                placeholder='select a test person'
+                  {showOtherPartyTypeInput === 'group' &&
+                    <>
+
+                      <StyledChitSelectMuiCreatable
+                        name={'group'}
+                        control={control}
+                        options={groupsOptionsArray}
+                        // defaultValue = {{ value: 'ge423', label: 'home'}}
+                        defaultValue={defaultValues.group}
+                        placeholder='select a group... or type in a new group'
 
 
-              />
+                      />
 
-                  {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>}
-
-
+                      {errors.group && <ErrorMessage>{errors.group.message} </ErrorMessage>}
 
 
-                </>
-                }
-              </SelectWrapper>
+
+
+                    </>
+                  }
+                </SelectWrapper>
 
 
 
@@ -531,75 +429,8 @@ let defaultValues, sectionId
 
               </ComponentWrapper>
             </FormComponentWrapperDoubleIndent>
-            </>
 
 
-
-
-
-
-    <NewWrapper>
-      
-
-
-          <CreateNewWrapper>
-            
-
-{/* ############################################################# */}
-{showOtherPartyTypeInput === 'group' &&
-              <NewWrapper>
-
-
-
-              
-                  
-
-
-
-
-
-                
-                
-
-
-
-
-
-                
-
-
-
-
-
-              </NewWrapper>
-            }
-  </CreateNewWrapper>
-
-
-
-
-
-
-
-</NewWrapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           
 
           </MainWrapper>
 
@@ -609,12 +440,12 @@ let defaultValues, sectionId
 
               variant="contained"
               color="primary"
-              style={{ 
-                textTransform: 'none' ,
+              style={{
+                textTransform: 'none',
 
-            }}
+              }}
               onClick={() => cancelNewForm()}
- 
+
             >
               Cancel
             </StyledButton>
@@ -629,9 +460,6 @@ let defaultValues, sectionId
                 Next
               </StyledButton>
 
-
-
-              
             </ButtonWrapper>
 
 
@@ -882,7 +710,7 @@ const SelectWrapper= styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '60%',
+  width: '80%',
  
  
   [theme.breakpoints.down('sm')]: {

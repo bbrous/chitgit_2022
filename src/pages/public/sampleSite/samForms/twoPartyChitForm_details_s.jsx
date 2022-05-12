@@ -66,7 +66,7 @@ import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/
 // --- Form component imports ---------
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
 import {Editor} from '../../../../forms/formComponents/QuillEditor';
-import { ChronicleRadio } from '../../../../forms/formComponents/ChronicleRadio'
+import { ChitRadio } from '../../../../forms/formComponents/ChitRadio'
 import { StyledChitMultiselect } from '../../../../forms/formComponents/StyledChitMultiselect';
 
 import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -74,7 +74,8 @@ import { closeModal } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
- 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 import { styled, createTheme} from '@mui/material/styles'
 import {withStyles} from '@mui/styles'
@@ -101,7 +102,7 @@ export default function TwoPartyChitForm_details_s(props) {
  
   let match = useParams()
   const status = useSelector(selectStatus)
- 
+  const {person, group }= status.view.forms.twoPartyChitForm
 
   let URLId = match.id
 // console.log('[ Log FROM ] URLId ', URLId);
@@ -179,8 +180,15 @@ let defaultValues = {
 
    
 
-  const showOtherPartyTypeInput = watch('otherPartyType')
-  const showNewExisting = watch('newExisting')
+
+  let noOtherParty
+  if(!person &&  !group ){
+   noOtherParty = 'no'
+   
+  }else{noOtherParty = 'yes'}
+ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
+ 
+ 
 
   // ### TEMP 
   let keywordsOptionsArray = ['ideas' , 'jad']
@@ -190,7 +198,17 @@ let defaultValues = {
   return (
     <Wrapper>
 
+{noOtherParty === 'no' &&
+          <Stack sx={{ width: '100%' }} spacing={2}>
+            <Alert severity="error">
 
+              <div> No second party has been chosen by you yet. </div>
+              <div> Click on "who" link above and choose the other party. </div>
+            </Alert>
+
+          </Stack>
+        }
+{noOtherParty === 'yes' &&
 
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
@@ -209,7 +227,7 @@ let defaultValues = {
               
               <ComponentWrapper>
                 <RadiotWrapper>
-                  <ChronicleRadio
+                  <ChitRadio
                     name={"workRelated"}
                     control={control}
                     label={"logType"}
@@ -341,7 +359,7 @@ let defaultValues = {
         </FormWrapper>
 
       </FormProvider>
-
+}
     </Wrapper>
   );
 }
@@ -586,7 +604,7 @@ const QuillWrapper= styled('div')({
   alignItems: 'center',
   width: '95%',
   height: '95%',
-border: '1px solid grey',
+border: '1px solid orange',
 borderRadius: '5px',
 backgroundColor: 'white',
  padding: '2px',

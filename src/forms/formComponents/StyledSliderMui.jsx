@@ -143,7 +143,7 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
 };
 
 const ChitSlider = styled(Slider)({
-  color: darkGrey,
+  color: 'orange',
   height: 2,
   '& .MuiSlider-track': {
     border: 'none',
@@ -151,7 +151,7 @@ const ChitSlider = styled(Slider)({
   '& .MuiSlider-thumb': {
     height: 12,
     width: 12,
-    backgroundColor: '#fff',
+    backgroundColor: 'orange',
     border: '2px solid currentColor',
     '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
       boxShadow: 'inherit',
