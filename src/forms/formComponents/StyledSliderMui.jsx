@@ -126,7 +126,7 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
                   valueLabelDisplay="auto"
                   min={0}
                   max={50}
-           
+                  defaultValue = {defaultValue}
                   step={1}
                   size = 'small'
             />
@@ -135,7 +135,7 @@ export const StyledSliderMui = ({ name, control, label, type, defaultValue, opti
           )}
           name={name}
           control={control}
-          // defaultValue = {defaultValue.label}
+           
         />
       )}
     />

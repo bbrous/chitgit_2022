@@ -80,27 +80,7 @@ export const peopleSlice = createSlice({
 
   // }, // end updateEditedPerson
 
-  // addPersonHolder: (state, action) => {
 
-
-  //   let personId = action.payload.personId
-  //   let personHolder = action.payload.personHolder
-  //   let dbCollection = action.payload.dbCollection
-  //   let newPersonHolder = {dbCollection: dbCollection, id: personHolder}
-    
-  //   console.log('===============================================================')
-  //   console.log('[ sam_personSlice ] personId ', personId)
-  //   console.log('[ sam_personSlice ] newPersonHolder ', newPersonHolder)
-  //   console.log('[ sam_personSlice ] dbCollection ', dbCollection)
-
-
-  //   let personIndex = state.findIndex(index => index.id === personId)
-
-  //   console.log('[ sam_personSlice >>>>>>>] personIndex ', state[personIndex].personHolders)   
-    
-  //   state[personIndex].personHolders.push(newPersonHolder)
-   
-  // }, // end addPersonHolder
 
 
   // deletePersonHolder: (state, action) => {

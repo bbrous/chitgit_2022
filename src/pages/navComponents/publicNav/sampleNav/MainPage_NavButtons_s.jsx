@@ -74,7 +74,7 @@ const chitView = status.view.chit.type
 const chitId = status.view.chit.id
 const chitLink = `/sample/${chitView}/${chitId}`
 
-console.log('[ MainPage_NavButtons_s ] status ', status);
+// console.log('[ MainPage_NavButtons_s ] status ', status);
 const topicalsId = status.view.topical.id
 const topicalLink = `/sample/topicals/${topicalsId}`
 

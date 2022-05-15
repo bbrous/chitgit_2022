@@ -101,16 +101,30 @@ export default function TwoPartyChitForm_who_s(props) {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let match = useParams()
+  let id = props.id
+
   const status = useSelector(selectStatus)
   const allPeople = useSelector(selectPeople)
   const allGroups = useSelector(selectGroups)
   const allLogHolders = useSelector(selectlogHolders)
 
-  let URLId = match.id
-// console.log('[ Log FROM ] URLId ', URLId);
+  let statusFormParameters = status.view.forms.twoPartyChitForm
 
- 
+
+  console.log('[ twoPartyChitForm - Who ] statusFormParameters ', statusFormParameters)
+  const { otherPartyId, person, group, otherPartyCollection } = statusFormParameters
+
+  let newUpdate
+  otherPartyId ? newUpdate = 'update' : newUpdate = 'new'
+
+  let otherPartyType
+  !otherPartyCollection ? otherPartyType = 'person' : otherPartyType = otherPartyCollection
+
+  let statusFormViewPerson
+  !person ? statusFormViewPerson = '' : statusFormViewPerson = person
+
+  let statusFormViewGroup
+  !group ? statusFormViewGroup = '' : statusFormViewGroup = group
 
 
   const formSchema = object({
@@ -133,14 +147,6 @@ export default function TwoPartyChitForm_who_s(props) {
 
 
     });
-
- 
-   
-    
- 
-
-
-   
 
 
 // create selector Options -----------------------------
@@ -218,53 +224,14 @@ export default function TwoPartyChitForm_who_s(props) {
 
  
 
-  // sortedFilteredGroups.map((group, index) => {
-
-  //   let groupExists = groupsIdArray.includes(group.id)
-  // //   let groupObject = group.name
-  //   if (groupExists) {
-  //     // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', group.id);
-
-
-
-
-  //   }
-  //   if (!groupExists) {
-  //     // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  group.id);
-  //     groupsOptionsArray.push(group.name)
-
-  //   }
-
-  //   return groupsOptionsArray
-  // }
-  // ) //end map
-  // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED', groupsOptionsArray)
-
- 
 // ----create default paramters if note exists ---------------------
 
-let defaultValues, sectionId
-
-
-// ##### Sample only  ###########
-// logSectionId === 'new' ? sectionId = cuid()  : sectionId =  logSectionId  
-
-
+let defaultValues
   defaultValues = {
-  
-    
-    otherPartyType: 'person',
-     
-    person: null,
-    group: null,
-    newPerson: '',
-    newGroup: '',
-    groupType: 'charity',
-    groupMeta: '',
-    keywords: [],
-    people: [],
-    test: ''
-  
+
+    otherPartyType: otherPartyType,
+    person: statusFormViewPerson,
+    group: statusFormViewGroup,
 
   };
 

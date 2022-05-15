@@ -15,34 +15,19 @@ export const twoPartySlice = createSlice({
 
   reducers: {
 
-    addTwoPartyToStore: (state, action) => {
+    addTwoPartyChitToStore: (state, action) => {
 
-      // let twoPartyId = action.payload.twoPartyId
-      // let twoParty = action.payload.twoParty
-      // let twoPartyHolder = action.payload.twoPartyHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newtwoPartyHolder = {dbCollection: dbCollection, id: twoPartyHolder}
+      let twoPartyChit = action.payload
 
-      // let twoPartyObject = {
-      //   id: twoPartyId,
-      //   twoParty: twoParty,
-      //   twoPartyHolders: [newtwoPartyHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_twoPartySlice ] twoPartyId ', twoPartyId)
-      // console.log('[ sam_twoPartySlice ] newtwoPartyHolder ', newtwoPartyHolder)
-      // console.log('[ sam_twoPartySlice ] dbCollection ', dbCollection)
-
-      // state.push(twoPartyObject)
+      state.push(twoPartyChit)
     },
 
 
 
-  updateEditedTwoParty: (state, action) => {
+  updateEditedTwoPartyChit: (state, action) => {
 
 
-    // let twoPartyId = action.payload.id
+    // let twoPartyChitId = action.payload.id
     // let newtwoParty = action.payload.twoParty
     
     
@@ -55,24 +40,7 @@ export const twoPartySlice = createSlice({
 
   }, // end updateEditedtwoParty
 
-  addTwoPartyHolder: (state, action) => {
 
-
-    // let twoPartyId = action.payload.twoPartyId
-    // let twoPartyHolder = action.payload.twoPartyHolder
-    // let dbCollection = action.payload.dbCollection
-    // let newtwoPartyHolder = {dbCollection: dbCollection, id: twoPartyHolder}
-    
-
-
-
-    // let twoPartyIndex = state.findIndex(index => index.id === twoPartyId)
-
-    // console.log('[ sam_twoPartySlice ] twoPartyIndex ', twoPartyIndex)   
-    
-    // state[twoPartyIndex].twoPartyHolders.push(newtwoPartyHolder)
-   
-  }, // end addtwoPartyHolder
 
 }
 
@@ -82,9 +50,9 @@ export const twoPartySlice = createSlice({
 // --- Export actions ---------------------------------------------
 
 export const { 
-  addTwoPartyToStore, 
-  updateEditedTwoParty,
-  addTwoPartyHolder 
+  addTwoPartyChitToStore, 
+  updateEditedTwoPartyChit,
+ 
 
 } = twoPartySlice.actions
 

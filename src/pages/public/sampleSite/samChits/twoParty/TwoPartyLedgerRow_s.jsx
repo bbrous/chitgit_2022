@@ -44,8 +44,8 @@ export default function TwoPartyLedgerRow(props) {
 
   const {id, chitType, chitValue, chitBurden, chitColor, dateCreated, chitDate, timeLock, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, duplicate, sharedId, sharedTitle, message, keyWordArray} = props.data
 
-  // console.log('[ TwpPARTYLEDGER ROW ] keyWordArray ', keyWordArray);
-
+  // console.log('[ TwpPARTYLEDGER ROW ] chitColor ', chitColor);
+  // console.log('[ TwpPARTYLEDGER ROW ] chitType ', chitType);
   let dispatch = useDispatch()
   
   let passedId = id
@@ -185,7 +185,7 @@ let totalChitValue = chitBurden + chitValue
         <Shared/>
         <TimeLock/>
         <DeleteIcon/>
-        <EditIcon/>
+        <EditIcon id = {id} dbCollection = 'twoPartyChits'/>
 
 
 
@@ -225,10 +225,9 @@ let totalChitValue = chitBurden + chitValue
               <div> Description:</div>
 
             </TopRightContainer>
-            <BottomRightContainer>
-{description}       
+            <BottomRightContainer dangerouslySetInnerHTML={{__html: description}} />
+       
 
-            </BottomRightContainer>
           </RightContainer>   
 
 

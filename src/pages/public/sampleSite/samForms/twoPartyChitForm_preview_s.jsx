@@ -20,7 +20,7 @@ import {useNavigate, useParams } from 'react-router-dom'
 import { chitBlueDull, chitBurgandy, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
-
+  stripWhiteSpace ,
         checkIfWordExists, 
         cleanOptions ,
         optionDescendSorter,
@@ -31,6 +31,7 @@ import {
       } from '../../../../app/helpers/commonHelpers'
 
       import { ISOtoTraditional } from '../../../../app/helpers/dateHelper'
+      import { chooseTwoPartyChitColor } from '../../../../app/helpers/chitHelpers'
 
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
@@ -56,12 +57,9 @@ import {
  
 // --- imports to create options for selectors
 
-import { 
-  selectlogHolders,
-  addLogHolderToStore
-} from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
+import { addTwoPartyChitToStore } from '../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
 
-import { selectPeople, addPersonToStore } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { selectPeople, addPersonToStore, addPersonHolder } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
  
 
@@ -102,19 +100,24 @@ export default function TwoPartyChitForm_preview_s(props) {
   const dispatch = useDispatch()
   
   let match = useParams()
-  const status = useSelector(selectStatus)
-  let formParameters = status.view.forms.twoPartyChitForm
+  let URLId = match.id
 
-  console.log('[ Here there Preview ] formParameters ', formParameters);
-  const {otherPartyCollection, chitType, chitValue, chitBurden,chitDate, person, group, deedPerformedBy, workRelated, description, keywordArray} = formParameters
+  const allPeople = useSelector(selectPeople)
+  const allGroups = useSelector(selectGroups)
+
+  const status = useSelector(selectStatus)
+  let statusFormParameters = status.view.forms.twoPartyChitForm
+
+  console.log('[ Here there Preview ] statusFormParameters ', statusFormParameters);
+  const {otherPartyCollection, chitType, chitValue, chitBurden,chitDate, person, group, deedPerformedBy, workRelated, description, keyWordArray, otherPartyId} = statusFormParameters
 
   
   let otherPartyName 
   otherPartyCollection === 'person'? otherPartyName = person: otherPartyName = group
   let styledChitDate = ISOtoTraditional(chitDate)
 
-  let workRelatedAnswer
-  workRelated === 'workRelated'? workRelatedAnswer = 'yes': workRelatedAnswer = 'no'
+ 
+ 
 
   let whoPerformedDeed
   deedPerformedBy === 'otherParty' ? whoPerformedDeed = otherPartyName: whoPerformedDeed = 'me'
@@ -122,23 +125,65 @@ export default function TwoPartyChitForm_preview_s(props) {
  
 
 
-  let chitColor,  totalChitValue
-  if(!chitBurden && !chitValue) {
+  let totalChitValue
+  if (!chitBurden && !chitValue) {
     totalChitValue = 0
-  }else{
-  totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
-}
- 
-  
-  
-
-  if(chitType === 'awChit'){chitColor = 'red'}else{
-
-  if( totalChitValue < 25 ) { chitColor = 'copper' } 
-  else if (totalChitValue > 24 && totalChitValue < 55 ) { chitColor = 'silver' } 
-  else if (totalChitValue > 54 ){ chitColor= 'gold' }
-  else{chitColor = 'copper'}
+  } else {
+    totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
   }
+  // choose chit color
+  let chitColor = chooseTwoPartyChitColor(chitType, chitValue, chitBurden)
+
+// --- does newPerson already exist in people collection
+
+const doesPersonExist = (inputValue) => {
+
+  let peopleNamesArray = []
+  allPeople.map((person, index) => {
+
+    let cleanPerson = stripWhiteSpace(person.name).toLowerCase()
+   
+    peopleNamesArray.push(cleanPerson)
+
+  return peopleNamesArray
+
+  }) //end map
+
+  let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
+ 
+  let personExists = doesArrayIncludeItem(cleanInputValue, peopleNamesArray)
+  // returns true if exists ... schema test requires false to proceed
+  // so return the opposite of person exists
+ return !personExists
+
+
+}// end doePersonExist
+
+
+
+// --- does newGroup already exist in groups collection
+
+const doesGroupExist = (inputValue) => {
+
+  let groupsNamesArray = []
+  allGroups.map((group, index) => {
+
+    let cleanGroup = stripWhiteSpace(group.name).toLowerCase()
+    groupsNamesArray.push(cleanGroup)
+
+  return groupsNamesArray
+
+  }) //end map
+
+  let cleanInputValue = stripWhiteSpace(inputValue).toLowerCase()
+
+  let groupExists = doesArrayIncludeItem(cleanInputValue, groupsNamesArray)
+
+// returns true if exists ... schema test requires false to proceed
+// so return the opposite of group exists
+ return !groupExists
+
+}// end doeGroupExist
 
 
 
@@ -146,12 +191,15 @@ export default function TwoPartyChitForm_preview_s(props) {
 
 
 
-  let URLId = match.id
+let keywordString = keyWordArray.toString()
+
+
+
 // console.log('[ Log FROM ] URLId ', URLId);
 
   // --- form Schema tests   ------------------------------
 
-  // --- does newPerson already exist in people collection
+  // --- does newGroup already exist in people collection
 
   
   const formSchema = object({
@@ -187,31 +235,146 @@ let defaultValues = {
   });
   const { handleSubmit, reset, control, setValue, onChange, watch, ref , formState: { errors } } = methods;
 
-  const submitForm = async (data) => {
+  const submitForm = async (data, newGroupObject, newPersonObject, newGroup, newPerson) => {
 
-    const {otherPartyCollection, newExisting,  person, newPerson, 
-                          group, newGroup, groupType, chitDate} = data
-                          console.log('[LogSectionForm]...data ', data)
 
+    // const {otherPartyCollection, person, group, chitType, chitValue, chitBurden,chitDate,  deedPerformedBy, workRelated, description, keyWordArray, otherPartyId} 
+
+    let modifiedChitDate = new Date(chitDate)
+    let modifiedChitCreatedDate = new Date(chitDate)
+    console.log('[ where ] BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB   GROUP ' , newPersonObject);
+      console.log('[ OOOOOOOO - ChitColor ] person does NOT exist ', chitColor);
+
+      // create new chit id 
+      let newTwoPartyChitId = cuid()
+
+    
+    
 
 
 
    try{
 
-    let newChitData = {}
-    let newChitId
+ // ====== IF NEW TWO PARTY CHIT (no otherPartyId) =======================   
 
-    newChitData = {
-      chitDate: chitDate.toISOString(),
-    }
+  // --- add person if new ---------
+     if (otherPartyCollection === 'person') {
 
-    dispatch(updateTwoPartyViewData( 
-      {pageType: 'twoPartyChitForm'   , 
-      page: 'when'   , 
-      data: newChitData
-    } 
-    )) // end dispatch
+      /*
+        - clean person string
+        - check if person exists in people collection
+          - if yes 
+             - get id of person
+             - add new two party chit - return twoPartyChit id
+
+             - update personId.personHolders with new twoPartyChitId
+
+          - if no 
+             - create person - return new personId
+             - add new two party chit - return twoPartyChit id
+
+              - update personId.personHolders with new twoPartyChitId
+              
+      */
+
+      // --- clean person string
+
+        let cleanedPerson = stripWhiteSpace(person)
+
+      // --- see if person exists already in people array
+        let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === cleanedPerson )
+
+      // --- get id of existent person
+     
+
+      // console.log('[ Two Party CHIT form - preview ] personId ', personId);
+
+      if(newPersonObject){
+        let newOtherPartyId = newPersonObject.id
+
+        let newTwoPartyChitData = {
+
+          id: newTwoPartyChitId,
+          description: description, 
+          keyWordArray: [],
+          chitDate: modifiedChitDate.toISOString(),
+          dateCreated: modifiedChitCreatedDate.toISOString(),
+          chitColor: chitColor,
+          workRelated: workRelated,
+          chitType: chitType,
+          chitBurden: chitBurden,
+          chitValue: chitValue,
+          timeLock: '',
+          otherPartyCollection: otherPartyCollection,
+          otherPartyId: newOtherPartyId
+      
+      }// end newPartyChitId
+
+        dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) 
+        dispatch(addPersonHolder( 
+          {
+          id: newOtherPartyId,
+          personHolder: newTwoPartyChitId,
+          dbCollection: 'twoPartyChits' 
+
+          } 
+        )) // end dispatch addPersonHlder
+      } // end if newPersonObject (person already exists)
+
+
+    } // end if otherPartyCollection === person
+
+
+  // --- add group if new ---------
+     if (otherPartyCollection === 'group') {
+
+      /*
+        - clean group string
+        - check if group exists in people collection
+          - if yes 
+             - get id of group
+             - add new two party chit - return twoPartyChit id
+
+             - update groupId.groupHolders with new twoPartyChitId
+
+          - if no 
+             - create group - return new groupId
+             - add new two party chit - return twoPartyChit id
+
+              - update groupId.groupHolders with new twoPartyChitId
+              
+      */
+
+
+
+
+
+
+// dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) // end dispatch
+
+     } // end if otherPartyCollection === group
+
+
+
+    
+
+
+
+
+ // ====== IF Edit  TWO PARTY CHIT (otherPartyId exists) ======================= 
+ 
+ 
+      //  ######################  update chitId
+
+
+
+
+ // ====== IF Edit  TWO PARTY CHIT (otherPartyId exists) ======================= 
+ 
+ 
+
     dispatch(changeLoadingStatus(false))
+
     } catch (error) {
       alert(error.message)
       dispatch(changeLoadingStatus(false))
@@ -265,11 +428,38 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
         </Stack>
       }
 
+      
+
       {noOtherParty === 'yes' && noDate === 'yes' &&
 
         <FormProvider {...methods}>
           <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+ {/* ------Submit ---------- -------------------------- */}
+ <SubmitContainer>
+              <StyledButton
 
+                variant="contained"
+                color="primary"
+                style={{
+                  textTransform: 'none',
+
+                }}
+                onClick={() => cancelNewForm()}
+
+              >
+                Cancel
+              </StyledButton>
+
+              <StyledSubmitButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ textTransform: 'none' }}
+              >
+                Submit Form
+              </StyledSubmitButton>
+
+            </SubmitContainer>
             <MainWrapper>
               <FormSection>
                 <FormLink> who </FormLink>
@@ -295,19 +485,22 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
 
               <FormSection>
                 <FormLink> details </FormLink>
-                <Line>
-                  <LineTitle> work related ?  : </LineTitle>
-                  <LineContent> {workRelatedAnswer} </LineContent>
-                </Line>
+
 
                 <Line>
                   <LineTitle> description : </LineTitle>
-                  <LineContent>{description} </LineContent>
+                  <LineContentBlock dangerouslySetInnerHTML={{__html: description}}/>
+                
+                </Line>
+
+                <Line>
+                  <LineTitle> work related   : </LineTitle>
+                  <LineContent> {workRelated} </LineContent>
                 </Line>
 
                 <Line>
                   <LineTitle> keywords : </LineTitle>
-                  <LineContent> schmuck, me </LineContent>
+                  <LineContent> {keywordString}</LineContent>
                 </Line>
               </FormSection>
 
@@ -348,7 +541,7 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
             </MainWrapper>
 
             {/* ------Submit ---------- -------------------------- */}
-            <BottomWrapper>
+            <SubmitContainer>
               <StyledButton
 
                 variant="contained"
@@ -372,7 +565,7 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
                 Submit Form
               </StyledSubmitButton>
 
-            </BottomWrapper>
+            </SubmitContainer>
           </FormWrapper>
 
         </FormProvider>
@@ -539,6 +732,23 @@ const LineContent = styled('div')({
 
 })
 
+const LineContentBlock = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  border: '1px solid grey',
+ width: '70%',
+  color: chitBlueDull,
+padding: '4px',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
 const FormLink = styled('div')({
   display: 'flex',
   flexDirection: 'row',
@@ -565,10 +775,10 @@ const FormLink = styled('div')({
 
 
 //  --- Buttons -----------
-const BottomWrapper= styled('div')({
+const SubmitContainer= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   alignItems: 'center',
   width: '95%',
   margin: '.75rem',

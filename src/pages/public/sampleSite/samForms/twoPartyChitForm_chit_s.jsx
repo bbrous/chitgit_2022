@@ -30,6 +30,8 @@ import {
 
       } from '../../../../app/helpers/commonHelpers'
 
+import { chooseTwoPartyChitColor } from '../../../../app/helpers/chitHelpers'
+
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -115,13 +117,32 @@ export default function TwoPartyChitForm_chit_s(props) {
   // let otherPartyId = status.view.forms.twoPartyChitForm.otherPartyId
 
   const {person, group }= status.view.forms.twoPartyChitForm
+ 
+  let statusChitType = status.view.forms.twoPartyChitForm.chitType
+  let statusChitValue = status.view.forms.twoPartyChitForm.chitValue
+  let statusChitBurden = status.view.forms.twoPartyChitForm.chitBurden
+  let statusDeedPerformedBy = status.view.forms.twoPartyChitForm.deedPerformedBy
+
+  let statusFormViewChitType
+  !statusChitType ? statusFormViewChitType = 'standard': statusFormViewChitType = statusChitType
+
   
+  let statusFormViewDeedPerformedBy
+  !statusDeedPerformedBy ? statusFormViewDeedPerformedBy = '': statusFormViewDeedPerformedBy = statusDeedPerformedBy
+
+  let statusFormViewChitValue
+  !statusChitValue ? statusFormViewChitValue = 0: statusFormViewChitValue = statusChitValue
 
 
+
+  let statusFormViewChitBurden
+  !statusChitBurden ? statusFormViewChitBurden = 0: statusFormViewChitBurden = statusChitBurden
+
+  console.log('[ Log FROM @@@@@  ] statusChitValue ', statusFormViewChitValue);
 
 
   let URLId = match.id
-// console.log('[ Log FROM ] URLId ', URLId);
+
 
 // --- popovers ---
 
@@ -177,10 +198,10 @@ const popoverMessage = () => {
 
 let defaultValues = {
   // chitDate: initialChitDate, 
-  chitValue: 0,
-  chitBurden: 0,
-  chitType: 'standard',
-  deedPerformedBy: 'me'
+  chitValue: statusFormViewChitValue,
+  chitBurden: statusFormViewChitBurden,
+  chitType: statusFormViewChitType,
+  deedPerformedBy: statusFormViewDeedPerformedBy
 
   };
 
@@ -206,7 +227,7 @@ let defaultValues = {
   const chitValue = watch("chitValue");
   const chitBurden = watch('chitBurden')
   const coinType = watch('chitType')
-  const youOwe = watch('deedPerformedBy')
+  const whoDidDeed = watch('deedPerformedBy')
 
   // #### Temp
   let when = 'done'
@@ -216,6 +237,12 @@ let defaultValues = {
 
     const {chitType, chitValue, chitBurden, deedPerformedBy} = data
                           console.log('[LogSectionForm]...data ', data)
+
+    let modifiedDeedPerformedBy
+    if(chitType === 'awChit' ){modifiedDeedPerformedBy = 'otherParty'}else{
+      modifiedDeedPerformedBy = deedPerformedBy
+    }
+
    try{
 
     let newChitData = {}
@@ -226,7 +253,8 @@ let defaultValues = {
       chitType: chitType,
       chitValue: chitValue,
       chitBurden: chitBurden,
-      deedPerformedBy: deedPerformedBy
+      deedPerformedBy:  modifiedDeedPerformedBy
+
     }
 
     dispatch(updateTwoPartyViewData( 
@@ -250,27 +278,14 @@ let defaultValues = {
 
  
  
-
-  console.log('[ twoPartyChitForm -- CHIT ] chitValue ',  chitValue);
-console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
-
-  let chitColor,  totalChitValue
+  let  totalChitValue
   if(!chitBurden && !chitValue) {
     totalChitValue = 0
   }else{
   totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
 }
- 
-  
-  
 
-  if(coinType === 'awChit'){chitColor = 'red'}else{
-
-  if( totalChitValue < 25 ) { chitColor = 'copper' } 
-  else if (totalChitValue > 24 && totalChitValue < 55 ) { chitColor = 'silver' } 
-  else if (totalChitValue > 54 ){ chitColor= 'gold' }
-  else{chitColor = 'copper'}
-  }
+let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
 
   //  --- define which coin is displayed
 
@@ -287,17 +302,30 @@ console.log('[ twoPartyChitForm -- CHIT ] youOwe ',  youOwe);
   
   type ==='kindness'? chitDescription = 'good will': chitDescription = type
 
-  let previewMessage 
-  if(youOwe === 'me') {previewMessage = `You owe this chit to ${nameDisplayed}`} 
-  if(youOwe === 'otherParty') {previewMessage = `${nameDisplayed} owes you this chit`}
+  let previewMessage
+  if (whoDidDeed === 'me') { previewMessage = `You owe this chit to ${nameDisplayed}` }
+  if (whoDidDeed === 'otherParty') { previewMessage = `${nameDisplayed} owes you this chit` }
+
+  let deedDoneByMessageValue, deedDoneByMessageBurden
+  if (whoDidDeed === 'me') {
+    deedDoneByMessageValue = `How valuable was this action to ${nameDisplayed} ?`
+    deedDoneByMessageBurden = ` How significant or burdensome was this action to you?`
+  }
+  if (whoDidDeed === 'otherParty') {
+    deedDoneByMessageValue = `How valuable was this action to you ?`
+    deedDoneByMessageBurden = ` How significant or burdensome was this action to ${nameDisplayed}?`
+
+  }
 
 
- let noOtherParty
- if(!person &&  !group ){
-  noOtherParty = 'no'
-  
- }else{noOtherParty = 'yes'}
-console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
+
+
+  let noOtherParty
+  if (!person && !group) {
+    noOtherParty = 'no'
+
+  } else { noOtherParty = 'yes' }
+  console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
 
 
 
@@ -306,237 +334,266 @@ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
   return (
     <Wrapper>
 
-{noOtherParty === 'no' &&
-          <Stack sx={{ width: '100%' }} spacing={2}>
-            <Alert severity="error">
+      {noOtherParty === 'no' &&
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="error">
 
-              <div> No second party has been chosen by you yet. </div>
-              <div> Click on "who" link above and choose the other party. </div>
-            </Alert>
+            <div> No second party has been chosen by you yet. </div>
+            <div> Click on "who" link above and choose the other party. </div>
+          </Alert>
 
-          </Stack>
-        }
-{noOtherParty === 'yes' &&
-      <FormProvider {...methods}>
-        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+        </Stack>
+      }
+      {noOtherParty === 'yes' &&
+        <FormProvider {...methods}>
+          <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
 
-          <MainWrapper>
+            <MainWrapper>
 
-        {/* --- warning that no other party was chosen --- */}
-
- 
+              {/* --- warning that no other party was chosen --- */}
 
 
 
-<FormComponentWrapper>
-              <ComponentName>
-                 Choose a chit type 
-            
-        
-                <Question  
-                aria-owns={open ? 'mouse-over-popover' : undefined}
-                aria-haspopup="true"
-                onMouseEnter={handlePopoverOpen}
-                onMouseLeave={handlePopoverClose}
-                
-                />
-      <Popover
-        id="mouse-over-popover"
-        sx={{
-          pointerEvents: 'none',
-        }}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Typography sx={{ p: 1 }}>
-          {popoverMessage()}
-          
-          
-          </Typography>
-      </Popover>
-              </ComponentName>
 
 
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"chitType"}
-                    control={control}
-                    label={"logType"}
-                    defaultValue = {defaultValues.chitType}
-                    options={[
-                      {
-                        label: "standard",
-                        value: "standard",
-                      },
-                      {
-                        label: "promise",
-                        value: "promise",
-                      },
+              <FormComponentWrapper>
+                <ComponentName>
+                  Choose a chit type
 
-                      {
-                        label: "good will",
-                        value: "kindness",
-                      },
-                      {
-                        label: "awChit",
-                        value: "awChit",
-                      },
-                    ]}
+
+                  <Question
+                    aria-owns={open ? 'mouse-over-popover' : undefined}
+                    aria-haspopup="true"
+                    onMouseEnter={handlePopoverOpen}
+                    onMouseLeave={handlePopoverClose}
+
                   />
-                </RadiotWrapper>
+                  <Popover
+                    id="mouse-over-popover"
+                    sx={{
+                      pointerEvents: 'none',
+                    }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                  >
+                    <Typography sx={{ p: 1 }}>
+                      {popoverMessage()}
 
 
-                
+                    </Typography>
+                  </Popover>
+                </ComponentName>
 
 
-              </ComponentWrapper>
-            </FormComponentWrapper>
-          
+                <ComponentWrapper>
+                  <RadiotWrapper>
+                    <ChitRadio
+                      name={"chitType"}
+                      control={control}
+                      label={"logType"}
+                      defaultValue={defaultValues.chitType}
+                      options={[
+                        {
+                          label: "standard",
+                          value: "standard",
+                        },
+                        {
+                          label: "promise",
+                          value: "promise",
+                        },
 
-            {coinType !== 'awChit' && <> 
-
-            {/* ------DeedPerformed by ------------- */}
-
-            <FormComponentWrapper>
-              <ComponentName>
-                {chitType !== 'promise' && 
-                <>
-                Who performed the action ?
-                </>
-                }
-                {chitType === 'promise' && 
-                <>
-                Who will perform the action ?
-                </>
-                }
-                
-              </ComponentName>
-
-
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"deedPerformedBy"}
-                    control={control}
-                    label={"logType"}
-                    defaultValue = {defaultValues.deedPerformedBy}
-                    options={[
-                      {
-                        label: "me",
-                        value: 'me',
-                      },
-                      {
-                        label: "other party",
-                        value: 'otherParty',
-                      },
-
-                    ]}
-                  />
-                </RadiotWrapper>
-
-
-                
-
-
-              </ComponentWrapper>
-            </FormComponentWrapper>
-
+                        {
+                          label: "good will",
+                          value: "kindness",
+                        },
+                        {
+                          label: "awChit",
+                          value: "awChit",
+                        },
+                      ]}
+                    />
+                  </RadiotWrapper>
 
 
 
 
 
-
-
-      {/* ------Chit Value -------------------------- */}
-
-
-      <FormComponentWrapper>
-              <ComponentName>
-                How valuable was this action to you?
-              </ComponentName>
-
-              <SliderComponentWrapper>
-                <StyledSliderMui 
-                name="chitValue" 
-                control={control} 
-                label="Chit Value" 
-                type="text" 
-                defaultValue = {defaultValues.chitValue}
-                />
-<Small> Huge value </Small>
-              </SliderComponentWrapper> 
-            </FormComponentWrapper>
-
-                        {/* ------Chit Value -------------------------- */}
-
-
-                        <FormComponentWrapper>
-              <ComponentName>
-                How much of a burden was this action to Mark B?
-              </ComponentName>
-
-              <SliderComponentWrapper>
-                <StyledSliderMui 
-                name="chitBurden" 
-                control={control} 
-                label="Chit Burden" 
-                type="text" 
-                defaultValue = {defaultValues.chitBurden}
-                />
-<Small>huge</Small>
-              </SliderComponentWrapper>
-
+                </ComponentWrapper>
               </FormComponentWrapper>
-              </>
-}
-            <PreviewContainer>
-              <Preview> Preview</Preview>
 
-              <PreviewWrapper>
 
-                <ChitContainer>
+              {coinType !== 'awChit' && <>
 
-                  <StyledImage src={coinDisplayed} alt="coin" />
-                  <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
+                {/* ------DeedPerformed by ------------- */}
 
-                </ChitContainer>
+                <FormComponentWrapper>
+                  <ComponentName>
+                    {chitType !== 'promise' &&
+                      <>
+                        Who performed the action ?
+                      </>
+                    }
+                    {chitType === 'promise' &&
+                      <>
+                        Who will perform the action ?
+                      </>
+                    }
 
-                <PreviewDetailWrapper>
+                  </ComponentName>
 
-               
-               
-         
-          <PreviewDetail> {previewMessage}</PreviewDetail>
- 
-                    
-        
-                  {coinType !== 'awChit' && 
-                  <PreviewDetail>Karmic value = {totalChitValue}</PreviewDetail>
+
+                  <ComponentWrapper>
+                    <RadiotWrapper>
+
+                      {chitType !== 'kindness' &&
+                        <ChitRadio
+                          name={"deedPerformedBy"}
+                          control={control}
+                          label={"logType"}
+                          defaultValue={defaultValues.deedPerformedBy}
+                          options={[
+                            {
+                              label: "me",
+                              value: 'me',
+                            },
+
+                            {
+                              label: "other party",
+                              value: 'otherParty',
+                            },
+
+                          ]}
+                        />
+                      }
+
+                      {chitType === 'kindness' &&
+                        <ChitRadio
+                          name={"deedPerformedBy"}
+                          control={control}
+                          label={"logType"}
+                          defaultValue={defaultValues.deedPerformedBy}
+                          options={[
+                            {
+                              label: "me",
+                              value: 'me',
+                            },
+
+
+                          ]}
+                        />
+                      }
+
+
+
+
+
+                    </RadiotWrapper>
+
+
+
+
+
+                  </ComponentWrapper>
+                </FormComponentWrapper>
+
+
+
+
+
+
+
+
+                {/* ------Chit Value -------------------------- */}
+                {coinType !== 'promise' && <>
+
+                  <FormComponentWrapper>
+                    <ComponentName>
+                      {deedDoneByMessageValue}
+                    </ComponentName>
+
+                    <SliderComponentWrapper>
+                      <StyledSliderMui
+                        name="chitValue"
+                        control={control}
+                        label="Chit Value"
+                        type="text"
+                        defaultValue={defaultValues.chitValue}
+                      />
+                      <Small> Huge value </Small>
+                    </SliderComponentWrapper>
+                  </FormComponentWrapper>
+
+                  {/* ------Chit Value -------------------------- */}
+
+
+                  <FormComponentWrapper>
+                    <ComponentName>
+                      {deedDoneByMessageBurden}
+                    </ComponentName>
+
+                    <SliderComponentWrapper>
+                      <StyledSliderMui
+                        name="chitBurden"
+                        control={control}
+                        label="Chit Burden"
+                        type="text"
+                        defaultValue={defaultValues.chitBurden}
+                      />
+                      <Small>Huge</Small>
+                    </SliderComponentWrapper>
+
+                  </FormComponentWrapper>
+                </>
                 }
-                </PreviewDetailWrapper>
-              </PreviewWrapper>
+              </>
 
-            </PreviewContainer>
-           
+              }
+              <PreviewContainer>
+                <Preview> Preview</Preview>
 
-          </MainWrapper>
+                <PreviewWrapper>
 
-          {/* ------Submit ---------- -------------------------- */}
-          {/* ----Disabled if no other party selected warnint -- */}
- 
+                  <ChitContainer>
+
+                    <StyledImage src={coinDisplayed} alt="coin" />
+                    <ChitTypeWrapper> {chitDescription} </ChitTypeWrapper>
+
+                  </ChitContainer>
+
+                  <PreviewDetailWrapper>
+
+
+
+
+                    <PreviewDetail> {previewMessage}</PreviewDetail>
+
+
+
+                    {coinType !== 'awChit' &&
+                      <PreviewDetail>Karmic value = {totalChitValue}</PreviewDetail>
+                    }
+                  </PreviewDetailWrapper>
+                </PreviewWrapper>
+
+              </PreviewContainer>
+
+
+            </MainWrapper>
+
+            {/* ------Submit ---------- -------------------------- */}
+            {/* ----Disabled if no other party selected warnint -- */}
+
             <BottomWrapper>
               <StyledButton
 
@@ -571,14 +628,15 @@ console.log('[ twoPartyChitForm -chit ] noOtherParty ', noOtherParty);
 
 
             </BottomWrapper>
-  
-        </FormWrapper>
 
-      </FormProvider>
-}
+          </FormWrapper>
+
+        </FormProvider>
+      }
     </Wrapper>
-  );
-}
+
+  )// --- end main return 
+} // ----- end main function --------------------------
 
 Yup.addMethod(Yup.string, 'customValidator', function() {
   return this.test({

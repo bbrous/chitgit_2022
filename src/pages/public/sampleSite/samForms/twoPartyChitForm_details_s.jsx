@@ -102,10 +102,18 @@ export default function TwoPartyChitForm_details_s(props) {
  
   let match = useParams()
   const status = useSelector(selectStatus)
-  const {person, group }= status.view.forms.twoPartyChitForm
+  const {person, group, workRelated, description, keyWordArray  }= status.view.forms.twoPartyChitForm
 
-  let URLId = match.id
-// console.log('[ Log FROM ] URLId ', URLId);
+  let statusFormViewWorkRelated
+  !workRelated ? statusFormViewWorkRelated = 'no': statusFormViewWorkRelated = 'yes'
+
+  let statusFormViewDescription
+  !description ? statusFormViewDescription = '': statusFormViewDescription = description
+
+  let statusFormViewKeywords
+  !keyWordArray ? statusFormViewKeywords = []: statusFormViewKeywords = keyWordArray
+
+console.log('[ Log FROM ] keywords ', statusFormViewKeywords);
 
   // --- form Schema tests   ------------------------------
 
@@ -125,9 +133,9 @@ export default function TwoPartyChitForm_details_s(props) {
 // ----create default paramters if note exists ---------------------
 
 let defaultValues = {
-  workRelated: 'notWorkRelated', 
-  description: '', 
-  keywords: [], 
+  workRelated: statusFormViewWorkRelated, 
+  description: statusFormViewDescription, 
+  keywords:statusFormViewKeywords, 
   };
 
   // --- close / cancel form 
@@ -149,6 +157,9 @@ let defaultValues = {
   const submitForm = async (data) => {
 
     const {workRelated, description, keywords} = data
+    let modifiedDescription = description.replaceAll('<p>' , '<div>')
+    let modifiedCleanDescription = modifiedDescription.replaceAll('</p>', '</div>')
+
                           console.log('[twoPartyChitForm details]...data ', data)
    try{
 
@@ -157,7 +168,7 @@ let defaultValues = {
 
     newChitData = {
       workRelated: workRelated,
-      description: description,
+      description: modifiedCleanDescription,
       keywords: keywords
       
     }
@@ -234,11 +245,11 @@ let defaultValues = {
                     options={[
                       {
                         label: "yes",
-                        value: "workRelated",
+                        value: "yes",
                       },
                       {
                         label: "no",
-                        value: "notWorkRelated",
+                        value: "no",
                       },
 
                     ]}
@@ -276,7 +287,7 @@ let defaultValues = {
                     <Editor
                       {...field}
                       ref={null}
-                      IniitalValue='hello there' />
+                      IniitalValue= {defaultValues.description} />
                   )}
 
                 />
@@ -303,8 +314,8 @@ let defaultValues = {
                     control={control}
                     options={keywordsOptionsArray}
                     placeholder='select or type keywords'
-                    // defaultValue = {{ value: 'ge423', label: 'home'}}
-                    defaultValue={defaultValues.keywords}
+                    defaultValue = {defaultValues.keywords}
+                     
 
 
                   />

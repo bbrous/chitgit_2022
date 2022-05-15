@@ -27,43 +27,7 @@ import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
- 
- 
-
-const Icon= styled(EditIcon)({
-  backgroundColor: 'white',
-  borderRadius: '5px',
-  fontSize: '.9rem',
-  color: chitOrange,
-  margin: '0 .5rem .3rem .5rem',
-  cursor: 'pointer',
-  
-
-
-  '&:hover': {
-    color: mediumLightGrey
-    // backgroundColor: mediumLightGrey
-  },
-
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
-
-
-
-const LightTooltip = withStyles({
-  tooltip: {
-    color: "grey",
-    backgroundColor: "white",
-    boxShadow: '2px 3px 3px black',
-    border: '1px solid grey',
-  }
-})(Tooltip);
 // ================================
 
 
@@ -144,3 +108,41 @@ function Edit(props) {
 
 
 export default Edit
+
+// -----------------------------------------------------------------
+
+ 
+ 
+
+const Icon= styled(EditIcon)({
+  backgroundColor: 'white',
+  borderRadius: '5px',
+  fontSize: '.9rem',
+  color: chitOrange,
+  margin: '0 .5rem .3rem .5rem',
+  cursor: 'pointer',
+  
+
+
+  '&:hover': {
+    color: mediumLightGrey
+    // backgroundColor: mediumLightGrey
+  },
+
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+
+
+const LightTooltip = withStyles({
+  tooltip: {
+    color: "grey",
+    backgroundColor: "white",
+    boxShadow: '2px 3px 3px black',
+    border: '1px solid grey',
+  }
+})(Tooltip);

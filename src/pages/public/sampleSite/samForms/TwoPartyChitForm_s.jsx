@@ -2,6 +2,9 @@
 
    container for the form wizard pages
 
+   -- gets the two party chit id from the modal if exists
+      - if no id - then the modal was opened from the new Chit icon
+      - if id yes - the modal was opened from the edit icon
 
    Contains children: 
        twoPartyChitForm pages 
@@ -43,14 +46,21 @@ const theme = createTheme(); // allows use of mui theme in styled component
 // ==============================================================
 
 export default function TwoPartyChitForm_s(props) {
-  let match = useParams()
+ 
   const dispatch = useDispatch()
+
+  // --  get id from modal if exists
+  // if no id - new form :   if id yes - edit
   
-  let URLId = match.id
+  let id = props.params.id
+
+
+ 
   const status = useSelector(selectStatus)
   let formPage = status.view.forms.twoPartyChitForm.formPage
 
   console.log('[ twoPartyChitForm ] formPage ', formPage);
+  console.log('[ twoPartyChitForm ] id ', id);
 
   let breadCrumbsArray = ['who', 'when', 'details', 'chit' , 'preview']
   
@@ -91,7 +101,7 @@ export default function TwoPartyChitForm_s(props) {
       <PageWrapper>
   
         {formPage === 'who' &&
-          <TwoPartyChitFormWho />
+          <TwoPartyChitFormWho id = {id} />
         }  
         { formPage === 'when' &&
           <TwoPartyChitFormWhen />

@@ -22,7 +22,7 @@ const PersonalChits =  [
 
       detail: '',
       
-     keyWordArray: [],  
+     keywordArray: [],  
     },
 
   
@@ -40,7 +40,7 @@ const PersonalChits =  [
       duplicate: '',
 
       detail:  "<p><strong>Great Day</strong></p><p><br></p><p>Ate only Salads</p>",
-     keyWordArray: [],  
+     keywordArray: [],  
     },
 
       // Jan 6  ------------------------- >>
@@ -60,7 +60,7 @@ const PersonalChits =  [
         duplicate: '',
 
         detail: '',
-       keyWordArray: [],  
+       keywordArray: [],  
       },
   
     
@@ -78,7 +78,7 @@ const PersonalChits =  [
         duplicate: '',
 
         detail: "<p>Cereal for <span style=\"color: rgb(230, 0, 0);\">breakfast.</span></p><p>Peanut butter for <span style=\"color: rgb(107, 36, 178);\">lunch.</span></p><p><br></p><p>Salad for<strong style=\"color: rgb(0, 138, 0);\"> dinner</strong></p>",
-       keyWordArray: [],  
+       keywordArray: [],  
       },
 
 
@@ -99,7 +99,7 @@ const PersonalChits =  [
         duplicate: '',
 
         detail: '',
-       keyWordArray: [],  
+       keywordArray: [],  
       },
   
     
@@ -117,7 +117,7 @@ const PersonalChits =  [
         duplicate: '',
 
         detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-       keyWordArray: [],  
+       keywordArray: [],  
       },
     
 
@@ -138,7 +138,7 @@ const PersonalChits =  [
               duplicate: '',
 
               detail: 'Ran only 1 mile today',
-             keyWordArray: [],  
+             keywordArray: [],  
             },
         
           
@@ -156,7 +156,7 @@ const PersonalChits =  [
               duplicate: '',
 
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-             keyWordArray: [],  
+             keywordArray: [],  
             },
 
 
@@ -175,7 +175,7 @@ const PersonalChits =  [
               duplicate: '',
 
               detail: '',
-             keyWordArray: [],  
+             keywordArray: [],  
             },
         
           
@@ -193,7 +193,7 @@ const PersonalChits =  [
               duplicate: '',
 
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-             keyWordArray: [],  
+             keywordArray: [],  
             },
 
             {
@@ -210,7 +210,7 @@ const PersonalChits =  [
               duplicate: '',
 
               detail: "<p>Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-             keyWordArray: [],  
+             keywordArray: [],  
             },
 
 

@@ -447,3 +447,25 @@ export function choosePersonalCoin(chitColor){
 
 }
 
+export function chooseTwoPartyChitColor(chitType, chitValue, chitBurden){
+
+  let chitColor,  totalChitValue
+  if(!chitBurden && !chitValue) {
+    totalChitValue = 0
+  }else{
+  totalChitValue = parseInt(chitValue) + parseInt(chitBurden)
+}
+ 
+  
+  
+
+  if(chitType === 'awChit'){chitColor = 'red'}else{
+
+  if( totalChitValue < 25 ) { chitColor = 'copper' } 
+  else if (totalChitValue > 24 && totalChitValue < 55 ) { chitColor = 'silver' } 
+  else if (totalChitValue > 54 ){ chitColor= 'gold' }
+  else{chitColor = 'copper'}
+  }
+  return chitColor
+}
+

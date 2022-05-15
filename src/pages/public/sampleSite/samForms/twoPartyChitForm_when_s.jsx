@@ -103,9 +103,13 @@ export default function TwoPartyChitForm_when_s(props) {
   let match = useParams()
   const status = useSelector(selectStatus)
  
-  const {person, group  }= status.view.forms.twoPartyChitForm
-  let URLId = match.id
-// console.log('[ Log FROM ] URLId ', URLId);
+  const {person, group, chitDate  }= status.view.forms.twoPartyChitForm
+
+  let statusFormViewChitDate
+  !chitDate ? statusFormViewChitDate = '': statusFormViewChitDate = new Date(chitDate) 
+
+
+console.log('[twoPartyForm chitDate ] chitDate ', chitDate);
 
   // --- form Schema tests   ------------------------------
 
@@ -125,7 +129,7 @@ export default function TwoPartyChitForm_when_s(props) {
 // ----create default paramters if note exists ---------------------
 
 let defaultValues = {
-  chitDate: '', 
+  chitDate: statusFormViewChitDate, 
 
   };
 
@@ -156,7 +160,7 @@ let defaultValues = {
     let newChitId
 
     newChitData = {
-      chitDate: chitDate.toISOString(),
+      chitDate: new Date (chitDate).toISOString(),
     }
 
     dispatch(updateTwoPartyViewData( 

@@ -123,6 +123,8 @@ export const statusSlice = createSlice({
       forms: {
 
         twoPartyChitForm: {
+          
+          twoPartyChitId: '',
           formPage: 'who',
           chitType: '',
           chitValue: 0,
@@ -141,9 +143,9 @@ export const statusSlice = createSlice({
          
          
           deedPerformedBy: '',
-          workRelated: 'false',
+          workRelated: 'notWorkRelated',
           description: '',
-          keywordArray: [],
+          keyWordArray: [],
  
 
         }
@@ -292,7 +294,7 @@ export const statusSlice = createSlice({
           state.view.forms[pageType].formPage = 'chit'
           state.view.forms[pageType].workRelated = workRelated
           state.view.forms[pageType].description = description
-          state.view.forms[pageType].keywordArray = keywords
+          state.view.forms[pageType].keyWordArray = keywords
          
   
  

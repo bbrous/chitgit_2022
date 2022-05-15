@@ -1,176 +1,142 @@
-const submitForm = async (data) => {
+let newOtherPartyId, newGroup, newPerson
 
-  const {chitType, newExisting,  person, newPerson, 
-                        group, newGroup, groupType} = data
+if(otherPartyCollection === 'person'){
 
-  console.log('[LogSectionForm]...data ', data)
-  console.log('[LogSectionForm]...chitType ', chitType)
+   /* 1. clean the form input - strip whitespace
+           2. find the person in the peopleArray
+           
+           4. dispatch to store 
+  */
 
-  try {
+  // clean the person string         
+  let cleanedPerson = stripWhiteSpace(person)
+  // see if person exists already in people array
+  let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === cleanedPerson )
 
-    // --- start the loading spinner ---
-    dispatch(changeLoadingStatus(true))
+  if(newPersonObject){
+
+    newOtherPartyId = newPersonObject.id
+    console.log('[ twoPartyChitForm -SUBMIT ] YES newPersonObject.id ', newOtherPartyId);
+  }
+  if(!newPersonObject){
+    newOtherPartyId = cuid()
+
+    console.log('[ twoPartyChitForm -SUBMIT ] NO newPersonObject.id ', newOtherPartyId);
+  }
+    newPerson = {
+      id: newOtherPartyId, 
+      name: cleanedPerson, 
+      type: 'person'
+    }
+}
 
 
+if(otherPartyCollection === 'group'){
 
-    
-    // --- create new logHolder ------------
-
-      let newLogHolderData = {}
-      let newlogId
-      // --- 1.  is chitType a person -----
-
-      if (chitType === 'person') {
-
-        // --- 1a.  does the person exist already ---
-
-        if (newExisting === 'existing') {
-
-          /* 1. clean the form input - strip whitespace
-             2. find the person in the peopleArray
-             3. create the object to add to logHolders collection
-             4. dispatch to store 
-          */
-          let newPerson = stripWhiteSpace(data.person)
+  /* 1. clean the form input - strip whitespace
+          2. find the group in the groupArray
           
-          let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === newPerson )
+          4. dispatch to store 
+ */
 
-          newLogHolderData = {id: newPersonObject.id, collection: 'people'}
-          newlogId = newPersonObject.id
-          dispatch(addLogHolderToStore(newLogHolderData))
+ // clean the group string         
+ let cleanedGroup = stripWhiteSpace(group)
+ // see if person exists already in people array
+ let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === cleanedGroup )
 
-        } // end person and existing
+ if(newGroupObject){
 
-        // --- 1b  is it a new person ------------------
+   newOtherPartyId = newGroupObject.id
+   console.log('[ twoPartyChitForm -SUBMIT ] YES newGroupObject.id ', newOtherPartyId);
+ }
+ if(!newGroupObject){
+   newOtherPartyId = cuid()
 
-        if (newExisting === 'new') {
-
-            /* 1. clean the form input - strip whitespace
-             2. create new person Id in sample
-                x - add newPerson to people collection in database
-                x- get new person's Id back
-             3. create the object to add to logHolders collection
-             4. dispatch to store 
-          */
-
-
-          let newPersonId = cuid()
-          let cleanedNewPerson = stripWhiteSpace(data.newPerson)
-          let newPersonObject  = {
-            id: newPersonId,
-            type: 'person',
-            name: cleanedNewPerson,
-            meta: '',
-            peopleHolders: [
-              {
-                id: newPersonId,
-                dbCollection: 'logHolders'}
-            ]
-          }
+   console.log('[ twoPartyChitForm -SUBMIT ] NO newGroupObject.id ', newOtherPartyId);
+ }
 
 
-          newlogId = newPersonId
-          dispatch(addPersonToStore(newPersonObject))
-
-          newLogHolderData = {id: newPersonId, collection: 'people'}
-          dispatch(addLogHolderToStore(newLogHolderData))
-
-
-        } // person && new
+}
 
 
 
-      } // chitType = person
 
 
-     
-      if (chitType === 'group') {
 
-        // --- 1a.  does the group exist already 
-        if (newExisting === 'existing') {
 
-          /* 1. clean the form input - strip whitespace
-             2. find the group in the groupsArray
-             3. create the object to add to logHolders collection
-             4. dispatch to store 
-          */
-             let newGroup = stripWhiteSpace(data.group)
-          
-             let newGroupObject= allGroups.find( ( searchGroup ) => searchGroup.name === newGroup )
+
+
+if(otherPartyCollection === 'group'){
  
-             newLogHolderData = {id: newGroupObject.id, collection: 'groups'}
- 
-             dispatch(addLogHolderToStore(newLogHolderData))
-             newlogId = newGroupObject.id
+  if(!newGroupObject){
+    let cleanedGroup = stripWhiteSpace(group)
+    let    newGroup = {
+      id: newOtherPartyId, 
+      name: cleanedGroup, 
+      type: 'organization'
+    }
+    dispatch(addGroupToStore(newGroup))
+  }
+}
 
-        }// end group and existing
-
-        // --- 1b  is it a new group 
-        if (newExisting === 'new') {
-
-
-
-    console.log('[ Log FORM ] newExisting  group is new', newExisting);
-
-
-            /* 1. clean the form input - strip whitespace
-             2. create new person Id in sample
-                x - add newPerson to people collection in database
-                x- get new person's Id back
-             3. create the object to add to logHolders collection
-             4. dispatch to store 
-          */
+if(otherPartyCollection === 'person'){
+  if(!newPersonObject){
+    let cleanedPerson = stripWhiteSpace(person)
+    let    newPerson = {
+      id: newOtherPartyId, 
+      name: cleanedPerson, 
+      type: 'person'
+    }
+    dispatch(addPersonToStore(newPerson))
+  }
+}
 
 
-             let newGroupId = cuid()
-             let cleanedNewGroup = stripWhiteSpace(data.newGroup)
-             let newGroupObject  = {
-               id: newGroupId,
-               type: 'data.groupType',
-               name: cleanedNewGroup,
-               meta: data.meta,
-               groupHolders: [
-                 {
-                   id: newGroupId,
-                   dbCollection: 'logHolders'}
-               ]
-             }
- 
- 
-             newlogId = newGroupId
-             dispatch(addGroupToStore(newGroupObject))
- 
-             newLogHolderData = {id: newGroupId, collection: 'groups'}
-             dispatch(addLogHolderToStore(newLogHolderData))
+let newTwoPartyChitData = {
+
+  id: newTwoPartyChitId,
+
+  description: description, 
+  keyWordArray: [],
+  chitDate: modifiedChitDate.toISOString(),
+  dateCreated: modifiedChitCreatedDate.toISOString(),
+  chitColor: chitColor,
+  workRelated: workRelated,
+  chitType: chitType,
+  chitBurden: chitBurden,
+  chitValue: chitValue,
+  timeLock: '',
+  otherPartyCollection: otherPartyCollection,
+  otherPartyId: newOtherPartyId
 
 
 
+   /*
+   
+    chitType: "awChit"
+    chitBurden: 10
+    chitValue: 10
+    chitColor: "red"
+    dateCreated: "2021-01-27T12:20:16.000Z"
+    chitDate: "2021-01-27T12:20:16.000Z"
+    timeLock: "2021-01-27T12:20:16.000Z"
+    otherPartyCollection: "people"
+    otherPartyId: "person_1"
+    deedPerformedBy: "person_1"
+    workRelated: true
+   
+   
+   
+   
+   
+   
+   
+   */ 
 
 
 
 
-        } // end group && new
 
 
-
-      } // end chitType = group
-
-
-
-      dispatch(changeLoadingStatus(false))
-      reset()
-
-      dispatch(closeLogSectionForm())
-      reset(defaultValues)
-
-      navigate(`/sample/logs/${newlogId}`)
-
-
-  } catch (error) {
-    alert(error.message)
-    dispatch(changeLoadingStatus(false))
-
-    reset(defaultValues)
-
-  } // end catch
-} // end async submit
+  // keyWordArray:  cleanKeyWordArray
+}
