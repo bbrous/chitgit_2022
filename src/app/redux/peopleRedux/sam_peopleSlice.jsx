@@ -14,7 +14,7 @@ export const peopleSlice = createSlice({
       let personId = id
 
       let newPersonHolder, newMeta 
-      personHolder ? newPersonHolder  = {dbCollection: dbCollection, id: personHolder}: newPersonHolder  = []
+      personHolder ? newPersonHolder  = [{dbCollection: dbCollection, id: personHolder}]: newPersonHolder  = []
 
       personHolder ? newMeta  = meta: newMeta  = ''
 
@@ -23,7 +23,7 @@ export const peopleSlice = createSlice({
         type: 'person',
         name: name,
         meta: newMeta,
-        personHolders: [newPersonHolder]
+        personHolders: newPersonHolder
       }
 
 

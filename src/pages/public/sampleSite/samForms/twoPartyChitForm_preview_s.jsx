@@ -324,6 +324,51 @@ let defaultValues = {
 
     } // end if otherPartyCollection === person
 
+    // --- person is new 
+    if(!newPersonObject){
+
+      let newOtherPartyId = cuid()
+      dispatch(addPersonToStore({
+        id: newOtherPartyId, 
+        name: person,
+  
+      }
+      )) // end dispatach addPersonToStore
+
+
+      let newTwoPartyChitData = {
+
+        id: newTwoPartyChitId,
+        description: description, 
+        keyWordArray: [],
+        chitDate: modifiedChitDate.toISOString(),
+        dateCreated: modifiedChitCreatedDate.toISOString(),
+        chitColor: chitColor,
+        workRelated: workRelated,
+        chitType: chitType,
+        chitBurden: chitBurden,
+        chitValue: chitValue,
+        timeLock: '',
+        otherPartyCollection: otherPartyCollection,
+        otherPartyId: newOtherPartyId
+    
+    }// end newPartyChitId
+
+    dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) 
+    dispatch(addPersonHolder( 
+      {
+      id: newOtherPartyId,
+      personHolder: newTwoPartyChitId,
+      dbCollection: 'twoPartyChits' 
+
+      } 
+    )) // end dispatch addPersonHlder
+
+
+
+
+
+    } // end if person is new
 
   // --- add group if new ---------
      if (otherPartyCollection === 'group') {
