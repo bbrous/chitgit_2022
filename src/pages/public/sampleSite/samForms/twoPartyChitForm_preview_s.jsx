@@ -256,9 +256,11 @@ let defaultValues = {
     try {
 
       // ====== IF NEW TWO PARTY CHIT (no otherPartyId) =======================   
-
+      let dbCollection // convert group to groups... & person to people
       // --- add person if new ---------
       if (otherPartyCollection === 'person') {
+
+        dbCollection = 'people'
 
         /*
           - clean person string
@@ -320,7 +322,7 @@ let defaultValues = {
           chitBurden: chitBurden,
           chitValue: chitValue,
           timeLock: '',
-          otherPartyCollection: otherPartyCollection,
+          otherPartyCollection: dbCollection,
           otherPartyId: newOtherPartyId
 
         }// end newPartyChitId
@@ -347,7 +349,7 @@ let defaultValues = {
 
       console.log('[ !!!!!!!!!!!!!!!!!!! Two PartyChit Form Preview  ] otherPartyCollection ', otherPartyCollection);
 
-
+      dbCollection = 'groups'
 
         /*
           - clean group string
