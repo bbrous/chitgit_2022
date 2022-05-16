@@ -512,7 +512,8 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
 
 
 
-
+                {whoDidDeed && 
+<> 
 
                 {/* ------Chit Value -------------------------- */}
                 {coinType !== 'promise' && <>
@@ -556,9 +557,17 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
                   </FormComponentWrapper>
                 </>
                 }
+
+
+</>}
+
+                
               </>
 
               }
+
+{whoDidDeed && 
+ 
               <PreviewContainer>
                 <Preview> Preview</Preview>
 
@@ -587,7 +596,7 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
                 </PreviewWrapper>
 
               </PreviewContainer>
-
+}
 
             </MainWrapper>
 

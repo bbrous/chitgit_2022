@@ -9,26 +9,21 @@ export const groupsSlice = createSlice({
   reducers: {
 
     addGroupToStore: (state, action) => {
+      const {id, name, groupHolder, dbCollection, meta} = action.payload
+      let groupId = id
+     
+      let newGroupHolder, newMeta 
+      groupHolder ? newGroupHolder  = [{dbCollection: dbCollection, id: groupHolder}]: newGroupHolder  = []
 
-      let groupObject = action.payload
-      console.log('[ sam_GROUP SLICE ] newExisting  group is new', groupObject);
-      // let groupId = action.payload.groupId
-      // let group = action.payload.group
-      // let groupHolder = action.payload.groupHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newgroupHolder = {dbCollection: dbCollection, id: groupHolder}
+      groupHolder ? newMeta  = meta: newMeta  = ''
 
-      // let groupObject = {
-      //   id: groupId,
-      //   group: group,
-      //   groupHolders: [newgroupHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_groupSlice ] groupId ', groupId)
-      // console.log('[ sam_groupSlice ] newgroupHolder ', newgroupHolder)
-      // console.log('[ sam_groupSlice ] dbCollection ', dbCollection)
-
+      let groupObject = {
+        id: groupId,
+        type: 'other',
+        name: name,
+        meta: newMeta,
+        groupHolders: newGroupHolder
+      }
       state.push(groupObject)
     },
 
@@ -52,8 +47,8 @@ export const groupsSlice = createSlice({
 
   addGroupHolder: (state, action) => {
 
-
-    let groupId = action.payload.groupId
+    
+    let groupId = action.payload.id
     let groupHolder = action.payload.groupHolder
     let dbCollection = action.payload.dbCollection
     let newgroupHolder = {dbCollection: dbCollection, id: groupHolder}
@@ -63,6 +58,7 @@ export const groupsSlice = createSlice({
 
     let groupIndex = state.findIndex(index => index.id === groupId)
 
+console.log('[ sam_groupSlice ] groupIndex ', state)
     console.log('[ sam_groupSlice ] groupIndex ', groupIndex)   
     
     state[groupIndex].groupHolders.push(newgroupHolder)

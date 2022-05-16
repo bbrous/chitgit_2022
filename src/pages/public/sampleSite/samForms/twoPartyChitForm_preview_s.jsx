@@ -60,7 +60,7 @@ import {
 import { addTwoPartyChitToStore } from '../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
 
 import { selectPeople, addPersonToStore, addPersonHolder } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
-import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
+import { selectGroups, addGroupToStore, addGroupHolder } from '../../../../app/redux/groupRedux/sam_groupSlice'
  
 
 // --- Form component imports ---------
@@ -253,49 +253,64 @@ let defaultValues = {
 
 
 
-   try{
+    try {
 
- // ====== IF NEW TWO PARTY CHIT (no otherPartyId) =======================   
+      // ====== IF NEW TWO PARTY CHIT (no otherPartyId) =======================   
 
-  // --- add person if new ---------
-     if (otherPartyCollection === 'person') {
+      // --- add person if new ---------
+      if (otherPartyCollection === 'person') {
 
-      /*
-        - clean person string
-        - check if person exists in people collection
-          - if yes 
-             - get id of person
-             - add new two party chit - return twoPartyChit id
+        /*
+          - clean person string
+          - check if person exists in people collection
+            - if yes 
+               - get id of person
+  
+            - if no 
+               - create person - return new personId
+            - add new two party chit - return twoPartyChit id
+            - update personId.personHolders with new twoPartyChitId        
+                
+        */
 
-             - update personId.personHolders with new twoPartyChitId
-
-          - if no 
-             - create person - return new personId
-             - add new two party chit - return twoPartyChit id
-
-              - update personId.personHolders with new twoPartyChitId
-              
-      */
-
-      // --- clean person string
+        // --- clean person string
 
         let cleanedPerson = stripWhiteSpace(person)
 
-      // --- see if person exists already in people array
-        let newPersonObject= allPeople.find( ( searchPerson ) => searchPerson.name === cleanedPerson )
+        // --- see if person exists already in people array
+        let newPersonObject = allPeople.find((searchPerson) => searchPerson.name === cleanedPerson)
 
-      // --- get id of existent person
-     
+        // --- get id of existent person if exists set otherPartyId
 
-      // console.log('[ Two Party CHIT form - preview ] personId ', personId);
+        let newOtherPartyId
+        if (newPersonObject) {
+          newOtherPartyId = newPersonObject.id
 
-      if(newPersonObject){
-        let newOtherPartyId = newPersonObject.id
+        } // end if newPersonObject (person already exists)
+
+
+        // --- person is new - so add new person to people collection
+        //     then set otherPartyId
+
+        if (!newPersonObject) {
+
+          newOtherPartyId = cuid()
+          dispatch(addPersonToStore({
+            id: newOtherPartyId,
+            name: person,
+
+          }
+          )) // end dispatach addPersonToStore
+
+
+        } // end if person is new
+
+        // --- create the new Chit data 
 
         let newTwoPartyChitData = {
 
           id: newTwoPartyChitId,
-          description: description, 
+          description: description,
           keyWordArray: [],
           chitDate: modifiedChitDate.toISOString(),
           dateCreated: modifiedChitCreatedDate.toISOString(),
@@ -307,95 +322,123 @@ let defaultValues = {
           timeLock: '',
           otherPartyCollection: otherPartyCollection,
           otherPartyId: newOtherPartyId
-      
-      }// end newPartyChitId
 
-        dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) 
-        dispatch(addPersonHolder( 
+        }// end newPartyChitId
+
+        // --- create the new chit and add it's Id to the person.personHolder
+        //     in people collection
+
+        dispatch(addTwoPartyChitToStore(newTwoPartyChitData))
+        dispatch(addPersonHolder(
           {
-          id: newOtherPartyId,
-          personHolder: newTwoPartyChitId,
-          dbCollection: 'twoPartyChits' 
+            id: newOtherPartyId,
+            personHolder: newTwoPartyChitId,
+            dbCollection: 'twoPartyChits'
 
-          } 
+          }
         )) // end dispatch addPersonHlder
-      } // end if newPersonObject (person already exists)
 
 
-    } // end if otherPartyCollection === person
+      } // end if otherPartyCollection === person
 
-    // --- person is new 
-    if(!newPersonObject){
-
-      let newOtherPartyId = cuid()
-      dispatch(addPersonToStore({
-        id: newOtherPartyId, 
-        name: person,
-  
-      }
-      )) // end dispatach addPersonToStore
-
-
-      let newTwoPartyChitData = {
-
-        id: newTwoPartyChitId,
-        description: description, 
-        keyWordArray: [],
-        chitDate: modifiedChitDate.toISOString(),
-        dateCreated: modifiedChitCreatedDate.toISOString(),
-        chitColor: chitColor,
-        workRelated: workRelated,
-        chitType: chitType,
-        chitBurden: chitBurden,
-        chitValue: chitValue,
-        timeLock: '',
-        otherPartyCollection: otherPartyCollection,
-        otherPartyId: newOtherPartyId
-    
-    }// end newPartyChitId
-
-    dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) 
-    dispatch(addPersonHolder( 
-      {
-      id: newOtherPartyId,
-      personHolder: newTwoPartyChitId,
-      dbCollection: 'twoPartyChits' 
-
-      } 
-    )) // end dispatch addPersonHlder
-
-
-
-
-
-    } // end if person is new
 
   // --- add group if new ---------
      if (otherPartyCollection === 'group') {
 
-      /*
-        - clean group string
-        - check if group exists in people collection
-          - if yes 
-             - get id of group
-             - add new two party chit - return twoPartyChit id
-
-             - update groupId.groupHolders with new twoPartyChitId
-
-          - if no 
-             - create group - return new groupId
-             - add new two party chit - return twoPartyChit id
-
-              - update groupId.groupHolders with new twoPartyChitId
-              
-      */
+      console.log('[ !!!!!!!!!!!!!!!!!!! Two PartyChit Form Preview  ] otherPartyCollection ', otherPartyCollection);
 
 
 
+        /*
+          - clean group string
+          - check if group exists in people collection
+            - if yes 
+               - get id of group
+  
+            - if no 
+               - create group - return new groupId
+            - add new two party chit - return twoPartyChit id
+            - update groupId.groupHolders with new twoPartyChitId        
+                
+        */
+
+        // --- clean group string
+
+        let cleanedGroup = stripWhiteSpace(group)
+        
+        console.log('[ !!!!!!!!!!!!!!!!!!! Two PartyChit Form Preview  ] cleanedGroup ', cleanedGroup);
+
+        console.log('[ !!!!!!!!!!!!!!!!!!! Two PartyChit Form Preview  ] allGroups ', allGroups);
+
+
+        // --- see if group exists already in groups array
+        let newGroupObject = allGroups.find((searchGroup) => searchGroup.name === cleanedGroup)
+   
+        // --- get id of existent Group if exists set otherPartyId
+
+        let newOtherPartyId
+        if (newGroupObject) {
+          newOtherPartyId = newGroupObject.id
+
+        } // end if newGroupObject (Group already exists)
+
+
+        // --- Group is new - so add new Group to people collection
+        //     then set otherPartyId
+
+        if (!newGroupObject) {
+
+          newOtherPartyId = cuid()
+          dispatch(addGroupToStore({
+            id: newOtherPartyId,
+            name: group,
+
+          }
+          )) // end dispatach addGroupToStore
+
+
+        } // end if Group is new
+
+        // --- create the new Chit data 
+
+        let newTwoPartyChitData = {
+
+          id: newTwoPartyChitId,
+          description: description,
+          keyWordArray: [],
+          chitDate: modifiedChitDate.toISOString(),
+          dateCreated: modifiedChitCreatedDate.toISOString(),
+          chitColor: chitColor,
+          workRelated: workRelated,
+          chitType: chitType,
+          chitBurden: chitBurden,
+          chitValue: chitValue,
+          timeLock: '',
+          otherPartyCollection: otherPartyCollection,
+          otherPartyId: newOtherPartyId
+
+        }// end newPartyChitId
+
+        // --- create the new chit and add it's Id to the group.groupHolder
+        //     in people collection
+
+        dispatch(addTwoPartyChitToStore(newTwoPartyChitData))
+        dispatch(addGroupHolder(
+          {
+            id: newOtherPartyId,
+            groupHolder: newTwoPartyChitId,
+            dbCollection: 'twoPartyChits'
+
+          }
+        )) // end dispatch addGroupHlder
 
 
 
-// dispatch(addTwoPartyChitToStore( newTwoPartyChitData )) // end dispatch
+
+
+
+
+
 
      } // end if otherPartyCollection === group
 
