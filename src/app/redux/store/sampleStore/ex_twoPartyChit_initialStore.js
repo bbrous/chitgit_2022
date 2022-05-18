@@ -25,7 +25,7 @@ const TwoPartyChits =  [
     
 
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'After I got stuck working, Jerry helped Mary with the New Year\'s party.',
  
@@ -54,7 +54,7 @@ const TwoPartyChits =  [
       otherPartyId: 'person_1',
       deedPerformedBy: 'person_1',
 
-      workRelated: true,
+      workRelated: 'workRelated',
 
       description: 'Cyn did a half assed job on an assignment that she delayed doing twice.  And - it was submitted 2 weeks late',
  
@@ -83,7 +83,7 @@ const TwoPartyChits =  [
       otherPartyId: 'person_7',
       deedPerformedBy: 'person_0',
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'I lent Jerry my car for the day.  Thought I would\'t need it... turns out I did, but it was too late.',
  
@@ -114,7 +114,7 @@ const TwoPartyChits =  [
       otherPartyId: 'unknown',
       deedPerformedBy: 'person_0',
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'Paid for coffee for woman who left wallet in car.',
  
@@ -143,7 +143,7 @@ const TwoPartyChits =  [
       otherPartyId: 'person_7',
       deedPerformedBy: 'person_7',
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'Jerry promised to help me build our deck.  And he promised to get Billy to help.',
  
@@ -172,7 +172,7 @@ const TwoPartyChits =  [
       otherPartyId: 'group_4',
       deedPerformedBy: 'person_0',
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'Volunteered for beach clean up.  Spent all day Sunday cleaning up other people\'s trash at the beach.',
  
@@ -201,7 +201,7 @@ const TwoPartyChits =  [
       otherPartyId: 'group_10',
       deedPerformedBy: 'person_0',
 
-      workRelated: false,
+      workRelated: 'notWorkRelated',
 
       description: 'Gave a whole lot of cool toys to Toys for Tots.',
  

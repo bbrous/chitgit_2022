@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, chitBurgandy, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -112,13 +112,18 @@ export default function TwoPartyChitForm_who_s(props) {
 
 
   console.log('[ twoPartyChitForm - Who ] statusFormParameters ', statusFormParameters)
-  const { otherPartyId, person, group, otherPartyCollection } = statusFormParameters
+  const { twoPartyChitId, otherPartyId, person, group, otherPartyCollection } = statusFormParameters
+
+  console.log('[ twoPartyChitForm - Who  ] person ', person);
+
+
 
   let newUpdate
   otherPartyId ? newUpdate = 'update' : newUpdate = 'new'
 
   let otherPartyType
   !otherPartyCollection ? otherPartyType = 'person' : otherPartyType = otherPartyCollection
+
 
   let statusFormViewPerson
   !person ? statusFormViewPerson = '' : statusFormViewPerson = person
@@ -223,6 +228,8 @@ export default function TwoPartyChitForm_who_s(props) {
   ) //end map
 
  
+ 
+ 
 
 // ----create default paramters if note exists ---------------------
 
@@ -308,7 +315,7 @@ let defaultValues
 
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
-
+{!twoPartyChitId && 
           <MainWrapper>
 
             <FormComponentWrapper>
@@ -400,6 +407,21 @@ let defaultValues
 
 
           </MainWrapper>
+        }
+{/* end !twoPartyCHitId &&  */}
+
+      {twoPartyChitId && 
+        <MainWrapper>
+          {person && 
+        <EditNameWrapper>  <span>   otherParty: </span> {person} </EditNameWrapper>
+        }
+
+        {group && 
+        <EditNameWrapper> <span>   otherParty: </span>{group} </EditNameWrapper>
+        }
+        </MainWrapper>
+      }
+{/* end twoPartyCHitId &&  */}
 
           {/* ------Submit ---------- -------------------------- */}
           <BottomWrapper>
@@ -795,7 +817,28 @@ const StyledButton= styled(Button)({
 })
 
 
+const EditNameWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+   
+  color: darkGrey,
+  fontSize: '.9rem',
+  marginLeft: '12px',
 
+  '& span' :{
+    color: chitBurgandy,
+    marginRight: '.5rem',
+    fontSize: '.85rem'
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
 
  
 // -----------------------------------

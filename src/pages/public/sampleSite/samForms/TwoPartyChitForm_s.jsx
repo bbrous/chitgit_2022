@@ -20,11 +20,14 @@ import {
   closeLogSectionForm, 
   closeNewLogForm, 
   selectStatus, 
-  updateFormPageView
+  updateFormPageView,
+  initializeTwoPartyViewData
 
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-
+import { selectPeople } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+import { selectGroups } from '../../../../app/redux/groupRedux/sam_groupSlice'
+import { selectAllTwoPartyChits } from '../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
 // --- page imports
 import TwoPartyChitFormWho from './twoPartyChitForm_who_s'
 import TwoPartyChitFormWhen from './twoPartyChitForm_when_s'
@@ -52,15 +55,93 @@ export default function TwoPartyChitForm_s(props) {
   // --  get id from modal if exists
   // if no id - new form :   if id yes - edit
   
-  let id = props.params.id
+  let passedId = props.params.id
 
 
  
   const status = useSelector(selectStatus)
   let formPage = status.view.forms.twoPartyChitForm.formPage
 
-  console.log('[ twoPartyChitForm ] formPage ', formPage);
-  console.log('[ twoPartyChitForm ] id ', id);
+  const allPeople = useSelector(selectPeople)
+  const allGroups = useSelector(selectGroups)
+  let allTwoPartyChits = useSelector(selectAllTwoPartyChits)
+// --- 
+
+let chitToBeEdited = allTwoPartyChits.find(chit => chit.id === passedId)
+  
+
+let  id, chitType, chitBurden, chitValue, chitDate, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, keyWordArray, sharedId 
+
+ 
+  
+  chitToBeEdited ? id = passedId: id = ''
+  chitToBeEdited ? chitType = chitToBeEdited.chitType: chitType = ''
+
+  chitToBeEdited ? chitBurden = chitToBeEdited.chitBurden: chitBurden = 0
+  chitToBeEdited ? chitValue = chitToBeEdited.chitValue: chitValue = 0
+  chitToBeEdited ? chitDate = chitToBeEdited.chitDate: chitDate = ''
+  chitToBeEdited ? otherPartyCollection = chitToBeEdited.otherPartyCollection: otherPartyCollection = ''
+  chitToBeEdited ? otherPartyId = chitToBeEdited.otherPartyId: otherPartyId = ''
+  chitToBeEdited ? deedPerformedBy = chitToBeEdited.deedPerformedBy: deedPerformedBy = ''
+  chitToBeEdited ? workRelated = chitToBeEdited.workRelated: workRelated = ''
+  chitToBeEdited ? description = chitToBeEdited.description: description = ''
+  chitToBeEdited ? keyWordArray = chitToBeEdited.keyWordArray: keyWordArray = []
+  chitToBeEdited ? sharedId = chitToBeEdited.sharedId: sharedId = ''
+
+  
+  let nameDisplayed, personObject, groupObject
+  
+  if(otherPartyCollection === 'people'){
+    personObject = allPeople.find(person => person.id === otherPartyId)
+  
+    nameDisplayed = personObject.name
+  }
+  
+  
+  
+  if(otherPartyCollection === 'groups'){
+  groupObject = allGroups.find(group => group.id === otherPartyId)
+  nameDisplayed = groupObject.name
+  }
+  
+  
+  let formOtherPartyCollection
+  if(otherPartyCollection === 'people'){formOtherPartyCollection = 'person'}
+  if(otherPartyCollection === 'groups'){formOtherPartyCollection = 'group'}
+
+
+
+  
+ 
+ useEffect(()=> {
+
+
+    console.log('[ twoPartyChitForm ] passedId ', passedId);
+    let initialData =  {
+      id: id,
+      formPage: 'who',
+      chitType: chitType,
+      chitValue: chitValue,
+      chitBurden: chitBurden,
+      chitDate: chitDate,
+      otherPartyCollection: formOtherPartyCollection,
+      otherPartyId: otherPartyId,
+      person: nameDisplayed,
+      deedPerformedBy: deedPerformedBy,
+      workRelated: workRelated,
+      description: description,
+      keyWordArray: keyWordArray,
+      sharedId: sharedId, 
+      
+    }
+  
+    dispatch(initializeTwoPartyViewData({pageType: 'twoPartyChitForm', data: initialData}))
+  
+
+  
+ }, [])
+
+
 
   let breadCrumbsArray = ['who', 'when', 'details', 'chit' , 'preview']
   
@@ -101,7 +182,7 @@ export default function TwoPartyChitForm_s(props) {
       <PageWrapper>
   
         {formPage === 'who' &&
-          <TwoPartyChitFormWho id = {id} />
+          <TwoPartyChitFormWho id = {passedId} />
         }  
         { formPage === 'when' &&
           <TwoPartyChitFormWhen />

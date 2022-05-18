@@ -26,15 +26,28 @@ export const twoPartySlice = createSlice({
 
   updateEditedTwoPartyChit: (state, action) => {
 
+    let data = action.payload.data
+    let twoPartyChitId = action.payload.data.id
+    
+    
+    const { otherPartyCollection, chitType, chitColor,  chitValue, chitBurden,chitDate, person, group, deedPerformedBy, workRelated, description, keyWordArray, otherPartyId} = data
 
-    // let twoPartyChitId = action.payload.id
-    // let newtwoParty = action.payload.twoParty
-    
-    
 
-    // let twoPartyIndex = state.findIndex(index => index.id === twoPartyId)
+    let twoPartyIndex = state.findIndex(index => index.id === twoPartyChitId)
     
-    // state[twoPartyIndex].twoParty  = newtwoParty
+    // console.log('[ sam+twoPartyChitSlice - updateEditedTwoPartyChit ] data ', data);
+
+
+    state[twoPartyIndex].chitType  = chitType
+    state[twoPartyIndex].chitColor  = chitColor
+    state[twoPartyIndex].chitBurden  = chitBurden
+    state[twoPartyIndex].chitValue  = chitValue
+    state[twoPartyIndex].chitDate  = chitDate
+    state[twoPartyIndex].deedPerformedBy  = deedPerformedBy
+    state[twoPartyIndex].workRelated  = workRelated
+    state[twoPartyIndex].description  = description
+    state[twoPartyIndex].keyWordArray  = keyWordArray
+    
    
 
 

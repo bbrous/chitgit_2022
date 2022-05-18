@@ -225,12 +225,9 @@ export const statusSlice = createSlice({
       let pageType = action.payload.pageType
       let page = action.payload.page
 
-      // console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView -page type', action.payload.pageType);
-      // console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] updateFormPageView - just page', action.payload.page);
   
       state.view.forms[pageType].formPage = page
-      // state.view[action.payload.pageType].sectionId = action.payload.sectionId
-      // state.view[action.payload.pageType].id = action.payload.id
+  
                    
     },
 
@@ -342,6 +339,42 @@ export const statusSlice = createSlice({
                    
     },
 
+    initializeTwoPartyViewData: (state, action) => {
+
+      let BobsLoginDate = new Date('2021-03-14T17:03:40.000Z') 
+
+      console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who data', action.payload.data);
+
+      let pageType = action.payload.pageType
+      let data = action.payload.data
+
+      const {id, chitType,   chitDate, workRelated, description, keyWordArray, chitValue, chitBurden, deedPerformedBy, person, group, otherPartyCollection } = data
+
+    
+
+
+   
+
+    
+    
+          
+      state.view.forms[pageType].twoPartyChitId = id
+      
+      state.view.forms[pageType].chitType = chitType
+      state.view.forms[pageType].otherPartyCollection = otherPartyCollection
+      state.view.forms[pageType].chitDate = chitDate
+      state.view.forms[pageType].chitValue = chitValue
+      state.view.forms[pageType].chitBurden = chitBurden
+      state.view.forms[pageType].deedPerformedBy = deedPerformedBy
+      state.view.forms[pageType].workRelated = workRelated
+      state.view.forms[pageType].description = description
+      state.view.forms[pageType].keyWordArray = keyWordArray
+      state.view.forms[pageType].person = person
+      state.view.forms[pageType].group = group
+    
+                  
+    },
+
 
     updateChronicleView: (state, action) => {
 
@@ -440,7 +473,9 @@ export const {
   openJournalForm,
   
   updateFormPageView,
+  initializeTwoPartyViewData,
   updateTwoPartyViewData,
+
   closeLogSectionForm,
   closeNewLogForm,
   openLogForm,

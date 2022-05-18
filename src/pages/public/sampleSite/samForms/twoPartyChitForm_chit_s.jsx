@@ -17,7 +17,7 @@
 import React, {useState, useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate, useParams } from 'react-router-dom'
-import { chitBlueDull, chitBurgandy, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, chitBurgandy, chitBurgandyDull, chitOrange, darkGrey, lightGrey, mediumGrey, mediumLightGrey, veryLightGrey } from '../../../../styles/colors'
 
 import { 
 
@@ -116,12 +116,17 @@ export default function TwoPartyChitForm_chit_s(props) {
 
   // let otherPartyId = status.view.forms.twoPartyChitForm.otherPartyId
 
-  const {person, group }= status.view.forms.twoPartyChitForm
+  const {person, group, otherPartyCollection }= status.view.forms.twoPartyChitForm
  
   let statusChitType = status.view.forms.twoPartyChitForm.chitType
   let statusChitValue = status.view.forms.twoPartyChitForm.chitValue
   let statusChitBurden = status.view.forms.twoPartyChitForm.chitBurden
   let statusDeedPerformedBy = status.view.forms.twoPartyChitForm.deedPerformedBy
+
+ 
+ 
+  let otherPartyName 
+  otherPartyCollection === 'person'? otherPartyName = person: otherPartyName = group
 
   let statusFormViewChitType
   !statusChitType ? statusFormViewChitType = 'standard': statusFormViewChitType = statusChitType
@@ -170,7 +175,7 @@ const popoverMessage = () => {
   //--- get Name to be displayed  ---
   let nameDisplayed, personObject, groupObject
 
-  nameDisplayed = 'shelby'
+  nameDisplayed = otherPartyName
 
   
 
@@ -186,7 +191,12 @@ const popoverMessage = () => {
   
   const formSchema = object({
   
-
+    deedPerformedBy: string().when(["chitType" ], {
+      is: (chitType) => chitType !== 'awChit' ,
+      then: string().required('You must choose a person')
+      .nullable()
+    })
+    .nullable(),
     });
 
  
@@ -305,7 +315,7 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
   let previewMessage
   if (whoDidDeed === 'me') { previewMessage = `You owe this chit to ${nameDisplayed}` }
   if (whoDidDeed === 'otherParty') { previewMessage = `${nameDisplayed} owes you this chit` }
-
+  if (chitType === 'awChit') { previewMessage = `${nameDisplayed} owes you this chit` }
   let deedDoneByMessageValue, deedDoneByMessageBurden
   if (whoDidDeed === 'me') {
     deedDoneByMessageValue = `How valuable was this action to ${nameDisplayed} ?`
@@ -499,7 +509,7 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
 
 
                     </RadiotWrapper>
-
+                    {errors.deedPerformedBy && <ErrorMessage>{errors.deedPerformedBy.message} </ErrorMessage>}
 
 
 
@@ -512,64 +522,70 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
 
 
 
-                {whoDidDeed && 
-<> 
+                {whoDidDeed &&
+                  <>
 
-                {/* ------Chit Value -------------------------- */}
-                {coinType !== 'promise' && <>
+                    {/* ------Chit Value -------------------------- */}
+                    {coinType !== 'promise' && <>
 
-                  <FormComponentWrapper>
-                    <ComponentName>
-                      {deedDoneByMessageValue}
-                    </ComponentName>
+                      <FormComponentWrapper>
+                        <ComponentName>
+                          {deedDoneByMessageValue}
+                        </ComponentName>
 
-                    <SliderComponentWrapper>
-                      <StyledSliderMui
-                        name="chitValue"
-                        control={control}
-                        label="Chit Value"
-                        type="text"
-                        defaultValue={defaultValues.chitValue}
-                      />
-                      <Small> Huge value </Small>
-                    </SliderComponentWrapper>
-                  </FormComponentWrapper>
-
-                  {/* ------Chit Value -------------------------- */}
+                        <SliderComponentWrapper>
+                          <StyledSliderMui
+                            name="chitValue"
+                            control={control}
+                            label="Chit Value"
+                            type="text"
+                            defaultValue={defaultValues.chitValue}
+                          />
+                          <Small> Huge value </Small>
+                        </SliderComponentWrapper>
 
 
-                  <FormComponentWrapper>
-                    <ComponentName>
-                      {deedDoneByMessageBurden}
-                    </ComponentName>
-
-                    <SliderComponentWrapper>
-                      <StyledSliderMui
-                        name="chitBurden"
-                        control={control}
-                        label="Chit Burden"
-                        type="text"
-                        defaultValue={defaultValues.chitBurden}
-                      />
-                      <Small>Huge</Small>
-                    </SliderComponentWrapper>
-
-                  </FormComponentWrapper>
-                </>
-                }
+                        {/* ------Chit Value -------------------------- */}
 
 
-</>}
 
-                
+                        <ComponentName>
+                          {deedDoneByMessageBurden}
+                        </ComponentName>
+
+                        <SliderComponentWrapper>
+                          <StyledSliderMui
+                            name="chitBurden"
+                            control={control}
+                            label="Chit Burden"
+                            type="text"
+                            defaultValue={defaultValues.chitBurden}
+                          />
+                          <Small>Huge</Small>
+                        </SliderComponentWrapper>
+
+                      </FormComponentWrapper>
+                    </>
+                    }
+
+
+                  </>}
+
+
               </>
 
               }
-
-{whoDidDeed && 
+{/* --- end coinType ! == awChit -------------------------------*/}
+ 
  
               <PreviewContainer>
-                <Preview> Preview</Preview>
+                <Preview> 
+                  <div>Preview</div>
+                  {chitType !== 'awChit' && chitType !== 'promise' &&
+                   <PreviewMessage> Move sliders to change chit color</PreviewMessage>
+}
+                  </Preview>
+               
 
                 <PreviewWrapper>
 
@@ -596,7 +612,7 @@ let chitColor =chooseTwoPartyChitColor(coinType, chitValue, chitBurden)
                 </PreviewWrapper>
 
               </PreviewContainer>
-}
+ 
 
             </MainWrapper>
 
@@ -944,9 +960,35 @@ const PreviewContainer = styled(Paper)({
 
 })
 const Preview = styled('div')({
- 
+  
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '98%',
   fontSize: '.8rem',
+  padding: '4px 6px',
+
   color: chitBurgandy,
+ 
+
+
+  //   [theme.breakpoints.down('sm')] : {
+  //     // width: '100%'
+  //   },
+
+})
+
+const PreviewMessage = styled('div')({
+  
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  fontSize: '.65rem',
+
   padding: '0 10px',
 
 
@@ -955,6 +997,7 @@ const Preview = styled('div')({
   //   },
 
 })
+
 
 const PreviewDetailWrapper = styled('div')({
  
@@ -1080,7 +1123,8 @@ const IOU = styled(ForwardIcon)({
 })
 const Small = styled('div')({
 marginLeft: '1rem',
-fontSize: '.65rem'
+fontSize: '.65rem',
+color: chitOrange,
 })
 
 // -----------------------------------

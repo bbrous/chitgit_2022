@@ -61,7 +61,7 @@ import {
 
 import { selectPeople, addPersonToStore } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups, addGroupToStore } from '../../../../app/redux/groupRedux/sam_groupSlice'
- 
+ import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
 
 // --- Form component imports ---------
 import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
@@ -103,6 +103,8 @@ export default function TwoPartyChitForm_details_s(props) {
   let match = useParams()
   const status = useSelector(selectStatus)
   const {person, group, workRelated, description, keyWordArray  }= status.view.forms.twoPartyChitForm
+
+  const allKeywordsArray = useSelector(selectKeywords)
 
   let statusFormViewWorkRelated
   !workRelated ? statusFormViewWorkRelated = 'no': statusFormViewWorkRelated = 'yes'
@@ -146,6 +148,27 @@ let defaultValues = {
 
     
   }
+
+
+  // (2) --- Create form Options for Autocomplete multi-selectors --
+
+  let keywordOption, personOption
+
+
+    let keywordsOptionsArray = []
+    let peopleOptionsArray = []
+
+    // --- create keyword options array --
+
+    allKeywordsArray.map((keyword, index) => {
+      
+      keywordOption = keyword.keyword
+      keywordsOptionsArray.push(keywordOption)
+
+      return keywordsOptionsArray
+    }) //end map
+
+  
 // ===========  FORM  ==================================================
 
   const methods = useForm({
@@ -201,8 +224,7 @@ let defaultValues = {
  
  
 
-  // ### TEMP 
-  let keywordsOptionsArray = ['ideas' , 'jad']
+
 
   // ==== return - Form JSX  ======================================
 

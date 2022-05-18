@@ -57,11 +57,7 @@ import {
  
 // --- imports to create options for selectors
 
-import { 
-  addTwoPartyChitToStore ,
-  updateEditedTwoPartyChit
-
-} from '../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
+import { addTwoPartyChitToStore } from '../../../../app/redux/twoPartyChitRedux/sam_twoPartyChitSlice'
 
 import { selectPeople, addPersonToStore, addPersonHolder } from '../../../../app/redux/peopleRedux/sam_peopleSlice'
 import { selectGroups, addGroupToStore, addGroupHolder } from '../../../../app/redux/groupRedux/sam_groupSlice'
@@ -163,7 +159,7 @@ let keywordString = passedKeyWordArray.toString() // for display in preview
 
 
 
-
+// console.log('[ Log FROM ] URLId ', URLId);
 
   // --- form Schema tests   ------------------------------
 
@@ -220,11 +216,8 @@ defaultValues = {
       console.log('[ OOOOOOOO - ChitColor ] person does NOT exist ', chitColor);
 
       // create new chit id 
-      console.log('[Preview - before] twoPartyChitId ', twoPartyChitId);
+      let newTwoPartyChitId = cuid()
 
-      let newTwoPartyChitId 
-
-      twoPartyChitId ? newTwoPartyChitId = twoPartyChitId : newTwoPartyChitId = cuid()
     
     
 
@@ -307,8 +300,6 @@ defaultValues = {
         // --- create the new chit and add it's Id to the person.personHolder
         //     in people collection
 
-
-        if(!twoPartyChitId) {
         dispatch(addTwoPartyChitToStore(newTwoPartyChitData))
         dispatch(addPersonHolder(
           {
@@ -319,10 +310,6 @@ defaultValues = {
           }
         )) // end dispatch addPersonHlder
 
-      }else{
-      
-        dispatch(updateEditedTwoPartyChit({data: newTwoPartyChitData}))
-      }
 
       } // end if otherPartyCollection === person
 
@@ -392,7 +379,7 @@ defaultValues = {
           chitType: chitType,
           chitBurden: chitBurden,
           chitValue: chitValue,
-          chitColor: chitColor,
+          chitColor: 'silver',
           dateCreated: modifiedChitCreatedDate.toISOString(),
           chitDate: modifiedChitDate.toISOString(),
           timeLock: '',
@@ -408,7 +395,7 @@ defaultValues = {
 
         // --- create the new chit and add it's Id to the group.groupHolder
         //     in people collection
-if(!twoPartyChitId) {
+
         dispatch(addTwoPartyChitToStore(newTwoPartyChitData))
         dispatch(addGroupHolder(
           {
@@ -420,9 +407,7 @@ if(!twoPartyChitId) {
         )) // end dispatch addGroupHlder
 
 
-      }else{
-        alert ('you are editing - in group')
-      }
+
 
 
 
