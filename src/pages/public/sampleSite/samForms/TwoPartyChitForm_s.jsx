@@ -34,6 +34,7 @@ import TwoPartyChitFormWhen from './twoPartyChitForm_when_s'
 import TwoPartyChitFormChit from './twoPartyChitForm_chit_s'
 import TwoPartyChitFormDetails from './twoPartyChitForm_details_s'
 import TwoPartyChitFormPreview from './twoPartyChitForm_preview_s'
+import TwoPartyChitFormCompleted from './sharedChitFormMessage_s'
 
 
 // ---mui imports 
@@ -72,7 +73,7 @@ let chitToBeEdited = allTwoPartyChits.find(chit => chit.id === passedId)
 
 let  id, chitType, chitBurden, chitValue, chitDate, otherPartyCollection, otherPartyId, deedPerformedBy, workRelated, description, keyWordArray, sharedId 
 
- 
+//  console.log('[ TwoPartyChitForm_s mmmmmmmmmmmmmmmmmmm ] otherPartyId ', chitToBeEdited.otherPartyId);
   
   chitToBeEdited ? id = passedId: id = ''
   chitToBeEdited ? chitType = chitToBeEdited.chitType: chitType = ''
@@ -89,19 +90,18 @@ let  id, chitType, chitBurden, chitValue, chitDate, otherPartyCollection, otherP
   chitToBeEdited ? sharedId = chitToBeEdited.sharedId: sharedId = ''
 
   
-  let nameDisplayed, personObject, groupObject
+  let personNameDisplayed,groupNameDisplayed,  personObject, groupObject
   
   if(otherPartyCollection === 'people'){
     personObject = allPeople.find(person => person.id === otherPartyId)
   
-    nameDisplayed = personObject.name
+    personNameDisplayed = personObject.name
   }
-  
   
   
   if(otherPartyCollection === 'groups'){
   groupObject = allGroups.find(group => group.id === otherPartyId)
-  nameDisplayed = groupObject.name
+  groupNameDisplayed = groupObject.name
   }
   
   
@@ -126,7 +126,8 @@ let  id, chitType, chitBurden, chitValue, chitDate, otherPartyCollection, otherP
       chitDate: chitDate,
       otherPartyCollection: formOtherPartyCollection,
       otherPartyId: otherPartyId,
-      person: nameDisplayed,
+      person: personNameDisplayed,
+      group: groupNameDisplayed,
       deedPerformedBy: deedPerformedBy,
       workRelated: workRelated,
       description: description,
@@ -199,6 +200,10 @@ let  id, chitType, chitBurden, chitValue, chitDate, otherPartyCollection, otherP
         }  
 
 
+
+        {formPage === 'completed' &&
+          <TwoPartyChitFormCompleted />
+        }  
 
 
       </PageWrapper>

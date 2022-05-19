@@ -115,7 +115,7 @@ export default function TwoPartyChitForm_who_s(props) {
   const { twoPartyChitId, otherPartyId, person, group, otherPartyCollection } = statusFormParameters
 
   console.log('[ twoPartyChitForm - Who  ] person ', person);
-
+  console.log('[ Two Party - WHOOOOO ] statusFormParameters ', statusFormParameters);
 
 
   let newUpdate

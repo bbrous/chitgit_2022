@@ -421,7 +421,7 @@ if(!twoPartyChitId) {
 
 
       }else{
-        alert ('you are editing - in group')
+       dispatch(updateEditedTwoPartyChit({data: newTwoPartyChitData}))
       }
 
 

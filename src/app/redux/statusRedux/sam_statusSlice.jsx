@@ -235,7 +235,7 @@ export const statusSlice = createSlice({
 
       let BobsLoginDate = new Date('2021-03-14T17:03:40.000Z') 
 
-      console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who data', action.payload.data);
+      console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - - data', action.payload.data);
 
       let pageType = action.payload.pageType
       let page = action.payload.page
@@ -343,12 +343,12 @@ export const statusSlice = createSlice({
 
       let BobsLoginDate = new Date('2021-03-14T17:03:40.000Z') 
 
-      console.log('[ samStatus_slice #################### ] updateTwoPartyViewData - -who data', action.payload.data);
+      console.log('[ samStatus_slice 9999999999999999999999] initializeTwoPartyViewData ', action.payload.data);
 
       let pageType = action.payload.pageType
       let data = action.payload.data
 
-      const {id, chitType,   chitDate, workRelated, description, keyWordArray, chitValue, chitBurden, deedPerformedBy, person, group, otherPartyCollection } = data
+      const {id, chitType,   chitDate, workRelated, description, keyWordArray, chitValue, chitBurden, otherPartyId,  deedPerformedBy, person, group, otherPartyCollection } = data
 
     
 
@@ -365,6 +365,7 @@ export const statusSlice = createSlice({
       state.view.forms[pageType].chitDate = chitDate
       state.view.forms[pageType].chitValue = chitValue
       state.view.forms[pageType].chitBurden = chitBurden
+      state.view.forms[pageType].otherPartyId = otherPartyId
       state.view.forms[pageType].deedPerformedBy = deedPerformedBy
       state.view.forms[pageType].workRelated = workRelated
       state.view.forms[pageType].description = description
