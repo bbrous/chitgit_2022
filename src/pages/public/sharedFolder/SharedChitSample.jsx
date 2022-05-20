@@ -6,7 +6,7 @@ see Read me -SharedChit.md   for details how to implement
 */
 
 import React, {useState} from 'react';
-import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey } from '../../../styles/colors'
+import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey, lightGrey, chitBurgandyDull } from '../../../styles/colors'
 
 import SilverChit from '../../../images/chitCoins/silver_standard.svg'
 import LinkCode from '../../../images/linkCode.svg'
@@ -31,7 +31,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 // ============================
-const SharedChit = (props) => {
+const SharedChitSample = (props) => {
   let match = useParams()
   let navigate = useNavigate()
   let codeId = match.code
@@ -76,223 +76,185 @@ const handleClick = (evt, code) =>{
     // alert('[ Landing_page ] I submitted ');
   }
 
-  let SharedChitDisplay = (codeId)=>{
 
-   let chitLinkMessage =  `www.ChitGit.com/sharedChit/${codeId}`
-
-  
-
-
-
-    if(codeId === 'shelby'){
-      return(
-        <>
-        <ContentBox>
-        <SentDate> shared: Mar 14, 2022</SentDate>
-
-        <SubHeader>
-            This chit has been sent to Mike Forry 
-           from Brad Brous    
-          </SubHeader>
-        <ChitBox>
-
-         
-        <DetailWrapper>
-
-        <ActionWrapper>
-    <ActionLeft>chit date :   </ActionLeft>
-    <ActionRight>  Mar 8, 2022</ActionRight>
- 
-</ActionWrapper>
-
-<StyledChitImage src= {SilverChit} alt = 'silver coin' />
-
-<ActionWrapper>
-    <ActionLeft>performed by: </ActionLeft>
-    <ActionRight>Mike Forry </ActionRight>
- 
-</ActionWrapper>
-
-
-
-
-
-</DetailWrapper>
-        
-        <SummaryWrapper>
-                <SummaryTop>Summary:   </SummaryTop>
-                <SummaryBottom> Cris created a massive spreadsheet for me</SummaryBottom>
-             
-          </SummaryWrapper>
-
-
- 
-
-        <MessageWrapper>
-                <MessageTop>Message from Brad:    </MessageTop>
-                <MessageBottom> 
-                  Thank you for your help
-                  Thank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your help
-                </MessageBottom>
-             
-          </MessageWrapper>
-
-        <AddWrapper>
-          <AddHeader>
-            Add this chit to your repo
-          </AddHeader>
-
-          <AddLinks>
-
-          <AddLeft>
-            <div> already a member  </div>
-            <LinkButton 
-            id = 'login'
-            onClick = {(evt)=> handleClick(evt, 'shelby')}
-            >Login
-            </LinkButton>
-          </AddLeft>
-
-          <AddRight>
-            <div> not a member </div>
-            <LinkButton 
-            id = 'join'
-            onClick = {(evt)=> handleClick(evt, 'shelby')}
-            >Join</LinkButton>
-          </AddRight>
-          </AddLinks>
-        </AddWrapper>
-     
-     
-
-
-
-
-
-        <ResendWrapper>
-
-        <div>If you would like to show this chit to someone else</div>
-          <div>Click icon to copy link and paste in IM or email</div>
-          <Resend> 
-          <div> {chitLinkMessage}  </div>
-          <CopySharedChitLink chitLink = {chitLinkMessage}/> 
-          </Resend>
-        </ResendWrapper>
-
-        
-        </ChitBox>
-       
-
-        </ContentBox>
-        </>
-      )
-    }else{
-      return(
-        <>
-         <ErrorBox>
-          <div>Invalid chit code - enter code*  
-          
- 
-
-
-            <InfoIconWrapper
-            aria-owns={open ? 'mouse-over-popover' : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            />
-<Popover
-        id="mouse-over-popover"
-        sx={{
-          pointerEvents: 'none',
-        }}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'centerleft',
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-       <StyledLinkImage src= {LinkCode} alt = 'chit Link' />
-            </Popover>
-             
-          </div>
-        
-          <NoticeForm> 
-              <StyledInput placeholder = 'enter code ' 
-               onChange = {(evt)=> handleInput(evt)}
-              /> 
-              <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
-              </NoticeForm>
-             
-              <HomeLink onClick = {()=> goToHome()}> return to home page </HomeLink>
-        </ErrorBox>
-        </>
-      )
-    }
-
+  const handelPageChange = (evt)=>{
+    console.log('[ Shared CHit ] myVar ', evt.currentTarget.id);
+    const targetPage = evt.currentTarget.id
+  if(targetPage === 'home'){
+    navigate(`/`)
+  }else{
+    navigate(`/${targetPage}`)
   }
 
-  return (
-    <BodyWrapper>
-      <HeaderPublic />
-      <NavSpacer />
-      
-      <HeadWrapper> 
-         
-       
-        <HeaderMsg> ChitGit - a repository for all your deeds, dealings and doings </HeaderMsg>
-        <HeaderLink onClick = {()=> goToHome()}>Learn more </HeaderLink>
 
-        </HeadWrapper>
+  }
+  return (
+    <>
+
+    
+<HeadWrapper>
+
+
+<HeaderMsg> ChitGit - a repository for all your deeds, dealings and doings </HeaderMsg>
+<HeaderLink onClick={() => goToHome()}>Learn more </HeaderLink>
+
+</HeadWrapper>
+
+      <TitleWrapper> A Shared Chit Sample</TitleWrapper>
+
 
       <ContentWrapper>
-        {SharedChitDisplay(codeId)}
+
+
+        <ContentBox>
+          <SentDate> shared: Mar 14, 2021</SentDate>
+
+          <SubHeader>
+            This chit has been sent to Jerry G
+            from Bob
+          </SubHeader>
+          
+          <ChitBox>
+
+
+            <DetailWrapper>
+
+              <ActionWrapper>
+                <ActionLeft>chit date :   </ActionLeft>
+                <ActionRight>  Mar 8, 2022</ActionRight>
+
+              </ActionWrapper>
+
+              <StyledChitImage src={SilverChit} alt='silver coin' />
+
+              <ActionWrapper>
+                <ActionLeft>performed by: </ActionLeft>
+                <ActionRight>Jerry G </ActionRight>
+
+              </ActionWrapper>
+
+
+
+
+
+            </DetailWrapper>
+
+            <SummaryWrapper>
+              <SummaryTop>Summary:   </SummaryTop>
+              <SummaryBottom> Thanks for your help</SummaryBottom>
+
+            </SummaryWrapper>
+
+
+
+
+            <MessageWrapper>
+              <MessageTop>Message from Bob B:    </MessageTop>
+              <MessageBottom>
+                <div>Jerry </div> I want to thank you for your help on the deck last week.   I couldn't have done it without you ... nor would I have wanted to.  <div> I owe you big guy.</div>
+              </MessageBottom>
+
+            </MessageWrapper>
+
+            <EmailMessageWrapper>
+ <div> This is an example of a Shared Chit taken from the Sample Site. <br /><br /> If you share a chit you create - you are only given a link which you can paste into a personal email or text message that you can then send to the other person. The code in the link is what allows the other person to see a shared chit like this one. </div>
+ <div> Chit Git does not collect your contact information. </div>
+ 
+            </EmailMessageWrapper>
+
+          </ChitBox>
+
+          <ButtonWrapper>
+            
+          <StyledButton
+                  id ='join'
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    textTransform: 'none',
+
+                  }}
+                  onClick={(evt) => handelPageChange(evt)}
+
+                >
+                  Join Chit Git
+                </StyledButton>
+
+                <StyledButton
+                  id ='sample'
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    textTransform: 'none',
+
+                  }}
+                  onClick={(evt) => handelPageChange(evt)}
+
+                >
+                  View Sample Site
+                </StyledButton>
+
+                <StyledButton
+                  id ='home'
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    textTransform: 'none',
+
+                  }}
+                  onClick={(evt) => handelPageChange(evt)}
+
+                >
+                  Return to Home Page
+                </StyledButton>
+
+  
+  </ButtonWrapper>
+
+
+
+
+        </ContentBox>
+
+
+
       </ContentWrapper>
-    </BodyWrapper>
+    </>
   );
 }
 
-export default SharedChit
+export default SharedChitSample
 
 // -----------------------------------------------------------------
 
 
-const BodyWrapper= styled('div')({
-  display: 'block',
-  
-  height: '100vh',
-  overflowY: 'auto',
-  overflowX: 'hidden',
-  fontFamily: 'Lato, sans-serif',
-  backgroundColor: backgroundBlue ,
 
-  [theme.breakpoints.down('xs')] : {
-                              
-    alignItems: 'center',                           
+const TitleWrapper= styled('div')({
+
+  
+  position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  
+    fontSize: '1.4rem',
     width: '100%',
-    padding: '0',
+    color: 'white',
  
- }
-})
-
-const NavSpacer = styled('div')({
-  display: 'block',
-  height: '2.5rem',
-
-
-  [theme.breakpoints.down('xs')] : {
+    margin: '1rem 0 .25rem 0',
+    padding: '0 0 1.5rem 0',
+  
  
   
- }
+    [theme.breakpoints.down('xs')] : {
+      overflow: 'auto',
+    }
+  
 
-})
+  
+  })
+
 
 const HeadWrapper= styled('div')({
 
@@ -500,11 +462,7 @@ const HeadWrapper= styled('div')({
       })
 
  
-      const StyledLinkImage= styled('img')({
-    
-        height: '1rem',
-      
-      })
+
 
     const ActionWrapper= styled('div')({
  
@@ -634,38 +592,19 @@ const HeadWrapper= styled('div')({
 
   // --- Add this chit ------------
 
-  const AddWrapper = styled('div')({
+  const EmailMessageWrapper = styled(Paper)({
 
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-    fontSize: '.8rem',
-borderTop: '1px solid #CFD0D1',
-borderBottom: '1px solid #CFD0D1',
-  marginTop: '1rem',
-
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-  const AddHeader = styled('div')({
-
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-    color: chitBurgandy,
-    background: veryLightGrey,
- paddingBottom: '5px',
+    alignItems: 'flex-start',
+    width: '60%',
+    fontSize: '.65rem',
+    padding: '5px',
+ 
+  margin: '1rem 0',
+  color: mediumGrey,
+  backgroundColor: veryLightGrey,
 
       [theme.breakpoints.down('xs')] : {
          
@@ -678,92 +617,12 @@ borderBottom: '1px solid #CFD0D1',
   
   })
 
-  const AddLinks = styled('div')({
-
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: 'white',
-    margin: '.3rem 0 .6rem 0',
-
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-
-  const AddLeft = styled('div')({
-
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '30%',
-     
-  
-
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-
-  const AddRight = styled('div')({
-
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '30%',
-   
-  
-
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-
-  const LinkButton = styled(Button)({
 
  
 
-    display: 'block',
-    textTransform: 'none',
-    
-    border: '1px solid #2D259C' ,
-    color: '#2D259C',
-    fontWeight: 'normal',
-    fontSize: '.85rem',
-    padding: '0 1.5rem',
-    marginTop: '.5rem',
-    // '&:hover' : {
-    //   // backgroundColor: chitBlueDull,
-    //   textDecoration: 'none',
-    //   border: '1px solid #A8BEED' ,
-    //   color: '#3B30CC'
-  
-    // }
-  
-  
-  })
+
+
+
 
   // --- end Add this chit -----
 
@@ -788,41 +647,17 @@ borderBottom: '1px solid #CFD0D1',
   
   })
 
-  const ResendWrapper = styled('div')({
-    // position: 'absolute',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    fontSize: '.7rem',
-    color: mediumGrey,
-    bottom: '10px',
-    right: '16px',
-    margin: '8px 0 6px 0',
+  const ButtonWrapper = styled('div')({
 
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-
-  const Resend = styled('div')({
- 
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-     border: '1px solid grey',
-     borderRadius: '5px',
-     padding: '2px 5px',
-     width: '100%',
- 
-     
+    alignItems: 'flex-start',
+    width: '70%',
+    fontSize: '.75rem',
+
+  margin: '1rem 0',
+  color: mediumGrey,
 
       [theme.breakpoints.down('xs')] : {
          
@@ -834,157 +669,24 @@ borderBottom: '1px solid #CFD0D1',
      
   
   })
-  // ---------------------------
-
-  const ErrorBox= styled(Paper)({
-
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  
-    width: '45rem',
-    height: '25rem',
-    color: chitBurgandy,
-  
-    backgroundColor: 'white' ,
-    borderRadius: '20px',
-  
-    
-    
-  
-    [theme.breakpoints.down('xs')] : {
-      width: '25rem',
-      height: '25rem',
+  const StyledButton= styled(Button)({
+    backgroundColor: 'white',
+    border: '1px solid #E6E7E8',
+    color: chitBurgandyDull,
+    margin: '0 8px',
+     
+    height: '1.5rem',
+    fontSize: '.8rem',
+    '&:hover' :{
+      backgroundColor: lightGrey,
     }
   
-  
   })
-
-
-  const NoticeForm = styled('div')({
-
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
  
-    // backgroundColor: 'red',
-  
-    color: backgroundBlue,
-    
-    fontSize: '1rem',
-    fontWeight: '400',
-    marginTop: '6px',
-    marginLeft: '22px',
-      [theme.breakpoints.down('sm')] : {
-         
-        fontSize: '.75rem'
-        
-      },
-  
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-  
-  const GoButton = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-   
-   border: `1px solid ${chitSkyBlue}`,
-   borderRadius: '50px',
-  backgroundColor: chitSkyBlue,
-   color: 'white',
-    
-    fontSize: '.6rem',
-    width: '1.2rem',
-    height: '1.2rem',
-    padding: '3px',
-    fontWeight: '400',
-  marginLeft: '6px',
-  cursor: 'pointer',
-  '&:hover': {backgroundColor: chitBlueDull},
-      [theme.breakpoints.down('sm')] : {
-         
-        fontSize: '.75rem'
-        
-      },
-  
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
+ 
 
-        
-      }
-     
-  })
-  
-  const StyledInput= styled('input')({
-  
-    fontSize: '.75rem',
-    fontWeight: '400',
-  width: '10rem',
-
-      [theme.breakpoints.down('sm')] : {
-         
-        fontSize: '.75rem'
-        
-      },
-  
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
-
-  const InfoIconWrapper= styled(Info)({
-
-    color: mediumLightGrey,
-    fontSize : '1rem',
-    marginLeft: '8px',
  
   
-  })
+ 
 
-  const HomeLink = styled('div')({
-    position: 'absolute',
-    bottom: '1rem',
-    display: 'block',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    fontSize: '.9rem',
-
-    marginTop: '3rem',
-    textDecoration: 'underline',
-  color: 'blue',
-   
-  cursor: 'pointer',
-
-      [theme.breakpoints.down('xs')] : {
-         
-        fontSize: '.95rem',
-        padding: '0 15% 0 5%',
-        
-        
-      }
-     
-  
-  })
+ 

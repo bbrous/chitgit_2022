@@ -17,7 +17,8 @@ import HeaderPublic from './landingElements/Header_public.jsx'
 import { stripWhiteSpace } from '../../app/helpers/commonHelpers'
 
 import CopySharedChitLink from '../../common_components/CopySharedChitLink';
-import ShareChitSample from './sharedFolder/SharedChitSample'
+import SharedChitSample from './sharedFolder/SharedChitSample'
+import SharedChitDemo from './sharedFolder/SharedChitDemo'
 
 //--- MUI
 import Popover from '@mui/material/Popover';
@@ -71,8 +72,7 @@ const SharedChit = (props) => {
     <BodyWrapper>
       <HeaderPublic />
       <NavSpacer />
-
-      Shared chit main here
+ 
 
       <ContentContainer>
         {!codeId &&
@@ -175,7 +175,7 @@ View shared chit sample
 
         {codeId === 'sample' &&
           
-            <ShareChitSample />
+            <SharedChitSample />
          
         }
 
