@@ -31,7 +31,8 @@ const Icon= styled(ShareIcon)({
   backgroundColor: 'white',
   borderRadius: '5px',
   fontSize: '.95rem',
-  color: chitOrange,
+  // color: chitOrange,
+  color: mediumLightGrey,
   margin: '0 .5rem .3rem .5rem',
   cursor: 'pointer',
   
@@ -81,7 +82,7 @@ function Shared(props) {
     <>
 
    
-      <LightTooltip   title = 'Share this chit'  arrow> 
+      <LightTooltip   title = 'Share this chit '  arrow> 
       <Icon
 
 

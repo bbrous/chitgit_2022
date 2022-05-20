@@ -157,6 +157,17 @@ const People =  [
       
     },
 
+    {
+      id: 'person_100',
+      type: 'person',
+      name: "Brad B",
+      meta: '',
+      
+      personHolders: []
+
+      
+    },
+
 ]// end People
 
 export default People

@@ -124,7 +124,7 @@ const App = () => {
             <Route path='/join' element={<Join/>} />
             <Route path='/login/:sharedChitId' element={<Login/>} />
             <Route path='/login' element={<Login/>} />
-            <Route path='/sharedChit/:code' element={<SharedChit/>} />
+            <Route path='/sharedChit/:sharedChitId' element={<SharedChit/>} />
             <Route path='/sharedChit' element={<SharedChit/>} />
             <Route path='/resetPassword' element={<PasswordReset/>} />
 

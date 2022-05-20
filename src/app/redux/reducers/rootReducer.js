@@ -24,7 +24,7 @@ import statusReducer from '../statusRedux/statusSlice'
 import spotlightReducer from '../spotlightRedux/spotlightsSlice'
 import taskReducer from '../taskRedux/tasksSlice'
 import noteReducer from '../noteRedux/notesSlice'
-import sharedChitReducer from '../chitShare/sharedChitSlice'
+import sharedChitReducer from '../sharedChitRedux/sharedChitSlice'
 
 
 const rootReducer = combineReducers({

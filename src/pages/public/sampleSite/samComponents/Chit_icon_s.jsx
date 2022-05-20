@@ -9,7 +9,7 @@ parent: Spotlight - pages/public/sampleSite/samSpots/Spotlight
 import React from 'react'
 import {connect} from 'react-redux'
 import {useHistory, useRouteMatch, match} from 'react-router-dom'
-import{mediumLightGrey, chitMediumGreen, chitOrange, } from '../../../../styles/colors'
+import{mediumLightGrey, chitMediumGreen, chitOrange, mediumMediumGrey, } from '../../../../styles/colors'
 // import{changeLastSpotlightDisplayed,  openModal, closeModal} from '../../../../app/redux/statusRedux/sam_action_Status'
 
 import LogoIconWhite from '../../../../images/logo_icon_white.svg'
@@ -59,7 +59,7 @@ const LogoWrapperOrange= styled('div')({
   
 cursor: 'pointer',
 borderRadius: '20px',
-  backgroundColor: chitOrange,
+  backgroundColor: mediumMediumGrey,
   '&:hover': {
     backgroundColor: mediumLightGrey
     // backgroundColor: mediummediumLightGrey

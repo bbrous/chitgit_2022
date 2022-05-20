@@ -148,6 +148,30 @@ export const statusSlice = createSlice({
           keyWordArray: [],
  
 
+        },
+
+        
+        sharedChitForm: {
+          sharedId: '',
+          sharedLinkAddress: '',
+
+          receiverId: '',
+          receiverName: '',
+
+          senderId: '',
+          chitCategory: '', // twoParty , personal
+          chitId: '',
+          deedPerformedBy: '',
+
+          chitType: '', //kindness, awChit, etc
+          chitColor: '',
+
+          chitDate: '',
+          sharedDate: '',
+           
+          sharedTitle: '',
+          message: '',
+
         }
 
         

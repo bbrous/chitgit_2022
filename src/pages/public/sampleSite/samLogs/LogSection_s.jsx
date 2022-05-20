@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
+import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey, mediumMediumGrey} from '../../../../styles/colors'
 
 import{ 
   selectLogs,
@@ -197,11 +197,11 @@ styledPeople = 'none'
 
           <ChitIcon />
           <LightTooltip title='Content Time Lock' arrow>
-            <StyledLockClockIcon />
+            <StyledLockClockIcon  sx ={{color: mediumMediumGrey}}/>
           </LightTooltip>
 
           <LightTooltip title='Attachment' arrow>
-            <StyledAttachmentIcon />
+            <StyledAttachmentIcon sx ={{color: mediumMediumGrey}}/>
           </LightTooltip>
 
           <LightTooltip title='Delete' arrow>

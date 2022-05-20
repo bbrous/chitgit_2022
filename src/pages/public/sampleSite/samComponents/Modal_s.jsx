@@ -43,6 +43,7 @@ import SpotlightForm from '../samForms/SpotlightForm_s'
 import NoteForm from '../samForms/NoteForm_s'
 import PersonalChitForm from '../samForms/PersonalChitForm_s'
 import TwoPartyChitForm from '../samForms/twoPartyChitForm_s'
+import SharedChitForm from '../samForms/sharedChitForm_s'
 
 // import WOChitDetail from '../../features/main/views/chitView/WO_ChitDetail'
 // import PEChitDetail from '../../features/main/views/chitView/PE_ChitDetail'
@@ -129,6 +130,13 @@ console.log('[ modal ] modalPage ', modalPage);
           <NoteForm params = {modalParams} />
 
         }
+
+{dbCollection === 'sharedChits' &&
+          <SharedChitForm params = {modalParams} />
+
+        }
+
+
    <Close onClick = {()=>dispatch(closeModal())}>Close</Close>
      
          </ModalDisplay>

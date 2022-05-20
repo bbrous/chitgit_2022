@@ -567,9 +567,9 @@ const Landing_page = (props) => {
   }
 
   const handleSubmit = (code)=>{
-    let cleanCode = stripWhiteSpace(code).toLowerCase()
-    navigate(`/sharedChit/${cleanCode}`)
-    // alert('[ Landing_page ] I submitted ');
+    
+    navigate(`/sharedChit`)
+ 
   }
 
   return (
@@ -628,7 +628,7 @@ const Landing_page = (props) => {
               <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
               </NoticeForm> */}
 
-<div onClick = {()=> handleSubmit('shelby')}> I received a chit </div>
+<div onClick = {()=> handleSubmit()}> I received a chit </div>
         
 
 

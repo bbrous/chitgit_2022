@@ -104,7 +104,7 @@ export default function SharedChitForm_s(props) {
   const status = useSelector(selectStatus)
   const {person, group, workRelated, description, keyWordArray  }= status.view.forms.sharedChitForm
 
-console.log('[ Log FROM ] keywords ', statusFormViewKeywords);
+// console.log('[ Log FROM ] keywords ', statusFormViewKeywords);
 
   // --- form Schema tests   ------------------------------
 
@@ -198,8 +198,46 @@ let defaultValues = {
 
 
           <MainWrapper>
- 
- SHARED CHIT FORM
+ <div> SHARED CHIT FORM  </div>
+ <div>The shared chit form is a wizard</div>
+
+ <div> it contains 4 pages <br />
+
+- message page - <br />
+- form page   -- <br />
+- preview and submit -- <br />
+- link page 
+
+ </div>
+<div>
+  The message page - is shown only after submit of a newly created chit. <br />
+  From twoPartyChitForm_preview ... submit  data is sent that says "new chit" <br />
+  - This sharedChit.jsx page takse the "new"  and displays message 
+</div>
+<div>
+  The form page - get's most of it's data from the chitId - which will come in from the shared icon on a twoParty Chit or personal chit. <br />
+  The form will have fields for: <br />
+  - sender Name ... the default will be the sender ... but it can be changed <br />
+                    to show a nick name <br />
+
+  - receiver Name... same as send Name  <br />
+  - sharedTitle <br />
+  - sharedMessage
+</div>
+<div>
+  The preview page - displays the info as it would be seen by the receiver <br />
+   - submit button - creates a sharedChit in sharedChit 'root reducer' <br />
+                    - updates the sender's chit
+                    - takes user to link page
+</div>
+<div>
+  The link page - gives the shared chit id and a "copy link" address
+</div>
+
+
+
+
+
 
             {/* ------Work related -------------------------- */}
 
@@ -319,9 +357,9 @@ let defaultValues = {
         </FormWrapper>
 
       </FormProvider>
-}
+
     </Wrapper>
-  );
+  )}
 }
 
 Yup.addMethod(Yup.string, 'customValidator', function() {

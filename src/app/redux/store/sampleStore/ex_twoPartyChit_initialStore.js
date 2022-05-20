@@ -180,6 +180,7 @@ const TwoPartyChits =  [
       duplicate: '',
 
       sharedId: '',
+      sharedLinkAddress: '',
       sharedTitle: '',
       message: ''
 

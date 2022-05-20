@@ -544,7 +544,7 @@ if(!twoPartyChitId) {
  
 
     dispatch(changeLoadingStatus(false))
-
+    dispatch(closeModal())
     } catch (error) {
       alert(error.message)
       dispatch(changeLoadingStatus(false))
