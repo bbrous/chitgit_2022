@@ -12,7 +12,7 @@ Sharing chits is a key function of ChitGit.  Not only is it important to the use
 Shared chits are primarily a feature of 2 party chits... but the user can also share a personal chit.   The reason to share a 2 party chit is pretty evident.  Reasoning for sharing a personal chit is a little more obscure.   But a user might want to share a milestone - like reaching a target weight - with her family or friends.
 
 Structurally, sharing chits involves 3 (or 4) database collections...
-   - the sending user's twoParyChit and personal collections
+   - the sending user's twoParyChit or personalChit collections
    - the site's sharedChit Collection
    - and the receiver's chit collections (should they choose to add the chit to their repo)
 

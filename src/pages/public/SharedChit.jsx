@@ -1,7 +1,15 @@
 /*---- File - SharedChit.jsx 
-    
-status = layout only
+
 see Read me -SharedChit.md   for details how to implement
+
+This file holds a choice of 4 actions: 
+   1. enter a code
+   2. view a sample of a shared chit
+   3. go to Sample site
+   4. return to home page
+
+children:  ./sharedFolder/SharedChitSample
+          ./sharedFolder/SharedChitDemo
 
 */
 
@@ -39,15 +47,15 @@ const SharedChit = (props) => {
   let codeId = match.sharedChitId
 
 
-  // }
   const [chitInput, setChitInput] = useState('')
   const handleInput = (evt) => {
-    console.log('[Landing_page ] Input form value ', evt.target.value);
+    console.log('[SharedChit ] I submitted ');
     setChitInput(evt.target.value)
+ 
   }
 
   const handleSubmit = (code) => {
-    let cleanCode = stripWhiteSpace(code).toLowerCase()
+    let cleanCode = stripWhiteSpace(code) 
     navigate(`/sharedChit/${cleanCode}`)
     // alert('[ Landing_page ] I submitted ');
   }
