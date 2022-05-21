@@ -10,7 +10,7 @@ const SampleSharedChits =  [
     receiverName: 'Dave Anderson',
 
     senderId: 'person_100',
-    senderName: 'Brad B',
+    senderName: 'Brad ',
 
     chitCategory: 'twoPartyChit', // twoPartyChit , personalChit
     chitId: 'ZZZZZ',
@@ -22,8 +22,8 @@ const SampleSharedChits =  [
     chitDate: '1997-12-23T13:35:14.000Z',
     sharedDate: '2022-05-19T13:35:14.967Z',
      
-    sharedTitle: 'You saved me',
-    message: 'Dave - you saved me from making what would have been the absolute worst mistake in my life.  It was the day I helped you build the jungle jim for your kids... and it was all because you didn\'t want to read the instructions.    It is a debt I truly can never repay.  Thank you.',
+    sharedTitle: 'You saved my life !',
+    message: "<div>Dave -<span style=\"color: rgb(107, 36, 178);\"> </span></div><div>You saved me from making what would have been the absolute worst mistake in my life. &nbsp;</div><div><br></div><div>It was the day I helped you build the jungle jim for your kids... and it was all because you didn't want to read the instructions. &nbsp;It's  a debt I truly can never repay. &nbsp;</div><div><br></div><div><span style=\"color: rgb(230, 0, 0);\">Thank you</span><span style=\"color: rgb(107, 36, 178);\">.</span></div>",
   },
 
   { 
@@ -34,7 +34,7 @@ const SampleSharedChits =  [
     receiverName: 'Dave Anderson',
 
     senderId: 'person_100',
-    senderName: 'Brad B',
+    senderName: 'Brad',
 
     chitCategory: 'twoPartyChit', // twoPartyChit , personalChit
     chitId: 'ZZZZZ',
@@ -47,7 +47,7 @@ const SampleSharedChits =  [
     sharedDate: '2022-05-19T13:35:14.967Z',
      
     sharedTitle: 'Helped you build the jungle jim',
-    message: 'A rare time I got to help you.  Assisting you would have only warranted a copper chit... but having to build that monstrosity twice because you wouldn\'t consult the instructions bumped it up to a silver :-). ',
+    message:  "<div>Dave  - a  rare time I got to help you. </div><div><br></div><div>Even though the jungle jim was a monstrosity - assisting you would have only warranted a <span style=\"color: rgb(102, 61, 0);\">copper chit</span>... but having to build that monstrosity twice because you wouldn't consult the instructions bumped it up to a <strong style=\"color: rgb(136, 136, 136);\">silver </strong>:-).</div>",
   },
 
   { 
@@ -58,7 +58,7 @@ const SampleSharedChits =  [
     receiverName: '',
 
     senderId: 'person_100',
-    senderName: 'Brad B',
+    senderName: 'Brad',
 
     chitCategory: 'personalChit', // twoPartyChit , personalChit
     chitId: 'ZZZZZ',
@@ -71,7 +71,8 @@ const SampleSharedChits =  [
     sharedDate: '2022-05-19T13:35:14.967Z',
      
     sharedTitle: 'Chit Git prototype',
-    message: 'Today I completed the minimum viable product (MVP) of Chit Git.  After 3 years of work ... with 3 strategy (and corresponding product) changes,  Chit Git is ready to be shown and tried by users.  It\'s an important milestone for me because it is also the culmination of years of learning how to implement the vision - inluding training myself to do graphics design, database design and programming.  P.S. The site is designed using Javascript with a React framework and a cloud backend.'
+    message: "<div><span style=\"color: rgb(230, 0, 0);\">A MILESTONE day ...</span></div><div><br></div><div>Today I completed the minimum viable product (MVP) of Chit Git. </div><div><br></div><div>After 3 years of work ... with 3 strategy (and corresponding product) changes, Chit Git is ready to be shown and tried by users. </div><div><br></div><div>It's an important milestone for me because it is also the culmination of years of learning how to actually create my product vision - without hiring outside contractors.  </div><div><br></div><div>I've literally spent years teaching myself to do graphics design, database design and programming. </div><div><br></div><div><strong>P.S. </strong>The site is designed using Javascript with a React framework and a cloud back end.</div> <div><span style=\"color: rgb(230, 0, 0);\">A MILESTONE day ...</span></div><div><br></div><div>Today I completed the minimum viable product (MVP) of Chit Git. </div><div><br></div><div>After 3 years of work ... with 3 strategy (and corresponding product) changes, Chit Git is ready to be shown and tried by users. </div><div><br></div><div>It's an important milestone for me because it is also the culmination of years of learning how to actually create my product vision - without hiring outside contractors.  </div><div><br></div><div>I've literally spent years teaching myself to do graphics design, database design and programming. </div><div><br></div><div><strong>P.S. </strong>The site is designed using Javascript with a React framework and a cloud back end.</div>work ... with 3 strategy (and corresponding product) changes, Chit Git is ready to be shown and tried by users. </div><div><br></div><div>It's an important milestone for me because it is also the culmination of years of learning how to actually create my product vision - without hiring outside contractors.  </div><div><br></div><div>I've literally spent years teaching myself to do graphics design, database design and programming. </div><div><br></div><div><strong>P.S. </strong>The site is designed using Javascript with a React framework and a cloud back end.</div> <div><span style=\"color: rgb(230, 0, 0);\">A MILESTONE day ...</span></div><div><br></div><div>Today I completed the minimum viable product (MVP) of Chit Git. </div><div><br></div><div>After 3 years of work ... with 3 strategy (and corresponding product) changes, Chit Git is ready to be shown and tried by users. </div><div><br></div><div>It's an important milestone for me because it is also the culmination of years of learning how to actually create my product vision - without hiring outside contractors.  </div><div><br></div><div>I've literally spent years teaching myself to do graphics design, database design and programming. </div><div><br></div><div><strong>P.S. </strong>The site is designed using Javascript with a React framework and a cloud back end.</div>"
+    
   },
 
   

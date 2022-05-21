@@ -6,17 +6,23 @@ see Read me -SharedChit.md   for details how to implement
 */
 
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+
 import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey, chitBurgandyDull, lightGrey } from '../../../styles/colors'
 
 import SilverChit from '../../../images/chitCoins/silver_standard.svg'
 import LinkCode from '../../../images/linkCode.svg'
-
+import { ISOtoTraditional } from '../../../app/helpers/dateHelper';
 
 import { useParams, useNavigate } from 'react-router-dom'
 import HeaderPublic from '../landingElements/Header_public.jsx'
 import { stripWhiteSpace } from '../../../app/helpers/commonHelpers'
 
+import { selectSharedChits } from '../../../app/redux/sharedChitRedux/sharedChitSlice';
+
 import CopySharedChitLink from '../../../common_components/CopySharedChitLink';
+
+import { choosePersonalCoin, chooseTwoPartyChitCoin } from '../../../app/helpers/chitHelpers';
 
 //--- MUI
 import Popover from '@mui/material/Popover';
@@ -34,8 +40,36 @@ const theme = createTheme(); // allows use of mui theme in styled component
 const SharedChitDemo = (props) => {
   let match = useParams()
   let navigate = useNavigate()
-  let codeId = match.code
+  let codeId = match.sharedChitId
 
+  // --- get all sharedChits from Redux store
+
+  let allSharedChits = useSelector(selectSharedChits)
+
+
+
+let sharedChit = allSharedChits.find(chit => chit.sharedId === codeId)
+const {sharedId, sharedLinkAddress, senderId, receiverId, receiverName, senderName, chitCategory, chitType, chitColor, chitDate, sharedDate, sharedTitle, message, deedPerformedBy } = sharedChit
+
+
+let styledChitDate = ISOtoTraditional(chitDate)
+let styledsharedDate = ISOtoTraditional(sharedDate)
+
+let performedByName
+deedPerformedBy === senderId ? performedByName = senderName: performedByName = receiverName
+
+
+  //  --- define which coin is displayed
+
+  let coinAddress = chooseTwoPartyChitCoin(chitType, chitColor)
+ 
+  const pathToCoinImages = '../../../'
+  const twoPartyCoinDisplayed = pathToCoinImages + chooseTwoPartyChitCoin(chitType, chitColor)
+  const personalCoinDisplayed = pathToCoinImages +choosePersonalCoin(chitColor)
+
+// let sharedChit = allSharedChits.find(chit => chit.id === codeId)
+
+console.log('[ Shared Chit Demo ] Te only SharedChits ', sharedChit);
 
 // --- popover functions ----
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -78,22 +112,28 @@ const handleClick = (evt, code) =>{
 
   let SharedChitDisplay = (codeId)=>{
 
-   let chitLinkMessage =  `www.ChitGit.com/sharedChit/${codeId}`
-
+ 
+   let chitLinkMessage = sharedLinkAddress
   
 
 
 
-    if(codeId === 'shelby'){
+    if(codeId === sharedId){
       return(
         <>
         <ContentBox>
-        <SentDate> shared: Mar 14, 2022</SentDate>
+        <SentDate> shared: {styledsharedDate} </SentDate>
 
+        {chitCategory === 'twoPartyChit' &&
         <SubHeader>
-            This chit has been sent to Mike Forry 
-           from Brad Brous    
+            This chit has been sent <br/><em>  to </em> {receiverName} <em> from  </em>{senderName}  
           </SubHeader>
+    }
+{chitCategory === 'personalChit' &&
+<SubHeader>
+            This personal chit has been sent to you <br/> from {senderName}  
+          </SubHeader>
+    }
         <ChitBox>
 
          
@@ -101,19 +141,35 @@ const handleClick = (evt, code) =>{
 
         <ActionWrapper>
     <ActionLeft>chit date :   </ActionLeft>
-    <ActionRight>  Mar 8, 2022</ActionRight>
+    <ActionRight> {styledChitDate} </ActionRight>
  
 </ActionWrapper>
 
-<StyledChitImage src= {SilverChit} alt = 'silver coin' />
 
+{chitCategory === 'twoPartyChit' &&
+<StyledChitImage src= {twoPartyCoinDisplayed} alt = 'silver coin' />
+}
+
+{chitCategory === 'personalChit' &&
+<StyledChitImage src= {personalCoinDisplayed} alt = 'silver coin' />
+}
+
+{chitCategory === 'twoPartyChit' &&
 <ActionWrapper>
     <ActionLeft>performed by: </ActionLeft>
-    <ActionRight>Mike Forry </ActionRight>
+    <ActionRight>{performedByName} </ActionRight>
  
 </ActionWrapper>
 
+  }
 
+{chitCategory === 'personalChit' &&
+<ActionWrapper>
+    Personal chit
+ 
+</ActionWrapper>
+
+  }
 
 
 
@@ -121,7 +177,7 @@ const handleClick = (evt, code) =>{
         
         <SummaryWrapper>
                 <SummaryTop>Summary:   </SummaryTop>
-                <SummaryBottom> Cris created a massive spreadsheet for me</SummaryBottom>
+                <SummaryBottom> {sharedTitle} </SummaryBottom>
              
           </SummaryWrapper>
 
@@ -129,10 +185,9 @@ const handleClick = (evt, code) =>{
  
 
         <MessageWrapper>
-                <MessageTop>Message from Brad:    </MessageTop>
-                <MessageBottom> 
-                  Thank you for your help
-                  Thank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your helpThank you for your help
+                <MessageTop>Message from {senderName}:    </MessageTop>
+                <MessageBottom  dangerouslySetInnerHTML={{__html: message}} > 
+                
                 </MessageBottom>
              
           </MessageWrapper>
@@ -148,7 +203,6 @@ const handleClick = (evt, code) =>{
             <div> already a member  </div>
             <LinkButton 
             id = 'login'
-            onClick = {(evt)=> handleClick(evt, 'shelby')}
             >Login
             </LinkButton>
           </AddLeft>
@@ -157,7 +211,6 @@ const handleClick = (evt, code) =>{
             <div> not a member </div>
             <LinkButton 
             id = 'join'
-            onClick = {(evt)=> handleClick(evt, 'shelby')}
             >Join</LinkButton>
           </AddRight>
           </AddLinks>
@@ -424,6 +477,9 @@ const HeadWrapper= styled('div')({
     alignItems: 'center',
  width: '75%',
  padding: '6px',
+ color: chitBurgandy,
+fontWeight: 'bold',
+ 
 
     [theme.breakpoints.down('xs')] : {
      
@@ -436,7 +492,7 @@ const HeadWrapper= styled('div')({
     marginRight: '6px',
     fontStyle: 'italic',
     fontSize: '.9rem',
-
+    color: mediumGrey,
     [theme.breakpoints.down('xs')] : {
      
     }
@@ -454,10 +510,11 @@ const HeadWrapper= styled('div')({
 
   const SubHeader= styled('div')({
     // backgroundColor: 'green',
-        display: 'flex',
+        display: 'block',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
+        textAlign: 'center',
     
         width: '100$',
     
@@ -599,11 +656,15 @@ const HeadWrapper= styled('div')({
     width: 'calc(100% - 12px)',
     fontSize: '.9rem',
     minHeight: '5rem',
+    height : '11rem',
+    overflow: 'auto',
     [theme.breakpoints.down('xs')] : {
      
     }
   
   })
+
+  
 
 
 // -----------------------------------------
@@ -1002,3 +1063,4 @@ borderBottom: '1px solid #CFD0D1',
     }
   
   })
+

@@ -180,7 +180,7 @@ View shared chit sample
         }
 
         {codeId && codeId !== 'sample' &&
-         <div> codeId page</div>
+         <SharedChitDemo/>
             
        
         }

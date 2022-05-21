@@ -386,7 +386,8 @@ const HeadWrapper= styled('div')({
     alignItems: 'center',
  width: '75%',
  padding: '6px',
-
+ color: chitBurgandy,
+fontWeight: 'bold',
     [theme.breakpoints.down('xs')] : {
      
     }
