@@ -7,7 +7,15 @@ import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
  
+import { 
 
+  checkIfWordExists, 
+  cleanOptions ,
+  optionDescendSorter,
+  isArrayDifferent,
+  doesArrayIncludeItem
+
+} from '../../../../app/helpers/commonHelpers'
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -26,13 +34,22 @@ import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
 
-
+import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
 
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 
 import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
+import { ChitRadio } from '../../../../forms/formComponents/ChitRadio'
+
+import { StyledDatePicker } from '../../../../forms/formComponents/StyledDatePicker';
+
+import { Editor } from '../../../../forms/formComponents/QuillEditor'
+
+import { StyledAutocomplete } from '../../../../forms/formComponents/StyledAutocomplete';
+
+import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
 // --- MUI imports ---------
 
@@ -41,154 +58,9 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
+import { chitBurgandyDull, lightGrey } from '../../../../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
-
-// ---------------------------------------------
-  const Wrapper = styled(Paper)({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    // zIndex: '95',
-    backgroundColor: 'none',
-    width: '100%',
-    height: '100%',
-    overflow: 'auto',
-
-
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-
-  const HeaderWrapper = styled('div')({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: '.5rem 0 .5rem 0',
-    marginBottom: '.5rem',
-    borderBottom: '2px solid #CFD0D1',
-    boxShadow : '0 0 1px 0 #F6F7F8' ,
-    // zIndex: '95',
-
-    width: '100%',
-
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-
-  const FormWrapper = styled('form')({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '80%',
-  
-
-  
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      backgroundColor: 'pink'
-  
-    },
-  
-  })
-  const FormComponentWrapper= styled('div')({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: '100%',
-    margin: '.5rem',
-  
-   
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ComponentName= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    color: 'darkGrey',
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ComponentWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-  
-   
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const ButtonWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '60%',
-    margin: '.75rem',
-  
-    
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-  const StyledButton= styled(Button)({
-    color: 'white'
-  
-  })
-
-
-  const StyledCalendarIcon = styled(CalendarTodayIcon)({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '8px',
-    width: '16px',
-    color: '#CFD0D1',
-  
-   
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
 
 
 
@@ -196,7 +68,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 const formSchema = object({
 
-  title: string().required('A title for your spotlight is required'),
+  // title: string().required('A title for your spotlight is required'),
 
 
 });
@@ -218,24 +90,32 @@ export default function PersonalChitForm_s(props) {
 
 
   // --- set up options for the selector input (parentId) 
+  let noteArray, keywordsArray, categoriesArray, keywordOption
 
-  let categoriesArray = useSelector(selectCategories) // get all spotlights
+  keywordsArray = useSelector(selectKeywords) // get all keywords
+  categoriesArray = useSelector(selectCategories) // get all keywords
   
-  // --- initial and fill  the options 
 
-  let categoriesOptionsArray = [
-    { value: 'none', label: 'none' }
-  ] //  defining an initial value in array
+  // (2) --- Create form Options ---------------------------------------
 
-  let categoryOption
+    // --- create options array for Autocomplete multi-selector 
 
-  categoriesArray.map((category, index) => {
-    // code 
-    categoryOption = { value: category.id, label: category.title }
-    categoriesOptionsArray.push(categoryOption)
+    let keywordsOptionsArray = []
 
-    return categoriesOptionsArray
-  }) //end map
+    keywordsArray.map((keyword, index) => {
+      // code 
+      keywordOption = keyword.keyword
+      keywordsOptionsArray.push(keywordOption)
+
+      return keywordsOptionsArray
+    }) //end map
+
+  // --- create options array for StledSelectMuiCreatable (category options)
+
+    let categoryOptionsArray = categoriesArray.map(category => category.category);
+    let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
+
+
   
 
 
@@ -243,16 +123,25 @@ export default function PersonalChitForm_s(props) {
 
   //  --- default values conditioned on whether new or edit existing spotlight 
 
-  let defaultValues, category, id,title,  headerMessage
+  let defaultValues, category, id,title,  headerMessage, chitDate, detail, workRelated, noteKeywordArray,    defaultKeywordOptions, noteCategory
 
   !personalChitId ? headerMessage = 'Create New Personal Chit'  : headerMessage = 'Edit Personal Chit'
+
+  // !personalChitId ? defaultKeywordOptions = []  : defaultKeywordOptions = note.noteKeywordArray
  
  
 
     
     defaultValues = {
       title: title,
-      chitValue: 2
+      chitValue: 2,
+
+      category: '',
+      chitDate: '',
+      detail: '',
+      workRelated: '',
+      chitColor: '',
+      keywords: []
        
 
     };
@@ -347,55 +236,210 @@ console.log('[ Personal CHit Form ] data ', data);
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
-          {/* ------Input Component (title) -------------------------- */}
+          {/* ------select Creatable (category) -------------------------- */}
 
           <FormComponentWrapper>
-          <ComponentName>
-            Title - Chit goal, objective or task
-          </ComponentName>
+            <ComponentName>
+              Chit category
+            </ComponentName>
 
-          <ComponentWrapper>
-            <StyledInput name="title" control={control} label="Title" type = "text"/>
+            <ComponentWrapper>
+              <StyledSelectMuiCreatable
+                name={'category'}
+                control={control}
+                options={sortedCategoryOptions}
+                // defaultValue = {{ value: 'ge423', label: 'home'}}
+                defaultValue={defaultValues.categories}
+                placeholder='select a category'
 
-          </ComponentWrapper>
-        </FormComponentWrapper>
 
-          
-
-        {/* ------Selector Component  (parentId) -------------------------- */}
-
-
-        <FormComponentWrapper>
-          <ComponentName>
-            Slider - {myColor}
-          </ComponentName>
-
-          <ComponentWrapper>
-          <StyledSliderMui name = "chitValue" control={control} label="Chit Value" type = "text" />
-
-          </ComponentWrapper>
-        </FormComponentWrapper>
-
+              />
 
 
         {/* ------DatePicker Component (endEst) -------------------------- */}
+            </ComponentWrapper>
+          </FormComponentWrapper>
+
+          <FormComponentWrapper>
+              <ComponentName>
+                Chit date ? <StyledCalendarIcon />
+              </ComponentName>
+
+              <ComponentWrapper>
+                <Controller
+
+                  name="chitDate"
+                  control={control}
+                  initialNote={'hi'}
+
+                  render={({ field }) => (
+                    <StyledDatePicker {...field} ref={null} />
+                  )}
+                />
+                
+              </ComponentWrapper>
+              {/* {errors.chitDate && <ErrorMessage>{errors.chitDate.message} </ErrorMessage>} */}
+            </FormComponentWrapper> 
+
+
+            {/* ------Work related -------------------------- */}
+
+            <FormComponentWrapper>
+              <ComponentName>
+                Chit Color
+              </ComponentName>
+
+              
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChitRadio
+                    name={"chitColor"}
+                    control={control}
+                    label={"logType"}
+                    options={[
+                      {
+                        label: "gold",
+                        value: "gold",
+                      },
+                      {
+                        label: "silver",
+                        value: "silver",
+                      },
+
+                      {
+                        label: "copper",
+                        value: "copper",
+                      },
+                      {
+                        label: "milestone",
+                        value: "milestone",
+                      },
+                      {
+                        label: "awChit",
+                        value: "awChit",
+                      },
+
+
+
+                    ]}
+                    defaultValue = {defaultValues.workRelated}
+                  />
+                </RadiotWrapper>
+
+
+                
+
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
+
+
+
+
+
+
+          {/* ------Detail  -------------------------- */}
+
+          <FormComponentWrapper>
+          <ComponentName>
+            Description
+          </ComponentName>
+
+          <ComponentWrapper>
+            <StyledInput name="detail" control={control} label="Title" type = "text"/>
+
+          </ComponentWrapper>
+        </FormComponentWrapper>
+
+
+
 
  
   
+            {/* ------Work related -------------------------- */}
+
+            <FormComponentWrapper>
+              <ComponentName>
+                Is this chit work related ?
+              </ComponentName>
+
+              
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChitRadio
+                    name={"workRelated"}
+                    control={control}
+                    label={"logType"}
+                    options={[
+                      {
+                        label: "yes",
+                        value: "yes",
+                      },
+                      {
+                        label: "no",
+                        value: "no",
+                      },
+
+                    ]}
+                    defaultValue = {defaultValues.workRelated}
+                  />
+                </RadiotWrapper>
 
 
-        {/* ------Submit ---------- -------------------------- */}
-        <ButtonWrapper>
+                
 
-          <StyledButton 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            style={{textTransform: 'none'}}
-            >
-            Submit
-          </StyledButton>
-        </ButtonWrapper>
+
+              </ComponentWrapper>
+            </FormComponentWrapper>
+
+          {/* ------multiselect (keywords) -------------------------- */}
+
+          <FormComponentWrapper>
+            <ComponentName>
+              Key Words
+            </ComponentName>
+
+            <ComponentWrapper>
+            <StyledAutocomplete
+                name= {'keywords'}
+                control={control}
+                options = {keywordsOptionsArray}
+                // defaultValue = {{ value: 'ge423', label: 'home'}}
+                defaultValue = {defaultValues.keywords}
+               
+                
+              />
+
+
+            </ComponentWrapper>
+          </FormComponentWrapper>
+
+            {/* ------Submit ---------- -------------------------- */}
+            <SubmitContainer>
+              <StyledButton
+
+                variant="contained"
+                color="primary"
+                style={{
+                  textTransform: 'none',
+
+                }}
+                // onClick={() => cancelNewForm()}
+
+              >
+                Cancel
+              </StyledButton>
+
+              <StyledSubmitButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ textTransform: 'none' }}
+              >
+                Submit Form
+              </StyledSubmitButton>
+
+            </SubmitContainer>
       </FormWrapper>
 
     </FormProvider>
@@ -404,3 +448,223 @@ console.log('[ Personal CHit Form ] data ', data);
   );
 }
 
+
+// ---------------------------------------------
+const Wrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // zIndex: '95',
+  backgroundColor: 'none',
+  width: '100%',
+  height: '100%',
+  overflow: 'auto',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const HeaderWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  padding: '.5rem 0 .5rem 0',
+  marginBottom: '.5rem',
+  borderBottom: '2px solid #CFD0D1',
+  boxShadow : '0 0 1px 0 #F6F7F8' ,
+  // zIndex: '95',
+
+  width: '100%',
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const FormWrapper = styled('form')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '80%',
+
+
+
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    backgroundColor: 'pink'
+
+  },
+
+})
+const FormComponentWrapper= styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '100%',
+  margin: '.5rem',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ComponentName= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  color: 'darkGrey',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ComponentWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ButtonWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '60%',
+  margin: '.75rem',
+
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+ 
+
+
+const StyledCalendarIcon = styled(CalendarTodayIcon)({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginLeft: '8px',
+  width: '16px',
+  color: '#CFD0D1',
+
+ 
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const StyledSubmitButton= styled(Button)({
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '8rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
+
+})
+
+//  --- Buttons -----------
+const SubmitContainer= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '95%',
+  margin: '.75rem',
+
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+const StyledButton= styled(Button)({
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 1.5rem 0 6px',
+  width: '5rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
+
+})
+
+const DetailComponentWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+border: '1px solid orange',
+borderRadius: '5px',
+ padding: '2px',
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+const RadiotWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '60%',
+ 
+ backgroundColor: 'yellow',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})

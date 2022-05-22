@@ -347,23 +347,26 @@ function TwoPartyChitHeader(props) {
 
   filteredChits.map((chit, index) => {
 
+   
+
     if(chit.chitType === 'awChit') {
       // assets
       
-      karmicBalance = karmicBalance + chit.chitValue
+      karmicBalance = karmicBalance + chit.chitValue 
+      + chit.chitBurden
   
 
       }
   
       if(chit.chitType !== 'awChit'  ) {
         if(chit.deedPerformedBy === chit.otherPartyId){
-          karmicBalance = karmicBalance - chit.chitValue
+          karmicBalance = karmicBalance - chit.chitValue - chit.chitBurden
 
         }
     
         // assets
         if(chit.deedPerformedBy !== chit.otherPartyId){
-          karmicBalance = karmicBalance + chit.chitValue
+          karmicBalance = karmicBalance + chit.chitValue + chit.chitBurden
 
         }
         

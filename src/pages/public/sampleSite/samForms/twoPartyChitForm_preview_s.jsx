@@ -396,7 +396,7 @@ defaultValues = {
           dateCreated: modifiedChitCreatedDate.toISOString(),
           chitDate: modifiedChitDate.toISOString(),
           timeLock: '',
-          otherPartyCollection: otherPartyCollection,
+          otherPartyCollection: dbCollection,
           otherPartyId: newOtherPartyId,
           workRelated: workRelated,
           description: description,

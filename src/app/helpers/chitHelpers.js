@@ -70,7 +70,7 @@ if(filterId === 'allChits' ){
 }else if(filterId === 'workChits' ){
 
 
-  displayedChitsArray = chitsArray.filter(item => item.workRelated === true )
+  displayedChitsArray = chitsArray.filter(item => item.workRelated === 'workRelated' )
   
 }else if(filterId === 'goodWillChits' ){
 
