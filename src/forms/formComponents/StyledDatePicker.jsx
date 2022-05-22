@@ -3,8 +3,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
-
-import "react-datepicker/dist/react-datepicker.css";
+ 
 import '../../styles/datePickerStyleOverrides.css'
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -42,7 +41,6 @@ color: headerGrey,
 })
 
 
-
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
@@ -50,6 +48,8 @@ export const StyledDatePicker = ({
   name,
   control,
   label,
+  excludedDates,
+  maxDate
 }) => {
 
 
@@ -60,7 +60,10 @@ export const StyledDatePicker = ({
                 name={name}
                 control={control}
                 
-                  render={({ field }) => (
+                  render={({ field }) => {
+
+                    console.log('[ where ] heck ', field.value);
+                    return(
                     <ReactDatePicker
                       className="input"
                       placeholderText="Select date"
@@ -68,9 +71,13 @@ export const StyledDatePicker = ({
                       selected={field.value}
                       dateFormat="d MMMM , yyyy"
                       popperPlacement="bottom"
-                      maxDate={new Date(field.value)}
+                      maxDate={maxDate}
+                      excludeDates={excludedDates}
+                      onKeyDown={(e) => {
+                        e.preventDefault();
+                     }}
                     />
-                )}
+                )}}
             />
 
   );

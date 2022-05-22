@@ -33,7 +33,7 @@ import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
 import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
-
+import {selectAllPersonalChits } from '../../../../app/redux/personalChitRedux/sam_personalChitSlice'
 import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
 
 // --- Form component imports ---------
@@ -90,11 +90,11 @@ export default function PersonalChitForm_s(props) {
 
 
   // --- set up options for the selector input (parentId) 
-  let noteArray, keywordsArray, categoriesArray, keywordOption
+  let noteArray, keywordsArray, categoriesArray, keywordOption, allPersonalChitsArray
 
   keywordsArray = useSelector(selectKeywords) // get all keywords
   categoriesArray = useSelector(selectCategories) // get all keywords
-  
+  allPersonalChitsArray = useSelector(selectAllPersonalChits)
 
   // (2) --- Create form Options ---------------------------------------
 
@@ -116,7 +116,7 @@ export default function PersonalChitForm_s(props) {
     let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
 
 
-  
+    
 
 
   // --- Yup setup ----------
@@ -130,14 +130,14 @@ export default function PersonalChitForm_s(props) {
   // !personalChitId ? defaultKeywordOptions = []  : defaultKeywordOptions = note.noteKeywordArray
  
  
-
+let logDate = new Date('2021-03-14T17:03:40.000Z') 
     
     defaultValues = {
       title: title,
       chitValue: 2,
 
       category: '',
-      chitDate: '',
+      chitDate: logDate,
       detail: '',
       workRelated: '',
       chitColor: '',
@@ -158,7 +158,7 @@ export default function PersonalChitForm_s(props) {
   const submitForm = async (data) => {
 console.log('[ Personal CHit Form ] data ', data);
     // let submitData = data
-    // console.log('[ submitForm ] ~~~~~~~~~~~~~~~~~~~ data  ', submitData);
+
 
     try {
 
@@ -220,12 +220,61 @@ console.log('[ Personal CHit Form ] data ', data);
   
        // --- Actual Form ---------------------------------------------
 
-       const myValue = watch("chitValue");
-       let myColor
+       const categorySelected = watch("category");
+       /*
+        1. filter all chits by category
+        2. create array
 
-       if( myValue < 25 ) { myColor = 'copper' } 
-       if (myValue > 24 && myValue < 60 ) { myColor = 'silver' } 
-       if (myValue > 59 ){ myColor= 'gold' }
+
+
+       */
+
+   
+    // --- get dates that already have chits
+    let excludedDates =[]
+    // excludedDates = [
+    //   new Date('2021-03-06T10:45:10.000Z'),
+    //   new Date('2021-03-08T10:41:10.000Z'),
+    //   new Date('2021-03-08T12:45:10.000Z'),
+    
+    // ];
+
+    let cleanCategorySelected, categoryObject , categoryId, filteredCategories 
+    cleanCategorySelected = cleanOptions(categorySelected)
+
+    // --- get category id from name----
+
+    if(categorySelected){ 
+    categoryObject = categoriesArray.find(category => category.category === cleanCategorySelected)
+
+    categoryId = categoryObject.id
+
+
+
+
+
+    /*
+     -- map through all personal chits filtered by category to create dates with chits
+    */
+ 
+    filteredCategories = allPersonalChitsArray.filter(chit => chit.category === categoryId)
+
+    filteredCategories.map((chit, index) => {
+      let dateWithChit = chit.chitDate
+
+
+      excludedDates.push(new Date(dateWithChit))
+
+      return excludedDates
+    }
+    ) //end map
+
+
+  }
+
+
+
+
 
   return (
     <Wrapper>
@@ -255,11 +304,12 @@ console.log('[ Personal CHit Form ] data ', data);
 
               />
 
-
-        {/* ------DatePicker Component (endEst) -------------------------- */}
+ 
             </ComponentWrapper>
           </FormComponentWrapper>
+  {/* ------DatePicker Component (endEst) -------------------------- */}
 
+          {categorySelected && <> 
           <FormComponentWrapper>
               <ComponentName>
                 Chit date ? <StyledCalendarIcon />
@@ -271,9 +321,13 @@ console.log('[ Personal CHit Form ] data ', data);
                   name="chitDate"
                   control={control}
                   initialNote={'hi'}
-
+                  
                   render={({ field }) => (
-                    <StyledDatePicker {...field} ref={null} />
+                    <StyledDatePicker 
+                    {...field} 
+                    excludedDates = {excludedDates} 
+                    maxDate = {logDate}
+                    ref={null} />
                   )}
                 />
                 
@@ -413,7 +467,7 @@ console.log('[ Personal CHit Form ] data ', data);
 
             </ComponentWrapper>
           </FormComponentWrapper>
-
+          </>}
             {/* ------Submit ---------- -------------------------- */}
             <SubmitContainer>
               <StyledButton

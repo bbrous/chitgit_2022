@@ -39,7 +39,7 @@ const Wrapper = styled('div')({
   width: '100%',
   fontSize: '.8rem',
   
-  padding: '20px 16px',
+  padding: '20px 3rem',
   borderBottom: '2px solid #CFD0D1',
 
 
@@ -60,10 +60,12 @@ const Wrapper = styled('div')({
 
 
 const StyledLabel= styled(FormControlLabel)({
-  color: 'grey',
-  fontSize: '.5rem',
+  color: 'red',
+ 
+ 
   '& .MuiFormControlLabel-label ': {
-    fontSize: '.8rem'
+    fontSize: '.8rem',
+    
   }
   
 

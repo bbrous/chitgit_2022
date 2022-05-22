@@ -35,7 +35,8 @@ const StyledLabel= styled(FormControlLabel)({
   color: 'grey',
   fontSize: '.5rem',
   '& .MuiFormControlLabel-label ': {
-    fontSize: '.8rem'
+    fontSize: '.8rem',
+    color: 'red'
   }
   
 
