@@ -525,6 +525,42 @@ let defaultValues, sectionId
   const showLogTypeInput = watch('logType')
   const showNewExisting = watch('newExisting')
 
+  
+  useEffect(() => {
+    if (showLogTypeInput === 'person' && showNewExisting === 'existing') {
+      setValue('group', '')
+      setValue('newGroup', '')
+      setValue('newPerson', '')
+    }
+  }, [showNewExisting, setValue, showLogTypeInput]);
+
+  useEffect(() => {
+    if (showLogTypeInput === 'person' && showNewExisting === 'new') {
+      setValue('group', '')
+      setValue('newGroup', '')
+      setValue('person', '')
+    }
+  }, [showNewExisting, setValue, showLogTypeInput]);
+
+  useEffect(() => {
+    if (showLogTypeInput === 'group' && showNewExisting === 'existing') {
+      setValue('person', '')
+      setValue('newPerson', '')
+      setValue('newGroup', '')
+    }
+  }, [showNewExisting, setValue, showLogTypeInput]);
+
+  useEffect(() => {
+    if (showLogTypeInput === 'group' && showNewExisting === 'new') {
+      setValue('person', '')
+      setValue('newPerson', '')
+      setValue('group', '')
+    }
+  }, [showNewExisting, setValue, showLogTypeInput]);
+
+
+
+
   // ==== return - Form JSX  ======================================
 
   return (

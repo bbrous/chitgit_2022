@@ -3,7 +3,7 @@
    
 */
 
-import React  from 'react'
+import React, {useEffect}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -58,7 +58,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
-import { chitBurgandyDull, lightGrey } from '../../../../styles/colors';
+import { chitBurgandyDull, lightGrey, veryLightGrey } from '../../../../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -151,7 +151,7 @@ let logDate = new Date('2021-03-14T17:03:40.000Z')
 
   //======= SUBMIT =========================================================
 
-  const { handleSubmit, reset, control, watch } = methods;
+  const { handleSubmit, reset, control, watch , setValue} = methods;
 
   const submitForm = async (data) => {
 console.log('[ Personal CHit Form ] data ', data);
@@ -225,9 +225,24 @@ console.log('[ Personal CHit Form ] data ', data);
     
   
        // --- Actual Form ---------------------------------------------
-
+       const newExisting = watch("newExisting");
        const existingCategorySelected = watch("existingCategory");
        const chitTypeSelected = watch("chitType");
+
+       useEffect(() => {
+        if (newExisting === 'existing') {
+          setValue('newCategory', '')
+        }
+      }, [newExisting, setValue]);
+    
+      useEffect(() => {
+        if (newExisting === 'new') {
+          setValue('existingCategory', '')
+        }
+      }, [newExisting, setValue]);
+
+
+
        /*
         1. filter all chits by category
         2. create array
@@ -247,7 +262,7 @@ console.log('[ Personal CHit Form ] data ', data);
     // ];
 
     let cleanCategorySelected, categoryObject , categoryId, filteredCategories 
-    
+
 
     // --- get category id from name----
 
@@ -299,36 +314,16 @@ console.log('[ Personal CHit Form ] data ', data);
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
           {/* ------select Creatable (category) -------------------------- */}
-
-          <FormComponentWrapper>
-            <ComponentName>
-              Chit category
-            </ComponentName>
-
-            <ComponentWrapper>
-              <StyledSelectMuiCreatable
-                name={'category'}
-                control={control}
-                options={sortedCategoryOptions}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue={defaultValues.categories}
-                placeholder='select a category'
-
-
-              />
-
  
-            </ComponentWrapper>
-          </FormComponentWrapper>
 
 
           <FormComponentWrapper>
               <ComponentName>
-                Chit 
+                Choose a category for your chit
               </ComponentName>
               
               <ComponentWrapper>
-                <RadiotWrapper>
+                <RadiotWrapper  >
                   <ChitRadio
                     name={"newExisting"}
                     control={control}
@@ -357,7 +352,9 @@ console.log('[ Personal CHit Form ] data ', data);
 
 
               </ComponentWrapper>
+              {newExisting === 'existing' && 
               <ComponentWrapper>
+
               <>
                 
                 <StyledSelect
@@ -378,7 +375,9 @@ console.log('[ Personal CHit Form ] data ', data);
 
               </>
               </ComponentWrapper>
+            }
 
+{newExisting === 'new' && 
 <ComponentWrapper>
 
 
@@ -397,7 +396,7 @@ console.log('[ Personal CHit Form ] data ', data);
 
 </ComponentWrapper>
 
-
+          }
 
             </FormComponentWrapper>
 
@@ -502,52 +501,55 @@ console.log('[ Personal CHit Form ] data ', data);
 
 
               </ComponentWrapper>
+
+              {chitTypeSelected === 'personal' && 
+
+           
+ 
+<ComponentWrapperIndent>
+  <RadiotWrapper>
+    <ChitRadio
+      name={"chitColor"}
+      control={control}
+      label={"logType"}
+      options={[
+
+        {
+          label: "copper",
+          value: "copper",
+        },
+        {
+          label: "silver",
+          value: "silver",
+        },
+
+        {
+          label: "gold",
+          value: "gold",
+        },
+
+
+
+
+
+      ]}
+      defaultValue = {defaultValues.chitColor}
+    />
+  </RadiotWrapper>
+
+
+  
+
+
+</ComponentWrapperIndent>
+
+    }
+
+
+
             </FormComponentWrapper>
 
-            {chitTypeSelected === 'personal' && 
 
-            <FormComponentWrapperIndent>
- 
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"chitColor"}
-                    control={control}
-                    label={"logType"}
-                    options={[
-
-                      {
-                        label: "copper",
-                        value: "copper",
-                      },
-                      {
-                        label: "silver",
-                        value: "silver",
-                      },
-
-                      {
-                        label: "gold",
-                        value: "gold",
-                      },
-
-
-
-
-
-                    ]}
-                    defaultValue = {defaultValues.chitColor}
-                  />
-                </RadiotWrapper>
-
-
-                
-
-
-              </ComponentWrapper>
-            </FormComponentWrapperIndent>
-
-
-                  }
 
 
           {/* ------Detail  -------------------------- */}
@@ -728,14 +730,13 @@ const FormWrapper = styled('form')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '80%',
+  width: '98%',
   padding: '0 5%',
 
-
-
+ backgroundColor: veryLightGrey,
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    backgroundColor: 'pink'
+
 
   },
 
@@ -747,9 +748,10 @@ const FormComponentWrapper = styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   width: '100%',
-  margin: '.5rem',
-
-
+  margin: '.25rem',
+  padding: '1rem',
+  borderRadius: '5px',
+backgroundColor: 'white',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
@@ -796,6 +798,22 @@ const ComponentWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ComponentWrapperIndent= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '95%',
+  marginLeft: '1.5rem',
 
  
   [theme.breakpoints.down('sm')]: {
@@ -926,7 +944,11 @@ const QuillComponentWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
-// border: '1px solid grey',
+  
+  margin: '.25rem',
+  padding: '1rem',
+ 
+backgroundColor: 'white',
 borderRadius: '5px',
 // backgroundColor: 'red',
   
