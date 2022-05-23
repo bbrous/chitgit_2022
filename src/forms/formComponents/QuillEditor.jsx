@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
+import MagicUrl from 'quill-magic-url'
 // import "react-quill/dist/quill.snow.css";
+import Quill from 'quill'
 
 
 // ******   CRITICAL  ******************************************
@@ -16,17 +18,30 @@ import "react-quill/dist/quill.snow.css";
 
 import './quillChronicleStyle.css'
 import { styled, createTheme  } from "@mui/material/styles"
+import { veryLightGrey } from "../../styles/colors";
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // ******   CRITICAL  ******************************************
 // ******   CRITICAL  ******************************************
+Quill.register('modules/magicUrl', MagicUrl)
+
+
 
 const QuillWrapper = styled(ReactQuill)({
- width: '100%'
-
-
-})
-
+  width: '100%',
+  marginBottom: '5px',
+   '& .ql-editor' :{
+   
+     height: '100px',
+    
+ 
+     '&:hover':{
+       backgroundColor: veryLightGrey,
+       border: 'none'
+     }
+   }
+ 
+ })
 
 export function Editor(props) {
   const [theme, setTheme] = useState("snow");
@@ -47,6 +62,14 @@ console.log('[ Editor ] IniitalValue ', IniitalValue);
           },
         },
         ...Editor.modules,
+        magicUrl: {
+          // Regex used to check URLs during typing
+            urlRegularExpression: /(https?:\/\/[\S]+)|(www.[\S]+)|(tel:[\S]+)/g,
+          // Regex used to check URLs on paste
+            globalRegularExpression: /(https?:\/\/|www\.|tel:)[\S]+/g,
+
+            mailRegularExpression: false
+        },
       }}
       formats={Editor.formats}
       bounds={".app"}
@@ -68,11 +91,7 @@ Editor.modules = {
     // [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ["bold", "italic", "underline"],
 
-    ["link", 
-    // "image",
-    //  "video"
-    ],
-    
+ 
     [{ color: [] } ], // dropdown with defaults from theme
     // ["clean"],
  

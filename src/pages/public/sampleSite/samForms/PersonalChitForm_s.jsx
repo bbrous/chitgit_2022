@@ -6,7 +6,7 @@
 import React  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
- 
+import { Scrollbars } from 'react-custom-scrollbars';
 import { 
 
   checkIfWordExists, 
@@ -140,7 +140,8 @@ let logDate = new Date('2021-03-14T17:03:40.000Z')
       chitDate: logDate,
       detail: '',
       workRelated: '',
-      chitColor: '',
+      chitType: '',
+      chitColor: 'copper',
       keywords: []
        
 
@@ -171,7 +172,15 @@ console.log('[ Personal CHit Form ] data ', data);
 
         let newPersonalChitData = {
           id: id,
-          type: 'personalChit',
+          chitType: 'personalChit',
+          dateCreated: '',
+          chitDate: '',
+          chitColor: '',
+          category: '',
+          workRelated: '',
+          duplicate: '',
+          detail: '',
+          keyWordArray: []
         
 
         }
@@ -221,6 +230,7 @@ console.log('[ Personal CHit Form ] data ', data);
        // --- Actual Form ---------------------------------------------
 
        const categorySelected = watch("category");
+       const chitTypeSelected = watch("chitType");
        /*
         1. filter all chits by category
         2. create array
@@ -277,12 +287,15 @@ console.log('[ Personal CHit Form ] data ', data);
 
 
   return (
+
     <Wrapper>
       
       <HeaderWrapper> {headerMessage} </HeaderWrapper>
    
     {/* --- Form -------------------------- */}
+    
     <FormProvider {...methods}>
+    <Scrollbars >
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
           {/* ------select Creatable (category) -------------------------- */}
@@ -336,34 +349,27 @@ console.log('[ Personal CHit Form ] data ', data);
             </FormComponentWrapper> 
 
 
-            {/* ------Work related -------------------------- */}
+            {/* ------Chit-------------------------- */}
 
             <FormComponentWrapper>
               <ComponentName>
-                Chit Color
+                Chit 
               </ComponentName>
 
               
               <ComponentWrapper>
                 <RadiotWrapper>
                   <ChitRadio
-                    name={"chitColor"}
+                    name={"chitType"}
                     control={control}
                     label={"logType"}
                     options={[
                       {
-                        label: "gold",
-                        value: "gold",
+                        label: "personal chit",
+                        value: "personal",
                       },
-                      {
-                        label: "silver",
-                        value: "silver",
-                      },
-
-                      {
-                        label: "copper",
-                        value: "copper",
-                      },
+                     
+ 
                       {
                         label: "milestone",
                         value: "milestone",
@@ -376,7 +382,7 @@ console.log('[ Personal CHit Form ] data ', data);
 
 
                     ]}
-                    defaultValue = {defaultValues.workRelated}
+                    defaultValue = {defaultValues.chitType}
                   />
                 </RadiotWrapper>
 
@@ -387,25 +393,86 @@ console.log('[ Personal CHit Form ] data ', data);
               </ComponentWrapper>
             </FormComponentWrapper>
 
+            {chitTypeSelected === 'personal' && 
+
+            <FormComponentWrapperIndent>
+ 
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChitRadio
+                    name={"chitColor"}
+                    control={control}
+                    label={"logType"}
+                    options={[
+
+                      {
+                        label: "copper",
+                        value: "copper",
+                      },
+                      {
+                        label: "silver",
+                        value: "silver",
+                      },
+
+                      {
+                        label: "gold",
+                        value: "gold",
+                      },
 
 
 
+
+
+                    ]}
+                    defaultValue = {defaultValues.chitColor}
+                  />
+                </RadiotWrapper>
+
+
+                
+
+
+              </ComponentWrapper>
+            </FormComponentWrapperIndent>
+
+
+                  }
 
 
           {/* ------Detail  -------------------------- */}
 
-          <FormComponentWrapper>
-          <ComponentName>
-            Description
-          </ComponentName>
+               {/* ------Description  -------------------------- */}
 
-          <ComponentWrapper>
-            <StyledInput name="detail" control={control} label="Title" type = "text"/>
+                
+            
+              <QuillComponentWrapper>
+              <ComponentName>
+                Description  of chit
+              </ComponentName>
 
-          </ComponentWrapper>
-        </FormComponentWrapper>
+                <QuillWrapper>
 
+               
+                <Controller
 
+                  name="detail"
+                  control={control}
+                  initialNote={'hi quill description'}
+
+                  render={({ field }) => (
+                    <Editor
+                      {...field}
+                      ref={null}
+                      IniitalValue= {defaultValues.description} 
+                      
+                      />
+                  )}
+
+                />
+
+</QuillWrapper>
+              </QuillComponentWrapper>
+           
 
 
  
@@ -495,10 +562,11 @@ console.log('[ Personal CHit Form ] data ', data);
 
             </SubmitContainer>
       </FormWrapper>
-
+      </Scrollbars>
     </FormProvider>
 
     </Wrapper>
+   
   );
 }
 
@@ -550,6 +618,7 @@ const FormWrapper = styled('form')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '80%',
+  padding: '0 5%',
 
 
 
@@ -568,6 +637,23 @@ const FormComponentWrapper= styled('div')({
   alignItems: 'flex-start',
   width: '100%',
   margin: '.5rem',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const FormComponentWrapperIndent= styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '80%',
+  margin: '0 0 .75rem 5%',
 
  
   [theme.breakpoints.down('sm')]: {
@@ -713,12 +799,46 @@ const RadiotWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  width: '60%',
+  width: '100%',
  
- backgroundColor: 'yellow',
+//  backgroundColor: 'yellow',
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
   },
 
 })
+
+const QuillComponentWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+// border: '1px solid grey',
+borderRadius: '5px',
+// backgroundColor: 'red',
+  
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+})
+
+const QuillWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '95%',
+  height: '95%',
+border: '1px solid orange',
+borderRadius: '5px',
+backgroundColor: 'white',
+ padding: '2px',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+})
+

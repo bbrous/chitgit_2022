@@ -17,24 +17,9 @@ export const personalChitSlice = createSlice({
 
     addPersonalChitToStore: (state, action) => {
 
-      // let personalChitId = action.payload.personalChitId
-      // let personalChit = action.payload.personalChit
-      // let personalChitHolder = action.payload.personalChitHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newpersonalChitHolder = {dbCollection: dbCollection, id: personalChitHolder}
+      let personalChit = action.payload
 
-      // let personalChitObject = {
-      //   id: personalChitId,
-      //   personalChit: personalChit,
-      //   personalChitHolders: [newpersonalChitHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_personalChitSlice ] personalChitId ', personalChitId)
-      // console.log('[ sam_personalChitSlice ] newpersonalChitHolder ', newpersonalChitHolder)
-      // console.log('[ sam_personalChitSlice ] dbCollection ', dbCollection)
-
-      // state.push(personalChitObject)
+      state.push(personalChit)
     },
 
 
