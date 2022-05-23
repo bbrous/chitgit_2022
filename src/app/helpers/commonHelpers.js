@@ -99,7 +99,18 @@ export function descendSorter(arrayOfObjects, objectParameter){
 }
 
 
+export function cleanString(category){
 
+  let strippedString, formattedCleanCategory
+  // strip array of white space
+
+  strippedString = stripWhiteSpace(category).toLowerCase()
+  formattedCleanCategory = strippedString.charAt(0).toUpperCase() + strippedString.slice(1)
+
+
+  return formattedCleanCategory
+
+}
 
 
   /* -- func stripWhiteSpace ------------------

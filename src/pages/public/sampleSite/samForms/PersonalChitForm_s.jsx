@@ -39,7 +39,7 @@ import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSl
 // --- Form component imports ---------
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
-
+import { StyledSelect } from '../../../../forms/formComponents/StyledSelect';
 import { StyledSliderMui } from '../../../../forms/formComponents/StyledSliderMui';
 import { ChitRadio } from '../../../../forms/formComponents/ChitRadio'
 
@@ -114,10 +114,7 @@ export default function PersonalChitForm_s(props) {
 
     let categoryOptionsArray = categoriesArray.map(category => category.category);
     let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
-
-
-    
-
+console.log('[ PersonalChit Form ] sortedCategoryOptions ', sortedCategoryOptions);
 
   // --- Yup setup ----------
 
@@ -133,13 +130,13 @@ export default function PersonalChitForm_s(props) {
 let logDate = new Date('2021-03-14T17:03:40.000Z') 
     
     defaultValues = {
-      title: title,
-      chitValue: 2,
-
+      newExisting: 'existing',
+      existingCategory: '',
+      newCategory: '',
       category: '',
       chitDate: logDate,
       detail: '',
-      workRelated: '',
+      workRelated: 'notWorkRelated',
       chitType: '',
       chitColor: 'copper',
       keywords: []
@@ -229,7 +226,7 @@ console.log('[ Personal CHit Form ] data ', data);
   
        // --- Actual Form ---------------------------------------------
 
-       const categorySelected = watch("category");
+       const existingCategorySelected = watch("existingCategory");
        const chitTypeSelected = watch("chitType");
        /*
         1. filter all chits by category
@@ -250,11 +247,14 @@ console.log('[ Personal CHit Form ] data ', data);
     // ];
 
     let cleanCategorySelected, categoryObject , categoryId, filteredCategories 
-    cleanCategorySelected = cleanOptions(categorySelected)
+    
 
     // --- get category id from name----
 
-    if(categorySelected){ 
+    if(existingCategorySelected){ 
+
+      console.log('[ PERSONAL CHIT FORM ] existingCategorySelected ', existingCategorySelected);
+      cleanCategorySelected = cleanOptions(existingCategorySelected)
     categoryObject = categoriesArray.find(category => category.category === cleanCategorySelected)
 
     categoryId = categoryObject.id
@@ -274,7 +274,7 @@ console.log('[ Personal CHit Form ] data ', data);
 
 
       excludedDates.push(new Date(dateWithChit))
-
+      console.log('[ PERSONAL CHIT FORM ] excludedDates ', excludedDates)
       return excludedDates
     }
     ) //end map
@@ -320,9 +320,120 @@ console.log('[ Personal CHit Form ] data ', data);
  
             </ComponentWrapper>
           </FormComponentWrapper>
+
+
+          <FormComponentWrapper>
+              <ComponentName>
+                Chit 
+              </ComponentName>
+              
+              <ComponentWrapper>
+                <RadiotWrapper>
+                  <ChitRadio
+                    name={"newExisting"}
+                    control={control}
+                    label={"newExisting"}
+                    options={[
+
+                      {
+                        label: "existing",
+                        value: "existing",
+                      },
+                     
+                      {
+                        label: "new",
+                        value: "new",
+                      },
+                     
+
+
+                    ]}
+                    defaultValue = {defaultValues.newExisting}
+                  />
+                </RadiotWrapper>
+
+
+                
+
+
+              </ComponentWrapper>
+              <ComponentWrapper>
+              <>
+                
+                <StyledSelect
+                  name={'existingCategory'}
+                  control={control}
+                  options = {sortedCategoryOptions}
+                  // or
+                  // defaultValue = {{ value: 'ge423', label: 'home'}}
+                  defaultValue={defaultValues.categories}
+                  placeholder='select a category'
+
+                />
+
+                {/* {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>} */}
+
+
+
+
+              </>
+              </ComponentWrapper>
+
+<ComponentWrapper>
+
+
+<StyledInput
+                name={"newCategory"}
+                control={control}
+                label={"newCategory"}
+                defaultValue= {''}
+                placeholder = 'Add new category'
+                 
+                 
+              />
+
+
+
+
+</ComponentWrapper>
+
+
+
+            </FormComponentWrapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {/* ------DatePicker Component (endEst) -------------------------- */}
 
-          {categorySelected && <> 
+          <> 
           <FormComponentWrapper>
               <ComponentName>
                 Chit date ? <StyledCalendarIcon />
@@ -441,100 +552,100 @@ console.log('[ Personal CHit Form ] data ', data);
 
           {/* ------Detail  -------------------------- */}
 
-               {/* ------Description  -------------------------- */}
-
-                
-            
+          {chitTypeSelected &&   <>
               <QuillComponentWrapper>
-              <ComponentName>
-                Description  of chit
-              </ComponentName>
+                <ComponentName>
+                  Description  of chit
+                </ComponentName>
 
                 <QuillWrapper>
 
-               
-                <Controller
 
-                  name="detail"
-                  control={control}
-                  initialNote={'hi quill description'}
+                  <Controller
 
-                  render={({ field }) => (
-                    <Editor
-                      {...field}
-                      ref={null}
-                      IniitalValue= {defaultValues.description} 
-                      
-                      />
-                  )}
-
-                />
-
-</QuillWrapper>
-              </QuillComponentWrapper>
-           
-
-
- 
-  
-            {/* ------Work related -------------------------- */}
-
-            <FormComponentWrapper>
-              <ComponentName>
-                Is this chit work related ?
-              </ComponentName>
-
-              
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"workRelated"}
+                    name="detail"
                     control={control}
-                    label={"logType"}
-                    options={[
-                      {
-                        label: "yes",
-                        value: "yes",
-                      },
-                      {
-                        label: "no",
-                        value: "no",
-                      },
+                    initialNote={'hi quill description'}
 
-                    ]}
-                    defaultValue = {defaultValues.workRelated}
+                    render={({ field }) => (
+                      <Editor
+                        {...field}
+                        ref={null}
+                        IniitalValue={defaultValues.description}
+
+                      />
+                    )}
+
                   />
-                </RadiotWrapper>
+
+                </QuillWrapper>
+              </QuillComponentWrapper>
 
 
-                
+
+              {/* ------Work related -------------------------- */}
+
+              <FormComponentWrapper>
+                <ComponentName>
+                  Is this chit work related ?
+                </ComponentName>
 
 
-              </ComponentWrapper>
-            </FormComponentWrapper>
+                <ComponentWrapper>
+                  <RadiotWrapper>
+                    <ChitRadio
+                      name={"workRelated"}
+                      control={control}
+                      label={"workRelated"}
+                      options={[
+                        {
+                          label: "yes",
+                          value: "workRelated",
+                        },
+                        {
+                          label: "no",
+                          value: "notWorkRelated",
+                        },
 
-          {/* ------multiselect (keywords) -------------------------- */}
-
-          <FormComponentWrapper>
-            <ComponentName>
-              Key Words
-            </ComponentName>
-
-            <ComponentWrapper>
-            <StyledAutocomplete
-                name= {'keywords'}
-                control={control}
-                options = {keywordsOptionsArray}
-                // defaultValue = {{ value: 'ge423', label: 'home'}}
-                defaultValue = {defaultValues.keywords}
-               
-                
-              />
+                      ]}
+                      defaultValue={defaultValues.workRelated}
+                    />
+                  </RadiotWrapper>
 
 
-            </ComponentWrapper>
-          </FormComponentWrapper>
-          </>}
+
+
+
+                </ComponentWrapper>
+              </FormComponentWrapper>
+
+              {/* ------multiselect (keywords) -------------------------- */}
+
+              <FormComponentWrapper>
+                <ComponentName>
+                  Key Words
+                </ComponentName>
+
+                <ComponentWrapper>
+                  <StyledAutocomplete
+                    name={'keywords'}
+                    control={control}
+                    options={keywordsOptionsArray}
+                    // defaultValue = {{ value: 'ge423', label: 'home'}}
+                    defaultValue={defaultValues.keywords}
+
+
+                  />
+
+
+                </ComponentWrapper>
+              </FormComponentWrapper>
+              
+              </>
+                    }
+            </>
+
+
             {/* ------Submit ---------- -------------------------- */}
             <SubmitContainer>
               <StyledButton
@@ -545,7 +656,7 @@ console.log('[ Personal CHit Form ] data ', data);
                   textTransform: 'none',
 
                 }}
-                // onClick={() => cancelNewForm()}
+              // onClick={() => cancelNewForm()}
 
               >
                 Cancel
@@ -561,12 +672,12 @@ console.log('[ Personal CHit Form ] data ', data);
               </StyledSubmitButton>
 
             </SubmitContainer>
-      </FormWrapper>
-      </Scrollbars>
-    </FormProvider>
+          </FormWrapper>
+        </Scrollbars>
+      </FormProvider>
 
     </Wrapper>
-   
+
   );
 }
 
@@ -599,7 +710,7 @@ const HeaderWrapper = styled('div')({
   padding: '.5rem 0 .5rem 0',
   marginBottom: '.5rem',
   borderBottom: '2px solid #CFD0D1',
-  boxShadow : '0 0 1px 0 #F6F7F8' ,
+  boxShadow: '0 0 1px 0 #F6F7F8',
   // zIndex: '95',
 
   width: '100%',
@@ -629,7 +740,7 @@ const FormWrapper = styled('form')({
   },
 
 })
-const FormComponentWrapper= styled('div')({
+const FormComponentWrapper = styled('div')({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -638,7 +749,7 @@ const FormComponentWrapper= styled('div')({
   width: '100%',
   margin: '.5rem',
 
- 
+
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 
