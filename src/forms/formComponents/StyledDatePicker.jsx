@@ -62,7 +62,7 @@ export const StyledDatePicker = ({
                 
                   render={({ field }) => {
 
-                    console.log('[ where ] heck ', field.value);
+                  
                     return(
                     <ReactDatePicker
                       className="input"

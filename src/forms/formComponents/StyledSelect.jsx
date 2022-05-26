@@ -131,11 +131,12 @@ const StyledTextBox= styled(TextField)({
   boxShadow: 'none',
 
   '& input' : 
-  {color: 'orange',
-  height: '.8rem',
+  {color: 'charcoal',
+  height: '.9rem',
   fontSize: '.85rem',
+   
   padding: '0 .4rem',
-  border: '1px solid grey',
+  border: '1px solid orange',
   borderRadius: '5px',
   backgroundColor: 'white',
   },

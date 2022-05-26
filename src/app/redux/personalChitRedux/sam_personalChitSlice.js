@@ -26,16 +26,25 @@ export const personalChitSlice = createSlice({
 
   updateEditedPersonalChit: (state, action) => {
 
+    let data = action.payload.data
+    let personalChitId = action.payload.data.id
 
-    // let personalChitId = action.payload.id
-    // let newpersonalChit = action.payload.personalChit
-    
-    
+    const {chitType, chitColor, category, workRelated, detail, chitDate, keyWordArray } = data
 
-    // let personalChitIndex = state.findIndex(index => index.id === personalChitId)
-    
-    // state[personalChitIndex].personalChit  = newpersonalChit
-   
+    console.log('[ updateEditedPersonalChit ] personalChitId ', personalChitId);
+
+    let personalIndex  = state.findIndex(index => index.id === personalChitId)
+
+    state[personalIndex].chitType  = chitType
+    state[personalIndex].chitColor  = chitColor
+    state[personalIndex].category  = category
+    state[personalIndex].workRelated  = workRelated
+    state[personalIndex].detail  = detail
+    state[personalIndex].chitDate  = chitDate
+    state[personalIndex].keyWordArray  = keyWordArray
+
+ 
+
 
 
   }, // end updateEditedpersonalChit

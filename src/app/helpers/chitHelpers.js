@@ -105,7 +105,7 @@ export function personalChitFilter(chitsArray, filterId){
 if(filterId === 'workChits' ){
 
 
-  displayedChitsArray = chitsArray.filter(item => item.workRelated === true )
+  displayedChitsArray = chitsArray.filter(item => item.workRelated === 'workRelated' )
   
 }else if(filterId === 'milestones' ){
 
@@ -147,6 +147,8 @@ export function sortChitsByDate(chits){
 
 ---------------------*/
 export function getPersonChits(chits, id){
+
+  console.log('[ ChitHelpers xxxxxxxxxxxxxxxxx  getPersonChits ] id ', id);
 
   let personChits = chits.filter(function(chit){
 
@@ -433,6 +435,12 @@ export function choosePersonalCoin(chitColor){
     coinAddress = address.awChit
     return ( coinAddress )
   } 
+
+  if(coinColor ==='awChit'){
+    coinAddress = address.awChit
+    return ( coinAddress )
+  } 
+
 
   if(coinColor ==='multiple'){
     coinAddress = address.multipleChits

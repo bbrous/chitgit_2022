@@ -290,7 +290,7 @@ defaultValues = {
 
           id: newTwoPartyChitId,
           description: description,
-          keyWordArray: [],
+          keyWordArray: keyWordArray,
           chitDate: modifiedChitDate.toISOString(),
           dateCreated: modifiedChitCreatedDate.toISOString(),
           chitColor: chitColor,

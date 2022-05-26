@@ -105,6 +105,33 @@ export const {
 export const selectCategories = state => state.sample.categories
 
 
+// export const getCategoryObjectFromId = (categoryArray, id) =>  categoryArray.find(category => category.id === id)
+
+export const getCategoryObjectFromId = (categoryArray, id) => {
+console.log('[ getCategoryObjectFromId ] categoryArray ', categoryArray);
+console.log('[ getCategoryObjectFromId ] id ', id);
+  
+  let categoryObject = categoryArray.find(category => category.id === id)
+
+  return categoryObject
+}
+
+
+
+export const getCategoryObjectFromName = (categoryArray, categoryName) => {
+
+  
+  let categoryObject = categoryArray.find(category => category.category === categoryName)
+
+  return categoryObject
+}
+
+
+ 
+ 
+
+
+
 
 
 // --- default Export reducers -----------------------------------

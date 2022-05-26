@@ -37,6 +37,148 @@ import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
+
+
+
+// ==============================================================
+
+
+
+
+export default function PersonalLedgerRow(props) {
+
+  const { id, category, chitColor, dateCreated, chitDate, timeLock, workRelated, detail, keyWordArray } = props.data
+
+  let dispatch = useDispatch()
+  let passedId = id
+  let [passedCategory, setPassedCategory] = useState(category)
+  useEffect(() => {
+    setPassedCategory(category)
+  }, [category])
+
+
+  let status = useSelector(selectStatus)
+  let allCategories = useSelector(selectCategories)
+  // console.log('[ PersonalLedgerRow ] id ', id);
+
+
+
+
+
+  let coinAddress = choosePersonalCoin(chitColor)
+  const pathToCoinImages = '../../../'
+  const coinDisplayed = pathToCoinImages + coinAddress
+
+  //--- get Name to be displayed  ---
+  let categoryName, categoryObject
+  categoryObject = allCategories.find(category => category.id === passedCategory)
+
+  categoryName = categoryObject.category
+
+  // convert Dates for display
+
+  let styledChitDate = ISOtoTraditional(chitDate)
+
+
+
+  // format keywords
+  let styledKeywords = ''
+
+  if (keyWordArray.length > 0) {
+    //    keyWordArray.map((keyword) => {
+    //   styledKeywords = styledKeywords  + keyword + ' , '
+
+    //   return styledKeywords
+    // }
+    // ) //end map
+
+    for (let i = 0; i < keyWordArray.length; i++) {
+      if (i === keyWordArray.length - 1) {
+        styledKeywords += keyWordArray[i]
+      } else {
+        styledKeywords += keyWordArray[i] + ' , '
+      }
+    }
+
+
+  }//end if keyword.length > 0
+
+  if (keyWordArray.length === 0) {
+    styledKeywords = 'none'
+  }
+
+// console.log('[ PersonalLedgreRow ] categoryName ', categoryName);
+  return (
+    <Wrapper key={passedId}>
+      <HeaderWrapper>
+
+
+        <DateContainer>{styledChitDate}</DateContainer>
+
+        <NameContainer>
+          <NameWrapper>
+            {categoryName}
+          </NameWrapper>
+
+        </NameContainer>
+        <IconWrapper>
+
+          <TimeLock />
+          <DeleteIcon />
+          <EditIcon id={id} dbCollection='personalChits' />
+
+
+
+        </IconWrapper>
+
+
+
+      </HeaderWrapper>
+
+
+      <AccordionWrapper>
+
+
+
+        <AccordionTopWrapper >
+
+          <ChitContainer>
+            <StyledImage src={coinDisplayed} alt="coin" />
+            <ChitTypeWrapper> Personal</ChitTypeWrapper>
+
+          </ChitContainer>
+
+          <RightContainer>
+
+
+            <BottomRightContainer>
+              <StyledDetail dangerouslySetInnerHTML={{ __html: detail }}>
+              </StyledDetail>
+
+            </BottomRightContainer>
+          </RightContainer>
+
+
+
+        </AccordionTopWrapper>
+
+        <SearchWrapper>
+          <LeftSearchWrapper />
+          <KeyWordWrapper>  <em> keywords:  </em>{styledKeywords}</KeyWordWrapper>
+
+        </SearchWrapper>
+      </AccordionWrapper>
+
+
+
+
+
+
+    </Wrapper>
+  );
+}
+
+
 const Wrapper = styled('div')({
 
 
@@ -577,143 +719,4 @@ const StyledDetail= styled('div')({
 
 
 })
-
-
-// ==============================================================
-
-
-
-
-export default function PersonalLedgerRow(props) {
-
-  const {id, category, chitColor, dateCreated, chitDate, timeLock,  workRelated, detail,  keyWordArray} = props.data
-
-  let dispatch = useDispatch()
-  let passedId = id
-  let[ passedCategory, setPassedCategory] = useState(category)
-  useEffect(()=>{
-    setPassedCategory(category)
-  }, [category])
-
-  
-  let status = useSelector(selectStatus)
-  let allCategories = useSelector(selectCategories)
-  console.log('[ PersonalLedgerRow ] id ', id);
-  
- 
-
-
-
-  let coinAddress = choosePersonalCoin(chitColor)
-  const pathToCoinImages = '../../../'
-  const coinDisplayed = pathToCoinImages + coinAddress
-
-    //--- get Name to be displayed  ---
-    let categoryName, categoryObject 
-    categoryObject = allCategories.find(category => category.id === passedCategory)
-
-    categoryName = categoryObject.category
-
-  // convert Dates for display
-
-  let styledChitDate = ISOtoTraditional(chitDate)
-  
-
-
-  // format keywords
-  let styledKeywords = ''
-
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
-    //   styledKeywords = styledKeywords  + keyword + ' , '
-
-    //   return styledKeywords
-    // }
-    // ) //end map
-
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
-    }else{
-    styledKeywords += keyWordArray[i] + ' , '
-    }
-  }
- 
-
-  }//end if keyword.length > 0
-
-  if (keyWordArray.length === 0) {
-styledKeywords = 'none'
-  }
-
-
-  return (
-    <Wrapper key = {passedId}>
-      <HeaderWrapper>
-
-
-        <DateContainer>{styledChitDate}</DateContainer>
-
-        <NameContainer>
-          <NameWrapper>
-            {categoryName}
-          </NameWrapper>
-
-          </NameContainer>
-          <IconWrapper>
-
-            <TimeLock />
-            <DeleteIcon />
-            <EditIcon id = {id} dbCollection = 'personalChits'/>
-
-
-
-          </IconWrapper>
-
-
-
-      </HeaderWrapper>
-
-
-      <AccordionWrapper>
-
-
-
-<AccordionTopWrapper >
-
-  <ChitContainer>
-  <StyledImage src={coinDisplayed} alt="coin" />
-  <ChitTypeWrapper> Personal</ChitTypeWrapper>
-    
-  </ChitContainer>
-
-  <RightContainer>
-
-
-    <BottomRightContainer>
-    <StyledDetail dangerouslySetInnerHTML={{__html: detail}}>
-  </StyledDetail>     
-
-    </BottomRightContainer>
-  </RightContainer>   
-
-
-
-</AccordionTopWrapper>
-
-<SearchWrapper>
-              <LeftSearchWrapper />
-              <KeyWordWrapper>  <em> keywords:  </em>{styledKeywords}</KeyWordWrapper>
-
-            </SearchWrapper>
-</AccordionWrapper>
-
-
-
-
-
-      
-    </Wrapper>
-  );
-}
 

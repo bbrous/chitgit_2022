@@ -13,9 +13,12 @@ import {
   cleanOptions ,
   optionDescendSorter,
   isArrayDifferent,
-  doesArrayIncludeItem
-
+  doesArrayIncludeItem,
+  cleanString,
+  stripWhiteSpace
 } from '../../../../app/helpers/commonHelpers'
+
+import { ISOtoTraditional } from '../../../../app/helpers/dateHelper';
 // --- Firebase imports ---------
 import cuid from 'cuid'  // #### for sample site only ####
 
@@ -32,9 +35,23 @@ import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSli
 import {closeModal} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
-import { selectCategories } from '../../../../app/redux/categoryRedux/sam_categorySlice';
-import {selectAllPersonalChits } from '../../../../app/redux/personalChitRedux/sam_personalChitSlice'
-import { selectKeywords } from '../../../../app/redux/keywordRedux/sam_keywordSlice';
+import { 
+  selectCategories,
+  getCategoryObjectFromId,
+  getCategoryObjectFromName,
+  addCategoryToStore
+} from '../../../../app/redux/categoryRedux/sam_categorySlice';
+import {
+  selectAllPersonalChits,
+  addPersonalChitToStore,
+  updateEditedPersonalChit
+} from '../../../../app/redux/personalChitRedux/sam_personalChitSlice'
+import { 
+  selectKeywords,
+  addKeywordHolder, 
+  deleteKeywordHolder, 
+  addKeywordToStore
+} from '../../../../app/redux/keywordRedux/sam_keywordSlice';
 
 // --- Form component imports ---------
 
@@ -58,7 +75,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
-import { chitBurgandyDull, lightGrey, veryLightGrey } from '../../../../styles/colors';
+import { chitBurgandy, chitBurgandyDull, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -84,62 +101,125 @@ const formSchema = object({
 export default function PersonalChitForm_s(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  let sampleDate = new Date('2021-03-14T17:03:40.000Z') 
 
-  // retrieve spot id if passed from edit
-  let personalChitId = props.params.id
+  
+  // --- get arrays from collections
+  let   allKeywords, allCategories, allPersonalChits
+
+  allKeywords = useSelector(selectKeywords) // get all keywords
+  allCategories = useSelector(selectCategories) // get all categories
+  allPersonalChits = useSelector(selectAllPersonalChits)
+
+  // retrieve chit elements if received from edit
+
+  console.log('[ PASSED ID FROM EDIT ] Params ', props.params);
 
 
-  // --- set up options for the selector input (parentId) 
-  let noteArray, keywordsArray, categoriesArray, keywordOption, allPersonalChitsArray
 
-  keywordsArray = useSelector(selectKeywords) // get all keywords
-  categoriesArray = useSelector(selectCategories) // get all keywords
-  allPersonalChitsArray = useSelector(selectAllPersonalChits)
+  let existentChitId, existentChit, existentChitDate, existentChitColor, existentChitType, existentCategoryId, existentWorkRelated, existentDetail, existentKeyWordArray
 
-  // (2) --- Create form Options ---------------------------------------
 
-    // --- create options array for Autocomplete multi-selector 
+  if(props.params.id){
+      existentChitId = props.params.id
+
+      existentChit = allPersonalChits.find( (chit) => chit.id === existentChitId )
+
+    
+    // console.log('[ PASSED ID FROM EDIT ] existentChit Color ', existentChit.chitColor);
+
+      existentChitDate =new Date(existentChit.chitDate)
+      
+
+
+
+  if(existentChit.chitColor === 'red'){
+
+    console.log('[ PASSED ID FROM EDIT ] IGOT RED ' );
+
+    existentChitType = 'awChit'
+    existentChitColor = 'red'
+  }else if(existentChit.chitColor === 'milestone'){
+
+    console.log('[ PASSED ID FROM EDIT ] IGOT Milestone ' );
+
+    existentChitType = 'milestone'
+    existentChitColor = ''
+  }else{
+
+    console.log('[ PASSED ID FROM EDIT ] IGOT A color ', existentChit.chitColor );
+
+    existentChitType = 'personal'
+    existentChitColor = existentChit.chitColor
+  }
+
+
+     existentCategoryId =existentChit.category
+    existentWorkRelated =existentChit.workRelated
+    existentDetail =existentChit.detail 
+      existentKeyWordArray =existentChit.keyWordArray
+
+  }
+
+  //--- Create keyword select Options ----
 
     let keywordsOptionsArray = []
 
-    keywordsArray.map((keyword, index) => {
-      // code 
-      keywordOption = keyword.keyword
-      keywordsOptionsArray.push(keywordOption)
+    allKeywords.map((keyword, index) => {
+
+      keywordsOptionsArray.push(keyword.keyword)
 
       return keywordsOptionsArray
     }) //end map
 
-  // --- create options array for StledSelectMuiCreatable (category options)
+  //--- Create categpru select Options ----
 
-    let categoryOptionsArray = categoriesArray.map(category => category.category);
+    let categoryOptionsArray = allCategories.map(category => category.category);
     let sortedCategoryOptions = optionDescendSorter(categoryOptionsArray)
-console.log('[ PersonalChit Form ] sortedCategoryOptions ', sortedCategoryOptions);
-
-  // --- Yup setup ----------
-
-  //  --- default values conditioned on whether new or edit existing spotlight 
-
-  let defaultValues, category, id,title,  headerMessage, chitDate, detail, workRelated, noteKeywordArray,    defaultKeywordOptions, noteCategory
-
-  !personalChitId ? headerMessage = 'Create New Personal Chit'  : headerMessage = 'Edit Personal Chit'
-
-  // !personalChitId ? defaultKeywordOptions = []  : defaultKeywordOptions = note.noteKeywordArray
  
- 
-let logDate = new Date('2021-03-14T17:03:40.000Z') 
-    
+
+  // ====  Yup setup ==================================
+
+  //  --- default values conditioned on whether new or edit existing chit 
+
+    let defaultValues, defaultCategoryName, id,   headerMessage, defaultChitDate, defaultDetail, defaultWorkRelated, noteKeywordArray,   defaultCategory ,  defaultKeywordOptions, defaultKeyWordArray, defaultChitColor, defaultChitType
+
+    !existentChitId ? headerMessage = 'Create New Personal Chit'  : headerMessage = 'Edit Personal Chit'
+  
+    !existentChitId ? id = cuid() : id = existentChitId
+
+    if(existentChitId){
+
+      console.log('[ eeeeeeeeeeeeeee   ] existentChitId ', existentChitId);
+
+
+
+      let categoryObject = getCategoryObjectFromId(allCategories,existentCategoryId)
+      defaultCategoryName = categoryObject.category
+    }
+
+    !existentChitId ? defaultCategory  = '' : defaultCategory = defaultCategoryName 
+    !existentChitId ? defaultChitColor  = 'copper' : defaultChitColor = existentChitColor
+
+    !existentChitId ? defaultKeyWordArray = []  : defaultKeyWordArray = existentKeyWordArray
+
+    !existentChitId ? defaultChitDate = sampleDate : defaultChitDate = existentChitDate
+    !existentChitId ? defaultDetail  = '' : defaultDetail = existentDetail
+    !existentChitId ? defaultWorkRelated  = 'notWorkRelated' : defaultWorkRelated = existentWorkRelated
+
+    !existentChitId ? defaultChitType = '' : defaultChitType =  existentChitType
+
     defaultValues = {
       newExisting: 'existing',
       existingCategory: '',
       newCategory: '',
-      category: '',
-      chitDate: logDate,
-      detail: '',
-      workRelated: 'notWorkRelated',
-      chitType: '',
-      chitColor: 'copper',
-      keywords: []
+      category: defaultCategory,
+      chitDate: defaultChitDate,
+      detail: defaultDetail,
+      workRelated: defaultWorkRelated,
+      chitType: defaultChitType,
+      chitColor: defaultChitColor,
+      keywords: defaultKeyWordArray
        
 
     };
@@ -149,14 +229,77 @@ let logDate = new Date('2021-03-14T17:03:40.000Z')
     resolver: yupResolver(formSchema)
   });
 
-  //======= SUBMIT =========================================================
+  //======= SUBMIT ================================ 
 
   const { handleSubmit, reset, control, watch , setValue} = methods;
 
   const submitForm = async (data) => {
-console.log('[ Personal CHit Form ] data ', data);
-    // let submitData = data
+  console.log('[ Personal CHit Form ] data ', data);
 
+    // get form data elements
+    const {chitDate, chitColor, detail, workRelated, keywords, newExisting, existingCategory, category, chitType} = data
+
+    /* --- combine chitTYpe and chitColor 
+           Reason - 
+           To decide the coin uses  - chitHelper uses
+                 gold, silver, copper, red...  or awChit,  milestone
+              - form chitColor field gets colors
+                form chitType field gets awChit or milestone
+    */
+
+    let formChitColor 
+    if(chitType === 'personal'){formChitColor = chitColor}
+    if(chitType === 'awChit'){formChitColor = 'red'}
+    if(chitType === 'milestone'){formChitColor = 'milestone'}
+
+    /*  
+        category and existing inputs in form pass category names
+        cateogry field in personal chit in store / collection uses an id
+       
+        Convert name in existing category to id, 
+            or make a new category id
+
+    */
+
+    let formCategoryId , categoryObject
+
+
+    if(existentChit){
+      formCategoryId = existentChit.category
+    }else{
+
+    if(newExisting === 'existing'){
+     
+ 
+      categoryObject = getCategoryObjectFromName(allCategories, existingCategory)
+      formCategoryId = categoryObject.id
+      }else{
+        formCategoryId = cuid()
+    }
+ 
+  }
+    // --- clean the keyword array of white space and caps
+
+    let passedKeyWordArray = data.keywords
+    let cleanKeywordArray =  []
+    
+    passedKeyWordArray.map((keyword, index) => {
+
+      let strippedKeyword = stripWhiteSpace(keyword) 
+
+
+      let cleanKeyword = strippedKeyword.toLowerCase()
+
+      // console.log('[ TESTSTESTESTEESTD] cleanKeyword ', cleanKeyword);
+
+      cleanKeywordArray.push(cleanKeyword)
+    
+    return cleanKeywordArray
+    }
+    ) //end map
+console.log('[ TESTSTESTESTEESTD] cleanKeywordArray ', cleanKeywordArray);
+
+    // --- try catch block -----------------------------------
 
     try {
 
@@ -170,40 +313,202 @@ console.log('[ Personal CHit Form ] data ', data);
         let newPersonalChitData = {
           id: id,
           chitType: 'personalChit',
-          dateCreated: '',
-          chitDate: '',
-          chitColor: '',
-          category: '',
-          workRelated: '',
+          dateCreated: chitDate.toISOString(),
+          chitDate: chitDate.toISOString(),
+          chitColor: formChitColor,
+          category: formCategoryId,
+          workRelated: workRelated,
           duplicate: '',
-          detail: '',
-          keyWordArray: []
+          detail: detail,
+          keyWordArray: cleanKeywordArray
         
 
         }
 
+      let newCategoryObject
+      let newCategory = data.newCategory
+      let cleanedNewCategory = cleanString(newCategory)
 
-      // #### await Firebase  -- add + return newPersonalChitId ############ 
+      if(newCategory) {
+        newCategoryObject = {id: formCategoryId, category: cleanedNewCategory}
+      }
 
-      // -- if no personalChitId -- form is for new - else form is for edit/update
 
-      if (!personalChitId) {
+      // -- if no existentChitId -- form is for new - else form is for edit/update
+
+      if (!existentChitId) {
+
+        // if a new category - first add new category to store
+
+         
+
+        
+        if(newCategory){
+        dispatch(addCategoryToStore(newCategoryObject))
+        }
 
         // --- create new chit ------------
-        
+        dispatch(addPersonalChitToStore(newPersonalChitData))
 
       }
 
       // --- edit/ update personalChit ------------
 
-      if (personalChitId) {
+      if (existentChitId) {
         
+        
+        if(newCategory){
+          dispatch(addCategoryToStore(newCategoryObject))
+
+          }
+
+          dispatch(updateEditedPersonalChit({data: newPersonalChitData}))
+
+console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar ');
+
+
+
       }
 
  
+   //  === update Keywords ===================================
+
+  //  let defaultKeyWordArray = defaultKeywordOptions
+  //  let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
+
+  let allKeywordNames = []
+
+  allKeywords.map((keyword, index) => {
+    allKeywordNames.push(keyword.keyword)
+    return allKeywordNames
+}
+
+) //end map
 
 
-        
+  let kewwordArrayDifference = isArrayDifferent(defaultKeyWordArray, cleanKeywordArray)
+
+
+  console.log('[XXXXXXXXXXXXXXXXXXXXXX  ] kewwordArrayDifference ', kewwordArrayDifference)
+
+
+
+  // --- only update keywords if keywordArrayDifference === [... someItems] ---
+
+  if (kewwordArrayDifference.length > 0) {
+
+    // map each keyword in the keyword difference array
+
+    kewwordArrayDifference.forEach((item) => {
+
+      // --- check if each keyword form data submitted is  different from default 
+
+      let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeyWordArray)
+
+      if (!arrayItemInludedInDefault) {  // then it was added
+
+        let keywordExists = checkIfWordExists(item, allKeywords, 'keywords')
+
+
+        // --- keyword from form is new  -------------------------------
+        // --- brand new keyword - add to keyword collection
+
+        if (!keywordExists) {
+
+          // create new keyword 
+          let keywordId = cuid() // #####   temp ############
+
+          let newKeywordData = {
+            id: keywordId,
+            keyword: item,
+            dbCollection: 'personalChits',
+            keywordHolder: id
+
+          }
+          dispatch(addKeywordToStore(newKeywordData))
+
+        } // end newKeywordData
+
+
+        // --- keyword just new in form --- update keyword holders
+        if (keywordExists) {
+          let updatedKeywordData = {
+            keywordId: keywordExists.id,
+            keywordHolder: id,
+            dbCollection: 'personalChits'
+
+          }
+
+          dispatch(addKeywordHolder(updatedKeywordData))
+
+
+        }// end if keywordExists 
+
+
+      }  // end if arrayItemInludedInDefault
+
+
+      // --- keyword missing from default - delete  
+
+      if (arrayItemInludedInDefault) {  // then it was deleted in form
+
+        // delete id from keyword item
+
+        let keywordHolderToBeDeleted = {
+          keyword: item,
+          keywordHolder: id,
+          // id: noteId
+        }
+
+
+        dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+
+
+
+      }  // end if arrayItemInludedInDefault
+
+
+
+    }) // end map kewwordArrayDifference
+
+
+  } // end if kewwordArrayDifference --- 
+
+//  ###########################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       dispatch(changeLoadingStatus(false))
       reset()
@@ -221,10 +526,14 @@ console.log('[ Personal CHit Form ] data ', data);
       reset(defaultValues)
     }// end try-catch
 
-  } // end submitForm
+  } // end submitForm ------------------------------
     
   
-       // --- Actual Form ---------------------------------------------
+      /* --- create form effects
+          a. newExisting radio choice determines whether 
+              a select field or input field is shown
+
+      */
        const newExisting = watch("newExisting");
        const existingCategorySelected = watch("existingCategory");
        const chitTypeSelected = watch("chitType");
@@ -241,65 +550,56 @@ console.log('[ Personal CHit Form ] data ', data);
         }
       }, [newExisting, setValue]);
 
-
-
-       /*
-        1. filter all chits by category
-        2. create array
-
-
-
-       */
-
    
-    // --- get dates that already have chits
-    let excludedDates =[]
-    // excludedDates = [
-    //   new Date('2021-03-06T10:45:10.000Z'),
-    //   new Date('2021-03-08T10:41:10.000Z'),
-    //   new Date('2021-03-08T12:45:10.000Z'),
-    
-    // ];
+      /* --- exclude dates from datepicker  ==================
+          In each specific category - for specific day -
+             - only one chit is allowed for each day
+          
+          - So, create an array of days that already have a chit for
+            that category
 
-    let cleanCategorySelected, categoryObject , categoryId, filteredCategories 
+          - This only affects new (not edited) chits with
+            existing categories.
+      */
+
+      let excludedDates =[]
+  
+      let cleanCategorySelected, categoryObject , categoryId, filteredCategories 
+
+      // --- get category id from name----
+
+      if (existingCategorySelected) {
+
+        console.log('[ PERSONAL CHIT FORM ] existingCategorySelected ', existingCategorySelected);
+        cleanCategorySelected = cleanOptions(existingCategorySelected)
+        categoryObject = allCategories.find(category => category.category === cleanCategorySelected)
+
+        categoryId = categoryObject.id
 
 
-    // --- get category id from name----
-
-    if(existingCategorySelected){ 
-
-      console.log('[ PERSONAL CHIT FORM ] existingCategorySelected ', existingCategorySelected);
-      cleanCategorySelected = cleanOptions(existingCategorySelected)
-    categoryObject = categoriesArray.find(category => category.category === cleanCategorySelected)
-
-    categoryId = categoryObject.id
-
-
-
-
-
-    /*
-     -- map through all personal chits filtered by category to create dates with chits
-    */
  
-    filteredCategories = allPersonalChitsArray.filter(chit => chit.category === categoryId)
+    // -- map through all personal chits filtered by category 
+    //     to create dates with chits
+ 
+
+    filteredCategories = allPersonalChits.filter(chit => chit.category === categoryId)
 
     filteredCategories.map((chit, index) => {
       let dateWithChit = chit.chitDate
 
 
       excludedDates.push(new Date(dateWithChit))
-      console.log('[ PERSONAL CHIT FORM ] excludedDates ', excludedDates)
+
       return excludedDates
     }
     ) //end map
 
 
-  }
+  } // end if existingCategory selected
 
 
 
-
+   // --- Actual Form ---------------------------------------------
 
   return (
 
@@ -314,125 +614,110 @@ console.log('[ Personal CHit Form ] data ', data);
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
           {/* ------select Creatable (category) -------------------------- */}
- 
+          {existentChitId && <>
+              <FormComponentWrapper>
 
-
-          <FormComponentWrapper>
-              <ComponentName>
-                Choose a category for your chit
-              </ComponentName>
-              
-              <ComponentWrapper>
-                <RadiotWrapper  >
-                  <ChitRadio
-                    name={"newExisting"}
-                    control={control}
-                    label={"newExisting"}
-                    options={[
-
-                      {
-                        label: "existing",
-                        value: "existing",
-                      },
-                     
-                      {
-                        label: "new",
-                        value: "new",
-                      },
-                     
-
-
-                    ]}
-                    defaultValue = {defaultValues.newExisting}
-                  />
-                </RadiotWrapper>
-
-
+                <ExistentRow>
+                  <ExistentRowLeft>Category: </ExistentRowLeft>
+                  <ExistentRowRight>{defaultCategoryName} </ExistentRowRight>
+                </ExistentRow>
                 
+                <ExistentRow>
+                  <ExistentRowLeft>ChitDate: </ExistentRowLeft>
+                  <ExistentRowRight>{ISOtoTraditional(existentChitDate)} </ExistentRowRight>
+                </ExistentRow>
 
+              </FormComponentWrapper>
+            </>}
+            {!existentChitId && <>
 
-              </ComponentWrapper>
-              {newExisting === 'existing' && 
-              <ComponentWrapper>
+              <FormComponentWrapper>
+                <ComponentName>
+                  Choose a category for your chit
+                </ComponentName>
 
-              <>
-                
-                <StyledSelect
-                  name={'existingCategory'}
-                  control={control}
-                  options = {sortedCategoryOptions}
-                  // or
-                  // defaultValue = {{ value: 'ge423', label: 'home'}}
-                  defaultValue={defaultValues.categories}
-                  placeholder='select a category'
+                <ComponentWrapper>
+                  <RadiotWrapper  >
+                    <ChitRadio
+                      name={"newExisting"}
+                      control={control}
+                      label={"newExisting"}
+                      options={[
 
-                />
+                        {
+                          label: "existing",
+                          value: "existing",
+                        },
 
-                {/* {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>} */}
-
-
-
-
-              </>
-              </ComponentWrapper>
-            }
-
-{newExisting === 'new' && 
-<ComponentWrapper>
-
-
-<StyledInput
-                name={"newCategory"}
-                control={control}
-                label={"newCategory"}
-                defaultValue= {''}
-                placeholder = 'Add new category'
-                 
-                 
-              />
+                        {
+                          label: "new",
+                          value: "new",
+                        },
 
 
 
-
-</ComponentWrapper>
-
-          }
-
-            </FormComponentWrapper>
+                      ]}
+                      defaultValue={defaultValues.newExisting}
+                    />
+                  </RadiotWrapper>
 
 
 
 
 
+                </ComponentWrapper>
+                {newExisting === 'existing' &&
+                  <ComponentWrapper>
+
+                    <>
+
+                      <StyledSelect
+                        name={'existingCategory'}
+                        control={control}
+                        options={sortedCategoryOptions}
+                        // or
+                        // defaultValue = {{ value: 'ge423', label: 'home'}}
+                        defaultValue={defaultValues.categories}
+                        placeholder='select a category'
+
+                      />
+
+                      {/* {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>} */}
 
 
 
 
+                    </>
+                  </ComponentWrapper>
+                }
+
+                {newExisting === 'new' &&
+                  <ComponentWrapper>
+
+
+                    <StyledInput
+                      name={"newCategory"}
+                      control={control}
+                      label={"newCategory"}
+                      defaultValue={''}
+                      placeholder='Add new category'
+
+
+                    />
 
 
 
 
+                  </ComponentWrapper>
 
+                }
 
+              </FormComponentWrapper>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
   {/* ------DatePicker Component (endEst) -------------------------- */}
 
-          <> 
+      
           <FormComponentWrapper>
               <ComponentName>
                 Chit date ? <StyledCalendarIcon />
@@ -449,7 +734,7 @@ console.log('[ Personal CHit Form ] data ', data);
                     <StyledDatePicker 
                     {...field} 
                     excludedDates = {excludedDates} 
-                    maxDate = {logDate}
+                    maxDate = {sampleDate}
                     ref={null} />
                   )}
                 />
@@ -457,8 +742,8 @@ console.log('[ Personal CHit Form ] data ', data);
               </ComponentWrapper>
               {/* {errors.chitDate && <ErrorMessage>{errors.chitDate.message} </ErrorMessage>} */}
             </FormComponentWrapper> 
-
-
+            </>}
+            <> 
             {/* ------Chit-------------------------- */}
 
             <FormComponentWrapper>
@@ -573,7 +858,7 @@ console.log('[ Personal CHit Form ] data ', data);
                       <Editor
                         {...field}
                         ref={null}
-                        IniitalValue={defaultValues.description}
+                        InitalValue={defaultValues.detail}
 
                       />
                     )}
@@ -768,6 +1053,51 @@ const FormComponentWrapperIndent= styled('div')({
   width: '80%',
   margin: '0 0 .75rem 5%',
 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+const ExistentRow = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ExistentRowLeft = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  color: mediumGrey,
+  fontSize: '.9rem', 
+  width: '6rem',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const ExistentRowRight = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  color: chitBurgandy,
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',

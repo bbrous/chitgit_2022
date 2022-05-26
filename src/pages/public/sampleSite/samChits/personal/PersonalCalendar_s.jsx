@@ -36,88 +36,13 @@ import QuickPersonalChitForm from '../../samForms/QuickPersonalChitForm';
 
 
 
-import { choosePersonalCoin, categoryChitFilter } from '../../../../../app/helpers/chitHelpers';
+import { choosePersonalCoin, personalChitFilter } from '../../../../../app/helpers/chitHelpers';
 import { selectAllPersonalChits } from '../../../../../app/redux/personalChitRedux/sam_personalChitSlice';
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
-
-const Wrapper= styled('div')({
- 
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  backgroundColor: 'white',
-  width: '90%',
-  height: '100%',
-overflow: 'auto',
-marginBottom: '25px',
-  [theme.breakpoints.down('sm')] : {
-    // width: '100%'
-  },
-
-})
-
-const HeaderRowWrapper= styled('div')({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  height: '1.2rem',
-  fontSize: '.8rem',
-  backgroundColor: veryLightGrey,
-  
-  marginBottom: '5px',
-
-})
-
-
-
-  const HeaderDayWrapper= styled('div')({
- 
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '.8rem',
-    backgroundColor: mediumGrey,
-    color: 'white',
-    width: '14%',
-    borderTop: '1px solid #E6E7E8',
-    borderBottom: '1px solid #E6E7E8',
-    borderLeft: '1px solid #E6E7E8',
-    borderRight: '1px solid #E6E7E8',
- 
-  })
-
-
-  
-  
-  const MonthWrap= styled('div')({
-    flexWrap: 'wrap' ,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-  
-    fontSize: '.8rem',
-    backgroundColor: '#E6E7E8',
-
-  })
-
-  const DayWrapper= styled('div')({
-    display: 'inline-block',
-    justifyContent: 'center',
-    alignItems: 'center',
- 
-    width: '14%',
-  
-  
-  })
 
 // =============================================
 
@@ -133,8 +58,8 @@ export default function PersonalCalendar(props) {
    
   // console.log('[PersonalCalendar] personalChitArray ', allChitsArray);
   
-  let personalChitArray  = categoryChitFilter(allChitsArray, id)
-// console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
+  let personalChitArray  = personalChitFilter(allChitsArray, id)
+console.log('[ PersonalCalendar ] personalChitArray ', personalChitArray);
 
   // --- 2a. get calendar month to display
   let currentUTCMonth = useSelector(selectStatus).calendarMonthDisplay.utc
@@ -262,3 +187,79 @@ export default function PersonalCalendar(props) {
   );
 }
 
+// -----------------------------------------------------------------
+
+
+const Wrapper= styled('div')({
+ 
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  backgroundColor: 'white',
+  width: '90%',
+  height: '100%',
+overflow: 'auto',
+marginBottom: '25px',
+  [theme.breakpoints.down('sm')] : {
+    // width: '100%'
+  },
+
+})
+
+const HeaderRowWrapper= styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  height: '1.2rem',
+  fontSize: '.8rem',
+  backgroundColor: veryLightGrey,
+  
+  marginBottom: '5px',
+
+})
+
+
+
+  const HeaderDayWrapper= styled('div')({
+ 
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '.8rem',
+    backgroundColor: mediumGrey,
+    color: 'white',
+    width: '14%',
+    borderTop: '1px solid #E6E7E8',
+    borderBottom: '1px solid #E6E7E8',
+    borderLeft: '1px solid #E6E7E8',
+    borderRight: '1px solid #E6E7E8',
+ 
+  })
+
+
+  
+  
+  const MonthWrap= styled('div')({
+    flexWrap: 'wrap' ,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  
+    fontSize: '.8rem',
+    backgroundColor: '#E6E7E8',
+
+  })
+
+  const DayWrapper= styled('div')({
+    display: 'inline-block',
+    justifyContent: 'center',
+    alignItems: 'center',
+ 
+    width: '14%',
+  
+  
+  })

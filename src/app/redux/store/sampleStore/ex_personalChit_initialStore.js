@@ -17,7 +17,7 @@ const PersonalChits =  [
       chitColor: 'silver',   //gold, silver, red, milestone
 
       category: 'cat_8',
-      workRelated: false,
+      workRelated: 'notWorkRelated',
       duplicate: '',
 
       detail: '',
@@ -36,7 +36,7 @@ const PersonalChits =  [
       chitColor: 'silver',   //gold, silver, red, milestone
 
       category: 'cat_3',
-      workRelated: false,
+      workRelated: 'notWorkRelated',
       duplicate: '',
 
       detail:  "<p><strong>Great Day</strong></p><p><br></p><p>Ate only Salads</p>",
@@ -56,7 +56,7 @@ const PersonalChits =  [
         chitColor: 'milestone',   //gold, silver, red, milestone
   
         category: 'cat_8',
-        workRelated: false,
+        workRelated: 'notWorkRelated',
         duplicate: '',
 
         detail: '',
@@ -74,7 +74,7 @@ const PersonalChits =  [
         chitColor: 'red',   //gold, silver, red, milestone
   
         category: 'cat_3',
-        workRelated: false,
+        workRelated: 'workRelated',
         duplicate: '',
 
         detail: "<p>Cereal for <span style=\"color: rgb(230, 0, 0);\">breakfast.</span></p><p>Peanut butter for <span style=\"color: rgb(107, 36, 178);\">lunch.</span></p><p><br></p><p>Salad for<strong style=\"color: rgb(0, 138, 0);\"> dinner</strong></p>",
@@ -95,7 +95,7 @@ const PersonalChits =  [
         chitColor: 'copper',   //gold, silver, red, milestone
   
         category: 'cat_8',
-        workRelated: false,
+        workRelated: 'notWorkRelated',
         duplicate: '',
 
         detail: '',
@@ -113,7 +113,7 @@ const PersonalChits =  [
         chitColor: 'gold',   //gold, silver, red, milestone
   
         category: 'cat_3',
-        workRelated: false,
+        workRelated: 'notWorkRelated',
         duplicate: '',
 
         detail: "<p> p-6 Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
@@ -134,7 +134,7 @@ const PersonalChits =  [
               chitColor: 'copper',   //gold, silver, red, milestone
         
               category: 'cat_8',
-              workRelated: false,
+              workRelated: 'notWorkRelated',
               duplicate: '',
 
               detail: 'Ran only 1 mile today',
@@ -152,7 +152,7 @@ const PersonalChits =  [
               chitColor: 'milestone',   //gold, silver, red, milestone
         
               category: 'cat_3',
-              workRelated: false,
+              workRelated: 'notWorkRelated',
               duplicate: '',
 
               detail: "<p p-8 >Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
@@ -171,7 +171,7 @@ const PersonalChits =  [
               chitColor: 'copper',   //gold, silver, red, milestone
         
               category: 'cat_8',
-              workRelated: false,
+              workRelated: 'notWorkRelated',
               duplicate: '',
 
               detail: '',
@@ -189,7 +189,7 @@ const PersonalChits =  [
               chitColor: 'gold',   //gold, silver, red, milestone
         
               category: 'cat_3',
-              workRelated: false,
+              workRelated: 'notWorkRelated',
               duplicate: '',
 
               detail: "<p> p-10  Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
@@ -206,7 +206,7 @@ const PersonalChits =  [
               chitColor: 'milestone',   //gold, silver, red, milestone
         
               category: 'cat_3',
-              workRelated: false,
+              workRelated: 'notWorkRelated',
               duplicate: '',
 
               detail: "<p> p-11 Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
@@ -223,11 +223,11 @@ const PersonalChits =  [
             chitColor: 'silver',   //gold, silver, red, milestone
       
             category: 'cat_3',
-            workRelated: false,
+            workRelated: 'notWorkRelated',
             duplicate: '',
 
             detail: "<p> p-13  Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
-           keyWordArray: [],  
+           keyWordArray: ['taxes', 'diet'],  
           },
 
 ]// end SampleLogs

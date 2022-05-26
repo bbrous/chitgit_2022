@@ -64,6 +64,10 @@ export default function PersonalLedger(props) {
  let filteredChits = personalChitFilter(chitsArray, id)
  let sortedChitsByDate = sortChitsByDate(filteredChits)
 
+
+ console.log('[ PersonalLedgre  ] categoryName ', id);
+
+
 // console.log('[ PersonalLedger ] allPersonalChitsArray ', allPersonalChitsArray);
 // console.log('[ PersonalLedger ] filteredChits ', filteredChits);
 // console.log('[ PersonalLedger ] sortedChitsByDate ', sortedChitsByDate);

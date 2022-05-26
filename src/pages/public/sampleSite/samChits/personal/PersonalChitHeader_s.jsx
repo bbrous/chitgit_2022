@@ -17,6 +17,7 @@ import PersonalChitViewNav from '../../../../navComponents/publicNav/sampleNav/P
 import EditIcon from '../../samComponents/Edit_icon_s'
 import DeleteIcon from '../../samComponents/Delete_icon_s'
 
+import { selectCategories } from '../../../../../app/redux/categoryRedux/sam_categorySlice'
 //  ---- Material Ui ------------------
 
 import Paper from '@mui/material/Paper'
@@ -26,6 +27,65 @@ import Button from '@mui/material/Button'
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+// ================================================
+function PersonalChitHeader(props) {
+ 
+  const match = useParams()
+  const matchId = match.id
+  console.log('[ Personal Header ] matchId ', matchId);
+
+  const allCategories = useSelector(selectCategories)
+
+  let displayName
+
+  if(matchId === 'milestones'){displayName = 'Milestones'}
+  else if(matchId === 'workChits'){displayName = 'WorkChits'}
+  else {
+    let categoryObject = allCategories.find((category) => category.id  === matchId)
+    displayName = categoryObject.category
+
+  }
+
+return (
+<Wrapper>
+    <TitleWrapper>
+      <TitleLabel> Category : </TitleLabel>
+      <Title>
+        {displayName}
+      </Title>
+    </TitleWrapper>
+    <BottomWrapper>
+      <ButtonWrapper>
+
+        <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
+    
+      </ButtonWrapper>
+      <ViewNavWrapper>
+      <PersonalChitViewNav/>
+      </ViewNavWrapper>
+
+      <IconWrapper> 
+        <DeleteIcon/>
+        <EditIcon/>
+
+
+      </IconWrapper>
+
+    </BottomWrapper>
+
+</Wrapper>
+
+
+
+
+  )}// end func TopicalDetail
+
+ 
+export default PersonalChitHeader
+
+
 
 // -----------------------------------------------------------------
 
@@ -213,47 +273,3 @@ const ViewNavWrapper= styled('div')({
 
 
 })
-
-// ================================================
-function PersonalChitHeader(props) {
- 
-  const match = useParams()
-
-  const matchId = match.id
-
-return (
-<Wrapper>
-    <TitleWrapper>
-      <TitleLabel> Category : </TitleLabel>
-      <Title>
-        Diet
-      </Title>
-    </TitleWrapper>
-    <BottomWrapper>
-      <ButtonWrapper>
-
-        <FormButton startIcon={<AddIcon />}> add Chit</FormButton>
-    
-      </ButtonWrapper>
-      <ViewNavWrapper>
-      <PersonalChitViewNav/>
-      </ViewNavWrapper>
-
-      <IconWrapper> 
-        <DeleteIcon/>
-        <EditIcon/>
-
-
-      </IconWrapper>
-
-    </BottomWrapper>
-
-</Wrapper>
-
-
-
-
-  )}// end func TopicalDetail
-
- 
-export default PersonalChitHeader
