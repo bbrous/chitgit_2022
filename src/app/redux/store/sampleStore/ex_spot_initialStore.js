@@ -10,7 +10,7 @@ const SampleSpotlights =  [
     id: 'spot_1',
     type: 'spotlight',
     
-    parentId: '',
+    parentId: null,
    
     lastVisit: '2021-03-12T12:38:00.292Z',
     
@@ -48,7 +48,7 @@ const SampleSpotlights =  [
   id: 'spot_2',
   type: 'spotlight',
   
-  parentId: '',
+  parentId: null,
 
   lastVisit: '2021-03-12T12:37:00.292Z',
   title: 'Presentation for Executive Staff',
@@ -86,7 +86,7 @@ const SampleSpotlights =  [
   id: 'spot_3',
   type: 'spotlight',
   
-  parentId: '',
+  parentId: null,
 
   lastVisit: '2021-03-12T12:36:00.292Z',
   title: 'Wakeboard Flex design',
@@ -126,7 +126,7 @@ const SampleSpotlights =  [
     id: 'spot_4',
     type: 'spotlight',
     
-    parentId: '',
+    parentId: null,
     
     lastVisit: '2021-03-12T12:35:00.292Z',
     title: 'Surprise Vacation',

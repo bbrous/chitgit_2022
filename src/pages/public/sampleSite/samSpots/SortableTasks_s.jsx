@@ -58,7 +58,7 @@ const Wrapper= styled('div')({
   margin:'2px auto',
     // height: '600px',
 
-backgroundColor: 'purple',
+// backgroundColor: 'purple',
 // overflow: 'auto'
 
 })

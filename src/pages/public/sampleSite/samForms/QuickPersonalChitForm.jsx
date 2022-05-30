@@ -10,10 +10,12 @@ import { useSelector, useDispatch} from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
  
 
-import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey, chitBurgandyDull, chitLightBlueDull, darkGrey} from '../../../../styles/colors'
+import {mediumGrey, lightGrey, veryLightGrey, mediumLightGrey, chitBurgandyDull, chitLightBlueDull, darkGrey, chitBlueDull, chitBurgandy} from '../../../../styles/colors'
 
 import { addPersonalChitToStore } from '../../../../app/redux/personalChitRedux/sam_personalChitSlice'
  import { UTCtoDateTradional } from '../../../../app/helpers/dateHelper'
+
+ import { selectCategories, getCategoryObjectFromId  } from '../../../../app/redux/categoryRedux/sam_categorySlice'
 
 import MonthNav from '../samChits/personal/MonthNav_s'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
@@ -63,6 +65,10 @@ export default function QuickPersonalChitForm(props) {
 
   let { refIndex, utcDate, month, displayChits, isToday, futureDay, categoryId } = props
 
+  const allCategories = useSelector(selectCategories) // get all categories
+  let categoryObject = getCategoryObjectFromId(allCategories, categoryId)
+  let categoryName = categoryObject.category
+
   let formattedDate = UTCtoDateTradional(parseInt(utcDate))
  let formChitDate = new Date(parseInt(utcDate)).toISOString()
 
@@ -88,9 +94,9 @@ const formSchema = object({
 
   let defaultValues = {
 
-    detail: 'hey there',
+    detail: '',
     chitType: 'personal',
-    chitColor: 'gold',
+    chitColor: 'copper',
     category: categoryId
   
   };
@@ -108,16 +114,13 @@ const submitForm = async (data) => {
 
 console.log('[ Personal CHit Form ] data ', data);
 
-let formChitColor 
-if(data.chitType === 'personal'){formChitColor = data.chitColor}
-if(data.chitType === 'awChit'){formChitColor = 'red'}
-if(data.chitType === 'milestone'){formChitColor = 'milestone'}
+let chitColor = data.chitColor
 
 let newPersonalChitData = {
   id: cuid(),
   dateCreated: sampleDate.toISOString(),
   chitType: 'personalChit',
-  chitColor: formChitColor,
+  chitColor: chitColor,
   category: categoryId,
   detail: data.detail,
   workRelated: 'notWorkRelated',
@@ -211,13 +214,23 @@ try {
 
       <Dialog open={open} onClose={handleClose}>
         <TitleWrapper>Add Chit</TitleWrapper>
-        <DialogContent>
-          <DialogContentText>
-            categoryId - {categoryId} <br />
-            chit date - {formattedDate}
-          </DialogContentText>
+        <Preset>
+          <PresetRow>
+
+          <PresetLeft>  category : </PresetLeft>
+              <PresetRight>{categoryName}  </PresetRight>
+
+           
+
+            </PresetRow>
+            <PresetRow>
+
+              <PresetLeft> chit date :</PresetLeft>
+              <PresetRight> {formattedDate} </PresetRight>
+            
+          </PresetRow>
      
-        </DialogContent>
+        </Preset>
 
         <FormProvider {...methods}>
  
@@ -230,49 +243,7 @@ try {
             {/* ------Chit-------------------------- */}
 
             <FormComponentWrapper>
-              <ComponentName>
-                Chit 
-              </ComponentName>
 
-              
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"chitType"}
-                    control={control}
-                    label={"logType"}
-                    options={[
-                      {
-                        label: "personal chit",
-                        value: "personal",
-                      },
-                     
- 
-                      {
-                        label: "milestone",
-                        value: "milestone",
-                      },
-                      {
-                        label: "awChit",
-                        value: "awChit",
-                      },
-
-
-
-                    ]}
-                    defaultValue = {defaultValues.chitType}
-                  />
-                </RadiotWrapper>
-
-
-                
-
-
-              </ComponentWrapper>
-
-      
-
-           
  
 <ComponentWrapperIndent>
   <RadiotWrapper>
@@ -295,6 +266,18 @@ try {
           label: "gold",
           value: "gold",
         },
+
+        {
+          label: "awChit",
+          value: "red",
+        },
+
+        
+        {
+          label: "milestone",
+          value: "milestone",
+        },
+
 
 
 
@@ -326,7 +309,7 @@ try {
                       control={control}
                       label={"detail"}
                       defaultValue={''}
-                      placeholder='Add new category'
+                      placeholder='description'
 
 
                     />
@@ -509,6 +492,7 @@ const TitleWrapper = styled('div')({
   width: '100%',
   margin: '.5rem 0',
   color: darkGrey,
+  borderBottom: '1px solid grey',
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -516,6 +500,79 @@ const TitleWrapper = styled('div')({
   },
 
 })
+
+const Preset = styled('div')({
+ 
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  fontSize: '.9rem',
+  width: '100%',
+  padding: '.25rem 0 .5rem .5rem',
+  color: darkGrey,
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const PresetRow = styled('div')({
+ 
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  fontSize: '.9rem',
+  width: '100%',
+  // margin: '.5rem 0',
+  color: darkGrey,
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const PresetLeft = styled('div')({
+ 
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.8rem',
+  width: '30%',
+  // margin: '.5rem 0',
+  color: darkGrey,
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+const PresetRight = styled('div')({
+ 
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: '.9rem',
+  width: '60%',
+  // margin: '.5rem 0',
+  color: chitBurgandy,
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
 
 const FormComponentWrapper = styled('div')({
   position: 'relative',
@@ -559,7 +616,7 @@ const ComponentName= styled('div')({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  color: 'darkGrey',
+  color: darkGrey,
 
 
   [theme.breakpoints.down('sm')]: {

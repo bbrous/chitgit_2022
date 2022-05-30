@@ -75,7 +75,7 @@ import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 import { styled, createTheme} from '@mui/material/styles'
-import { chitBurgandy, chitBurgandyDull, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors';
+import { chitBurgandy, chitBurgandyDull, darkGrey, lightGrey, mediumGrey, veryLightGrey } from '../../../../styles/colors';
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -158,7 +158,7 @@ export default function PersonalChitForm_s(props) {
     existentWorkRelated =existentChit.workRelated
     existentDetail =existentChit.detail 
       existentKeyWordArray =existentChit.keyWordArray
-
+      console.log('[ PASSED ID FROM EDIT ] IGOT A color ', existentChit.detail );
   }
 
   //--- Create keyword select Options ----
@@ -207,7 +207,7 @@ export default function PersonalChitForm_s(props) {
     !existentChitId ? defaultDetail  = '' : defaultDetail = existentDetail
     !existentChitId ? defaultWorkRelated  = 'notWorkRelated' : defaultWorkRelated = existentWorkRelated
 
-    !existentChitId ? defaultChitType = '' : defaultChitType =  existentChitType
+    
 
     defaultValues = {
       newExisting: 'existing',
@@ -217,7 +217,7 @@ export default function PersonalChitForm_s(props) {
       chitDate: defaultChitDate,
       detail: defaultDetail,
       workRelated: defaultWorkRelated,
-      chitType: defaultChitType,
+       
       chitColor: defaultChitColor,
       keywords: defaultKeyWordArray
        
@@ -234,7 +234,7 @@ export default function PersonalChitForm_s(props) {
   const { handleSubmit, reset, control, watch , setValue} = methods;
 
   const submitForm = async (data) => {
-  console.log('[ Personal CHit Form ] data ', data);
+  // console.log('[ Personal CHit Form ] data ', data);
 
     // get form data elements
     const {chitDate, chitColor, detail, workRelated, keywords, newExisting, existingCategory, category, chitType} = data
@@ -247,10 +247,8 @@ export default function PersonalChitForm_s(props) {
                 form chitType field gets awChit or milestone
     */
 
-    let formChitColor 
-    if(chitType === 'personal'){formChitColor = chitColor}
-    if(chitType === 'awChit'){formChitColor = 'red'}
-    if(chitType === 'milestone'){formChitColor = 'milestone'}
+    let formChitColor = chitColor
+ 
 
     /*  
         category and existing inputs in form pass category names
@@ -297,7 +295,7 @@ export default function PersonalChitForm_s(props) {
     return cleanKeywordArray
     }
     ) //end map
-console.log('[ TESTSTESTESTEESTD] cleanKeywordArray ', cleanKeywordArray);
+ 
 
     // --- try catch block -----------------------------------
 
@@ -363,9 +361,6 @@ console.log('[ TESTSTESTESTEESTD] cleanKeywordArray ', cleanKeywordArray);
           }
 
           dispatch(updateEditedPersonalChit({data: newPersonalChitData}))
-
-console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar ');
-
 
 
       }
@@ -463,9 +458,6 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
 
         dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
 
-
-
-
       }  // end if arrayItemInludedInDefault
 
 
@@ -475,40 +467,8 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
 
   } // end if kewwordArrayDifference --- 
 
-//  ###########################################
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//  ===== submit compete ====================================
 
       dispatch(changeLoadingStatus(false))
       reset()
@@ -611,17 +571,17 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
     
     <FormProvider {...methods}>
     <Scrollbars >
-      <FormWrapper onSubmit={handleSubmit(submitForm)}>
+          <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
-          {/* ------select Creatable (category) -------------------------- */}
-          {existentChitId && <>
+            {/* ------select Creatable (category) -------------------------- */}
+            {existentChitId && <>
               <FormComponentWrapper>
 
                 <ExistentRow>
                   <ExistentRowLeft>Category: </ExistentRowLeft>
                   <ExistentRowRight>{defaultCategoryName} </ExistentRowRight>
                 </ExistentRow>
-                
+
                 <ExistentRow>
                   <ExistentRowLeft>ChitDate: </ExistentRowLeft>
                   <ExistentRowRight>{ISOtoTraditional(existentChitDate)} </ExistentRowRight>
@@ -635,211 +595,160 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
                 <ComponentName>
                   Choose a category for your chit
                 </ComponentName>
-
-                <ComponentWrapper>
-                  <RadiotWrapper  >
-                    <ChitRadio
-                      name={"newExisting"}
-                      control={control}
-                      label={"newExisting"}
-                      options={[
-
-                        {
-                          label: "existing",
-                          value: "existing",
-                        },
-
-                        {
-                          label: "new",
-                          value: "new",
-                        },
-
-
-
-                      ]}
-                      defaultValue={defaultValues.newExisting}
-                    />
-                  </RadiotWrapper>
-
-
-
-
-
-                </ComponentWrapper>
-                {newExisting === 'existing' &&
-                  <ComponentWrapper>
-
-                    <>
-
-                      <StyledSelect
-                        name={'existingCategory'}
+                <CategoryFormComponentWrapper>
+                  <CategoryLeft>
+                    <RadiotWrapper  >
+                      <ChitRadio
+                        name={"newExisting"}
                         control={control}
-                        options={sortedCategoryOptions}
-                        // or
-                        // defaultValue = {{ value: 'ge423', label: 'home'}}
-                        defaultValue={defaultValues.categories}
-                        placeholder='select a category'
+                        label={"newExisting"}
+                        options={[
+
+                          {
+                            label: "existing",
+                            value: "existing",
+                          },
+
+                          {
+                            label: "new",
+                            value: "new",
+                          },
+
+
+
+                        ]}
+                        defaultValue={defaultValues.newExisting}
+                      />
+                    </RadiotWrapper>
+
+                  </CategoryLeft>
+
+
+                  {newExisting === 'existing' &&
+                    <CategoryRight>
+
+                      <>
+
+                        <StyledSelect
+                          name={'existingCategory'}
+                          control={control}
+                          options={sortedCategoryOptions}
+                          // or
+                          // defaultValue = {{ value: 'ge423', label: 'home'}}
+                          defaultValue={defaultValues.categories}
+                          placeholder='select a category'
+
+                        />
+
+                        {/* {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>} */}
+
+
+                      </>
+                    </CategoryRight>
+                  }
+
+                  {newExisting === 'new' &&
+                    <ComponentWrapper>
+
+
+                      <StyledInput
+                        name={"newCategory"}
+                        control={control}
+                        label={"newCategory"}
+                        defaultValue={''}
+                        placeholder='Add new category'
+
 
                       />
 
-                      {/* {errors.group && <ErrorMessage>{ errors.group.message} </ErrorMessage>} */}
+                    </ComponentWrapper>
 
-
-
-
-                    </>
-                  </ComponentWrapper>
-                }
-
-                {newExisting === 'new' &&
-                  <ComponentWrapper>
-
-
-                    <StyledInput
-                      name={"newCategory"}
-                      control={control}
-                      label={"newCategory"}
-                      defaultValue={''}
-                      placeholder='Add new category'
-
-
-                    />
-
-
-
-
-                  </ComponentWrapper>
-
-                }
-
+                  }
+                </CategoryFormComponentWrapper>
               </FormComponentWrapper>
 
             
   {/* ------DatePicker Component (endEst) -------------------------- */}
 
       
-          <FormComponentWrapper>
-              <ComponentName>
-                Chit date ? <StyledCalendarIcon />
-              </ComponentName>
+              <FormComponentWrapper>
+                <ComponentName>
+                  Chit date ? <StyledCalendarIcon />
+                </ComponentName>
 
-              <ComponentWrapper>
-                <Controller
+                <ComponentWrapper>
+                  <Controller
 
-                  name="chitDate"
-                  control={control}
-                  initialNote={'hi'}
-                  
-                  render={({ field }) => (
-                    <StyledDatePicker 
-                    {...field} 
-                    excludedDates = {excludedDates} 
-                    maxDate = {sampleDate}
-                    ref={null} />
-                  )}
-                />
-                
-              </ComponentWrapper>
-              {/* {errors.chitDate && <ErrorMessage>{errors.chitDate.message} </ErrorMessage>} */}
-            </FormComponentWrapper> 
-            </>}
-            <> 
-            {/* ------Chit-------------------------- */}
-
-            <FormComponentWrapper>
-              <ComponentName>
-                Chit 
-              </ComponentName>
-
-              
-              <ComponentWrapper>
-                <RadiotWrapper>
-                  <ChitRadio
-                    name={"chitType"}
+                    name="chitDate"
                     control={control}
-                    label={"logType"}
-                    options={[
-                      {
-                        label: "personal chit",
-                        value: "personal",
-                      },
-                     
- 
-                      {
-                        label: "milestone",
-                        value: "milestone",
-                      },
-                      {
-                        label: "awChit",
-                        value: "awChit",
-                      },
+                    initialNote={'hi'}
 
-
-
-                    ]}
-                    defaultValue = {defaultValues.chitType}
+                    render={({ field }) => (
+                      <StyledDatePicker
+                        {...field}
+                        excludedDates={excludedDates}
+                        maxDate={sampleDate}
+                        ref={null} />
+                    )}
                   />
-                </RadiotWrapper>
+
+                </ComponentWrapper>
+                {/* {errors.chitDate && <ErrorMessage>{errors.chitDate.message} </ErrorMessage>} */}
+              </FormComponentWrapper>
+            </>}
+            <>
+              {/* ------Chit-------------------------- */}
+
+              <FormComponentWrapper>
+                <ComponentName>
+                  Chit Type <StyledCalendarIcon />
+                </ComponentName>
+
+                <ComponentWrapperIndent>
+                  <RadiotWrapper>
+                    <ChitRadio
+                      name={"chitColor"}
+                      control={control}
+                      label={"logType"}
+                      options={[
+
+                        {
+                          label: "copper",
+                          value: "copper",
+                        },
+                        {
+                          label: "silver",
+                          value: "silver",
+                        },
+
+                        {
+                          label: "gold",
+                          value: "gold",
+                        },
+
+                        {
+                          label: "awChit",
+                          value: "red",
+                        },
+
+                        {
+                          label: "milestone",
+                          value: "milestone",
+                        },
 
 
-                
+                      ]}
+                      defaultValue={defaultValues.chitColor}
+                    />
+                  </RadiotWrapper>
 
+                </ComponentWrapperIndent>
 
-              </ComponentWrapper>
-
-              {chitTypeSelected === 'personal' && 
-
-           
- 
-<ComponentWrapperIndent>
-  <RadiotWrapper>
-    <ChitRadio
-      name={"chitColor"}
-      control={control}
-      label={"logType"}
-      options={[
-
-        {
-          label: "copper",
-          value: "copper",
-        },
-        {
-          label: "silver",
-          value: "silver",
-        },
-
-        {
-          label: "gold",
-          value: "gold",
-        },
-
-
-
-
-
-      ]}
-      defaultValue = {defaultValues.chitColor}
-    />
-  </RadiotWrapper>
-
-
-  
-
-
-</ComponentWrapperIndent>
-
-    }
-
-
-
-            </FormComponentWrapper>
-
-
-
+              </FormComponentWrapper>
 
           {/* ------Detail  -------------------------- */}
 
-          {chitTypeSelected &&   <>
+       
               <QuillComponentWrapper>
                 <ComponentName>
                   Description  of chit
@@ -858,7 +767,7 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
                       <Editor
                         {...field}
                         ref={null}
-                        InitalValue={defaultValues.detail}
+                        IniitalValue={defaultValues.detail}
 
                       />
                     )}
@@ -899,10 +808,6 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
                     />
                   </RadiotWrapper>
 
-
-
-
-
                 </ComponentWrapper>
               </FormComponentWrapper>
 
@@ -924,12 +829,9 @@ console.log('[  ############ UPDATE UPDATE UPDATE      ############### ] myVar '
 
                   />
 
-
                 </ComponentWrapper>
               </FormComponentWrapper>
-              
-              </>
-                    }
+            
             </>
 
 
@@ -1044,15 +946,16 @@ backgroundColor: 'white',
 
 })
 
-const FormComponentWrapperIndent= styled('div')({
+const CategoryFormComponentWrapper = styled('div')({
   position: 'relative',
   display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  width: '80%',
-  margin: '0 0 .75rem 5%',
-
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '4rem',
+  margin: '.25rem',
+  borderRadius: '5px',
  
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -1060,6 +963,45 @@ const FormComponentWrapperIndent= styled('div')({
   },
 
 })
+
+const CategoryLeft = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '30%',
+//   margin: '.25rem',
+//   padding: '1rem',
+//   borderRadius: '5px',
+// backgroundColor: 'white',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+const CategoryRight = styled('div')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  width: '70%',
+ 
+//   margin: '.25rem',
+//   padding: '1rem',
+//   borderRadius: '5px',
+// backgroundColor: 'white',
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
 const ExistentRow = styled('div')({
   position: 'relative',
   display: 'flex',
@@ -1112,7 +1054,7 @@ const ComponentName= styled('div')({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  color: 'darkGrey',
+  color: darkGrey,
 
 
   [theme.breakpoints.down('sm')]: {

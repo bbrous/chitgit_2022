@@ -77,7 +77,7 @@ export const statusSlice = createSlice({
   
         id : '',
         spotFilter: 'all',  // all or active or completed (from sidebar Nav)
-        display: 'tree'  // tree or detail
+        display: 'detail'  // tree or detail
   
         
         // displaySpotLight: 'show',  //initial or ''  or 'show ' 

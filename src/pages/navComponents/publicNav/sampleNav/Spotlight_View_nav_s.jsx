@@ -107,11 +107,12 @@ function SpotlightViewNav(props) {
         <RadioGroup
           row aria-label="gender"
           name="row-radio-buttons-group"
-          defaultValue={view}
+          value = {view ?? ""}
         >
+          <StyledLabel value="detail" control={<StyledRadio />} label="Spotlight View" />
+          <StyledLabel value="completedTasks" control={<StyledRadio />} label="Completed Tasks View" />
 
           <StyledLabel value="tree" control={<StyledRadio />} label="Tree View" />
-          <StyledLabel value="detail" control={<StyledRadio />} label="Detail View" />
 
         </RadioGroup>
       </FormControl>

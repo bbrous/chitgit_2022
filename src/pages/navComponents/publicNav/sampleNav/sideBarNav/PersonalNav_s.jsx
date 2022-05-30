@@ -76,7 +76,7 @@ function PersonalNav() {
     Order is determined by last time the spotlight was visited
   */
 
-  const [arrayOrder, setArrayOrder] = useState(true)
+  const [arrayOrder, setArrayOrder] = useState(false)
 
   let ascendingCategories= ascendSorter(categoryArray, 'category')
   let descendingCategories= descendSorter(categoryArray, 'category')
@@ -202,36 +202,15 @@ Create a new Personal Chit Category
 
       }
 
-      {displayId !== 'workChits' &&
-        <StaticWrapper elevation={1}
-          id='workChits'
-          onClick={(evt) => {
-            handleChangeCategory(evt)
-          }}
-        >
-          Work Chits
-        </StaticWrapper>
-
-      }
-      {displayId === 'workChits' &&
-        <StaticWrapperSelected elevation={1}
-          id='workChits'
-          onClick={(evt) => {
-            handleChangeCategory(evt)
-          }}
-        >
-         Work Chits
-        </StaticWrapperSelected>
-
-      }
+ 
       <OrderWrapper>  
  <div>Categories</div>
     
 
         <SliderComponent
           handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='a-Z'
-          rightLabel='z-A' 
+          leftLabel='z-A'
+          rightLabel=  'a-Z'
         />
 
       </OrderWrapper>

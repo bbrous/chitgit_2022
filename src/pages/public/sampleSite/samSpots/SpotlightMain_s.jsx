@@ -165,7 +165,7 @@ const TaskWrapper = styled('div')({
   margin: '.25rem 0 0 0',
 
 
-  backgroundColor: 'pink',
+  backgroundColor: veryLightGrey,
   fontSize: '.8rem',
 
 

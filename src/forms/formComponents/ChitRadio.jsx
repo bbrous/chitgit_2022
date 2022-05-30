@@ -122,9 +122,9 @@ export const ChitRadio = ({
           formState,
         }) => (
           <RadioGroup value={value} onChange={onChange} defaultValue = '1'>
-            <OptionsWrapper>
+             
             {generateRadioOptions()}
-            </OptionsWrapper>
+            
           </RadioGroup>
         )}
       />

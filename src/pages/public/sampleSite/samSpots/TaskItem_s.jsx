@@ -44,6 +44,217 @@ import Paper from '@mui/material/Paper'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+export function TaskItem(props) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({id: props.id});
+  
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+ 
+
+// let id = props.id
+// let type = props.type
+// let allSpotlights = props.allSpotlights
+// let allTasks = props.allTasks
+
+const {id, type, allSpotlights, allTasks} = props
+
+
+
+// let objectItem
+
+
+const [title, setTitle] = useState('');
+
+
+const [objectItem, setObjectItem] = useState({
+  title: '',
+  completed: ''
+});
+
+
+  useEffect(() => {
+    if (type === 'spotlight') {
+      setObjectItem(allSpotlights.find(spotlightItem => spotlightItem.id === props.id))
+      if (objectItem) {
+        setTitle(objectItem.title)
+      }//end if objectItem
+    }// end if type === spotlight
+
+    if (type === 'task') {
+      setObjectItem(allTasks.find(taskItem => taskItem.id === props.id))
+      if (objectItem) {
+        setTitle(objectItem.title)
+      }//end if objectItem
+    }// end if type === task
+
+  }, [allSpotlights, allTasks, id, type, objectItem, props.id])
+
+
+// ======  DUMMY Initial Values ==================== //
+// ---------Get from Database ---------------------- //
+
+let taskStatus = false
+let completed = false
+// type  = 'task'
+let currentSpotlightStatus = 'begun'
+
+
+
+// ---------Get from Database ---------------------- //
+// ======  DUMMY Initial Values ==================== //
+  return (
+    <div>
+    <ItemContainer 
+      ref={setNodeRef} 
+      style={style} 
+      {...listeners} 
+      {...attributes}
+      >
+
+      <ItemWrapper
+        className =  {taskStatus ? "backgroundCompleted" : ""}
+      > 
+      <Handle >:::</Handle>
+
+      
+      {/* <div>Hey dude I from 
+        {props.id}     {props.type} - {props.id}
+        </div> */}
+        
+     
+          <TaskWrapper>
+            <TaskBlockWrapper>
+
+              <SpotLightWrapper>
+                <IconWrapper>
+                  &nbsp;
+                </IconWrapper>
+              </SpotLightWrapper>
+
+              <TaskBlock>
+
+              <CheckCircleWrapper
+            
+            // onClick={()=> handleTaskCompletedStatus( taskId)}
+            
+            >
+
+            {! completed && 
+              <CheckCircle/>
+              }
+              { completed && 
+              <CheckCircleCompleted><CheckIcon fontSize = {'small'} /> </CheckCircleCompleted> 
+              }
+
+
+              
+              
+              </CheckCircleWrapper>
+
+
+              {! completed && 
+              <TitleWrapper> 
+                
+                {props.type} - {props.id} -{title}
+                
+                </TitleWrapper> 
+              }
+              { completed && 
+              <TitleWrapperCompleted>  
+                {/* {title} */}
+                {props.type} - {props.id} -{title}
+                
+                </TitleWrapperCompleted> 
+              }
+
+              </TaskBlock>
+
+              <NotificationWrapper>
+
+                <StatusWrapper>
+
+                  do not need this
+
+                </StatusWrapper>
+
+                <IconWrapper>
+
+                  {/* XXXXXXXXXX  Edit for Spotlights only XXXXXXXXXXXXXXXXXX  */}
+                  {/* XXXXXXXXXX Delete for Tasks only XXXXXXXXXXXXXXXXXX  */}
+                  {type === 'task' && 
+                  <ConvertIcon id = {id} type = {type} />
+                }
+                  <NoteIcon id = {id} type = {type} />
+                
+                  <ChitIcon id = {id} type = {type} />
+                  {type === 'task' &&
+                    <DeleteIcon id = {id} type = {type} />
+                  }
+                  {type === 'spotlight' &&
+                    <EditIcon id = {id} type = {type} />
+                  }
+
+
+
+                </IconWrapper>
+
+
+
+
+
+
+
+              </NotificationWrapper>
+
+
+
+
+
+            </TaskBlockWrapper>
+          </TaskWrapper>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </ItemWrapper>
+
+
+
+
+
+
+        
+    </ItemContainer>
+    </div>
+  );
+}
+
+
+
+export default TaskItem
+
+
+
 // ------------------------------------------------------------------
 
 const ItemContainer = styled(Item)({
@@ -319,213 +530,3 @@ const Status= styled('div')({
 // })
 
 // =================================
-
-export function TaskItem(props) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({id: props.id});
-  
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
- 
-
-// let id = props.id
-// let type = props.type
-// let allSpotlights = props.allSpotlights
-// let allTasks = props.allTasks
-
-const {id, type, allSpotlights, allTasks} = props
-
-
-
-// let objectItem
-
-
-const [title, setTitle] = useState('');
-
-
-const [objectItem, setObjectItem] = useState({
-  title: '',
-  completed: ''
-});
-
-
-  useEffect(() => {
-    if (type === 'spotlight') {
-      setObjectItem(allSpotlights.find(spotlightItem => spotlightItem.id === props.id))
-      if (objectItem) {
-        setTitle(objectItem.title)
-      }//end if objectItem
-    }// end if type === spotlight
-
-    if (type === 'task') {
-      setObjectItem(allTasks.find(taskItem => taskItem.id === props.id))
-      if (objectItem) {
-        setTitle(objectItem.title)
-      }//end if objectItem
-    }// end if type === task
-
-  }, [allSpotlights, allTasks, id, type, objectItem, props.id])
-
-
-// ======  DUMMY Initial Values ==================== //
-// ---------Get from Database ---------------------- //
-
-let taskStatus = false
-let completed = false
-// type  = 'task'
-let currentSpotlightStatus = 'begun'
-
-
-
-// ---------Get from Database ---------------------- //
-// ======  DUMMY Initial Values ==================== //
-  return (
-    <div>
-    <ItemContainer 
-      ref={setNodeRef} 
-      style={style} 
-      {...listeners} 
-      {...attributes}
-      >
-
-      <ItemWrapper
-        className =  {taskStatus ? "backgroundCompleted" : ""}
-      > 
-      <Handle >:::</Handle>
-
-      
-      {/* <div>Hey dude I from 
-        {props.id}     {props.type} - {props.id}
-        </div> */}
-        
-     
-          <TaskWrapper>
-            <TaskBlockWrapper>
-
-              <SpotLightWrapper>
-                <IconWrapper>
-                  &nbsp;
-                </IconWrapper>
-              </SpotLightWrapper>
-
-              <TaskBlock>
-
-              <CheckCircleWrapper
-            
-            // onClick={()=> handleTaskCompletedStatus( taskId)}
-            
-            >
-
-            {! completed && 
-              <CheckCircle/>
-              }
-              { completed && 
-              <CheckCircleCompleted><CheckIcon fontSize = {'small'} /> </CheckCircleCompleted> 
-              }
-
-
-              
-              
-              </CheckCircleWrapper>
-
-
-              {! completed && 
-              <TitleWrapper> 
-                
-                {props.type} - {props.id} -{title}
-                
-                </TitleWrapper> 
-              }
-              { completed && 
-              <TitleWrapperCompleted>  
-                {/* {title} */}
-                {props.type} - {props.id} -{title}
-                
-                </TitleWrapperCompleted> 
-              }
-
-              </TaskBlock>
-
-              <NotificationWrapper>
-
-                <StatusWrapper>
-
-                  do not need this
-
-                </StatusWrapper>
-
-                <IconWrapper>
-
-                  {/* XXXXXXXXXX  Edit for Spotlights only XXXXXXXXXXXXXXXXXX  */}
-                  {/* XXXXXXXXXX Delete for Tasks only XXXXXXXXXXXXXXXXXX  */}
-                  {type === 'task' && 
-                  <ConvertIcon id = {id} type = {type} />
-                }
-                  <NoteIcon id = {id} type = {type} />
-                
-                  <ChitIcon id = {id} type = {type} />
-                  {type === 'task' &&
-                    <DeleteIcon id = {id} type = {type} />
-                  }
-                  {type === 'spotlight' &&
-                    <EditIcon id = {id} type = {type} />
-                  }
-
-
-
-                </IconWrapper>
-
-
-
-
-
-
-
-              </NotificationWrapper>
-
-
-
-
-
-            </TaskBlockWrapper>
-          </TaskWrapper>
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        </ItemWrapper>
-
-
-
-
-
-
-        
-    </ItemContainer>
-    </div>
-  );
-}
-
-
-
-export default TaskItem
-
-
-

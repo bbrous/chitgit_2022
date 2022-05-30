@@ -110,7 +110,56 @@ export function convertElapsedTime(milliseconds){
 
 
 
+export function UTCtoDateTime(milSeconds){
+  let monthArray = [
+    'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',
+    ]
 
+  let dayArray = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Say',  ]
+
+  let year = new Date(milSeconds).getFullYear()
+
+  let monthNumeric = new Date(milSeconds).getMonth()
+  let month = monthArray[monthNumeric]
+
+  let dayNumeric = new Date(milSeconds).getDate()
+
+  let weekDayNumeric = new Date(milSeconds).getDay()
+  let weekday = dayArray[weekDayNumeric]
+
+
+  let hours = new Date(milSeconds).getHours()
+  let minutes = new Date(milSeconds).getMinutes()
+  let seconds = new Date(milSeconds).getSeconds()
+
+
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours %= 12;
+  hours = hours || 12;    
+
+
+
+  let dateTimeObject = {
+    month: month,
+    day: dayNumeric, 
+    weekday: weekday,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds,
+    year: year,
+    ampm: ampm
+
+  }
+
+ /*
+var now = new Date();
+var hours = now.getHours() % 12 || 12;  // 12h instead of 24h, with 12 instead of 0. 
+
+ */
+
+  return dateTimeObject
+  }
 
 
 
