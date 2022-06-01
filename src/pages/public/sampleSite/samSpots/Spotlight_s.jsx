@@ -48,6 +48,183 @@ import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
+// ============================================
+
+function Spotlight(props) {
+let match = useParams()
+// console.log('@@@ [spotlight_s]- params' , match)
+
+// useEffect(()=>{
+//   // console.log('@@@ [spotlight_s]- params' , match)
+
+
+// }, [match])
+
+ /* --- get url data ---
+ the url contains 2 pieces of info - pageView (spotlights, etc) and id
+ the open modal action wants to know which collection to search matching the id
+ dbCollection = pageView from URL
+ 
+
+ */
+  const dbCollection = match.pageView
+  const matchId = match.id
+  const dispatch = useDispatch()
+  const spotlightsArray = useSelector(selectSpotlights)
+
+  // --- get spotlight object from mapStateToProps selector---
+  // let spotlightDisplayed = props.spotlight.spotlight
+  let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
+
+ 
+
+  // deconstruct spotlight object 
+  const { id, spotlightStatus, title,  noteId } = spotlightDisplayed
+  let spotlightNoteId = spotlightDisplayed.noteId
+
+  // ---change the lastVisit date in Store ----
+  // lastVisit used to reorder the spotlightNav side panel
+
+
+
+  // ###### -- FOR use in production non-sample version #########
+
+  // const [now, setNow] = useState(msToISO(Date.now()))
+
+  // --- SAMPLE VERSION  
+
+  //  Sets up a dummy time near March 14 2020 so that updates
+  //  to completed time will be different 
+
+  // --- set now = to March 14 2020 + small increment of time
+
+  let randomFutureTime = futureSampleTime(sample_CurrentTimeStamp)
+  const [now, setNow] = useState(msToISO(randomFutureTime))
+
+
+
+
+
+  useEffect(() => {
+
+    setNow(msToISO(now))
+
+  }, [now])
+
+  useEffect(() => {
+
+    dispatch(changeSpotlightLastVisit({ id: id, visitedDate: now }))
+  }, [id, dispatch, now])
+
+  const [spotlightState, setSpotlightState] = useState('')
+
+  useEffect(() => {
+
+    setSpotlightState(spotlightStatus)
+
+  }, [spotlightStatus])
+
+
+
+  // --- handler functions -----------------
+
+
+  const handleSpotlightCompletedStatus = (spotlightId) => {
+
+console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
+
+    let newSpotlightCompletedStatus, newSpotlightCompletedTime
+
+    if (spotlightState === 'inactive') {
+      newSpotlightCompletedStatus = 'completed'
+      newSpotlightCompletedTime = ''
+    }
+    if (spotlightState === 'completed') {
+      newSpotlightCompletedStatus = 'begun'
+      newSpotlightCompletedTime = 'now'
+    }
+    if (spotlightState === 'begun') {
+      newSpotlightCompletedStatus = 'completed'
+      newSpotlightCompletedTime = ''
+
+    }
+
+
+
+
+    dispatch(changeSpotlightCompletedStatus(
+      {
+        id: spotlightId,
+        spotlightStatus: newSpotlightCompletedStatus,
+        completedTimeStamp: now
+      }
+    )
+    )
+  }
+
+  // === func 'Spotlight' Return ============================
+
+  return (
+    <TopWrapper
+      className={spotlightStatus === 'completed' ? "backgroundCompleted" : ""}
+    >
+
+      <TitleWrapper
+        className={spotlightStatus === 'completed' ? "backgroundCompleted" : ""}
+      >
+        <div><CheckCircleWrapper onClick={() => handleSpotlightCompletedStatus(id)}>
+
+          {spotlightStatus !== 'completed' &&
+            <CheckCircle />
+          }
+          {spotlightStatus === 'completed' &&
+            <CheckCircleCompleted><CheckIcon fontSize={'small'} /> </CheckCircleCompleted>
+          }
+        </CheckCircleWrapper></div>
+
+        <Title>
+          {title}
+
+        </Title>
+      </TitleWrapper>
+
+
+      <DetailContainer>
+
+        <DetailWrapper>
+          <SpotlightDetail />
+
+
+          <BottomWrapper>
+
+            <CheckBoxWrapper>
+              
+            </CheckBoxWrapper>
+
+            <IconsWrapper>
+              <LightTooltip title='Set target end' arrow>
+                <ClockIcon />
+              </LightTooltip>
+              <NoteIcon noteHolderId={id} noteHolderCollection ={dbCollection} noteId = {spotlightNoteId} />
+              <ChitIcon id={id} dbCollection={dbCollection} />
+              <DeleteIcon id={id} dbCollection={dbCollection} />
+              <EditIcon id={id} dbCollection={dbCollection} />
+            </IconsWrapper>
+
+          </BottomWrapper>
+
+        </DetailWrapper>
+      </DetailContainer>
+    </TopWrapper>
+  )
+}
+
+
+
+export default Spotlight
+
+
+
 // -----------------------------------------------------------------
 
 const TopWrapper= styled('div')({
@@ -306,178 +483,3 @@ const LightTooltip = withStyles({
   }
 })(Tooltip);
 
-
-// ============================================
-
-function Spotlight(props) {
-let match = useParams()
-// console.log('@@@ [spotlight_s]- params' , match)
-
-// useEffect(()=>{
-//   // console.log('@@@ [spotlight_s]- params' , match)
-
-
-// }, [match])
-
- /* --- get url data ---
- the url contains 2 pieces of info - pageView (spotlights, etc) and id
- the open modal action wants to know which collection to search matching the id
- dbCollection = pageView from URL
- 
-
- */
-  const dbCollection = match.pageView
-  const matchId = match.id
-  const dispatch = useDispatch()
-  const spotlightsArray = useSelector(selectSpotlights)
-
-  // --- get spotlight object from mapStateToProps selector---
-  // let spotlightDisplayed = props.spotlight.spotlight
-  let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
-
- 
-
-  // deconstruct spotlight object 
-  const { id, spotlightStatus, title,  noteId } = spotlightDisplayed
-  let spotlightNoteId = spotlightDisplayed.noteId
-
-  // ---change the lastVisit date in Store ----
-  // lastVisit used to reorder the spotlightNav side panel
-
-
-
-  // ###### -- FOR use in production non-sample version #########
-
-  // const [now, setNow] = useState(msToISO(Date.now()))
-
-  // --- SAMPLE VERSION  
-
-  //  Sets up a dummy time near March 14 2020 so that updates
-  //  to completed time will be different 
-
-  // --- set now = to March 14 2020 + small increment of time
-
-  let randomFutureTime = futureSampleTime(sample_CurrentTimeStamp)
-  const [now, setNow] = useState(msToISO(randomFutureTime))
-
-
-
-
-
-  useEffect(() => {
-
-    setNow(msToISO(now))
-
-  }, [now])
-
-  useEffect(() => {
-
-    dispatch(changeSpotlightLastVisit({ id: id, visitedDate: now }))
-  }, [id, dispatch, now])
-
-  const [spotlightState, setSpotlightState] = useState('')
-
-  useEffect(() => {
-
-    setSpotlightState(spotlightStatus)
-
-  }, [spotlightStatus])
-
-
-
-  // --- handler functions -----------------
-
-
-  const handleSpotlightCompletedStatus = (spotlightId) => {
-
-console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
-
-    let newSpotlightCompletedStatus, newSpotlightCompletedTime
-
-    if (spotlightState === 'inactive') {
-      newSpotlightCompletedStatus = 'completed'
-      newSpotlightCompletedTime = ''
-    }
-    if (spotlightState === 'completed') {
-      newSpotlightCompletedStatus = 'begun'
-      newSpotlightCompletedTime = 'now'
-    }
-    if (spotlightState === 'begun') {
-      newSpotlightCompletedStatus = 'completed'
-      newSpotlightCompletedTime = ''
-
-    }
-
-
-
-
-    dispatch(changeSpotlightCompletedStatus(
-      {
-        id: spotlightId,
-        spotlightStatus: newSpotlightCompletedStatus,
-        completedTimeStamp: now
-      }
-    )
-    )
-  }
-
-  // === func 'Spotlight' Return ============================
-
-  return (
-    <TopWrapper
-      className={spotlightStatus === 'completed' ? "backgroundCompleted" : ""}
-    >
-
-      <TitleWrapper
-        className={spotlightStatus === 'completed' ? "backgroundCompleted" : ""}
-      >
-        <div><CheckCircleWrapper onClick={() => handleSpotlightCompletedStatus(id)}>
-
-          {spotlightStatus !== 'completed' &&
-            <CheckCircle />
-          }
-          {spotlightStatus === 'completed' &&
-            <CheckCircleCompleted><CheckIcon fontSize={'small'} /> </CheckCircleCompleted>
-          }
-        </CheckCircleWrapper></div>
-
-        <Title>
-          {title}
-
-        </Title>
-      </TitleWrapper>
-
-
-      <DetailContainer>
-
-        <DetailWrapper>
-          <SpotlightDetail />
-
-
-          <BottomWrapper>
-
-            <CheckBoxWrapper>
-              
-            </CheckBoxWrapper>
-
-            <IconsWrapper>
-              <LightTooltip title='Set target end' arrow>
-                <ClockIcon />
-              </LightTooltip>
-              <NoteIcon noteHolderId={id} noteHolderCollection ={dbCollection} noteId = {spotlightNoteId} />
-              <ChitIcon id={id} dbCollection={dbCollection} />
-              <DeleteIcon id={id} dbCollection={dbCollection} />
-              <EditIcon id={id} dbCollection={dbCollection} />
-            </IconsWrapper>
-
-          </BottomWrapper>
-
-        </DetailWrapper>
-      </DetailContainer>
-    </TopWrapper>
-  )
-}
-
-
-
-export default Spotlight

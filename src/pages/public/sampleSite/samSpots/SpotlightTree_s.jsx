@@ -107,13 +107,16 @@ export default function SpotlightTree() {
   let allTasks = useSelector(selectTasks)
 
 
+
+
   // --- prep for task list ---------------------------
 
-console.log('[ Spotlight tree ] allTasks ', allTasks);
+ 
+  // filter all tasks by completed Status
 
 let completedTasks = allTasks.filter(task => task.completed === true)
-
-console.log('[ Spotlight tree ] allTasks ', completedTasks);
+// console.log('[ Spotlight tree ] allTasks ', allTasks);
+// console.log('[ Spotlight tree ] completed tasks ', completedTasks);
 
 let unorderedTasks =[]
 let adjustedDate, adjustedTaskObject
@@ -126,6 +129,7 @@ completedTasks.map((task, index) => {
 
    id: task.id,
    completedTimeStamp: adjustedDate,
+   completed: task.completed, 
    spotHolder: task.spotHolder,
    title: task.title
 
@@ -154,11 +158,12 @@ const displayCompletedTasks = orderedTasks.map((task, index) => {
   let displayTime = UTCtoDateTime(completedTimeStamp)
 
 
-  let spotlightObject = allSpotlights.find(spotlight => spotlight.id === spotHolder)
-  let spotlightName = spotlightObject.title
+  let taskObject = orderedTasks.filter(task => task.completed=== true)
+  let taskName = taskObject.title
 
-  console.log('[Spotlight Tree] spotlightObject', spotlightObject)
-
+  // console.log('[Spotlight Tree - task] completed tasks completed', taskName)
+  // console.log('[Spotlight Tree- task] completed tasks completed', taskObject.completed)
+  // console.log('[Spotlight Tree- task] --------------------------------' )
 
   const  {day, month, weekday, hours, minutes, ampm} = displayTime
 
@@ -177,7 +182,7 @@ return (
 
   {/* <LightTooltip   title = {titleMessage}  arrow>  */}
   <LightTooltip   
-    title = {spotlightName}
+    title = {taskName}
      arrow
      placement="left"
      > 
@@ -391,7 +396,7 @@ const ViewNavWrapper= styled('div')({
 
 // ====Tree view =================================
 
-const TreeContainer= styled('div')({
+const TreeContainer= styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
   
@@ -492,7 +497,7 @@ const TreeLink= styled('div')({
 // === Task View ====================================
 
 
-const TaskContainer = styled('div')({
+const TaskContainer = styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
   

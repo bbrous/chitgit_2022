@@ -13,7 +13,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
-import {CSS} from '@dnd-kit/utilities'
+
 import{ 
   selectSpotlights,
   updateTaskArray,
@@ -47,7 +47,21 @@ import {Item} from './Item';
 import { styled, createTheme, withStyles  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+// -----------------------------------------------------------------
 
+const Wrapper= styled('div')({
+  display: 'block',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+  margin:'2px auto',
+    // height: '600px',
+
+// backgroundColor: 'purple',
+// overflow: 'auto'
+
+})
 
 
 // ======================================================
@@ -86,7 +100,7 @@ function SortableTasks(props) {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
- 
+
   // --- Return for SortableTasks function ----------------------------------- 
 
   return (
@@ -106,11 +120,9 @@ function SortableTasks(props) {
 
   {/* // 4 --- Map  spotlight tasks ------------------------------------- */}      
 
-        {items.map((item, indx) => <TaskItem 
-        key={item.id} {...item} 
+        {items.map((item, indx) => <TaskItem key={item.id} {...item} 
         allSpotlights = {allSpotlights}
         allTasks = {allTasks}
-        handle={true}
         />)}
 
         
@@ -174,20 +186,3 @@ function SortableTasks(props) {
 
 
 export default SortableTasks
-
-
-// -----------------------------------------------------------------
-
-const Wrapper= styled('div')({
-  display: 'block',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-  margin:'2px auto',
-    // height: '600px',
-
-// backgroundColor: 'purple',
-// overflow: 'auto'
-
-})

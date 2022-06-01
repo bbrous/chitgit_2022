@@ -66,6 +66,7 @@ const LightTooltip = withStyles({
 
 function handleClick(passedId){
   // console.log('[Note_icon - I be clicked')
+  alert('edit clicked')
 }
 
 
@@ -87,7 +88,7 @@ function Edit(props) {
       <Icon
 
 
-        onClick={handleClick(passedId)}
+        onClick={()=>handleClick(passedId)}
        
       />
       </LightTooltip  >

@@ -16,7 +16,7 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 // import "./styles.css";
 
-import{mediumLightGrey, mediumGrey, chitOrangeVeryLight, chitOrange, lightGrey, darkGrey} from '../../../../styles/colors'
+import{mediumLightGrey, mediumGrey} from '../../../../styles/colors'
 
 import {Item} from './Item';
 import NoteIcon from '../samComponents/Note_icon_s'
@@ -53,8 +53,7 @@ export function TaskItem(props) {
   const dispatch = useDispatch()
   const {id, type, allSpotlights, allTasks} = props
 
- 
-  
+  // console.log('[ TaskItem ] allTasks ', allTasks);
 
   const {
     attributes,
@@ -62,32 +61,22 @@ export function TaskItem(props) {
     setNodeRef,
     transform,
     transition,
-    isDragging
   } = useSortable({id: props.id});
   
-  // const style = {
-  //   transform: CSS.Transform.toString(transform),
-  //   transition,
-  // };
-
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
- 
-    // border: "2px solid red",
-    backgroundColor: mediumLightGrey,
-    // margin: "10px",
-    zIndex: isDragging ? "100" : "auto",
-    opacity: isDragging ? 0.3 : 1
   };
+
+
+
 
 
 // let objectItem
 
 
 const [title, setTitle] = useState('');
-const [taskStatus, setTaskStatus] = useState('');
+
 
 const [objectItem, setObjectItem] = useState({
   title: '',
@@ -100,7 +89,6 @@ const [objectItem, setObjectItem] = useState({
       setObjectItem(allSpotlights.find(spotlightItem => spotlightItem.id === props.id))
       if (objectItem) {
         setTitle(objectItem.title)
-        setTaskStatus(objectItem.completed)
       }//end if objectItem
     }// end if type === spotlight
 
@@ -108,17 +96,16 @@ const [objectItem, setObjectItem] = useState({
       setObjectItem(allTasks.find(taskItem => taskItem.id === props.id))
       if (objectItem) {
         setTitle(objectItem.title)
-        setTaskStatus(objectItem.completed)
       }//end if objectItem
     }// end if type === task
 
   }, [allSpotlights, allTasks, id, type, objectItem, props.id])
 
-console.log('[ TaskItem !!!! ] taskStatus ', taskStatus);
+
 // ======  DUMMY Initial Values ==================== //
 // ---------Get from Database ---------------------- //
 
-// let taskStatus = false
+let taskStatus = false
 let completed = false
 
 
@@ -127,27 +114,17 @@ let completed = false
 
 
   const handleTaskCompletedStatus = (taskId) => {
-
+alert('hi')
     let dateNow = '2022-05-30T17:21:10.265Z'
     let ISODateNow = new Date('2022-05-30T17:21:10.265Z').toISOString()
-    // console.log('[ TaskItem ] handleTaskCompletedStatus id ', taskId);
+    console.log('[ TaskItem ] handleTaskCompletedStatus id ', taskId);
 
-   let taskObject =  allTasks.find(taskItem => taskItem.id === id)
+   let taskObject =  allTasks.find(taskItem => taskItem.id === props.id)
     
-   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskObject );
-   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    id );
-   let completedStatus
-   taskObject.completed === false ? completedStatus = true: completedStatus = false
+   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskId );
         
-    let data = {
-      taskId: props.id,
-      completed: completedStatus,
-      completedTimeStamp: ISODateNow
-    }
- 
+    
   
-  
-    dispatch(changeTaskCompletedStatus(data))
 
 
       }
@@ -157,8 +134,7 @@ const testClick = ()=>{
   alert('testClick')
 }
 
-  //  set up drag for Sortable Element using a handle
-  // const DragHandle = sortableHandle(() => <DragDiv>:::</DragDiv>);
+
 
 // ---------Get from Database ---------------------- //
 // ======  DUMMY Initial Values ==================== //
@@ -167,18 +143,15 @@ const testClick = ()=>{
     <ItemContainer 
       ref={setNodeRef} 
       style={style} 
-      // {...listeners} 
-      // {...attributes}
+      {...listeners} 
+      {...attributes}
       >
-
-
-        {type === 'task' &&   
 
       <ItemWrapper
         className =  {taskStatus ? "backgroundCompleted" : ""}
       > 
-      <StyledHandle {...listeners} {...attributes}>:::</StyledHandle>
-      {/* <DragHandle /> */}
+      <Handle >:::</Handle>
+
       
       {/* <div>Hey dude I from 
         {props.id}     {props.type} - {props.id}
@@ -196,17 +169,17 @@ const testClick = ()=>{
 
               <TaskBlock>
 <div>
-              <CheckCircleWrapper 
+              <CheckCircleWrapper id ='hola'
             
             // onClick={()=> handleTaskCompletedStatus( 'bulah')}
-            onClick = {()=> handleTaskCompletedStatus(id)}
+            onClick = {(evt)=> handleTaskCompletedStatus(evt)}
             
             >
 
-              {!taskStatus && 
+            {! completed && 
               <CheckCircle/>
               }
-              { taskStatus && 
+              { completed && 
               <CheckCircleCompleted><CheckIcon fontSize = {'small'} /> </CheckCircleCompleted> 
               }
 
@@ -216,7 +189,7 @@ const testClick = ()=>{
               </CheckCircleWrapper>
 
 </div>
-              {!completed && 
+              {! completed && 
               <TitleWrapper> 
                 
                 {props.type} - {props.id} -{title}
@@ -237,7 +210,7 @@ const testClick = ()=>{
 
                 <StatusWrapper>
 
-              
+                  do not need this
 
                 </StatusWrapper>
 
@@ -291,122 +264,6 @@ const testClick = ()=>{
         
         </ItemWrapper>
 
-}
-
-
-
-
-
-
-{type === 'spotlight' &&   
-
-<SpotlightItemWrapper
-  className =  {taskStatus ? "backgroundCompleted" : ""}
-> 
-<StyledHandle {...listeners} {...attributes}>:::</StyledHandle>
-{/* <DragHandle /> */}
-
-{/* <div>Hey dude I from 
-  {props.id}     {props.type} - {props.id}
-  </div> */}
-  
-
-    <TaskWrapper>
-      <TaskBlockWrapper>
-
-        <SpotLightWrapper>
-          <IconWrapper>
-            &nbsp;
-          </IconWrapper>
-          {type === 'spotlight' && 
-            <SpotlightTag 
-              // onClick={()=> changeDisplaySpotlight(taskId)}
-            >go to Spotlight</SpotlightTag>
-          } 
-        </SpotLightWrapper>
-
-        <TaskBlock>
-<div>
-        <CheckCircleWrapper> </CheckCircleWrapper>
-
-</div>
-        {!completed && 
-        <TitleWrapper> 
-          
-          {props.type} - {props.id} -{title}
-          
-          </TitleWrapper> 
-        }
-        { completed && 
-        <TitleWrapperCompleted>  
-          {/* {title} */}
-          {props.type} - {props.id} -{title}
-          
-          </TitleWrapperCompleted> 
-        }
-
-        </TaskBlock>
-
-        <NotificationWrapper>
-
-          <StatusWrapper>
-
-          
-
-          </StatusWrapper>
-
-          <IconWrapper>
-
-            {/* XXXXXXXXXX  Edit for Spotlights only XXXXXXXXXXXXXXXXXX  */}
-            {/* XXXXXXXXXX Delete for Tasks only XXXXXXXXXXXXXXXXXX  */}
-            {type === 'task' && 
-            <ConvertIcon id = {id} type = {type} />
-          }
-            <NoteIcon id = {id} type = {type} />
-          
-            <ChitIcon id = {id} type = {type} />
-            {type === 'task' &&
-              <DeleteIcon id = {id} type = {type}   onClick = {()=>testClick}/>
-            }
-            {type === 'spotlight' &&
-              <EditIcon id = {id} type = {type} />
-            }
-
-
-
-          </IconWrapper>
-
-
-
-
-
-
-
-        </NotificationWrapper>
-
-
-
-
-
-      </TaskBlockWrapper>
-    </TaskWrapper>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  </SpotlightItemWrapper>
-
-}
-
 
 
 
@@ -440,24 +297,6 @@ const ItemContainer = styled(Item)({
 })
 
 
-const SpotlightItemWrapper = styled(Paper)({
-
-
-  
-  display: 'flex',
-  justifyContent: 'flex-start',
- alignItems: 'center',
-
-  width: '90%',
-  // border: '1px solid orange',
-  backgroundColor: chitOrangeVeryLight,
-  margin: '4px auto',
-
-  '&.backgroundCompleted' : {backgroundColor: lightGrey, color: darkGrey}
-  
-})
-
-
 
 const ItemWrapper = styled(Paper)({
   display: 'flex',
@@ -469,10 +308,12 @@ const ItemWrapper = styled(Paper)({
   margin: '4px auto',
   backgroundColor: 'white',
   
-  '&.backgroundCompleted' : {backgroundColor: lightGrey, color: darkGrey},
+  '&.backgroundCompleted' : {
+    backgroundColor: mediumLightGrey,
+    color: 'white', 
      
   
-
+  }
   
 })
 
@@ -695,48 +536,23 @@ const Status= styled('div')({
  
 })
 
-const StyledHandle= styled(Handle)({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '0 ',
-  width:  '1.8rem',
-  height: '1.8rem',
- 
-  margin: '0 12px 0 4px',
-borderRadius: '50px',
-
+// const IconWrapper= styled('div')({
+//   display: 'flex',
+//   justifyContent: 'flex-start',
+//   alignItems: 'center',
+//   // padding: '0 0 4px 0',
+//   // width: '100%',
+//   height: '1.1rem',
+//   // backgroundColor: 'green',
   
-'&:hover' : {
-  backgroundColor: mediumLightGrey,
-},
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
-
-
-const SpotlightTag= styled('div')({
-  display:'block',
-  color: 'red',
-  fontSize: '.8rem',
-  textDecoration: 'underline',
-  // height: '1rem',
-  // backgroundColor: 'yellow',
-  cursor: 'pointer',
-  marginRight: '8rem',
-  '&:hover': {
-    color: 'red'
-  },
-   
   
 
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
-})
+//   [theme.breakpoints.down('sm')] : {
+//     // height: '1.25rem',
+//     // backgroundColor: 'red'
+//   },
+// })
+
 // =================================

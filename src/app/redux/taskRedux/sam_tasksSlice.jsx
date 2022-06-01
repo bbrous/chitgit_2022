@@ -43,9 +43,35 @@ export const tasksSlice = createSlice({
   
     }, // end updateTaskNoteId
 
+
+
+
+    changeTaskCompletedStatus: (state, action) => {
+
+    console.log('[ changeTaskCompletedStatus ] myVar ', action.payload);
+
+      let taskId = action.payload.taskId
+      let completed = action.payload.completed
+      let completedTimeStamp = action.payload.completedTimeStamp
+    
+      
+    
+    //  get the index of the spotlight Object in store Spotlights Array
+      let taskIndex = state.findIndex(index => index.id === taskId)
+    
+   
+      state[taskIndex].completedTimeStamp = completedTimeStamp
+      state[taskIndex].completed = completed
+    
+     
+    
+    }, // end CHANGE_SPOTLIGHT_COMPLETED_STATUS
+
   }, //end reducers
 
 }) // end slice TasksSlice 
+
+
 
 
 // --- Export actions ---------------------------------------------
@@ -53,7 +79,8 @@ export const tasksSlice = createSlice({
 export const { 
 
   addTaskToStore, 
-  updateTaskNoteId
+  updateTaskNoteId,
+  changeTaskCompletedStatus
 
 
 } = tasksSlice.actions

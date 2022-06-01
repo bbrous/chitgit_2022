@@ -415,7 +415,7 @@ const SampleTasks = [
 
     title: 'Create sketch drawings',
   completedTimeStamp:  '2021-03-20T06:09:54.000Z',
-    completed: true,
+    completed: false,
     currentTask: false,
 
 
