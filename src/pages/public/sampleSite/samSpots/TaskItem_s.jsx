@@ -12,6 +12,7 @@
 
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 // import "./styles.css";
@@ -51,6 +52,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 export function TaskItem(props) {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {id, type, allSpotlights, allTasks} = props
 
  
@@ -114,7 +116,7 @@ const [objectItem, setObjectItem] = useState({
 
   }, [allSpotlights, allTasks, id, type, objectItem, props.id])
 
-console.log('[ TaskItem !!!! ] taskStatus ', taskStatus);
+// console.log('[ TaskItem !!!! ] taskStatus ', taskStatus);
 // ======  DUMMY Initial Values ==================== //
 // ---------Get from Database ---------------------- //
 
@@ -153,9 +155,12 @@ let completed = false
       }
  
 
-const testClick = ()=>{
-  alert('testClick')
-}
+      const changeDisplaySpotlight = (evt) => {
+
+        let spotlightId = evt.currentTarget.id
+        navigate(`/sample/spotlights/${spotlightId}`)
+
+      }
 
   //  set up drag for Sortable Element using a handle
   // const DragHandle = sortableHandle(() => <DragDiv>:::</DragDiv>);
@@ -252,7 +257,7 @@ const testClick = ()=>{
                 
                   <ChitIcon id = {id} type = {type} />
                   {type === 'task' &&
-                    <DeleteIcon id = {id} type = {type}   onClick = {()=>testClick}/>
+                    <DeleteIcon id = {id} source = 'task'  />
                   }
                   {type === 'spotlight' &&
                     <EditIcon id = {id} type = {type} />
@@ -319,8 +324,8 @@ const testClick = ()=>{
             &nbsp;
           </IconWrapper>
           {type === 'spotlight' && 
-            <SpotlightTag 
-              // onClick={()=> changeDisplaySpotlight(taskId)}
+            <SpotlightTag  id = {props.id}
+              onClick={(evt)=> changeDisplaySpotlight(evt)}
             >go to Spotlight</SpotlightTag>
           } 
         </SpotLightWrapper>
@@ -366,7 +371,7 @@ const testClick = ()=>{
           
             <ChitIcon id = {id} type = {type} />
             {type === 'task' &&
-              <DeleteIcon id = {id} type = {type}   onClick = {()=>testClick}/>
+              <DeleteIcon id = {id} source = 'task' />
             }
             {type === 'spotlight' &&
               <EditIcon id = {id} type = {type} />

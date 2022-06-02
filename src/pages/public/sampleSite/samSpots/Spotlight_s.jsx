@@ -207,7 +207,7 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
               </LightTooltip>
               <NoteIcon noteHolderId={id} noteHolderCollection ={dbCollection} noteId = {spotlightNoteId} />
               <ChitIcon id={id} dbCollection={dbCollection} />
-              <DeleteIcon id={id} dbCollection={dbCollection} />
+              <DeleteIcon id={id} source = 'spotlight'/>
               <EditIcon id={id} dbCollection={dbCollection} />
             </IconsWrapper>
 

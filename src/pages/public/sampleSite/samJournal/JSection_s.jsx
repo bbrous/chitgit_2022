@@ -134,118 +134,118 @@ styledKeywords = 'none'
  
   let formattedDate = ISOtoTraditionalWithDay(dateCreated)
   return (
-<>
-<Dialog
+    <>
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          
+
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You have a section currently being edited. 
+            You have a section currently being edited.
             Would you like to save your changes to that section?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <StyledButton
-  form="submit-form"
-  variant="contained"
-  color="primary"
-  type="submit"
-  onClick={handleClose}
->
-Save Edits
-</StyledButton>
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleClose}
+          >
+            Save Edits
+          </StyledButton>
 
-<StyledButton
-  form="submit-form"
-  variant="contained"
-  color="primary"
- 
-  onClick={handleClose}
->
-Cancel
-</StyledButton>
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+
+            onClick={handleClose}
+          >
+            Cancel
+          </StyledButton>
 
         </DialogActions>
       </Dialog>
 
 
 
-    {journalViewId !== id && 
-    <MainWrapper>
+      {journalViewId !== id &&
+        <MainWrapper>
 
 
-    
-      <TopWrapper>
-        <DateWrapper>{formattedDate}</DateWrapper>
-        
-        <IconWrapper>
 
-          <LightTooltip title='Edit' arrow>
-            <StyledEditIcon id = {id} 
-            onClick={()=>handleClick(id)}
-            />
-          </LightTooltip>
+          <TopWrapper>
+            <DateWrapper>{formattedDate}</DateWrapper>
 
+            <IconWrapper>
 
-          <LightTooltip title='Copy in Logs or Topicals' arrow>
-            <StyledDuplicateIcon />
-          </LightTooltip>
-
-  
-          <ChitIcon />
-
-          <LightTooltip title='Delete' arrow>
-            <StyledDeleteIcon />
-          </LightTooltip>
-        </IconWrapper>
-      </TopWrapper>
-      
-      <CategoryWrapper></CategoryWrapper>
-      <ContentWrapper>
+              <LightTooltip title='Edit' arrow>
+                <StyledEditIcon id={id}
+                  onClick={() => handleClick(id)}
+                />
+              </LightTooltip>
 
 
-        <Content>
-          <HeadlineWrapper> {title} </HeadlineWrapper>
-          {/* {content} */}
-          <div dangerouslySetInnerHTML={{__html: content}}>
-  </div>  
+              <LightTooltip title='Copy in Logs or Topicals' arrow>
+                <StyledDuplicateIcon />
+              </LightTooltip>
 
-        </Content>
 
-        <SearchWrapper>
-      <PeopleWrapper>People: Joi Me</PeopleWrapper>
-        <CategoryWrapper>category: aaaa</CategoryWrapper>
-        <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+              <ChitIcon />
 
-      </SearchWrapper>
+              <LightTooltip title='Delete' arrow>
+                <StyledDeleteIcon />
+              </LightTooltip>
+            </IconWrapper>
+          </TopWrapper>
 
-      </ContentWrapper>
+          <CategoryWrapper></CategoryWrapper>
+          <ContentWrapper>
 
-    </MainWrapper>
-    } 
 
-{journalViewId === id  && 
- <ClickAwayListener 
- onClickAway={handleClickAway}
- mouseEvent="onMouseDown"
- touchEvent="onTouchStart"
- >
+            <Content>
+              <HeadlineWrapper> {title} </HeadlineWrapper>
+              {/* {content} */}
+              <div dangerouslySetInnerHTML={{ __html: content }}>
+              </div>
 
-<JournalFormWrapper>  
+            </Content>
 
-<JournalForm id="submit-form"/>
+            <SearchWrapper>
+              <PeopleWrapper>People: Joi Me</PeopleWrapper>
+              <CategoryWrapper>category: aaaa</CategoryWrapper>
+              <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
-</JournalFormWrapper>
+            </SearchWrapper>
 
-</ClickAwayListener>
+          </ContentWrapper>
 
-}
+        </MainWrapper>
+      }
+
+      {journalViewId === id &&
+        <ClickAwayListener
+          onClickAway={handleClickAway}
+          mouseEvent="onMouseDown"
+          touchEvent="onTouchStart"
+        >
+
+          <JournalFormWrapper>
+
+            <JournalForm id="submit-form" />
+
+          </JournalFormWrapper>
+
+        </ClickAwayListener>
+
+      }
 
     </>
   )
