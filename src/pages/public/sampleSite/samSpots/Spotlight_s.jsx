@@ -31,7 +31,9 @@ import{
 
 
 import SpotlightDetail from './SpotlightDetail_s'
+import {createChildrenSpotlightsArray} from '../../../../app/helpers/spotlightHelpers'
 
+ 
 // ---Material Ui --------------------
  
  
@@ -46,6 +48,7 @@ import ChitIcon from '../samComponents/Chit_icon_s'
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
+import { changeTaskCompletedStatus } from '../../../../app/redux/taskRedux/sam_tasksSlice'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // ============================================
@@ -149,8 +152,89 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
 
     }
 
+    /*
+     1. Check the status of the spotlight with spolightId
+
+        - if spotlight is not completed - 
+          change spotlightId and all descendent spotlights and tasks
+          to completed
+
+        - if the spotlight is completed - change only spotlightId 
+          back to active
 
 
+      2. if completed - change spotlightStatus to begun
+      3. if not completed
+        4. get all descendent spotlights of  spotlightId
+        5. add spotlightId to the descendent array to get
+            single "fullFamilyArray" of spotlightId with all descendents
+        6. map the array to extract all the tasks (excluding child 
+                  spotlights ) of "fullFamilyArray"
+        7. map through tasks array 
+            - dispatch - change tasks "completed" = true
+
+        8. map through fullArray 
+            -dispatch - change spotlightStatus to complete
+
+    
+    
+    */
+
+    if(spotlightState === 'completed') {
+
+      dispatch(changeSpotlightCompletedStatus(
+        {
+          id: spotlightId,
+          spotlightStatus: newSpotlightCompletedStatus,
+          completedTimeStamp: now
+        }
+      )
+      )
+
+
+    }// end if === completed
+
+
+    if(spotlightState !== 'completed') {
+
+      console.log('[ Spotlight] ---------- handle spotlight complete clicked')
+
+    // --- change to complete spotlightId and all descendent tasks and spotlights
+
+    let spotlightsChildren = createChildrenSpotlightsArray(spotlightId, spotlightsArray)
+    let allSpotlightsToBeDeleted = [...spotlightsChildren, spotlightId]
+
+    let tasksToBeDeletedArray = []
+
+ allSpotlightsToBeDeleted.map((spotlight) => {
+
+   let spotlightObject = spotlightsArray.find(spot => spot.id === spotlight)
+
+  //  console.log('[ Spotlight] spotlightObject ---  ', spotlightObject);
+
+
+   let taskArray = spotlightObject.taskArray
+   let filteredTasks = taskArray.filter(task => task.type !== 'spotlight')
+
+   console.log('[ Spotlight] taskArray no filter ---  ', taskArray);
+   console.log('[ Spotlight] taskArray WITH  filter ---  ', filteredTasks);
+   tasksToBeDeletedArray.push(...filteredTasks)
+
+   dispatch(changeSpotlightCompletedStatus(
+    {
+      id: spotlight,
+      spotlightStatus: newSpotlightCompletedStatus,
+      completedTimeStamp: now
+    }
+  )
+  )
+
+   return tasksToBeDeletedArray
+
+}
+) //end map to get tasks
+
+console.log('[ Spotlight - handle spotlight complete ] all Tasks to be deleted ', tasksToBeDeletedArray);
 
     dispatch(changeSpotlightCompletedStatus(
       {
@@ -160,7 +244,35 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
       }
     )
     )
-  }
+
+    tasksToBeDeletedArray.forEach(duh =>   
+{
+      console.log('task', duh.id)
+
+      dispatch(changeTaskCompletedStatus(
+        {
+          taskId: duh.id,
+          completed: true,
+          completedTimeStamp: now
+        }
+    
+    ))
+
+    }
+  
+     )
+
+    }// end if !==completed
+  } // end func handleSpotlightCompletedStatus
+
+
+
+
+
+   
+ 
+ 
+  
 
   // === func 'Spotlight' Return ============================
 

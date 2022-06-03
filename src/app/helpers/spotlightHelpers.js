@@ -22,8 +22,8 @@ export const createChildrenSpotlightsArray = (spotId, allSpotlights)=>{
     let childSpotlights = allSpotlights.filter(spotlight => spotlight.parentId === id)
 
 
-    console.log('[ Spotlight helpers ] spotlight Object for - id ', spotlightObject);
-    console.log('[ Spotlight helpers ] childSpotlights ', childSpotlights);
+    // console.log('[ Spotlight helpers ] spotlight Object for - id ', spotlightObject);
+    // console.log('[ Spotlight helpers ] childSpotlights ', childSpotlights);
 
     if(childSpotlights.length === 0){
       return
@@ -44,7 +44,7 @@ export const createChildrenSpotlightsArray = (spotId, allSpotlights)=>{
 
   recursiveCreate(spotId, allSpotlights)
 
-  console.log('[spotlightHelpers - final childarray ', finalSpotlightChildArray)
+  // console.log('[spotlightHelpers - final childarray ', finalSpotlightChildArray)
   return finalSpotlightChildArray
 }// end createChildrenSpotlightsArray
 

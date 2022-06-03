@@ -279,7 +279,7 @@ export default function SpotlightTaskForm(props) {
                 title: data.title,
                 spotlightStatus: 'inactive',
                 completedTimeStamp: '',
-                completed: false,
+                // completed: false,
                 lastVisit: new Date().toISOString(),
                 endEst: '',
                 note: '',

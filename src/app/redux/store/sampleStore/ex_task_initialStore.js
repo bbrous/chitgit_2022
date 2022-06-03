@@ -21,21 +21,21 @@ const SampleTasks = [
 
   // },
 
-  // {
-  //   id: 'spot_1_task_1',
-  //   spotHolder: 'spot_1',
+  {
+    id: 'spot_1_task_1',
+    spotHolder: 'spot_1',
 
-  //   title: 'Build Deck',
-  //   completedTimeStamp:  '',
-  //   completed: false,
-  //   currentTask: false,
+    title: 'Build Deck',
+    completedTimeStamp:  '',
+    completed: false,
+    currentTask: false,
 
 
-  //   note: 'note_3',
-  //   attachTo: '',
-  //   chitId: ''
+    note: 'note_3',
+    attachTo: '',
+    chitId: ''
 
-  // },
+  },
 
   // ----- New Spotlight  spot_5 -------------
   //   {
@@ -583,7 +583,7 @@ const SampleTasks = [
 
 
     {
-      id: 'spot_10task_1',
+      id: 'spot_10_task_1',
       spotHolder: 'spot_10',
 
       title: 'book hotel',

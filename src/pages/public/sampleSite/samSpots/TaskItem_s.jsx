@@ -134,10 +134,10 @@ let completed = false
     let ISODateNow = new Date('2022-05-30T17:21:10.265Z').toISOString()
     // console.log('[ TaskItem ] handleTaskCompletedStatus id ', taskId);
 
-   let taskObject =  allTasks.find(taskItem => taskItem.id === id)
-    
-   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskObject );
-   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    id );
+   let taskObject =  allTasks.find(taskItem => taskItem.id === taskId)
+   console.log('[ TaskItem ] handleTaskCompletedStatus alltasks ',    allTasks );
+   console.log('[ TaskItem ] handleTaskCompletedStatus object ',    taskObject );
+   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskId );
    let completedStatus
    taskObject.completed === false ? completedStatus = true: completedStatus = false
         

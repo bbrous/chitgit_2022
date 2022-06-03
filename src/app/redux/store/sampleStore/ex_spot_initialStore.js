@@ -10,7 +10,7 @@ const SampleSpotlights =  [
     id: 'spot_1',
     type: 'spotlight',
     
-    parentId: null,
+    parentId: '',
    
     lastVisit: '2021-03-12T12:38:00.292Z',
     
@@ -22,7 +22,7 @@ const SampleSpotlights =  [
  
     
     completedTimeStamp:  '', 
-    completed: false,
+    
     
     // timeEst: 311418000, 
     endEst: "2021-03-27T17:33:20.000Z",  //--------
@@ -48,7 +48,7 @@ const SampleSpotlights =  [
   id: 'spot_2',
   type: 'spotlight',
   
-  parentId: null,
+  parentId: '',
 
   lastVisit: '2021-03-12T12:37:00.292Z',
   title: 'Presentation for Executive Staff',
@@ -57,7 +57,7 @@ const SampleSpotlights =  [
   spotlightStatus: 'begun', // inactive, begun, completed
   
   completedTimeStamp:  '', 
-  completed: false,
+  
   
   // timeEst: 311418000, 
   endEst: "2021-03-16T14:00:00.619Z",  //--------
@@ -86,7 +86,7 @@ const SampleSpotlights =  [
   id: 'spot_3',
   type: 'spotlight',
   
-  parentId: null,
+  parentId: '',
 
   lastVisit: '2021-03-12T12:36:00.292Z',
   title: 'Wakeboard Flex design',
@@ -95,7 +95,7 @@ const SampleSpotlights =  [
   spotlightStatus: 'inactive', // inactive, begun, completed
   
   completedTimeStamp:  '', 
-  completed: false,
+  
   
   // timeEst: 311418000, 
   endEst: '',  //--------
@@ -126,7 +126,7 @@ const SampleSpotlights =  [
     id: 'spot_4',
     type: 'spotlight',
     
-    parentId: null,
+    parentId: '',
     
     lastVisit: '2021-03-12T12:35:00.292Z',
     title: 'Surprise Vacation',
@@ -135,7 +135,7 @@ const SampleSpotlights =  [
     spotlightStatus: 'inactive', // inactive, begun, completed
     
     completedTimeStamp:  '', 
-    completed: false,
+    
     
     // timeEst: 311418000, 
     endEst: "2021-05-01T22:33:20.619Z",  //--------
@@ -174,7 +174,7 @@ const SampleSpotlights =  [
       spotlightStatus: 'completed', // inactive, begun, completed
       
       completedTimeStamp:  '', 
-      completed: true,
+      
       
       // timeEst: 311418000, 
       endEst: "2021-11-02T02:33:20.619Z",  //--------
@@ -210,7 +210,7 @@ const SampleSpotlights =  [
         spotlightStatus: 'completed', // inactive, begun, completed
         
         completedTimeStamp:  '', 
-        completed: true,
+        
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
@@ -247,7 +247,7 @@ const SampleSpotlights =  [
         spotlightStatus: 'begun', // inactive, begun, completed
         
         completedTimeStamp:  '', 
-        completed: false,
+        
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
@@ -284,7 +284,7 @@ const SampleSpotlights =  [
         spotlightStatus: 'begun', // inactive, begun, completed
         
         completedTimeStamp:  '', 
-        completed: false,
+        
         
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
@@ -321,7 +321,7 @@ const SampleSpotlights =  [
               spotlightStatus: 'completed', // inactive, begun, completed
               
               completedTimeStamp:  '', 
-              completed: true,
+              
               
               // timeEst: 311418000, 
               endEst: "2021-01-24T02:33:20.619Z",  //--------
@@ -357,7 +357,7 @@ const SampleSpotlights =  [
               spotlightStatus: 'begun', // inactive, begun, completed
               
               completedTimeStamp:  '', 
-              completed: true,
+              
               
               // timeEst: 311418000, 
               endEst: "2021-01-02T02:33:20.619Z",  //--------

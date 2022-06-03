@@ -184,7 +184,7 @@ export default function SpotlightForm_s(props) {
           title: data.title,
           spotlightStatus: 'inactive',
           completedTimeStamp: '',
-          completed: false,
+          // completed: false,
           lastVisit: new Date().toISOString(),
           endEst: endDateEst,
           noteId: '',
