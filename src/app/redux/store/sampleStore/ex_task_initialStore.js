@@ -16,8 +16,8 @@ const SampleTasks = [
 
 
   //   noteId: '',
-  //   attachTo: '',
-  //   chitId: ''
+  //   
+  //   
 
   // },
 
@@ -32,8 +32,9 @@ const SampleTasks = [
 
 
     noteId: 'note_3',
-    attachTo: '',
-    chitId: ''
+    
+    
+    
 
   },
 
@@ -49,8 +50,8 @@ const SampleTasks = [
 
 
   //     noteId: '',
-  //     attachTo: '',
-  //     chitId: ''
+  //     
+  //     
 
   //   },
 
@@ -65,8 +66,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     }, 
 
@@ -81,8 +82,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     }, 
 
@@ -97,8 +98,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -114,8 +115,8 @@ const SampleTasks = [
 
 
   //     noteId: '',
-  //     attachTo: '',
-  //     chitId: ''
+  //     
+  //     
 
   //   },
 
@@ -132,8 +133,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -148,8 +149,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -166,8 +167,8 @@ const SampleTasks = [
 
 
   //     noteId: '',
-  //     attachTo: '',
-  //     chitId: ''
+  //     
+  //     
 
   //   },
 
@@ -182,8 +183,8 @@ const SampleTasks = [
 
 
           noteId: '',
-          attachTo: '',
-          chitId: ''
+          
+          
 
         },
 
@@ -198,8 +199,8 @@ const SampleTasks = [
 
 
           noteId: '',
-          attachTo: '',
-          chitId: ''
+          
+          
 
         },
 
@@ -214,8 +215,8 @@ const SampleTasks = [
 
 
           noteId: '',
-          attachTo: '',
-          chitId: ''
+          
+          
 
         },
 
@@ -230,8 +231,8 @@ const SampleTasks = [
 
 
           noteId: '',
-          attachTo: '',
-          chitId: ''
+          
+          
 
         },
 
@@ -254,8 +255,8 @@ const SampleTasks = [
 
 
   //   noteId: '',
-  //   attachTo: '',
-  //   chitId: ''
+  //   
+  //   
 
   // },
 
@@ -272,8 +273,8 @@ const SampleTasks = [
 
 
   //     noteId: '',
-  //     attachTo: '',
-  //     chitId: ''
+  //     
+  //     
 
   //   },
 
@@ -288,8 +289,9 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+      
+      
 
     },
 
@@ -304,8 +306,9 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+      
+      
 
     },
 
@@ -320,8 +323,9 @@ const SampleTasks = [
 
 
         noteId: '',
-        attachTo: '',
-        chitId: ''
+        chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+        
+        
 
       },
 
@@ -336,8 +340,9 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+      
+      
 
     },
 
@@ -352,8 +357,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -368,8 +374,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -384,8 +391,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -404,8 +412,9 @@ const SampleTasks = [
 
 
   //   noteId: '',
-  //   attachTo: '',
-  //   chitId: ''
+  // chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}//   
+  
+  //   
 
   // },
 
@@ -420,8 +429,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -437,8 +447,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -454,8 +465,8 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+ 
 
   },
 
@@ -471,8 +482,8 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+
 
   },
 
@@ -487,8 +498,9 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    chitLink: {}, //{dbCollection: 'log', id: 'XYZ'}
+    
+    
 
   },
 
@@ -507,8 +519,8 @@ const SampleTasks = [
 
 
   //   noteId: '',
-  //   attachTo: '',
-  //   chitId: ''
+  //   
+  //   
 
   // },
 
@@ -524,8 +536,8 @@ const SampleTasks = [
 
 
   //   noteId: '',
-  //   attachTo: '',
-  //   chitId: ''
+  //   
+  //   
 
   // },
 
@@ -541,8 +553,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -558,8 +570,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -576,8 +588,8 @@ const SampleTasks = [
 
 
 //   noteId: '',
-//   attachTo: '',
-//   chitId: ''
+//   
+//   
 
 // },
 
@@ -593,8 +605,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -610,8 +622,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -627,8 +639,8 @@ const SampleTasks = [
 
 
       noteId: '',
-      attachTo: '',
-      chitId: ''
+      
+      
 
     },
 
@@ -644,8 +656,8 @@ const SampleTasks = [
 
 
     noteId: 'note_4',
-    attachTo: '',
-    chitId: ''
+    
+    
 
   },
 
@@ -661,8 +673,8 @@ const SampleTasks = [
 
 
     noteId: '',
-    attachTo: '',
-    chitId: ''
+    
+    
 
   },
 

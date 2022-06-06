@@ -27,7 +27,7 @@ const SampleSpotlights =  [
     // timeEst: 311418000, 
     endEst: "2021-03-27T17:33:20.000Z",  //--------
     noteId: 'note_1',
-    chitId : '',
+    chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
 
 
     taskArray: [
@@ -62,8 +62,8 @@ const SampleSpotlights =  [
   // timeEst: 311418000, 
   endEst: "2021-03-16T14:00:00.619Z",  //--------
   noteId: 'note_4',
-  chitId : '',
 
+  chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
 
   taskArray: [
 
@@ -100,7 +100,8 @@ const SampleSpotlights =  [
   // timeEst: 311418000, 
   endEst: '',  //--------
   noteId: '',
-  chitId : '',
+ 
+  chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
 
 
 
@@ -140,7 +141,8 @@ const SampleSpotlights =  [
     // timeEst: 311418000, 
     endEst: "2021-05-01T22:33:20.619Z",  //--------
     noteId: 'note_2',
-    chitId : '',
+    
+    chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
   
 
     taskArray: [
@@ -179,7 +181,8 @@ const SampleSpotlights =  [
       // timeEst: 311418000, 
       endEst: "2021-11-02T02:33:20.619Z",  //--------
       noteId: '',
-      chitId : '',
+      
+      chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
   
   
       taskArray: [
@@ -215,7 +218,8 @@ const SampleSpotlights =  [
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
         noteId: '',
-        chitId : '',
+        
+        chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
     
     
         taskArray: [
@@ -252,7 +256,8 @@ const SampleSpotlights =  [
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
         noteId: '',
-        chitId : '',
+        
+        chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
     
     
         taskArray: [
@@ -289,7 +294,8 @@ const SampleSpotlights =  [
         // timeEst: 311418000, 
         endEst: "2021-11-02T02:33:20.619Z",  //--------
         noteId: '',
-        chitId : '',
+        
+        chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
     
     
         taskArray: [
@@ -326,7 +332,8 @@ const SampleSpotlights =  [
               // timeEst: 311418000, 
               endEst: "2021-01-24T02:33:20.619Z",  //--------
               noteId: '',
-              chitId : '',
+              
+              chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
           
           
               taskArray: [
@@ -362,7 +369,8 @@ const SampleSpotlights =  [
               // timeEst: 311418000, 
               endEst: "2021-01-02T02:33:20.619Z",  //--------
               noteId: '',
-              chitId : '',
+              
+              chitLink: null, //{dbCollection: 'log', id: 'XYZ'}
           
           
               taskArray: [

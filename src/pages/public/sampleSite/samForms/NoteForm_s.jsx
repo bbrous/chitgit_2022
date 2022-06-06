@@ -273,8 +273,7 @@ export default function NoteForm_s(props) {
 
         if (noteHolderType === 'tasks') {
 
-console.log('[ NoteForm inside if  ] noteHolderType ', noteHolderType);
-console.log('[ NoteForm inside if  ] noteHolderType ', noteHolderId);  
+
            dispatch(updateTaskNoteId(
             {
               noteId: id,

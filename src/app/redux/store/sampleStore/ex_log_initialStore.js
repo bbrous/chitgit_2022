@@ -24,7 +24,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Shelly-neighbor'],
       keywordArray: ['neighbor dispute'],
@@ -49,7 +49,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: [],
       keywordArray: ['billing'],
@@ -72,7 +72,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: [],
       keywordArray: ['taxes'],
@@ -94,7 +94,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: ['Jerry G'],
       keywordArray: [],
@@ -119,7 +119,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: [],
       keywordArray: ['billing'],
@@ -145,7 +145,7 @@ const SampleLogs =  [
 
       attachment: '',
 
-      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
       
       peopleArray: [],
       keywordArray: ['billing'],
@@ -176,7 +176,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Shelly-neighbor'], 
   
   keywordArray: ['neighbor dispute'],
@@ -201,7 +201,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: [], 
   
   keywordArray: ['billing'],
@@ -226,7 +226,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Steve'], 
   
   keywordArray: ['taxes'],
@@ -250,7 +250,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Jerry G'], 
   
   keywordArray: [],
@@ -284,7 +284,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Shelly-neighbor', 'Jerry G'], 
   
   keywordArray: ['neighbor dispute'],
@@ -309,7 +309,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: [], 
   
   keywordArray: ['billing'],
@@ -334,7 +334,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: [], 
   
   keywordArray: ['taxes'],
@@ -358,7 +358,7 @@ const SampleLogs =  [
 
   attachment: '',
 
-  chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+  chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
  peopleArray: ['Jerry G'], 
   
   keywordArray: [],

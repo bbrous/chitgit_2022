@@ -1,6 +1,27 @@
 /* function chitIcon_s -------------
      
  Opens chit form in Modal to convert spotlight to chit
+
+
+    1. parent spotlight or task passes   ** to status.modal  ** :
+
+
+    modalParams{
+      id: id,
+      dbCollection: 'tasks', -   or spotlights or log, etc
+      modalType: 'personalChits', or twoPartyChits, etc.
+      chitLink: {}, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+
+    }
+
+    2. Modal_s receives params - useSelector(modalParams) - 
+       then passes modalParams = {modalParams} to form
+       sets openModal to true
+
+
+
+
+
   
 parent: Spotlight - pages/public/sampleSite/samSpots/Spotlight
         and TaskItem - pages/public/sampleSite/samSpots/TaskItem  

@@ -30,7 +30,8 @@ const TwoPartyChits =  [
       description: 'After I got stuck working, Jerry helped Mary with the New Year\'s party.',
  
       keyWordArray: [],
-      duplicate: 'journal',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: 'X11rt2N',
       sharedTitle: 'Thanks for helping',
@@ -59,7 +60,8 @@ const TwoPartyChits =  [
       description: 'Cyn did a half assed job on an assignment that she delayed doing twice.  And - it was submitted 2 weeks late',
  
       keyWordArray: ['project team'],
-      duplicate: 'logs',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: '',
       sharedTitle: '',
@@ -88,7 +90,8 @@ const TwoPartyChits =  [
       description: 'I lent Jerry my car for the day.  Thought I would\'t need it... turns out I did, but it was too late.',
  
       keyWordArray: [],
-      duplicate: 'journal',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: 'X11rt2N',
       sharedTitle: 'Lent you my truck',
@@ -119,7 +122,8 @@ const TwoPartyChits =  [
       description: 'Paid for coffee for woman who left wallet in car.',
  
       keyWordArray: [],
-      duplicate: '',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: '',
       sharedTitle: '',
@@ -148,7 +152,8 @@ const TwoPartyChits =  [
       description: 'Jerry promised to help me build our deck.  And he promised to get Billy to help.',
  
       keyWordArray: ['deck'],
-      duplicate: 'journal',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: '',
       sharedTitle: '',
@@ -177,7 +182,8 @@ const TwoPartyChits =  [
       description: 'Volunteered for beach clean up.  Spent all day Sunday cleaning up other people\'s trash at the beach.',
  
       keyWordArray: [],
-      duplicate: '',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: '',
       sharedLinkAddress: '',
@@ -207,7 +213,8 @@ const TwoPartyChits =  [
       description: 'Gave a whole lot of cool toys to Toys for Tots.',
  
       keyWordArray: [],
-      duplicate: '',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
 
       sharedId: '',
       sharedTitle: '',

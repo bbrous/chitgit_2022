@@ -18,7 +18,9 @@ const PersonalChits =  [
 
       category: 'cat_8',
       workRelated: 'notWorkRelated',
-      duplicate: '',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+
 
       detail: '',
       
@@ -37,7 +39,9 @@ const PersonalChits =  [
 
       category: 'cat_3',
       workRelated: 'notWorkRelated',
-      duplicate: '',
+      
+      chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+
 
       detail:  "<p><strong>Great Day</strong></p><p><br></p><p>Ate only Salads</p>",
      keyWordArray: [],  
@@ -57,7 +61,10 @@ const PersonalChits =  [
   
         category: 'cat_8',
         workRelated: 'notWorkRelated',
-        duplicate: '',
+        
+        chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+        attachedToType: '',
+        attachedToId: '',
 
         detail: '',
        keyWordArray: [],  
@@ -75,7 +82,10 @@ const PersonalChits =  [
   
         category: 'cat_3',
         workRelated: 'workRelated',
-        duplicate: '',
+        
+        chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+        attachedToType: '',
+        attachedToId: '',
 
         detail: "<p>Cereal for <span style=\"color: rgb(230, 0, 0);\">breakfast.</span></p><p>Peanut butter for <span style=\"color: rgb(107, 36, 178);\">lunch.</span></p><p><br></p><p>Salad for<strong style=\"color: rgb(0, 138, 0);\"> dinner</strong></p>",
        keyWordArray: [],  
@@ -96,7 +106,10 @@ const PersonalChits =  [
   
         category: 'cat_8',
         workRelated: 'notWorkRelated',
-        duplicate: '',
+        
+        chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+        attachedToType: '',
+        attachedToId: '',
 
         detail: '',
        keyWordArray: [],  
@@ -114,7 +127,10 @@ const PersonalChits =  [
   
         category: 'cat_3',
         workRelated: 'notWorkRelated',
-        duplicate: '',
+        
+        chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+        attachedToType: '',
+        attachedToId: '',
 
         detail: "<p> p-6 Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
        keyWordArray: [],  
@@ -135,7 +151,10 @@ const PersonalChits =  [
         
               category: 'cat_8',
               workRelated: 'notWorkRelated',
-              duplicate: '',
+              
+              chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+              attachedToType: '',
+              attachedToId: '',
 
               detail: 'Ran only 1 mile today',
              keyWordArray: [],  
@@ -153,7 +172,10 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: 'notWorkRelated',
-              duplicate: '',
+              
+              chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+              attachedToType: '',
+              attachedToId: '',
 
               detail: "<p p-8 >Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
@@ -172,7 +194,10 @@ const PersonalChits =  [
         
               category: 'cat_8',
               workRelated: 'notWorkRelated',
-              duplicate: '',
+              
+              chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+              attachedToType: '',
+              attachedToId: '',
 
               detail: '',
              keyWordArray: [],  
@@ -190,7 +215,10 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: 'notWorkRelated',
-              duplicate: '',
+              
+              chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+              attachedToType: '',
+              attachedToId: '',
 
               detail: "<p> p-10  Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
@@ -207,7 +235,10 @@ const PersonalChits =  [
         
               category: 'cat_3',
               workRelated: 'notWorkRelated',
-              duplicate: '',
+              
+              chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+              attachedToType: '',
+              attachedToId: '',
 
               detail: "<p> p-11 Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
              keyWordArray: [],  
@@ -224,7 +255,10 @@ const PersonalChits =  [
       
             category: 'cat_3',
             workRelated: 'notWorkRelated',
-            duplicate: '',
+            
+            chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
+            attachedToType: '',
+            attachedToId: '',
 
             detail: "<p> p-13  Cereal for breakfast.</p><p>Peanut butter sandwich for lunch.</p><p>Salad for dinner.</p><p><br></p>",
            keyWordArray: ['taxes', 'diet'],  

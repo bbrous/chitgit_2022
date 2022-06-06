@@ -34,9 +34,7 @@ export const tasksSlice = createSlice({
 
       let taskHolderId = action.payload.noteHolderId
       let noteId = action.payload.noteId
-      
-  console.log('[ sam_tasksSlice ] taskHolderId ', taskHolderId);
-  console.log('[ sam_tasksSlice ] noteId ', noteId);
+
       let taskIndex = state.findIndex(index => index.id === taskHolderId)
       
       state[taskIndex].noteId = noteId
@@ -49,7 +47,7 @@ export const tasksSlice = createSlice({
 
     changeTaskCompletedStatus: (state, action) => {
 
-    console.log('[ changeTaskCompletedStatus ] myVar ', action.payload);
+   
 
       let taskId = action.payload.taskId
       let completed = action.payload.completed

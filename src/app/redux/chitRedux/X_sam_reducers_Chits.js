@@ -1,7 +1,7 @@
 import produce from 'immer';
 // import cuid from 'cuid';
 
-import InitialStore from '../store/sampleStore/ex_chit_initialStore'
+import InitialStore from '../store/sampleStore/X_ex_chit_initialStore'
 
 import {  
           
