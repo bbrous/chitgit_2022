@@ -202,11 +202,11 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
     // --- change to complete spotlightId and all descendent tasks and spotlights
 
     let spotlightsChildren = createChildrenSpotlightsArray(spotlightId, spotlightsArray)
-    let allSpotlightsToBeDeleted = [...spotlightsChildren, spotlightId]
+    let allSpotlightsToBeCompleted = [...spotlightsChildren, spotlightId]
 
-    let tasksToBeDeletedArray = []
+    let tasksToBeCompletedArray = []
 
- allSpotlightsToBeDeleted.map((spotlight) => {
+ allSpotlightsToBeCompleted.map((spotlight) => {
 
    let spotlightObject = spotlightsArray.find(spot => spot.id === spotlight)
 
@@ -218,7 +218,7 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
 
    console.log('[ Spotlight] taskArray no filter ---  ', taskArray);
    console.log('[ Spotlight] taskArray WITH  filter ---  ', filteredTasks);
-   tasksToBeDeletedArray.push(...filteredTasks)
+   tasksToBeCompletedArray.push(...filteredTasks)
 
    dispatch(changeSpotlightCompletedStatus(
     {
@@ -229,12 +229,12 @@ console.log('[ Spotlight ] handleSpotlightCompletedStatus id ', spotlightId);
   )
   )
 
-   return tasksToBeDeletedArray
+   return tasksToBeCompletedArray
 
 }
 ) //end map to get tasks
 
-console.log('[ Spotlight - handle spotlight complete ] all Tasks to be deleted ', tasksToBeDeletedArray);
+console.log('[ Spotlight - handle spotlight complete ] all Tasks to be deleted ', tasksToBeCompletedArray);
 
     dispatch(changeSpotlightCompletedStatus(
       {
@@ -245,7 +245,7 @@ console.log('[ Spotlight - handle spotlight complete ] all Tasks to be deleted '
     )
     )
 
-    tasksToBeDeletedArray.forEach(duh =>   
+    tasksToBeCompletedArray.forEach(duh =>   
 {
       console.log('task', duh.id)
 

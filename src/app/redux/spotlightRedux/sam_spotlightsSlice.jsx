@@ -149,9 +149,52 @@ console.log('[ addToTaskArray *************************** ] action.payload.id ',
  
 }, // updateTaskArray
 
+  // ---------------
+
+  deleteTaskFromSpotlightArray: (state, action) => {
+    console.log('[deleteTaskFromSpotlightArray - payload', action.payload)
+    let taskId = action.payload.id
+    let spotId = action.payload.parentSpotlight
+
+    console.log('[deleteTaskFromSpotlightArray ', taskId)
+
+    let spotIndex = state.findIndex(index => index.id === spotId)
+
+    let spotlightTaskArray = state[spotIndex].taskArray
+
+    let taskIndex = spotlightTaskArray.findIndex(index => index.id === taskId)
+    spotlightTaskArray.splice(taskIndex, 1)
+
+  
+   
+  }, // deleteTaskFromSpotlightArray
+
+
+
+
+  // ---------------
+
+  deleteSpotlight: (state, action) => {
+
+    let spotId = action.payload.id
+    let spotIndex = state.findIndex(index => index.id === spotId)
+    console.log('[deleteSpotleight', spotId)
+    console.log('[spotIndex', spotIndex)
+    state.splice(spotIndex, 1)
+
+  
+   
+  } // deleteSpotlight
+
+
+
+
   }, //end reducers
 
-}) // end slice spotlightsSlice 
+}) // end deleteSpotlight 
+
+
+
 
 
 // --- Export actions ---------------------------------------------
@@ -164,7 +207,9 @@ export const {
     changeSpotlightLastVisit,
     updateTaskArray,
     addToTaskArray,
-    updateSpotlightNoteId
+    updateSpotlightNoteId, 
+    deleteSpotlight,
+    deleteTaskFromSpotlightArray
 
   } = spotlightsSlice.actions
 

@@ -28,7 +28,8 @@ import ConvertIcon from '../samComponents/Convert_icon_s'
 
 
 
-import {selectTasks, changeTaskCompletedStatus } from '../../../../app/redux/taskRedux/sam_tasksSlice';
+import {selectTasks, changeTaskCompletedStatus } from '../../../../app/redux/taskRedux/sam_tasksSlice'; 
+
 
 
 // import MenuPopupTasks from './MenuPopupTasks'
@@ -53,10 +54,10 @@ export function TaskItem(props) {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {id, type, allSpotlights, allTasks} = props
+  const {id, type, allSpotlights, allTasks, parentSpotlight} = props
 
  
-  
+  // console.log('[ TaskItem ] props ', props);
 
   const {
     attributes,
@@ -108,9 +109,14 @@ const [objectItem, setObjectItem] = useState({
 
     if (type === 'task') {
       setObjectItem(allTasks.find(taskItem => taskItem.id === props.id))
+
+
+
+
       if (objectItem) {
         setTitle(objectItem.title)
         setTaskStatus(objectItem.completed)
+   
       }//end if objectItem
     }// end if type === task
 
@@ -135,9 +141,9 @@ let completed = false
     // console.log('[ TaskItem ] handleTaskCompletedStatus id ', taskId);
 
    let taskObject =  allTasks.find(taskItem => taskItem.id === taskId)
-   console.log('[ TaskItem ] handleTaskCompletedStatus alltasks ',    allTasks );
-   console.log('[ TaskItem ] handleTaskCompletedStatus object ',    taskObject );
-   console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskId );
+  //  console.log('[ TaskItem ] handleTaskCompletedStatus alltasks ',    allTasks );
+  //  console.log('[ TaskItem ] handleTaskCompletedStatus object ',    taskObject );
+  //  console.log('[ TaskItem ] handleTaskCompletedStatus id ',    taskId );
    let completedStatus
    taskObject.completed === false ? completedStatus = true: completedStatus = false
         
@@ -183,11 +189,7 @@ let completed = false
         className =  {taskStatus ? "backgroundCompleted" : ""}
       > 
       <StyledHandle {...listeners} {...attributes}>:::</StyledHandle>
-      {/* <DragHandle /> */}
-      
-      {/* <div>Hey dude I from 
-        {props.id}     {props.type} - {props.id}
-        </div> */}
+
         
      
           <TaskWrapper>
@@ -203,7 +205,7 @@ let completed = false
 <div>
               <CheckCircleWrapper 
             
-            // onClick={()=> handleTaskCompletedStatus( 'bulah')}
+
             onClick = {()=> handleTaskCompletedStatus(id)}
             
             >
@@ -224,14 +226,14 @@ let completed = false
               {!completed && 
               <TitleWrapper> 
                 
-                {props.type} - {props.id} -{title}
+                {title}
                 
                 </TitleWrapper> 
               }
               { completed && 
               <TitleWrapperCompleted>  
                 {/* {title} */}
-                {props.type} - {props.id} -{title}
+                 {title}
                 
                 </TitleWrapperCompleted> 
               }
@@ -253,11 +255,12 @@ let completed = false
                   {type === 'task' && 
                   <ConvertIcon id = {id} type = {type} />
                 }
-                  <NoteIcon id = {id} type = {type} />
+                  {/* <NoteIcon id = {id} type = {type} /> */}
+                  <NoteIcon noteHolderId={id} noteHolderCollection = 'tasks' noteId = {objectItem.noteId} />
                 
                   <ChitIcon id = {id} type = {type} />
                   {type === 'task' &&
-                    <DeleteIcon id = {id} source = 'task'  />
+                    <DeleteIcon id = {id} source = 'task' parentSpotlight = {parentSpotlight} />
                   }
                   {type === 'spotlight' &&
                     <EditIcon id = {id} type = {type} />

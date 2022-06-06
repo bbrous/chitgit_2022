@@ -35,7 +35,8 @@ export const tasksSlice = createSlice({
       let taskHolderId = action.payload.noteHolderId
       let noteId = action.payload.noteId
       
-  
+  console.log('[ sam_tasksSlice ] taskHolderId ', taskHolderId);
+  console.log('[ sam_tasksSlice ] noteId ', noteId);
       let taskIndex = state.findIndex(index => index.id === taskHolderId)
       
       state[taskIndex].noteId = noteId
@@ -67,6 +68,22 @@ export const tasksSlice = createSlice({
     
     }, // end CHANGE_SPOTLIGHT_COMPLETED_STATUS
 
+
+      // ---------------
+
+  deleteTask: (state, action) => {
+    // console.log('[deleteTask] - action.payload' , action.payload)
+    let taskId = action.payload.id
+    let taskIndex = state.findIndex(index => index.id === taskId)
+    // console.log('[deleteTask- taskId' , taskId)
+    // console.log('[deleteTask- taskIndex' , taskIndex)
+
+    state.splice(taskIndex, 1)
+
+  
+   
+  } // deleteSpotlight
+
   }, //end reducers
 
 }) // end slice TasksSlice 
@@ -80,7 +97,8 @@ export const {
 
   addTaskToStore, 
   updateTaskNoteId,
-  changeTaskCompletedStatus
+  changeTaskCompletedStatus,
+  deleteTask
 
 
 } = tasksSlice.actions

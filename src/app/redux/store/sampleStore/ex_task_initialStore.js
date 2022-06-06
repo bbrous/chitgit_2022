@@ -15,7 +15,7 @@ const SampleTasks = [
   //   currentTask: false,
 
 
-  //   note: '',
+  //   noteId: '',
   //   attachTo: '',
   //   chitId: ''
 
@@ -31,7 +31,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: 'note_3',
+    noteId: 'note_3',
     attachTo: '',
     chitId: ''
 
@@ -48,7 +48,7 @@ const SampleTasks = [
   //     currentTask: false,
 
 
-  //     note: '',
+  //     noteId: '',
   //     attachTo: '',
   //     chitId: ''
 
@@ -64,7 +64,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -80,7 +80,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -96,7 +96,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -113,7 +113,7 @@ const SampleTasks = [
   //     currentTask: false,
 
 
-  //     note: '',
+  //     noteId: '',
   //     attachTo: '',
   //     chitId: ''
 
@@ -131,7 +131,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -147,7 +147,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -165,7 +165,7 @@ const SampleTasks = [
   //     currentTask: false,
 
 
-  //     note: '',
+  //     noteId: '',
   //     attachTo: '',
   //     chitId: ''
 
@@ -181,7 +181,7 @@ const SampleTasks = [
           currentTask: false,
 
 
-          note: '',
+          noteId: '',
           attachTo: '',
           chitId: ''
 
@@ -197,7 +197,7 @@ const SampleTasks = [
           currentTask: false,
 
 
-          note: '',
+          noteId: '',
           attachTo: '',
           chitId: ''
 
@@ -213,7 +213,7 @@ const SampleTasks = [
           currentTask: false,
 
 
-          note: '',
+          noteId: '',
           attachTo: '',
           chitId: ''
 
@@ -229,7 +229,7 @@ const SampleTasks = [
           currentTask: false,
 
 
-          note: '',
+          noteId: '',
           attachTo: '',
           chitId: ''
 
@@ -253,7 +253,7 @@ const SampleTasks = [
   //   currentTask: false,
 
 
-  //   note: '',
+  //   noteId: '',
   //   attachTo: '',
   //   chitId: ''
 
@@ -271,7 +271,7 @@ const SampleTasks = [
   //     currentTask: false,
 
 
-  //     note: '',
+  //     noteId: '',
   //     attachTo: '',
   //     chitId: ''
 
@@ -287,7 +287,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -303,7 +303,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -319,7 +319,7 @@ const SampleTasks = [
         currentTask: false,
 
 
-        note: '',
+        noteId: '',
         attachTo: '',
         chitId: ''
 
@@ -335,7 +335,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -351,7 +351,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -367,7 +367,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -383,7 +383,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -403,7 +403,7 @@ const SampleTasks = [
   //   currentTask: false,
 
 
-  //   note: '',
+  //   noteId: '',
   //   attachTo: '',
   //   chitId: ''
 
@@ -419,7 +419,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -436,7 +436,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -453,7 +453,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -470,7 +470,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -486,7 +486,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 
@@ -506,7 +506,7 @@ const SampleTasks = [
   //   currentTask: false,
 
 
-  //   note: '',
+  //   noteId: '',
   //   attachTo: '',
   //   chitId: ''
 
@@ -523,7 +523,7 @@ const SampleTasks = [
   //   currentTask: false,
 
 
-  //   note: '',
+  //   noteId: '',
   //   attachTo: '',
   //   chitId: ''
 
@@ -540,7 +540,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -557,7 +557,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -575,7 +575,7 @@ const SampleTasks = [
 //   currentTask: false,
 
 
-//   note: '',
+//   noteId: '',
 //   attachTo: '',
 //   chitId: ''
 
@@ -592,7 +592,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -609,7 +609,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -626,7 +626,7 @@ const SampleTasks = [
       currentTask: false,
 
 
-      note: '',
+      noteId: '',
       attachTo: '',
       chitId: ''
 
@@ -643,7 +643,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: 'note_4',
+    noteId: 'note_4',
     attachTo: '',
     chitId: ''
 
@@ -660,7 +660,7 @@ const SampleTasks = [
     currentTask: false,
 
 
-    note: '',
+    noteId: '',
     attachTo: '',
     chitId: ''
 

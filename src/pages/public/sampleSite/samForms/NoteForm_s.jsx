@@ -120,6 +120,10 @@ export default function NoteForm_s(props) {
 
   // -- where the note originated ---
   const {dbCollection, noteHolderCollection, noteHolderId} = props.params
+  console.log('[Dispatch_Form]...noteHolderCollection ', noteHolderCollection)
+
+  console.log('[Dispatch_Form]...noteHolderId ', noteHolderId)
+
 
   // (1) ---Retrieve all needed collections from Redux store -------
 
@@ -206,12 +210,12 @@ export default function NoteForm_s(props) {
   // (4) --- retrieve data from form ---------------------------
     
     let newNoteContent = data.noteContent
-    let newNoteCategory = data.categories
+    // let newNoteCategory = data.categories
     let passedKeyWordArray = data.keywords
  
   
     // (4 a, b) --- clean the form data  - strip of white space, capitalize
-    let cleanCategory = cleanOptions(newNoteCategory, 'categories')
+    // let cleanCategory = cleanOptions(newNoteCategory, 'categories')
 
     // console.log('[ NoteForm ] passedKeyWordArray ', passedKeyWordArray);
     let cleanKeywordArray =  []
@@ -246,7 +250,7 @@ export default function NoteForm_s(props) {
         noteContent: newNoteContent,
         lastEdit: new Date().toISOString(), 
         noteKeywordArray: cleanKeywordArray,
-        noteCategory: cleanCategory
+        // noteCategory: cleanCategory
 
       }
 
@@ -268,10 +272,13 @@ export default function NoteForm_s(props) {
           }
 
         if (noteHolderType === 'tasks') {
+
+console.log('[ NoteForm inside if  ] noteHolderType ', noteHolderType);
+console.log('[ NoteForm inside if  ] noteHolderType ', noteHolderId);  
            dispatch(updateTaskNoteId(
             {
               noteId: id,
-              taskHolderId: noteHolderId
+              noteHolderId: noteHolderId
             }
           ))
         }
@@ -296,82 +303,82 @@ export default function NoteForm_s(props) {
     //      if yes - then execute all category related functions --------------------
     //      if no - do nothing                               ------------------------
 
-      let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
+    //   let hasCategoryChanged = noteCategory !== cleanCategory // true - has changed
 
 
-      if(hasCategoryChanged) {
+    //   if(hasCategoryChanged) {
 
             
-        let categoryId 
-        let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
+    //     let categoryId 
+    //     let categoryExists = checkIfWordExists(cleanCategory, categoriesArray , 'categories')
 
-        console.log('[ NoteForm  **** Does category *******] ', categoryExists);
+    //     console.log('[ NoteForm  **** Does category *******] ', categoryExists);
       
 
-        // (6b) test if default category (noteCategory) === '' or ==== 'something'
-        //                 if === '' - do nothing -  procede to add new category
-        //                 if === 'something' - first delete note ID from 'something'
+    //     // (6b) test if default category (noteCategory) === '' or ==== 'something'
+    //     //                 if === '' - do nothing -  procede to add new category
+    //     //                 if === 'something' - first delete note ID from 'something'
  
-        if (noteCategory !== '') {
+    //     if (noteCategory !== '') {
 
           
 
 
-          let categoryToBeDeleted = noteCategory
+    //       let categoryToBeDeleted = noteCategory
 
-          let categoryToBeDeletedData = {
-            category: categoryToBeDeleted,
-            categoryHolder: id,
-            id: noteId
-          }
+    //       let categoryToBeDeletedData = {
+    //         category: categoryToBeDeleted,
+    //         categoryHolder: id,
+    //         id: noteId
+    //       }
 
-           dispatch(deleteCategoryHolder(categoryToBeDeletedData))
-
-
-        } // end if neoteCategoryy !== ''
+    //        dispatch(deleteCategoryHolder(categoryToBeDeletedData))
 
 
+    //     } // end if neoteCategoryy !== ''
 
 
 
-          // (6c) category from form already exists ------------------------
-
-          if(categoryExists) { 
-            let updatedCategoryData = {
-              categoryId: categoryExists.id,
-              categoryHolder: id,
-              dbCollection: 'notes'
-
-            }
-          // console.log('[ NoteForm ] has Category Changed -yes ', hasCategoryChanged);
 
 
+    //       // (6c) category from form already exists ------------------------
 
-             dispatch(addCategoryHolder(updatedCategoryData))
+    //       if(categoryExists) { 
+    //         let updatedCategoryData = {
+    //           categoryId: categoryExists.id,
+    //           categoryHolder: id,
+    //           dbCollection: 'notes'
+
+    //         }
+    //       // console.log('[ NoteForm ] has Category Changed -yes ', hasCategoryChanged);
 
 
-          }// end if categoryExists 
 
-          // --- category from form is new  -----------------------------------------
+    //          dispatch(addCategoryHolder(updatedCategoryData))
 
-          if (!categoryExists) {
 
-            // create new category 
-            categoryId = cuid() // #####   temp ############
+    //       }// end if categoryExists 
 
-            let newCategoryData = {
-              id: categoryId,
-              category: cleanCategory,
-              dbCollection: 'notes',
-              categoryHolder:  id 
+    //       // --- category from form is new  -----------------------------------------
 
-            } // end newCategoryData
+    //       if (!categoryExists) {
 
-             dispatch(addCategoryToStore(newCategoryData))
+    //         // create new category 
+    //         categoryId = cuid() // #####   temp ############
 
-          } // end if !categoryExists
+    //         let newCategoryData = {
+    //           id: categoryId,
+    //           category: cleanCategory,
+    //           dbCollection: 'notes',
+    //           categoryHolder:  id 
 
-    } // end hasCategoryChanged---------------------------------------
+    //         } // end newCategoryData
+
+    //          dispatch(addCategoryToStore(newCategoryData))
+
+    //       } // end if !categoryExists
+
+    // } // end hasCategoryChanged---------------------------------------
 
  
     
@@ -571,7 +578,7 @@ if(keywordExists) {
 
           {/* ------select Creatable (categories) -------------------------- */}
 
-          <FormComponentWrapper>
+          {/* <FormComponentWrapper>
             <ComponentName>
               Categories
             </ComponentName>
@@ -590,7 +597,7 @@ if(keywordExists) {
 
 
             </ComponentWrapper>
-          </FormComponentWrapper>
+          </FormComponentWrapper> */}
 
           {/* ------Input Component (noteContent) -------------------------- */}
 

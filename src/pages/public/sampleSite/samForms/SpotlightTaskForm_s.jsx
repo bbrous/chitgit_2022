@@ -53,144 +53,6 @@ import { styled, createTheme} from '@mui/material/styles'
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// ---------------------------------------------
-  const Wrapper = styled(Paper)({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    // zIndex: '95',
-    backgroundColor: 'none',
-    width: '100%',
-    height: '100%',
-    overflow: 'auto',
-
-
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-
-
-
-  const FormWrapper = styled('form')({
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '80%',
-  
-    height: '6rem',
-  
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      backgroundColor: 'pink'
-  
-    },
-  
-  })
- 
-  
-  const InputWrapper = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-   
-     
-    width: '75%',
-   
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-  
-  
-  
-  const SubmitWrapper = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-   
-     
-    width: '25%',
-    
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-  
-  const Spacer = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-   
-     
-    width: '25%',
-    backgroundColor: 'red',
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      // backgroundColor: 'red'
-    },
-  
-  })
-  
-  const RadioWrapper = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-   
-     
-    width: '75%',
-   
-  
-  
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-      
-    },
-  
-  })
-  
-  const ComponentWrapper= styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-  
-   
-    [theme.breakpoints.down('sm')]: {
-      // height: '1.25rem',
-  
-    },
-  
-  })
-  
-
-  
-  const StyledButton= styled(Button)({
-    color: 'white',
-     height: '1.5rem'
-  
-  })
-
 
 //  ----end styling --------------------------------------------------
 
@@ -373,11 +235,26 @@ export default function SpotlightTaskForm(props) {
     <FormProvider {...methods}>
       <FormWrapper onSubmit={handleSubmit(submitForm)}>
 
-          {/* ------Input Component (title) -------------------------- */}
-          <InputWrapper> 
+
+
+       <RadioWrapper> 
+      
+      <ComponentWrapper>
+            <StyledRadio
+              name={"type"}
+              control={control}
+              options = {typeOptions}
+            />
+
+          </ComponentWrapper> 
+      </RadioWrapper>
+
+
+                {/* ------Input Component (title) -------------------------- */}
+                <InputWrapper> 
          
          <StyledInput name="title" control={control} label="Title" type = "text"
-           placeholder = 'add task title'
+           placeholder = 'add task or spotlight title'
          />
          
          <SubmitWrapper>
@@ -396,18 +273,6 @@ export default function SpotlightTaskForm(props) {
          </SubmitWrapper>
        
        </InputWrapper>
-
-       <RadioWrapper> 
-      
-      <ComponentWrapper>
-            <StyledRadio
-              name={"type"}
-              control={control}
-              options = {typeOptions}
-            />
-
-          </ComponentWrapper> 
-      </RadioWrapper>
       <Spacer/>
 
           
@@ -421,3 +286,143 @@ export default function SpotlightTaskForm(props) {
   );
 }
 
+
+// ---------------------------------------------
+const Wrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  // zIndex: '95',
+  backgroundColor: 'none',
+  width: '100%',
+  height: '100%',
+  overflow: 'auto',
+  
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+
+
+const FormWrapper = styled('form')({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '80%',
+
+  height: '6rem',
+  padding: '.5rem 0 1.25rem 0',
+
+
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+
+
+  },
+
+})
+
+
+const InputWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+ 
+   
+  width: '75%',
+ 
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+
+
+const SubmitWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+   
+  width: '25%',
+  
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const Spacer = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+   
+  width: '25%',
+  backgroundColor: 'red',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const RadioWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+ 
+   
+  width: '75%',
+ 
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    
+  },
+
+})
+
+const ComponentWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+
+ 
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+
+  },
+
+})
+
+
+
+const StyledButton= styled(Button)({
+  color: 'white',
+   height: '1.5rem'
+
+})

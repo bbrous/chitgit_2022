@@ -110,6 +110,7 @@ function SortableTasks(props) {
         key={item.id} {...item} 
         allSpotlights = {allSpotlights}
         allTasks = {allTasks}
+        parentSpotlight = {currentSpotlight}
         handle={true}
         />)}
 

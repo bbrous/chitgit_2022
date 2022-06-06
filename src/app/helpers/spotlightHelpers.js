@@ -48,3 +48,30 @@ export const createChildrenSpotlightsArray = (spotId, allSpotlights)=>{
   return finalSpotlightChildArray
 }// end createChildrenSpotlightsArray
 
+
+export const createTaskListForSpotlight = (id, spotlightsArray) => {
+  let taskListArray = []
+
+      let spotlightObject = spotlightsArray.find(spot => spot.id === id)
+     
+
+      spotlightObject.taskArray.map((task, index) => {
+
+        // console.log('[spotlightHelpers - add task to task list', task.id)
+        // console.log('[spotlightHelpers - add type', task.type)
+
+        if(task.type === 'task'){
+          taskListArray.push(task.id)
+
+        }
+
+
+      return taskListArray 
+      }
+  ) //end map
+
+  // console.log('[spotlightHelpers - taskListArray', taskListArray)
+  return taskListArray
+
+}
+

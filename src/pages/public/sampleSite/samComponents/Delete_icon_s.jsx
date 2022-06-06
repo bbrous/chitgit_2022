@@ -1,111 +1,207 @@
-/* function editIcon_s -------------
-     
- Opens edit form in Modal
-  
-parent: Spotlight - pages/public/sampleSite/samSpots/Spotlight
-        and TaskItem - pages/public/sampleSite/samSpots/TaskItem  
-------------------------------------*/
+/* Delete_icon
 
-import React from 'react'
- 
-import {useHistory, useRouteMatch, match} from 'react-router-dom'
-import { useSelector} from 'react-redux'
+  Displays the garbage icon used by all ChitGit apps.
+  A given app's delete function can trigger multiple actions.
+  For example deleting a task removes the task from the tasks collection, 
+  and delete's the task from the task's parent spotlight taskArray.
 
-import{mediumLightGrey, chitOrange, lightGrey, chitBurgandyDull, } from '../../../../styles/colors'
-// import{changeLastSpotlightDisplayed,  openModal, closeModal} from '../../../../app/redux/statusRedux/sam_action_Status'
-// import{ selectPlans } from '../../../../app/redux/planRedux/sam_selectors_Plans'
+  @props - id - from item
+         - source - task, spotlight, logSection etc.
 
-import { selectSpotlights } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
-import {createChildrenSpotlightsArray} from '../../../../app/helpers/spotlightHelpers'
+
+
+*/
+
+
+
+
+import React from 'react';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { mediumLightGrey, chitOrange, lightGrey, chitBurgandyDull, } from '../../../../styles/colors'
+
+// --- redux imports
+
+import { deleteTask, selectTasks } from '../../../../app/redux/taskRedux/sam_tasksSlice'
+import { deleteTaskFromSpotlightArray, selectSpotlights, deleteSpotlight } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice';
+
+// --- helper imports
+
+import { createChildrenSpotlightsArray, createTaskListForSpotlight } from '../../../../app/helpers/spotlightHelpers';
+
+
 // Material UI --------------------
- 
+
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import Button from '@mui/material/Button'
 
 
 
-import { styled, createTheme} from "@mui/material/styles"
-import {withStyles} from '@mui/styles'
+import { styled, createTheme } from "@mui/material/styles"
+import { withStyles } from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
-// ================================
+export default function Delete_icon_s(props) {
 
+  const { source, id, parentSpotlight } = props
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const spotlightsArray = useSelector(selectSpotlights)
 
-function handleClick(passedId, passedSource){
+  let sourceMessage
+  if (source === 'spotlight') {
+    sourceMessage = `note - If you delete this spotlight, all descendent tasks and spotlights of this spotlight will also be deleted.  If you do not want that  - mark the spotlight as completed and it will be archived. Are you sure you want to delete this spotlight?  `
+  } else {
+    sourceMessage = `Are you sure you want to delete ${source} ?`
+  }
 
-  console.log('[Edit Icon - I be clicked - source', passedSource)
-  console.log('[Edit Icon - I be clicked - id', passedId)
- 
-}
+  // --- Popup Dialog functions
+  const [open, setOpen] = React.useState(false)
 
-// ==== MAIN FUNCTION EDIT ==========================================
-
-function Edit(props) {
-
-  const allSpotlights = useSelector(selectSpotlights)
-
-  const {source, id} = props
-  const [open, setOpen] = React.useState(false);
-
- 
-
-  const handleDialogClickOpen = () => {
+  const handleClick = (id, source) => {
     setOpen(true);
+
   };
 
   const handleDialogClose = () => {
     setOpen(false);
   };
 
-  // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  let type = 'task'
-  let passedId = 'spot_1_task_1'
-  // let noteId = ''
-
-
-  // --- edit function ----------------------------
- 
-  const handleClick = (id, source) => {
-    setOpen(true);
-
-  
-    let allSpotlightsToBeDeleted =[]
-    let childrenSpotlights =  createChildrenSpotlightsArray(id, allSpotlights)
-    allSpotlightsToBeDeleted = [id, ...childrenSpotlights]
-
-    console.log('[ DeleteIcon  ] allSpotlightsToBeDeleted ', allSpotlightsToBeDeleted);
+  const handleDelete = (id, source, parentSpotlight) => {
 
 
 
 
+    // --- task delete --------------------------- 
 
-  };
+    if (source === 'task') {
+
+      /* --- delete task ---
+        2 actions : 
+            a. deletes task id from task collection
+            b. deletes task id from parent spotlight's taskArray
+      */
+
+
+      let taskData = {
+        id: id,
+        source: source,
+
+      }
+      let spotlightTaskData = {
+        id: id,
+        source: source,
+        parentSpotlight: parentSpotlight
+
+      }
+
+      dispatch(deleteTaskFromSpotlightArray(spotlightTaskData))
+      dispatch(deleteTask(taskData))
+
+    }// end if source === task
+
+    // --- spotlight delete --------------------------- 
+
+    if (source === 'spotlight') {
+
+      /* --- delete spotlight ---
+        1. create array of spotlight with id and all it's descendent spotlights
+        2. map through spotlights array.taskArray to get all descendent tasks
+           for spotlight Id and it's spotlight descendents
+        3. map through spotlights and delete them (dispatch delete)
+        4. map through tasks and delete them (dispatch delete)
+      */
+
+
+
+      let spotlightsChildren = createChildrenSpotlightsArray(id, spotlightsArray)
+      let allSpotlightsToBeDeleted = [...spotlightsChildren, id]
+
+
+      // ---2 get all descendent tasks
+
+      let descendentTasks = []
+
+      allSpotlightsToBeDeleted.map((spotlight, index) => {
+
+        console.log('[ deleteIcon  ] - xxxxx', spotlight)
+
+
+        let spotlightObjectTasks = createTaskListForSpotlight(spotlight, spotlightsArray)
+
+
+        descendentTasks.push(...spotlightObjectTasks)
+        return descendentTasks
+      }
+      ) //end map
+
+
+
+
+      allSpotlightsToBeDeleted.forEach(spotlight => {
+        setOpen(false)
+
+        let spotlightData = {
+          id: spotlight,
+          source: source,
+
+        }
+
+        dispatch(deleteSpotlight(spotlightData))
+
+      })
+
+      descendentTasks.forEach(task => {
+
+
+        let taskData = {
+          id: task,
+          source: source,
+
+        }
+
+        dispatch(deleteTask(taskData))
+
+        console.log('[ deleteIcon  ] - delete Spotlight xxx ', taskData)
+
+
+      })
+
+      navigate(`/sample/spotlights`)
+
+
+    }//  end if source === spotlight 
+
+
+  }// --- end handleDelete
+
+
+// --- main return Delete_icon -----------------------------
 
   return (
     <>
 
-   
-      <LightTooltip   title = 'Delete'  arrow> 
-      <Icon
+
+      <LightTooltip title='Delete' arrow>
+        <Icon
 
 
-        onClick={()=>handleClick(id, source)}
-       
-      />
+          onClick={() => handleClick(id, source)}
+
+        />
       </LightTooltip  >
- 
+
 
       <Dialog
         open={open}
@@ -117,17 +213,16 @@ function Edit(props) {
 
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete
-          </DialogContentText>
+          <div>
+            {sourceMessage}
+          </div>
         </DialogContent>
         <DialogActions>
           <StyledButton
-            form="submit-form"
+
             variant="contained"
             color="primary"
-            type="submit"
-            onClick={handleDialogClose}
+            onClick={() => handleDelete(id, source, parentSpotlight)}
           >
             Yes - delete
           </StyledButton>
@@ -145,19 +240,14 @@ function Edit(props) {
         </DialogActions>
       </Dialog>
 
-
-
-
     </>
   )
 }
 
 
-export default Edit
+// ----------------------------
 
 
- 
- 
 
 const Icon= styled(DeleteIcon)({
   backgroundColor: 'white',
