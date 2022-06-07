@@ -76,13 +76,6 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled, createTheme } from '@mui/material/styles'
 import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull } from '../../../../styles/colors'
 
@@ -116,17 +109,6 @@ export default function LogSectionForm_s(props) {
   const status = useSelector(selectStatus)
   const logSectionId = status.view.log.sectionId
   const logId = status.view.log.id
-
-  const [open, setOpen] = React.useState(false);
-  
-  const handleClickAway = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   console.log('[ where ]THIS SIS THE REDUX ID ', logSectionId);
 
@@ -575,54 +557,12 @@ if (peopleArrayDifference.length > 0) {
   return (
     <Wrapper>
 
-<Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
 
-        </DialogTitle>
-        <DialogContent>
-          <div>
-            You have a section currently being edited.
-            Would you like to save your changes to that section?
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <StyledButton
-            form="submit-form"
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleClose}
-          >
-            Save Edits
-          </StyledButton>
-
-          <StyledButton
-            form="submit-form"
-            variant="contained"
-            color="primary"
-
-            onClick={handleClose}
-          >
-            Cancel
-          </StyledButton>
-
-        </DialogActions>
-      </Dialog>
-      
 
       <FormProvider {...methods}>
         <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
-        <ClickAwayListener
-          onClickAway={handleClickAway}
-          mouseEvent="onMouseDown"
-          touchEvent="onTouchStart"
-        >
+
           <MainWrapper>
             <TopWrapper>
               <DateWrapper>
@@ -731,7 +671,7 @@ if (peopleArrayDifference.length > 0) {
 
 
           </MainWrapper>
-</ClickAwayListener>
+
           {/* ------Submit ---------- -------------------------- */}
           <ButtonWrapper>
 
@@ -1161,7 +1101,7 @@ const StyledButton= styled(Button)({
   border: '1px solid #E6E7E8',
   color: chitBurgandyDull,
   margin: '0 8px',
-  padding: ' 0 1rem',
+  width: '5rem',
   height: '1.5rem',
   fontSize: '.8rem',
   '&:hover' :{

@@ -17,62 +17,52 @@ export const journalSlice = createSlice({
 
     addJournalToStore: (state, action) => {
 
-      // let journalId = action.payload.journalId
-      // let journal = action.payload.journal
-      // let journalHolder = action.payload.journalHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newjournalHolder = {dbCollection: dbCollection, id: journalHolder}
+      let journal = action.payload
 
-      // let journalObject = {
-      //   id: journalId,
-      //   journal: journal,
-      //   journalHolders: [newjournalHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_journalSlice ] journalId ', journalId)
-      // console.log('[ sam_journalSlice ] newjournalHolder ', newjournalHolder)
-      // console.log('[ sam_journalSlice ] dbCollection ', dbCollection)
-
-      // state.push(journalObject)
+      state.push(journal)
     },
 
 
 
-  updateEditedjournal: (state, action) => {
+  updateEditedJournal: (state, action) => {
+
+    let journalId = action.payload.id
+ 
+    
+    let newJournalKeywordArray = action.payload.keywordArray
+    let newJournalTitle = action.payload.title
+    let newJournalPeopleArray = action.payload.peopleArray
+    let newJournalLastEdit = action.payload.lastEdit
+    let newJournalDate = action.payload.journalDate
+
+    let newJournalDetail = action.payload.detail
 
 
-    // let journalId = action.payload.id
-    // let newjournal = action.payload.journal
-    
-    
+    let journalIndex = state.findIndex(index => index.id === journalId)
 
-    // let journalIndex = state.findIndex(index => index.id === journalId)
+    console.log('[ sam_journalSlice ] state[journalIndex] ', state[journalIndex]);
+    console.log('[ sam_journalSlice ] payload ', action.payload);
     
-    // state[journalIndex].journal  = newjournal
+    state[journalIndex].detail = newJournalDetail
+   state[journalIndex].keywordArray = newJournalKeywordArray
+  state[journalIndex].title = newJournalTitle
+  state[journalIndex].peopleArray = newJournalPeopleArray
+  state[journalIndex].lastEdit = newJournalLastEdit
+  state[journalIndex].journalDate = newJournalDate
    
 
 
   }, // end updateEditedjournal
 
-  addjournalHolder: (state, action) => {
+
+  deleteLogSection: (state, action) => {
 
 
-    // let journalId = action.payload.journalId
-    // let journalHolder = action.payload.journalHolder
-    // let dbCollection = action.payload.dbCollection
-    // let newjournalHolder = {dbCollection: dbCollection, id: journalHolder}
-    
+    let journalSectionId = action.payload
 
-
-
-    // let journalIndex = state.findIndex(index => index.id === journalId)
-
-    // console.log('[ sam_journalSlice ] journalIndex ', journalIndex)   
-    
-    // state[journalIndex].journalHolders.push(newjournalHolder)
-   
-  }, // end addjournalHolder
+    return state.filter(item => item.id !== journalSectionId)
+ 
+}, // end deleteJournalSection
 
 }
 
@@ -82,9 +72,10 @@ export const journalSlice = createSlice({
 // --- Export actions ---------------------------------------------
 
 export const { 
-  addjournalToStore, 
-  updateEditedjournal,
-  addjournalHolder 
+  addJournalToStore, 
+  updateEditedJournal,
+  deleteJournalSection
+
 
 } = journalSlice.actions
 
@@ -92,9 +83,14 @@ export const {
 
 // --- Export selectors ------------------------------------------
 
-export const selectAllJournalSections = state => state.sample.journal
+export const selectJournals = state => state.sample.journal
 
-
+export const selectJournalFromArray = (journalArray, id) => {
+ 
+  let journal = journalArray.find(journal => journal.id === id) 
+ 
+  return journal
+}
 
 
 // --- default Export reducers -----------------------------------

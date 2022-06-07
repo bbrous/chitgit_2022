@@ -111,7 +111,7 @@ styledKeywords = 'none'
   const handleClick = (id)=>{
  
     let sectionId = id
-   console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+
     dispatch(openJournalForm(sectionId))
     
   }
@@ -129,10 +129,12 @@ styledKeywords = 'none'
 
 
 
-  const {id,  title, dateCreated, content,  chitId, timeStamp , keywordArray ,category ,people  
+  const {id,  title, journalDate, content,  chitId, timeStamp , keywordArray ,category ,people  
   }  = props
+
+  console.log('[ 00000000000000000000000000000000000000] date ', props);
  
-  let formattedDate = ISOtoTraditionalWithDay(dateCreated)
+  let formattedDate = ISOtoTraditionalWithDay(journalDate)
   return (
     <>
       <Dialog
@@ -206,7 +208,7 @@ styledKeywords = 'none'
             </IconWrapper>
           </TopWrapper>
 
-          <CategoryWrapper></CategoryWrapper>
+          
           <ContentWrapper>
 
 
@@ -220,7 +222,7 @@ styledKeywords = 'none'
 
             <SearchWrapper>
               <PeopleWrapper>People: Joi Me</PeopleWrapper>
-              <CategoryWrapper>category: aaaa</CategoryWrapper>
+              
               <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
 
             </SearchWrapper>
@@ -452,6 +454,10 @@ const HeadlineWrapper= styled('div')({
   color: chitBurgandy,
   width: '99%',
   padding: '6px 0',
+  fontSize: '1rem',
+  fontStyle: 'italic',
+  // backgroundColor: 'pink',
+  marginBottom: '4px',
 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'

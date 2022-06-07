@@ -18,21 +18,119 @@ import {useHistory,   withRouter} from 'react-router-dom'
 
 import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey, mediumLightGrey, chitLightGreen} from '../../../../styles/colors'
 
-
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import JSections from './JSections_s'
 // import JournalEntryForm from '../samForms/JournalEntryForm_s'
-
+import NewJournalForm from '../samForms/NewJournalForm_s';
 import SliderComponent from '../../../../common_components/SliderComponent'
 //  ---- Material Ui ------------------
 
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
 // -----------------------------------------------------------------
+
+// =================================================================
+
+
+function JournalMain(props) {
+  const [arrayOrder, setArrayOrder] = useState(false)
+
+  const [openForm, setOpenForm] = useState(false)
+
+
+  const handleSwitchState = (newState) => {
+    setArrayOrder(newState)
+    // console.log('[Inside Spotlight Nav] new state is', newState)
+  }
+
+  return (
+    <MainWrapper>
+
+
+      <Container>
+        <TopWrapper>
+          <SliderWrapper>
+            <SliderComponent
+              handleSwitchState={handleSwitchState} //gets new state from child switch
+              leftLabel='oldest first'
+              rightLabel='latest first'
+            />
+          </SliderWrapper>
+
+
+
+          <ButtonWrapper>
+
+            <FormButton
+            // startIcon={<AddIcon/>}
+            onClick={()=>setOpenForm(true)}
+            >
+              add Section
+            </FormButton>
+
+          </ButtonWrapper>
+
+
+
+        </TopWrapper>
+
+
+
+        <MiddleWrapper
+        style={{
+          height: openForm ? '30vh' : ''
+           
+        }}
+        
+        >
+        <Scrollbars >
+          <SectionsContainer>
+         
+            <SectionWrapper>
+            
+              <JSections />
+             
+            </SectionWrapper>
+            
+          </SectionsContainer>
+          </Scrollbars>
+        </MiddleWrapper>
+        {openForm && 
+        <FormWrapper 
+        // style={{
+        //   backgroundColor: openForm ? 'salmon' : ''
+           
+        // }}
+        
+        >
+           
+          <NewJournalForm setOpenForm = {setOpenForm}/>
+
+
+
+
+
+
+        </FormWrapper>
+}
+      </Container>
+
+    </MainWrapper>
+  )
+}
+
+export default JournalMain
+
+
+
+
 //--- STYLES begin --------------------------
 
 const MainWrapper= styled('div')({
@@ -42,7 +140,9 @@ const MainWrapper= styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  // backgroundColor: 'green',
+
+  backgroundColor: 'green',
+
   width: '100%',
   height: '100%',
 
@@ -54,15 +154,17 @@ overflow: 'auto',
 
 })
 
-const TopWrapper = styled('div')({
+const TopWrapper = styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
  
-// backgroundColor: 'red',
+backgroundColor: 'white',
   width: '100%',
-  // height: '3rem',
+  marginBottom: '6px',
+  padding: '.5rem 0 .75rem 0',
+  
  
   // minHeight: '10rem',
   // height: '90%',
@@ -77,109 +179,7 @@ const TopWrapper = styled('div')({
 
 })
 
-const FilterWrapper = styled('div')({
-   position: 'relative',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-  height: '2rem',
-  color: darkGrey,
-  fontSize: '.8rem',
-// backgroundColor: 'yellow',
-paddingLeft: '6px',
- marginBottom: '1rem',
-  // height: '3rem',
-  marginTop: '6px',
-  
-overflow: 'hidden',
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-const FilterHeader = styled('div')({
- position: 'relative',
-  color: chitAquaBlue,
-  fontWeight: 'bold',
-  fontSize: '.85rem',
-  minWidth: '4rem',
-
-
-  
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-
-
-const CategoryWrapper = styled('div')({
-  position: 'relative' ,
-  display: 'flex',
-  minWidth: '25%',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  marginRight: '1.5rem',
-  // backgroundColor: 'orange',
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const KeywordWrapper = styled('div')({
-  position: 'relative' ,
-  display: 'flex',
-  maxWidth: '50%',
-
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  marginRight: '1.5rem',
-  // backgroundColor: 'orange',
-
- overflow: 'hidden',
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
-
-const FilterLabel = styled('span')({
- minWidth: '5rem',
- color: headerGrey,
- fontWeight: 'bold',
-})
-
-const Filter = styled('span')({
-
-/* 
-only works with Display: block not flex
-*/
-
-position: 'relative' ,
-  display: 'block',
-  overflow: 'hidden',
-      
-  minWidth: 0,
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
-})
 
 
 
@@ -189,10 +189,10 @@ const SliderWrapper = styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   
-// backgroundColor: 'yellow',
+ 
   width: '100%',
-  
- marginTop: '16px',
+  padding: '1rem 0',
+//  marginTop: '16px',
 
   
   // overflowY: 'hidden',
@@ -204,22 +204,70 @@ const SliderWrapper = styled('div')({
 
 })
 
-const NewWrapper = styled('div')({
+
+
+
+const ButtonWrapper = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
+  
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+ 
+
+[theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+})
+
+const FormButton = styled(Button)({
+
+ 
+
+  display: 'flex',
+  textTransform: 'none',
+  
+ 
+  color: 'white',
+  backgroundColor:  '#727376',
+  fontWeight: 'normal',
+  fontSize: '.85rem',
+ 
+  width: '9.5rem',
+  height: '1.2rem',
+// margin: '0 1rem',
+  
+  '&:hover' : {
+    // backgroundColor: chitBlueDull,
+    textDecoration: 'none',
+    border: '1px solid #A8BEED' ,
+    color: '#3B30CC'
+
+  }
+
+
+})
+
+// ---- 
+
+
+
+const MiddleWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
   
-// backgroundColor: 'grey',
-  width: '99%',
-  
-  paddingLeft: '2px',
- 
-  // minHeight: '10rem',
-  // height: '90%',
 
+  width: '100%',
+  // minHeight: '13rem',
+  backgroundColor: 'yellow',
+
+  // minHeight: '10rem',
+
+height: '73vh',
   
-  // overflowY: 'hidden',
+  overflowY: 'auto',
 
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
@@ -229,6 +277,7 @@ const NewWrapper = styled('div')({
  
 
 })
+
 const Container= styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
@@ -237,11 +286,15 @@ const Container= styled(Paper)({
 
 
   color: 'charcoal',
-  width: '90%',
+  width: '96%',
+  padding:'0 2%',
 
   // minHeight: '10rem',
   // height: '90%',
   margin: '6px 0 5% 0',
+
+  backgroundColor: 'pink',
+
 
   // overflowY: 'hidden',
 
@@ -250,37 +303,12 @@ const Container= styled(Paper)({
 
   },
 
-  backgroundColor: 'white',
 
 
-})
-
-
-const FormContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-
-  width: '100%',
-  minHeight: '13rem',
-  backgroundColor: 'lightGrey',
-
-  // minHeight: '10rem',
-  // height: '90%',
-
-  
-  // overflowY: 'hidden',
-
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
-  },
-
- 
 
 })
+
+
 
 const SectionsContainer = styled('div')({
   display: 'flex',
@@ -290,8 +318,9 @@ const SectionsContainer = styled('div')({
   backgroundColor: mediumLightGrey,
   paddingTop: '6px',
 
-  width: '100%',
+  width: '99%',
   minHeight: '13rem',
+  
   // backgroundColor: 'yellow',
 
   // minHeight: '10rem',
@@ -320,7 +349,7 @@ const SectionWrapper = styled('div')({
 
   width: '100%',
   minHeight: '13rem',
-  // backgroundColor: 'orange',
+  // backgroundColor: 'blue',
 
   // minHeight: '10rem',
   // height: '90%',
@@ -338,83 +367,33 @@ const SectionWrapper = styled('div')({
 })
 
 
-const AddCircleIconWrapper= styled(AddCircleIcon)({
 
-  color: 'grey',
-  fontSize : '1.7rem',
+
+const FormWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
   
-  '&:hover' : {
-    backgroundColor: 'lightGrey',
-    borderRadius: '50px',
+
+  width: '100%',
+  // minHeight: '13rem',
+  backgroundColor: 'orange',
+
+  // minHeight: '10rem',
+  // height: '90%',
+
+  height: '43vh',
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
   },
+
+ 
 
 })
  
 
-// ===========================================
-
-function JournalMain(props) {
-  const [arrayOrder, setArrayOrder] = useState(false)
-
-  const handleSwitchState = (newState) => {
-    setArrayOrder(newState)
-    // console.log('[Inside Spotlight Nav] new state is', newState)
-  }
-
-  return (
-    <MainWrapper>
-
-
-      <Container>
-        <TopWrapper>
-          <SliderWrapper>
-            <SliderComponent
-              handleSwitchState={handleSwitchState} //gets new state from child switch
-              leftLabel='oldest first'
-              rightLabel='latest first'
-            />
-          </SliderWrapper>
-
-
-
-          <FilterWrapper>
-            <FilterHeader>Filters</FilterHeader>
-
-            <CategoryWrapper>
-
-              <FilterLabel>Category :  </FilterLabel>
-              <Filter>Work</Filter>
-            </CategoryWrapper>
-
-            <KeywordWrapper>
-              <FilterLabel>Keywords :  </FilterLabel>
-              <Filter>deck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projectsdeck, projects</Filter>
-            </KeywordWrapper>
-
-          </FilterWrapper>
-
-
-
-        </TopWrapper>
-     
-        
-     
-       
-        <SectionsContainer>
-          <SectionWrapper>
-
-             <JSections/> 
-             <>  EntryFormHere Button  </>
-          </SectionWrapper>
-
-        </SectionsContainer>
-
-
-
-      </Container>
-
-    </MainWrapper>
-  )
-}
-
-export default  JournalMain
+// ========= END ==================================

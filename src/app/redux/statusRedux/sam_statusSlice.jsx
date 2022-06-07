@@ -436,6 +436,16 @@ export const statusSlice = createSlice({
 
     },
 
+    closeNewJournalForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.journal.id = ''
+
+    },
+
     openJournalForm: (state, action) => {
       
       let newJournalId = action.payload
@@ -494,8 +504,10 @@ export const {
   changeLastSpotlightDisplayed,
   updateStatusView,
   updateChronicleView,
+
   closeJournalForm,
   openJournalForm,
+  closeNewJournalForm,
   
   updateFormPageView,
   initializeTwoPartyViewData,

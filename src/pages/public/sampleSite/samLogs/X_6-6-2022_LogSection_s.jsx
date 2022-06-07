@@ -13,18 +13,23 @@
 
 
 import React , {useState} from 'react'
-import {connect} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey} from '../../../../styles/colors'
+import{chitOrange, mediumLightGrey, veryLightGrey, chitBlueDull, mediumGrey, mediumMediumGrey} from '../../../../styles/colors'
 
-import{ selectLogs
+import{ 
+  selectLogs,
+  deleteLogSection
   // selectSpotlightTaskArray
   
 } from '../../../../app/redux/logRedux/sam_logsSlice'
 
 import { ISOtoTraditional, ISOtoTraditionalTime } from '../../../../app/helpers/dateHelper'
 
+import LogSectionForm from '../samForms/LogSectionForm_s'
+
+import { selectStatus, openLogForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 import ChitIcon from '../samComponents/Chit_icon_s'
  
 //  ---- Material Ui ------------------
@@ -34,6 +39,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachmentIcon from '@mui/icons-material/Attachment';
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
  
 import { styled, createTheme  } from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
@@ -43,11 +54,27 @@ const theme = createTheme(); // allows use of mui theme in styled component
 //  =====================================================================
 
 export default function LogSection(props) {
+let dispatch = useDispatch()
+  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
 
-  const {id, type, otherPartyId, logDate, lastEdit, timeLock, meta, title, detail, attachment, chitLink, keyWordArray, peopleArray} = props.data
+  const [open, setOpen] = useState(false);
 
- console.log('[ LogSection  ] props ', props);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (evt) => {
+    
+    dispatch(deleteLogSection(evt.currentTarget.id))
+    setOpen(false);
+  };
+
+//  console.log('[ LogSection  ] props ', props);
+ let sectionViewId = useSelector(selectStatus).view.log.sectionId
  
    // convert Dates for display
 
@@ -61,26 +88,21 @@ export default function LogSection(props) {
   // format keywords
   let styledKeywords = ''
 
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
-    //   styledKeywords = styledKeywords  + keyword + ' , '
+  if (keywordArray.length > 0) {
+    
 
-    //   return styledKeywords
-    // }
-    // ) //end map
-
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
+  for(let i = 0; i < keywordArray.length; i++){
+    if(i === keywordArray.length - 1){
+      styledKeywords += keywordArray[i]  
     }else{
-    styledKeywords += keyWordArray[i] + ' , '
+    styledKeywords += keywordArray[i] + ' , '
     }
   }
  
 
   }//end if keyword.length > 0
 
-  if (keyWordArray.length === 0) {
+  if (keywordArray.length === 0) {
 styledKeywords = 'none'
   }
 
@@ -88,12 +110,7 @@ styledKeywords = 'none'
   let styledPeople = ''
 
   if (peopleArray.length > 0) {
-    //    peopleArray.map((keyword) => {
-    //   styledPeople = styledPeople  + keyword + ' , '
-
-    //   return styledPeople
-    // }
-    // ) //end map
+       
 
   for(let i = 0; i < peopleArray.length; i++){
     if(i === peopleArray.length - 1){
@@ -110,28 +127,85 @@ styledKeywords = 'none'
 styledPeople = 'none'
   }
 
-
+  const handleClick = (id)=>{
+ 
+    let sectionId = id
+  //  console.log('[ 00000000000000000000000000000000000000] myVar ', sectionId);
+    dispatch(openLogForm(sectionId))
+    
+  }
   return (
+    <> 
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are your sure you want to delete this section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            id={id}
+            onClick={(evt) => handleDelete(evt)}
+          >
+            Yes
+          </StyledButton>
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleClose}
+          >
+            No
+          </StyledButton>
+
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
+    {sectionViewId !== id &&
     <MainWrapper>
       <TopWrapper>
         <DateWrapper>{styledLogDate} : <span> {styledLogTime} </span></DateWrapper>
         <IconWrapper>
 
-          <LightTooltip title='Edit' arrow>
-            <StyledEditIcon />
+
+        <LightTooltip title='Edit' arrow>
+            <StyledEditIcon id = {id} 
+            onClick={()=>handleClick(id)}
+            />
           </LightTooltip>
+
 
           <ChitIcon />
           <LightTooltip title='Content Time Lock' arrow>
-            <StyledLockClockIcon />
+            <StyledLockClockIcon  sx ={{color: mediumMediumGrey}}/>
           </LightTooltip>
 
           <LightTooltip title='Attachment' arrow>
-            <StyledAttachmentIcon />
+            <StyledAttachmentIcon sx ={{color: mediumMediumGrey}}/>
           </LightTooltip>
 
           <LightTooltip title='Delete' arrow>
-            <StyledDeleteIcon />
+            <StyledDeleteIcon  onClick = {()=>handleClickOpen()} />
           </LightTooltip>
         </IconWrapper>
       </TopWrapper>
@@ -168,6 +242,15 @@ styledPeople = 'none'
 
 
     </MainWrapper>
+
+    }
+
+{sectionViewId === id &&
+<LogSectionForm/>
+ 
+}
+
+    </>
   )
 }
 
@@ -273,7 +356,7 @@ const SearchWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  backgroundColor: veryLightGrey,
+ 
   width: '99%',
   padding: '2px 0',
   margin: '3px 0',
@@ -385,7 +468,7 @@ const MetaWrapper= styled('div')({
   fontSize: '.8rem',
   width: '30%',
   minHeight: '100%',
-  
+  borderRight: '1px solid  #CFD0D1',
   padding: '6px',
   backgroundColor: veryLightGrey,
 
@@ -569,6 +652,14 @@ const StyledAttachmentIcon= styled(AttachmentIcon)({
   },
 })
 
+const StyledButton= styled(Button)({
+  color: 'white',
+  margin: '0 8px',
+  fontSize: '.8rem',
+  padding: '2px'
+
+
+})
 
 const LightTooltip = withStyles({
   tooltip: {

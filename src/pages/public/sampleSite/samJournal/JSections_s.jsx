@@ -13,8 +13,10 @@ import React , {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 
+
+
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
-import {selectAllJournalSections } from '../../../../app/redux/journalRedux/sam_journalSlice'
+import {selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
  
@@ -61,7 +63,7 @@ const journalSections = (journalArray) =>
       id = {section.id}
       key = {section.id}
       title = {section.title}
-      date = {section.date}
+      journalDate = {section.journalDate}
       content = {section.content}
       dateCreated = {section.dateCreated}
       chitId = {section.chitId}
@@ -79,7 +81,7 @@ const journalSections = (journalArray) =>
 
 export default function JSections() {
 
-  const allJournalSelections = useSelector(selectAllJournalSections)
+  const allJournalSelections = useSelector(selectJournals)
   // console.log('[ JSections ]  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ', allJournalSelections);
 
   return (

@@ -130,7 +130,7 @@ function New(props) {
 
       case 'journal':
         dbCollection = 'journal'
-        title = ' section'
+        title = 'section'
         break;
 
       case 'twoPartyChits':
@@ -188,21 +188,29 @@ const handleNewChronicle = (collection)=>{
   // ------------------------------------------------------------
     
   // props.openModal(dbCollection, id)
-  let newType, pageType
+  let newType, pageType, sectionId
   if(collection === 'logs'){
     newType = 'newLog'
     pageType = 'log'
+    sectionId = ''
   
   }
   if(collection === 'topicals'){
     newType = 'newTopical'
     pageType = 'topical'
+    sectionId = ''
+  
+  }
+  if(collection === 'journal'){
+    newType = 'newJournal'
+    pageType = 'journal'
+    sectionId = 'new'
   
   }
 
   dispatch(updateChronicleView(
     {
-          sectionId: '',
+          sectionId: sectionId,
           pageType: pageType,
           id: newType
       
@@ -235,6 +243,17 @@ const handleNewChronicle = (collection)=>{
   </LightTooltip>
     
     }
+
+{dbCollection === 'journal'  &&
+    
+    <LightTooltip title={formattedPage} arrow>
+    <AddCircleIconWrapper
+      onClick={() => handleNewChronicle(page)}
+    />
+  </LightTooltip>
+    
+    }
+
     {dbCollection === 'topicals'  &&
     <LightTooltip title={formattedPage} arrow>
     <AddCircleIconWrapper
