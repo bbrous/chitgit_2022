@@ -16,7 +16,7 @@ import React , {useState} from 'react'
 import {connect} from 'react-redux'
 import {useHistory,   withRouter} from 'react-router-dom'
 
-import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey, mediumLightGrey, chitLightGreen} from '../../../../styles/colors'
+import{chitOrange, chitLightPink, veryLightGrey, chitAquaBlue, darkGrey, headerGrey, mediumLightGrey, chitLightGreen, lightGrey} from '../../../../styles/colors'
 
 import { Scrollbars } from 'react-custom-scrollbars';
 
@@ -85,8 +85,8 @@ function JournalMain(props) {
 
         <MiddleWrapper
         style={{
-          height: openForm ? '30vh' : ''
-           
+          // height: openForm ? '30vh' : ''
+           height: openForm ? '50%' : ''
         }}
         
         >
@@ -103,6 +103,7 @@ function JournalMain(props) {
           </Scrollbars>
         </MiddleWrapper>
         {openForm && 
+        
         <FormWrapper 
         // style={{
         //   backgroundColor: openForm ? 'salmon' : ''
@@ -110,6 +111,7 @@ function JournalMain(props) {
         // }}
         
         >
+          
            
           <NewJournalForm setOpenForm = {setOpenForm}/>
 
@@ -141,12 +143,12 @@ const MainWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
 
-  backgroundColor: 'green',
+ 
 
   width: '100%',
   height: '100%',
 
-overflow: 'auto',
+overflow: 'hidden',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -261,13 +263,14 @@ const MiddleWrapper = styled('div')({
 
   width: '100%',
   // minHeight: '13rem',
-  backgroundColor: 'yellow',
+ 
 
   // minHeight: '10rem',
 
-height: '73vh',
-  
-  overflowY: 'auto',
+// height: '73vh',
+height: '99%',
+  overflowX: 'hidden',
+
 
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
@@ -278,22 +281,25 @@ height: '73vh',
 
 })
 
+
+
 const Container= styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-
+  positin: 'relative',
 
   color: 'charcoal',
   width: '96%',
   padding:'0 2%',
+  
 
   // minHeight: '10rem',
-  // height: '90%',
-  margin: '6px 0 5% 0',
+  height: '99%',
+  margin: '6px 0 1% 0',
 
-  backgroundColor: 'pink',
+ 
 
 
   // overflowY: 'hidden',
@@ -315,19 +321,13 @@ const SectionsContainer = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  backgroundColor: mediumLightGrey,
-  paddingTop: '6px',
+  backgroundColor: lightGrey,
+  // paddingTop: '6px',
 
-  width: '99%',
+  width: '98%',
   minHeight: '13rem',
-  
-  // backgroundColor: 'yellow',
-
-  // minHeight: '10rem',
-  // height: '90%',
-
-  
-  // overflowY: 'hidden',
+  overflowX: 'hidden',
+ 
 
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',
@@ -378,12 +378,13 @@ const FormWrapper = styled('div')({
 
   width: '100%',
   // minHeight: '13rem',
-  backgroundColor: 'orange',
+ 
 
   // minHeight: '10rem',
   // height: '90%',
 
-  height: '43vh',
+  // height: '43vh',
+  height: '50%',
   // overflowY: 'hidden',
 
   [theme.breakpoints.down('sm')] : {
@@ -395,5 +396,5 @@ const FormWrapper = styled('div')({
 
 })
  
-
+ 
 // ========= END ==================================

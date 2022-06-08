@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Scrollbars } from 'react-custom-scrollbars';
 // --- Form inputcomponent imports ---------
 
 
@@ -43,9 +43,10 @@ export default function NewJournalForm(props) {
 
 
   return(
+    <Scrollbars> 
     <Wrapper>
 
-
+ 
 <MainWrapper>
 
       <ButtonWrapper>
@@ -169,7 +170,9 @@ Quill here
 
 
     </MainWrapper>
+    
     </Wrapper>
+    </Scrollbars>
   )
 
 
@@ -189,9 +192,9 @@ const Wrapper = styled(Paper)({
   alignItems: 'center',
   // zIndex: '95',
 
-  width: '100%',
+  width: '98%',
   height: '100%',
-  overflow: 'auto',
+  // overflow: 'auto',
 border: '2px solid #F285B5',
 backgroundColor: veryLightGrey,
 
@@ -228,6 +231,7 @@ const StyledButton= styled(Button)({
   padding: ' 0 1rem',
   height: '1.5rem',
   fontSize: '.8rem',
+  textTransform: 'none',
   '&:hover' :{
     backgroundColor: lightGrey
   }
@@ -346,11 +350,11 @@ const MainWrapper= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   // backgroundColor: 'green',
-  width: '100%',
+  width: '98%',
   height: '100%',
   marginBottom: '6px',
   paddingBottom: '6px',
-overflow: 'auto',
+ 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
