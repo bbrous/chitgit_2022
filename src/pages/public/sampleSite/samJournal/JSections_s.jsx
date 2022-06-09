@@ -72,6 +72,11 @@ export default function JSections() {
     topRef.current?.scrollIntoView({ behavior: "smooth" })
   }
   const allJournalSelections = useSelector(selectJournals)
+
+  useEffect(()=>{
+    scrollToBottom()
+  },[allJournalSelections])
+  
   // console.log('[ JSections ]  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ', allJournalSelections);
 
   return (

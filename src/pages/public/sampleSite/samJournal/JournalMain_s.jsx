@@ -56,15 +56,7 @@ function JournalMain(props) {
 
       <Container>
         <TopWrapper>
-          <SliderWrapper>
-            <SliderComponent
-              handleSwitchState={handleSwitchState} //gets new state from child switch
-              leftLabel='oldest first'
-              rightLabel='latest first'
-            />
-          </SliderWrapper>
-
-
+      
 
           <ButtonWrapper>
 
@@ -72,7 +64,7 @@ function JournalMain(props) {
             // startIcon={<AddIcon/>}
             onClick={()=>setOpenForm(true)}
             >
-              add Section
+              + add Section
             </FormButton>
 
           </ButtonWrapper>
@@ -162,11 +154,12 @@ const TopWrapper = styled(Paper)({
   justifyContent: 'flex-start',
   alignItems: 'center',
  
-backgroundColor: 'white',
+backgroundColor: '#F6F7F8',
   width: '100%',
-  marginBottom: '6px',
-  padding: '.5rem 0 .75rem 0',
-  
+   
+  margin: '4px 0 8px 0',
+  padding: '.7rem 0',
+  boxShadow: '2px 2px grey, -2px 0 2px lightgrey',
  
   // minHeight: '10rem',
   // height: '90%',
@@ -233,10 +226,10 @@ const FormButton = styled(Button)({
   color: 'white',
   backgroundColor:  '#727376',
   fontWeight: 'normal',
-  fontSize: '.85rem',
- 
-  width: '9.5rem',
-  height: '1.2rem',
+  fontSize: '.95rem',
+  padding: '0',
+  width: '11.5rem',
+  // height: '1.2rem',
 // margin: '0 1rem',
   
   '&:hover' : {
@@ -259,8 +252,8 @@ const MiddleWrapper = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  
-
+ 
+  paddingTop: '2px',
   width: '100%',
   // minHeight: '13rem',
  

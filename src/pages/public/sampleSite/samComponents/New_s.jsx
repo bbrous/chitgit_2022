@@ -130,7 +130,7 @@ function New(props) {
 
       case 'journal':
         dbCollection = 'journal'
-        title = 'section'
+        title = ''
         break;
 
       case 'twoPartyChits':
@@ -229,7 +229,7 @@ const handleNewChronicle = (collection)=>{
     <NewWrapper elevation={1}>
 
     
-    {page !== 'reports'  &&  
+    {page !== 'reports'  && page !== 'journal' && 
     <NewTitle> add {title} </NewTitle>
     }
 
@@ -243,16 +243,7 @@ const handleNewChronicle = (collection)=>{
   </LightTooltip>
     
     }
-
-{dbCollection === 'journal'  &&
-    
-    <LightTooltip title={formattedPage} arrow>
-    <AddCircleIconWrapper
-      onClick={() => handleNewChronicle(page)}
-    />
-  </LightTooltip>
-    
-    }
+ 
 
     {dbCollection === 'topicals'  &&
     <LightTooltip title={formattedPage} arrow>

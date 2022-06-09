@@ -1,6 +1,60 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+
 import { Scrollbars } from 'react-custom-scrollbars';
+
+
+import {
+
+  checkIfWordExists,
+  cleanOptions,
+  stripWhiteSpace,
+  optionDescendSorter,
+  isArrayDifferent,
+  doesArrayIncludeItem,
+  descendSorter
+
+} from '../../../../app/helpers/commonHelpers'
+
+// --- Firebase imports ---------
+import cuid from 'cuid'  // #### for sample site only ####
+
+// --- React-hook-form imports ---------
+
+import { FormProvider, useForm, Controller } from "react-hook-form";
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { string, object } from 'yup';
+
+
+// ---Retrieve all needed collections from Redux store -------
+
+
+import { changeLoadingStatus } from '../../../../app/redux/statusRedux/statusSlice';
+import {
+  closeJournalForm, selectStatus, closeNewJournalForm
+
+
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
+
+
+import { selectJournals, selectJournalFromArray, updateEditedJournal} from '../../../../app/redux/journalRedux/sam_journalSlice'
+
+import { 
+  selectKeywords,
+  addKeywordToStore, 
+  addKeywordHolder,
+  deleteKeywordHolder
+ } from '../../../../app/redux/keywordRedux/sam_keywordSlice'
+ 
+import { 
+  selectPeople,
+  addPersonToStore, 
+  addPersonHolder,
+  deletePersonHolder
+} from '../../../../app/redux/peopleRedux/sam_peopleSlice'
+
 // --- Form inputcomponent imports ---------
 
 
@@ -14,6 +68,9 @@ import { StyledInput } from '../../../../forms/formComponents/StyledInput'
 
 import { addJournalToStore } from '../../../../app/redux/journalRedux/sam_journalSlice'
 import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
+
+
+
 // --- MUI imports ---------
 
 import Paper from '@mui/material/Paper'
@@ -28,9 +85,22 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled, createTheme } from '@mui/material/styles'
-import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull } from '../../../../styles/colors'
+import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull, mediumLightGrey } from '../../../../styles/colors'
 
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+// ---functions --------------------------------------------
+
+
+//  -- Input requirements for user for each component (if any)
+
+const formSchema = object({
+
+  // journalContent: string().required('Your journal needs some content'),
+
+
+});
 
 
 // ==============================================================
@@ -38,31 +108,436 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 export default function NewJournalForm(props) {
 
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const status = useSelector(selectStatus)
+
+  // --- open and closes form in JSecions_s
   const {setOpenForm} = props
 
+  // --- dialog box open and close
+  const [open, setOpen] = React.useState(false);
+  
+  const handleClickAway = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
-  return(
-    <Scrollbars> 
-    <Wrapper>
+  // (1) ---Retrieve all needed collections from Redux store -------
+  
+  let retrievedJournals = useSelector(selectJournals)
+  const [allJournals, setAllJournals ] = useState(retrievedJournals)
+  useEffect(()=>{
+    setAllJournals(retrievedJournals)
+  },[retrievedJournals])
+
+  let retrievedKeywordsArray = useSelector(selectKeywords)
+  const [allKeywordsArray, setAllKeywordsArray ] = useState(retrievedKeywordsArray)
+  useEffect(()=>{
+    setAllKeywordsArray(retrievedKeywordsArray)
+  },[retrievedKeywordsArray])
+
+  let retrievedPeopleArray = useSelector(selectPeople)
+  const [allPeopleArray, setAllPeopleArray ] = useState(retrievedPeopleArray)
+  useEffect(()=>{
+    setAllPeopleArray(retrievedPeopleArray)
+  },[retrievedPeopleArray])
 
  
-<MainWrapper>
 
-      <ButtonWrapper>
+  // (2) --- Create form Options for Autocomplete multi-selectors --
 
-        <StyledButton> Save and Close </StyledButton>
-        <StyledButton> Save and Add New Section</StyledButton>
-        <StyledButton onClick={()=>setOpenForm(false)}> Cancel</StyledButton>
-      </ButtonWrapper>
+  let keywordOption, personOption
 
 
-    <SearchWrapper>
-              <SearchTitle>Add search termsxxx Section Form</SearchTitle>
-              <PeopleWrapper>
-  people select
+    let keywordsOptionsArray = []
+    let peopleOptionsArray = []
 
-                {/* <StyledChronicleMultiselect
+    // --- create keyword options array --
+
+    allKeywordsArray.map((keyword, index) => {
+      
+      keywordOption = keyword.keyword
+      keywordsOptionsArray.push(keywordOption)
+
+      return keywordsOptionsArray
+    }) //end map
+
+    // --- create people options array --
+
+    // eliminate "unknown from list of people"
+    let filteredPeople = allPeopleArray.filter(item => item.id !== 'unknown')
+
+    filteredPeople.map((person, index) => {
+
+      personOption = person.name
+      peopleOptionsArray.push(personOption)
+
+      return peopleOptionsArray
+    }) //end map
+
+// --- set up defaultValues
+
+    let defaultValues,   sectionId, content, title, keywordArray, 
+    peopleArray, sectionCreatedDate, dateTime, journal, journalDate, defaultKeywordOptions, defaultPeopleOptions
+    
+
+    sectionId = cuid() 
+    content = ''
+    journalDate = new Date('2021-03-14T17:03:40.000Z') 
+    defaultKeywordOptions = []
+    defaultPeopleOptions = []
+
+
+    defaultValues = {
+      content: content,
+      title: title,
+      keywords: defaultKeywordOptions,
+      people: defaultPeopleOptions,
+      sectionCreatedDate:  journalDate,  // used in last Edit (auto)
+      dateTime: journalDate  // Bob's login time Mar 14 - used in input field  
+  
+    };
+
+
+      // --- close / cancel form 
+  const cancelNewForm = () => {
+
+    dispatch(closeNewJournalForm())
+    navigate(`/sample/journal`)
+  }
+
+// ####################################################
+
+// ===========  FORM  ==================================================
+
+const methods = useForm({
+  defaultValues: defaultValues,
+  resolver: yupResolver(formSchema)
+});
+
+const { handleSubmit, reset, control, setValue, onChange, watch, ref } = methods;
+
+const submitForm = (data) => {
+  console.log('[ Journal SECTION FORM FORM FORM ] data ',data);
+
+// - replace the <p>s with <div>s in Quill editor to make it appear better
+let noPtagContent = content.replaceAll('<p>' , '<div>')
+let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
+
+
+// --- clean the input data from multiselectors (people and keywords)
+// --- keywords - strip whitespace and make lower case
+// --- people - just strip whitespace
+
+// let noPtagTitle = title.replaceAll('<p>' , '<div>')
+// let cleanTitle = noPtagTitle.replaceAll('</p>', '</div>')
+
+    let passedKeyWordArray = data.keywords
+    let cleanKeywordArray =  []
+
+    passedKeyWordArray.map((keyword, index) => {
+      cleanKeywordArray.push(cleanOptions(keyword, 'keywords'))
+
+    return cleanKeywordArray
+    }
+    ) //end map
+
+    let passedPeopleArray = data.people
+    let cleanPeopleArray =  []
+
+    passedPeopleArray.map((person, index) => {
+      cleanPeopleArray.push(stripWhiteSpace(person))
+
+    return cleanPeopleArray
+    }
+    ) //end map
+
+
+    try{
+
+    let newJournalData = {
+
+      id: sectionId,
+      
+      journalDate: dateTime.toISOString(),
+      lastEdit: dateTime.toISOString(),
+      timeLock: '',
+      
+      title: title,
+      detail: cleanContent,
+      attachment: '',
+      chitLink: {},
+      peopleArray: cleanPeopleArray,
+      keywordArray:  cleanKeywordArray
+    }
+
+
+
+    dispatch(addJournalToStore(newJournalData))
+
+
+  //  === update Keywords ===================================
+
+      let defaultKeywordArray = defaultKeywordOptions
+      let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
+
+      //  check if keyword form data submitted is different from default 
+      let kewwordArrayDifference = isArrayDifferent(defaultKeywordArray, formKeywordArray)
+
+
+      // --- only update keywords if keywordArrayDifference === [... someItems] ---
+
+      if (kewwordArrayDifference.length > 0) {
+
+        // map each keyword in the keyword difference array
+
+        kewwordArrayDifference.forEach((item) => {
+
+          // --- check if each keyword form data submitted is  different from default 
+
+          let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+
+          if (!arrayItemInludedInDefault) {  // then it was added
+
+            let keywordExists = checkIfWordExists(item, allKeywordsArray, 'keywords')
+
+
+            // --- keyword from form is new  -------------------------------
+            // --- brand new keyword - add to keyword collection
+
+            if (!keywordExists) {
+
+              // create new keyword 
+              let keywordId = cuid() // #####   temp ############
+
+              let newKeywordData = {
+                id: keywordId,
+                keyword: item,
+                dbCollection: 'journal',
+                keywordHolder: sectionId
+
+              }
+              dispatch(addKeywordToStore(newKeywordData))
+
+            } // end newKeywordData
+
+
+            // --- keyword just new in form --- update keyword holders
+            if (keywordExists) {
+              let updatedKeywordData = {
+                keywordId: keywordExists.id,
+                keywordHolder: sectionId,
+                dbCollection: 'journal'
+
+              }
+              // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+
+
+
+              dispatch(addKeywordHolder(updatedKeywordData))
+
+
+            }// end if keywordExists 
+
+
+
+          }  // end if arrayItemInludedInDefault
+
+
+          // --- keyword missing from default - delete  
+
+          if (arrayItemInludedInDefault) {  // then it was deleted in form
+
+            // delete sectionId from keyword item
+
+            let keywordHolderToBeDeleted = {
+              keyword: item,
+              keywordHolder: sectionId,
+              // id: noteId
+            }
+
+
+            dispatch(deleteKeywordHolder(keywordHolderToBeDeleted))
+
+
+
+
+          }  // end if arrayItemInludedInDefault
+
+
+
+        }) // end map kewwordArrayDifference
+
+
+      } // end if kewwordArrayDifference --- 
+
+      //  ########################################### 
+
+
+      //  === update People ===================================
+
+      let defaultPeopledArray = defaultPeopleOptions
+      let formPeopledArray = passedPeopleArray
+
+
+      //  check if person form data submitted is different from default 
+      let peopleArrayDifference = isArrayDifferent(defaultPeopledArray, formPeopledArray)
+
+
+      // --- only update people if peopleArrayDifference === [... someItems] ---
+
+
+
+
+
+      if (peopleArrayDifference.length > 0) {
+
+        // map each person in the person difference array
+
+        peopleArrayDifference.forEach((item) => {
+
+          // --- check if each person form data submitted is  different from default 
+
+          let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultPeopledArray)
+
+          if (!arrayItemInludedInDefault) {  // then it was added
+
+            let personExists = checkIfWordExists(item, allPeopleArray, 'people')
+
+
+            // --- person from form is new  -------------------------------
+            // --- brand new person - add to person collection
+
+            if (!personExists) {
+
+              console.log('[ OOOOOOOO - Journal section FORM ] person does NOT exist ');
+
+              // create new person 
+              let personId = cuid() // #####   temp ############
+
+              let newPersonData = {
+                id: personId,
+                name: item,
+                dbCollection: 'journal',
+                personHolder: sectionId
+
+              }
+              dispatch(addPersonToStore(newPersonData))
+
+            } // end newPersonData
+
+
+            // --- person just new in form --- update person holders
+            if (personExists) {
+
+              console.log('[ OOOOOOOO +  Jounal section FORM ] person EXISTS ', personExists);
+
+              let updatedPersonData = {
+                id: personExists.id,
+                personHolder: sectionId,
+                dbCollection: 'journal'
+
+              }
+              // console.log('[ NoteForm ] has Keyword Changed -yes ', hasKeywordChanged);
+
+
+
+              dispatch(addPersonHolder(updatedPersonData))
+
+
+            }// end if personExists 
+
+
+          }  // end if arrayItemInludedInDefault
+
+
+          // --- person missing from default - delete  
+
+          if (arrayItemInludedInDefault) {  // then it was deleted in form
+
+            // delete logSectionId from keyword item
+
+            let personHolderToBeDeleted = {
+              person: item,
+              personHolder: sectionId,
+              // id: noteId
+            }
+
+            console.log('[ JournalSectionForm ] Person 2020202020 to be deleteed ', item);
+            dispatch(deletePersonHolder(personHolderToBeDeleted))
+
+
+
+
+          }  // end if arrayItemInludedInDefault
+
+
+
+        }) // end map peopleArrayDifference
+
+
+      } // end if peopleArrayDifference --- 
+
+
+
+
+  }catch(error){
+
+    // --- alert error + navigate + end spinner + reset form ---
+    alert(error.message)
+    dispatch(changeLoadingStatus(false))
+
+    reset(defaultValues)
+
+
+    //  ########################################### 
+
+    dispatch(changeLoadingStatus(false)) // stop spinner
+    dispatch(closeJournalForm()) // close the form
+
+
+  }// end try-catch ---------------------------------------
+
+
+
+
+
+
+}//---end Submit form ---------------------
+
+
+
+// ####################################################
+
+// === Main Return ===============================
+
+  return (
+    <Scrollbars>
+      <Wrapper>
+
+
+        <MainWrapper>
+
+          <ButtonWrapper>
+
+            <StyledButton> Save and Close </StyledButton>
+            <StyledButton> Save and Add New Section</StyledButton>
+            <StyledButton onClick={() => setOpenForm(false)}> Cancel</StyledButton>
+          </ButtonWrapper>
+
+
+          <SearchWrapper>
+            <SearchTitle>Add search terms</SearchTitle>
+            <PeopleWrapper>
+              people select
+
+              {/* <StyledChronicleMultiselect
                   name={'people'}
                   control={control}
                   options={peopleOptionsArray}
@@ -71,10 +546,10 @@ export default function NewJournalForm(props) {
                   placeholder='select or type people'
 
                 /> */}
-              </PeopleWrapper>
+            </PeopleWrapper>
 
-              <KeyWordWrapper>
-  keyword select
+            <KeyWordWrapper>
+              keyword select
 
               {/*   <StyledChronicleMultiselect
                   name={'keywords'}
@@ -86,16 +561,16 @@ export default function NewJournalForm(props) {
 
 
                 /> */}
-              </KeyWordWrapper>
+            </KeyWordWrapper>
 
-            </SearchWrapper>
+          </SearchWrapper>
 
-            <DateContainer>
-              <DateWrapper>
+          <DateContainer>
+            <DateWrapper>
 
-                date input
+              date input
 
-                {/* <Controller
+              {/* <Controller
 
                   name="dateTime"
                   control={control}
@@ -111,15 +586,15 @@ export default function NewJournalForm(props) {
                 }}
                 />*/}
 
-              </DateWrapper>
+            </DateWrapper>
 
-            </DateContainer>
+          </DateContainer>
 
 
 
-    <OuterContentWrapper>
+          <OuterContentWrapper>
 
-    <TitleWrapper>
+            <TitleWrapper>
 
 input form here
 
@@ -195,7 +670,7 @@ const Wrapper = styled(Paper)({
   width: '98%',
   height: '100%',
   // overflow: 'auto',
-border: '2px solid #F285B5',
+border: '2px solid #33CC99',
 backgroundColor: veryLightGrey,
 
   [theme.breakpoints.down('sm')]: {
@@ -210,12 +685,13 @@ backgroundColor: veryLightGrey,
 const ButtonWrapper= styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-around',
+  justifyContent: 'center',
   alignItems: 'center',
-  width: '80%',
+  width: '100%',
   margin: '.25rem 0 6px  0',
+  padding: '3px 0',
 
-  backgroundColor: 'aqua',
+  backgroundColor: mediumLightGrey,
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
 

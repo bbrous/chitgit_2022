@@ -136,6 +136,7 @@ console.log('[ Journal Form   journalSectionId ] journalSectionId ', journalSect
 
 
   // (1) ---Retrieve all needed collections from Redux store -------
+
   let retrievedJournals = useSelector(selectJournals)
   const [allJournals, setAllJournals ] = useState(retrievedJournals)
   useEffect(()=>{
@@ -572,7 +573,7 @@ if (peopleArrayDifference.length > 0) {
   }// end try-catch ---------------------------------------
 
 
-  };
+  }//---end Submit form ---------------------
 
   // ==== return - Form JSX  ======================================
 
@@ -703,7 +704,7 @@ input form here
 
               </ContentWrapper>
               <SearchWrapper>
-                <SearchTitle>Add search termsxxx Section Form</SearchTitle>
+                <SearchTitle>Add search term</SearchTitle>
                 <PeopleWrapper>
 
                   <StyledChronicleMultiselect
@@ -786,7 +787,7 @@ const Wrapper = styled(Paper)({
   width: '100%',
   height: '100%',
   overflow: 'auto',
-border: '2px solid #F285B5',
+border: '2px solid #33CC99',
 backgroundColor: veryLightGrey,
 
   [theme.breakpoints.down('sm')]: {
