@@ -35,7 +35,9 @@ const People =  [
 
       personHolders: [
         {collection: 'twoPartyChits', id: 'tp_1'},
-        {dbCollection: 'journal', id: 'jsection_3' }
+        {dbCollection: 'journal', id: 'jsection_3' },
+        {dbCollection: 'journal', id: 'jsection_9' },
+        {dbCollection: 'journal', id: 'jsection_19' }
       ]
       
     },
@@ -50,7 +52,8 @@ const People =  [
 
       personHolders:  [
         {collection: 'twoPartyChits', id: 'tp_2'},
-        {dbCollection: 'journal', id: 'jsection_3' }
+        {dbCollection: 'journal', id: 'jsection_3' },
+        {dbCollection: 'journal', id: 'jsection_9' }
       ]
 
       
@@ -63,7 +66,11 @@ const People =  [
       name: "Mary B",
       meta: 'mi amore',
 
-      personHolders:  [{collection: 'journals', id: 'jsection_2'}]
+      personHolders:  [
+        {collection: 'journals', id: 'jsection_2'},
+        {collection: 'journals', id: 'jsection_16'}
+      
+      ]
       
      
 
@@ -81,6 +88,7 @@ const People =  [
         {dbCollection: 'logs', id: 'log_1' }, 
         {dbCollection: 'logs', id: 'log_9' }, 
         {dbCollection: 'logs', id: 'log_8' }, 
+        {dbCollection: 'journal', id: 'jsection_11' }, 
 
       ]
       
@@ -138,6 +146,7 @@ const People =  [
       
       personHolders: [
         {dbCollection: 'journal', id: 'jsection_6' }, 
+        {dbCollection: 'journal', id: 'jsection_21' }
       ]
 
       

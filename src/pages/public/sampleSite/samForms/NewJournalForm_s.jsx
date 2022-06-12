@@ -58,20 +58,20 @@ import {
 // --- Form inputcomponent imports ---------
 
 
-import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
-import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
+import { Editor } from '../../../../forms/formComponents/JournalEditor'
+
 import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
 
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
-import { StyledInput } from '../../../../forms/formComponents/StyledInput'
-
 import { addJournalToStore } from '../../../../app/redux/journalRedux/sam_journalSlice'
-import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
+import { StyledJournalDatePicker } from '../../../../forms/formComponents/StyledJournalDatePicker'
 
-
+import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput';
 
 // --- MUI imports ---------
+
+import InfoIcon from '@mui/icons-material/Info';
 
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
@@ -83,9 +83,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled, createTheme } from '@mui/material/styles'
-import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull, mediumLightGrey } from '../../../../styles/colors'
+import { chitBlueDull, mediumGrey, veryLightGrey, lightGrey, chitBurgandyDull, mediumLightGrey, chitLightBlueDull } from '../../../../styles/colors'
 
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -127,6 +130,19 @@ export default function NewJournalForm(props) {
     setOpen(false);
   };
 
+// --- popover for search 
+const [anchorEl, setAnchorEl] = React.useState(null);
+
+const handleClick = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleClosePopover = () => {
+  setAnchorEl(null);
+};
+
+const openPopover = Boolean(anchorEl);
+const id = openPopover ? 'simple-popover' : undefined;
 
   // (1) ---Retrieve all needed collections from Redux store -------
   
@@ -188,8 +204,10 @@ export default function NewJournalForm(props) {
     
 
     sectionId = cuid() 
+    title = ''
     content = ''
     journalDate = new Date('2021-03-14T17:03:40.000Z') 
+    dateTime = new Date('2021-03-14T17:03:40.000Z') 
     defaultKeywordOptions = []
     defaultPeopleOptions = []
 
@@ -199,8 +217,8 @@ export default function NewJournalForm(props) {
       title: title,
       keywords: defaultKeywordOptions,
       people: defaultPeopleOptions,
-      sectionCreatedDate:  journalDate,  // used in last Edit (auto)
-      dateTime: journalDate  // Bob's login time Mar 14 - used in input field  
+      sectionCreatedDate:  dateTime,  // used in last Edit (auto)
+      journalDate: journalDate  // Bob's login time Mar 14 - used in input field  
   
     };
 
@@ -227,7 +245,7 @@ const submitForm = (data) => {
   console.log('[ Journal SECTION FORM FORM FORM ] data ',data);
 
 // - replace the <p>s with <div>s in Quill editor to make it appear better
-let noPtagContent = content.replaceAll('<p>' , '<div>')
+let noPtagContent = data.content.replaceAll('<p>' , '<div>')
 let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
 
@@ -238,13 +256,13 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 // let noPtagTitle = title.replaceAll('<p>' , '<div>')
 // let cleanTitle = noPtagTitle.replaceAll('</p>', '</div>')
 
-    let passedKeyWordArray = data.keywords
-    let cleanKeywordArray =  []
+    let passedkeywordArray = data.keywords
+    let cleankeywordArray =  []
 
-    passedKeyWordArray.map((keyword, index) => {
-      cleanKeywordArray.push(cleanOptions(keyword, 'keywords'))
+    passedkeywordArray.map((keyword, index) => {
+      cleankeywordArray.push(cleanOptions(keyword, 'keywords'))
 
-    return cleanKeywordArray
+    return cleankeywordArray
     }
     ) //end map
 
@@ -265,16 +283,16 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
       id: sectionId,
       
-      journalDate: dateTime.toISOString(),
+      journalDate: data.journalDate.toISOString(),
       lastEdit: dateTime.toISOString(),
       timeLock: '',
       
-      title: title,
-      detail: cleanContent,
+      title: data.title,
+      content: cleanContent,
       attachment: '',
       chitLink: {},
       peopleArray: cleanPeopleArray,
-      keywordArray:  cleanKeywordArray
+      keywordArray:  cleankeywordArray
     }
 
 
@@ -284,11 +302,11 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
   //  === update Keywords ===================================
 
-      let defaultKeywordArray = defaultKeywordOptions
-      let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
+      let defaultkeywordArray = defaultKeywordOptions
+      let formkeywordArray = passedkeywordArray // cleaned keyword array from form
 
       //  check if keyword form data submitted is different from default 
-      let kewwordArrayDifference = isArrayDifferent(defaultKeywordArray, formKeywordArray)
+      let kewwordArrayDifference = isArrayDifferent(defaultkeywordArray, formkeywordArray)
 
 
       // --- only update keywords if keywordArrayDifference === [... someItems] ---
@@ -301,7 +319,7 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
           // --- check if each keyword form data submitted is  different from default 
 
-          let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+          let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultkeywordArray)
 
           if (!arrayItemInludedInDefault) {  // then it was added
 
@@ -485,7 +503,7 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
       } // end if peopleArrayDifference --- 
 
 
-
+      setOpenForm(false)
 
   }catch(error){
 
@@ -521,23 +539,103 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
     <Scrollbars>
       <Wrapper>
 
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+
+        </DialogTitle>
+        <DialogContent>
+          <div>
+            Your new journal section has not been saved.  
+          </div>
+        </DialogContent>
+        <DialogActions>
+
+
+          <StyledButton
+            form="submit-form"
+            variant="contained"
+            color="primary"
+
+            onClick={handleClose}
+          >
+            Got it
+          </StyledButton>
+
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
+
+      <FormProvider {...methods}>
+
+      <ClickAwayListener
+          onClickAway={handleClickAway}
+          mouseEvent="onMouseDown"
+          touchEvent="onTouchStart"
+        >
+
+
+        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+
 
         <MainWrapper>
 
           <ButtonWrapper>
 
-            <StyledButton> Save and Close </StyledButton>
-            <StyledButton> Save and Add New Section</StyledButton>
+            <StyledButton
+             type="submit"
+             variant="contained"
+             color="primary"
+             style={{ textTransform: 'none' }}
+            > 
+            Save and Close 
+            
+            </StyledButton>
+            
             <StyledButton onClick={() => setOpenForm(false)}> Cancel</StyledButton>
           </ButtonWrapper>
 
 
           <SearchWrapper>
-            <SearchTitle>Add search terms</SearchTitle>
-            <PeopleWrapper>
-              people select
+          <InfoIconWrapper  aria-describedby={id}
+    // onMouseOver = {()=> openInfoModal(page, id)}
+    // onMouseOver = {()=> alert('hi')}
+    onClick={handleClick}
+     />
 
-              {/* <StyledChronicleMultiselect
+
+
+<Popover
+        id={id}
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handleClosePopover}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
+
+
+
+
+
+     
+            <PeopleWrapper>
+          
+
+              <StyledChronicleMultiselect
                   name={'people'}
                   control={control}
                   options={peopleOptionsArray}
@@ -545,46 +643,46 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
                   defaultValue={defaultValues.people}
                   placeholder='select or type people'
 
-                /> */}
+                />
             </PeopleWrapper>
 
             <KeyWordWrapper>
-              keyword select
+     
 
-              {/*   <StyledChronicleMultiselect
+                 <StyledChronicleMultiselect
                   name={'keywords'}
-                  // control={control}
-                  // options={keywordsOptionsArray}
+                  control={control}
+                  options={keywordsOptionsArray}
                   placeholder='select or type keywords'
                    
                   defaultValue={defaultValues.keywords}
 
 
-                /> */}
+                /> 
             </KeyWordWrapper>
 
           </SearchWrapper>
 
           <DateContainer>
-            <DateWrapper>
-
-              date input
-
-              {/* <Controller
-
-                  name="dateTime"
-                  control={control}
-
-
-                  render={({ field }) => (
-                    <StyledDateTimePicker {...field} ref={null} />
-                  )} 
-                /><CalendarTodayIcon style={{
+          <CalendarTodayIcon style={{
                   color: '#A7A7A8',
                   fontSize: '1.2rem',
                   marginLeft: '5px'
                 }}
-                />*/}
+                />
+            <DateWrapper>
+ 
+
+              <Controller
+
+                  name="journalDate"
+                  control={control}
+
+
+                  render={({ field }) => (
+                    <StyledJournalDatePicker {...field} ref={null} />
+                  )} 
+                />
 
             </DateWrapper>
 
@@ -596,31 +694,24 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
             <TitleWrapper>
 
-input form here
-
-                  {/* <Controller
-
-                    name="title"
-                    control={control}
-                    initialNote={'hi quill description'}
-
-                    render={({ field }) => (
-                      <EditorShort
-                        {...field}
-                        ref={null}
-                        IniitalValue={defaultValues.title} />
-                    )}
-
-                  /> */}
+            <ChronicleInput
+                name={"title"}
+                control={control}
+                label={"newPerson"}
+                defaultValue= {''}
+                placeholder = ' create a headline'
+                 
+                 
+              />
 
 
                 </TitleWrapper>
 
 
-                <Content>
+                <ContentWrapper>
 
-Quill here
-{/* 
+{/* Quill here */}
+
                   <Controller
 
                     name="content"
@@ -634,10 +725,10 @@ Quill here
                         IniitalValue={defaultValues.content} />
                     )}
 
-                  /> */}
+                  />
 
 
-                </Content>
+                </ContentWrapper>
 
 
     </OuterContentWrapper>
@@ -645,7 +736,10 @@ Quill here
 
 
     </MainWrapper>
-    
+    </FormWrapper>
+    </ClickAwayListener>
+</FormProvider>
+
     </Wrapper>
     </Scrollbars>
   )
@@ -670,7 +764,7 @@ const Wrapper = styled(Paper)({
   width: '98%',
   height: '100%',
   // overflow: 'auto',
-border: '2px solid #33CC99',
+
 backgroundColor: veryLightGrey,
 
   [theme.breakpoints.down('sm')]: {
@@ -721,13 +815,13 @@ const SearchWrapper= styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-end',
   alignItems: 'center',
 
-  width: '99%',
-  padding: '2px 0',
+  width: '100%',
+  padding: '2px 8px',
   margin: '0 0 3px o',
-backgroundColor: 'orange',
+ backgroundColor: veryLightGrey,
   fontSize: '.6rem',
   height: '2rem',
   color: mediumGrey,
@@ -747,7 +841,7 @@ const SearchTitle= styled('div')({
   alignItems: 'center',
 
   marginRight: '1.5rem',
-  fontSize: '.85rem',
+  fontSize: '.75rem',
   fontStyle: 'italic',
   height: '100%',
   [theme.breakpoints.down('sm')] : {
@@ -844,19 +938,19 @@ const DateContainer= styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   alignItems: 'center',
+ width: '98%',
 
-  // backgroundColor: veryLightGrey,
-  backgroundColor: 'red',
+ padding: '2px 8px',
+  margin: '0 0 3px o',
+  backgroundColor: veryLightGrey,
+ 
 
 
   width: '100%',
   margin: '3px 0',
-  borderRadius: '5px 5px 0 0',
-  borderLeft: '1px solid #CFD0D1',
-  borderTop: '1px solid #CFD0D1',
-  borderRight: '1px solid #CFD0D1',
+ 
   height: '2rem',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
@@ -937,14 +1031,15 @@ const TitleWrapper= styled('div')({
 
   display: 'flex',
  
-  flexDirection: 'column',
+  flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   fontSize: '.75rem',
-  width: '30%',
-  minHeight: '100%',
- 
-  backgroundColor: veryLightGrey,
+  width: '100%',
+  margin : '5px 0 8px 0',
+  padding: '2px 8px',
+  
+   
 
  
 
@@ -1071,7 +1166,18 @@ const ComponentWrapper= styled('div')({
 
 })
  
+const InfoIconWrapper= styled(InfoIcon)({
 
+  color: mediumLightGrey,
+  fontSize : '1.6rem',
+  
+  '&:hover' : {
+    backgroundColor: chitLightBlueDull,
+    borderRadius: '50px',
+    cursor: 'pointer'
+  },
+
+})
 
 
 

@@ -29,13 +29,13 @@ export const journalSlice = createSlice({
     let journalId = action.payload.id
  
     
-    let newJournalKeywordArray = action.payload.keywordArray
-    let newJournalTitle = action.payload.title
-    let newJournalPeopleArray = action.payload.peopleArray
-    let newJournalLastEdit = action.payload.lastEdit
-    let newJournalDate = action.payload.journalDate
+    let editedJournalKeywordArray = action.payload.keywordArray
+    let editedJournalTitle = action.payload.title
+    let editedJournalPeopleArray = action.payload.peopleArray
+    let editedJournalLastEdit = action.payload.lastEdit
+    let editedJournalDate = action.payload.journalDate
 
-    let newJournalDetail = action.payload.detail
+    let editedJournalContent = action.payload.content
 
 
     let journalIndex = state.findIndex(index => index.id === journalId)
@@ -43,12 +43,12 @@ export const journalSlice = createSlice({
     console.log('[ sam_journalSlice ] state[journalIndex] ', state[journalIndex]);
     console.log('[ sam_journalSlice ] payload ', action.payload);
     
-    state[journalIndex].detail = newJournalDetail
-   state[journalIndex].keywordArray = newJournalKeywordArray
-  state[journalIndex].title = newJournalTitle
-  state[journalIndex].peopleArray = newJournalPeopleArray
-  state[journalIndex].lastEdit = newJournalLastEdit
-  state[journalIndex].journalDate = newJournalDate
+    state[journalIndex].content = editedJournalContent
+   state[journalIndex].keywordArray = editedJournalKeywordArray
+  state[journalIndex].title = editedJournalTitle
+  state[journalIndex].peopleArray = editedJournalPeopleArray
+  state[journalIndex].lastEdit = editedJournalLastEdit
+  state[journalIndex].journalDate = editedJournalDate
    
 
 

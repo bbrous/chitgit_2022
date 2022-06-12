@@ -18,7 +18,7 @@ import {useSelector, useDispatch} from 'react-redux'
  
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
 
-import JournalForm from '../samForms/JournalForm_s'
+import EditJournalForm from '../samForms/EditJournalForm_s'
 import JournalFormAlert from './JournalFormAlert'
 import { selectStatus,
   openJournalForm
@@ -64,26 +64,26 @@ export default function JSection(props) {
 
 /*   #### - keywords code for creating displayed string (Apr 2022)
 
-  if (keyWordArray.length > 0) {
-    //    keyWordArray.map((keyword) => {
+  if (keywordArray.length > 0) {
+    //    keywordArray.map((keyword) => {
     //   styledKeywords = styledKeywords  + keyword + ' , '
 
     //   return styledKeywords
     // }
     // ) //end map
 
-  for(let i = 0; i < keyWordArray.length; i++){
-    if(i === keyWordArray.length - 1){
-      styledKeywords += keyWordArray[i]  
+  for(let i = 0; i < keywordArray.length; i++){
+    if(i === keywordArray.length - 1){
+      styledKeywords += keywordArray[i]  
     }else{
-    styledKeywords += keyWordArray[i] + ' , '
+    styledKeywords += keywordArray[i] + ' , '
     }
   }
  
 
   }//end if keyword.length > 0
 
-  if (keyWordArray.length === 0) {
+  if (keywordArray.length === 0) {
 styledKeywords = 'none'
   }
 
@@ -106,13 +106,13 @@ styledKeywords = 'none'
 
   let journalViewId = useSelector(selectStatus).view.journal.sectionId
 
- 
+
 
   const handleClick = (id)=>{
  
     let sectionId = id
 
-    dispatch(openJournalForm(sectionId))
+    dispatch(openJournalForm(id))
     
   }
  
@@ -129,10 +129,53 @@ styledKeywords = 'none'
 
 
 
-  const {id,  title, journalDate, content,  chitId, timeStamp , keywordArray ,category ,people  
+  const {id,  title, journalDate, content,  chitId, timeStamp , keywordArray ,category ,peopleArray  
   }  = props
 
-  console.log('[ 00000000000000000000000000000000000000] date ', props);
+  console.log('[ 00000000000000000000000000000000000000] date ',keywordArray);
+    // format keywords
+    let styledKeywords = ''
+
+    if (keywordArray.length > 0) {
+      
+  
+    for(let i = 0; i < keywordArray.length; i++){
+      if(i === keywordArray.length - 1){
+        styledKeywords += keywordArray[i]  
+      }else{
+      styledKeywords += keywordArray[i] + ' , '
+      }
+    }
+   
+  
+    }//end if keyword.length > 0
+  
+    if (keywordArray.length === 0) {
+  styledKeywords = 'none'
+    }
+  
+  
+    let styledPeople = ''
+  
+    if (peopleArray.length > 0) {
+         
+  
+    for(let i = 0; i < peopleArray.length; i++){
+      if(i === peopleArray.length - 1){
+        styledPeople += peopleArray[i]  
+      }else{
+      styledPeople += peopleArray[i] + ' , '
+      }
+    }
+   
+  
+    }//end if keyword.length > 0
+  
+    if (peopleArray.length === 0) {
+  styledPeople = 'none'
+    }
+
+    
  
   let formattedDate = ISOtoTraditionalWithDay(journalDate)
   return (
@@ -215,15 +258,15 @@ styledKeywords = 'none'
             <Content>
               <HeadlineWrapper> {title} </HeadlineWrapper>
               {/* {content} */}
-              <div dangerouslySetInnerHTML={{ __html: content }}>
-              </div>
+              <QuillDiv dangerouslySetInnerHTML={{ __html: content }}>
+              </QuillDiv>
 
             </Content>
 
             <SearchWrapper>
-              <PeopleWrapper>People: Joi Me</PeopleWrapper>
+              <PeopleWrapper>People: {styledPeople}</PeopleWrapper>
               
-              <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+              <KeyWordWrapper>keywords: {styledKeywords}</KeyWordWrapper>
 
             </SearchWrapper>
 
@@ -233,19 +276,19 @@ styledKeywords = 'none'
       }
 
       {journalViewId === id &&
-        <ClickAwayListener
-          onClickAway={handleClickAway}
-          mouseEvent="onMouseDown"
-          touchEvent="onTouchStart"
-        >
+        // <ClickAwayListener
+        //   onClickAway={handleClickAway}
+        //   mouseEvent="onMouseDown"
+        //   touchEvent="onTouchStart"
+        // >
 
           <JournalFormWrapper>
-
-            <JournalForm id="submit-form" />
-
+ 
+            <EditJournalForm id="submit-form" />
+ 
           </JournalFormWrapper>
 
-        </ClickAwayListener>
+        // </ClickAwayListener>
 
       }
 
@@ -609,3 +652,21 @@ const StyledDetail= styled('div')({
  
  
  })
+
+ const QuillDiv= styled('div')({
+
+  fontSize: '14px',
+  
+   '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
+  
+  })

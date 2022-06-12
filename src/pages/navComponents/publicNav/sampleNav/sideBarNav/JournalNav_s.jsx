@@ -1,5 +1,5 @@
 import React from 'react'
-import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,darkGrey, chitAquaBlue, chitGold} from '../../../../../styles/colors'
+import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,darkGrey, chitAquaBlue, chitGold, mediumGrey, chitBurgandy} from '../../../../../styles/colors'
 
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Paper from '@mui/material/Paper'
@@ -15,156 +15,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
-// -------------------------------
 
-const Wrapper= styled('div')({
-
-  display: 'block',
-  position: 'relative',
-  backgroundColor: 'white',
-  // backgroundColor: 'orange',
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none',
- 
-  }
-
-})
-
-const HeaderWrapper= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-
-  
-  height: '3rem',
-  backgroundColor: '#F6F7F8',
-  borderRadius: '0',
-  marginBottom: '2px',
-
-
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
-
-
-
-
-const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400,
-  },
-});
-
-
-const FilterWrapper= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-
-  height: '80%',
-  width: '100%',
-  borderRadius: '0',
-  margin: '7px 0 0 0',
-  // backgroundColor: '#727376',
-  color: 'black',
-
-  [theme.breakpoints.down('xs')]: {
-    // display: 'none', s
-  }
-
-})
-
-
-const CategorySelectWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
- 
-  // width: '16rem',
-  backgroundColor: 'yellow',
-  color: darkGrey,
-
-
-})
-
-const KeywordSelectWrapper= styled('div')({
- 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-  backgroundColor: 'pink',
-  color: darkGrey,
-
-
-})
-
-
-
-
-
-
-
-const StyledSelectField= styled('select')({
-  border: '1px solid orange',
-  borderRadius: '5px',
-  width: '80%', 
-  margin: '1rem 0 0 0 ',
-  // width: '16rem',
-  backgroundColor: 'white',
-  color: darkGrey,
-
-
-})
-
-const Title= styled('div')({
- 
- 
-  // width: '16rem',
-  
-  color: darkGrey,
-
-
-})
-
-const CheckBoxWrapper= styled('div')({
- 
-  display: 'flex',
-  backgroundColor: 'orange',
-  width: '75%',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // width: '16rem',
-  
-  color: darkGrey,
-
-
-})
-
-const CheckBoxLabel= styled('div')({
- 
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  // width: '16rem',
-  
-  color: darkGrey,
-
-
-})
 
 
 // =========================================
@@ -181,122 +32,177 @@ function JournalNav() {
   // }
 
   return (
-    <>
-      <FilterWrapper  >
-      <CategorySelectWrapper>
-
-<Title> Filter by Month / Year</Title>
-
-<StyledSelectField name="filters" id="filters"
-// onChange={(evt) => changeFilter(evt)}
->
-<option value="begun">January</option>
-  <option value="uncompleted" >February</option>
-  <option value="topLevel" >March</option>
- 
-
-</StyledSelectField>
-<StyledSelectField name="filters" id="filters"
-// onChange={(evt) => changeFilter(evt)}
->
-<option value="begun">2021</option>
-
- 
-
-</StyledSelectField>
-
-</CategorySelectWrapper>
+    <Wrapper>
 
 
+      <YearWrapper elevation={1}>
+        <FilterTitle> Filter</FilterTitle>
 
-        <CategorySelectWrapper>
+        <StyledSelectField name="filters" id="filters"
+        // onChange={(evt) => changeFilter(evt)}
+        >
 
-          <Title> Filter by Person</Title>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
 
-          <StyledSelectField name="filters" id="filters"
-          // onChange={(evt) => changeFilter(evt)}
-          >
-            <option value="uncompleted" >Joi Me</option>
-            <option value="topLevel" >Steve - Starbucks</option>
-            <option value="begun">Jill S</option>
-            <option value="inactive">Mark Hedelson</option>
-       
-          </StyledSelectField>
+        </StyledSelectField>
 
-
-        </CategorySelectWrapper>
+      </YearWrapper>
+      <MonthContainer>
 
 
+      <MonthWrapper>March</MonthWrapper>
+      <MonthWrapper>February</MonthWrapper>
+      <MonthWrapper>January</MonthWrapper>
 
+      </MonthContainer>
 
-        <CategorySelectWrapper>
-
-          <Title> Filter by Category</Title>
-
-          <StyledSelectField name="filters" id="filters"
-          // onChange={(evt) => changeFilter(evt)}
-          >
-            <option value="uncompleted" >All uncompleted spotlights</option>
-            <option value="topLevel" >Top level spotlights only</option>
-            <option value="begun">Active only</option>
-            <option value="inactive">Inactive only</option>
-            <option value="all">All spotlights</option>
-            <option value="completed">Completed only</option>
-          </StyledSelectField>
-
-
-        </CategorySelectWrapper>
-
-        <KeywordSelectWrapper>
-          <Title>Filter by Keyword</Title>
-
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-
-          </CheckBoxWrapper>
-        
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-            
-          </CheckBoxWrapper>
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-            
-          </CheckBoxWrapper>
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-            
-          </CheckBoxWrapper>
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-            
-          </CheckBoxWrapper>
-          <CheckBoxWrapper>
-            
-            <Checkbox {...label} defaultChecked size="small" />
-            <CheckBoxLabel> Label </CheckBoxLabel>
-            
-          </CheckBoxWrapper>  
-
-
-        </KeywordSelectWrapper>
-              
-
-
-      </FilterWrapper>
-
-    </>
+    </Wrapper>
   )
 }
 
 export default JournalNav
+// -------------------------------
+
+const Wrapper= styled('div')({
+
+  display: 'block',
+  width: '100%',
+  position: 'relative',
+  backgroundColor: 'white',
+  // backgroundColor: 'orange',
+
+  [theme.breakpoints.down('xs')] : {
+    // display: 'none',
+ 
+  }
+
+})
+
+
+const YearWrapper= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+   
+  color: 'black',
+  
+  
+  cursor: 'pointer',
+  width: '100%',
+  height: '6rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+ 
+  borderRadius: '0',
+  border: '1px solid #F6F7F8', 
+ 
+    '&:hover' : {
+      // backgroundColor: 'white',
+        color: chitOrange,
+    },
+
+
+})
+
+
+const FilterTitle= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '1.1rem',
+  color: chitBurgandy,
+  marginBottom: '1rem',
+  })
+
+const MonthContainer= styled('div')({
+
+  display: 'flex',
+  width: '100%',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  backgroundColor: 'white',
+  // backgroundColor: 'orange',
+
+  [theme.breakpoints.down('xs')] : {
+    // display: 'none',
+ 
+  }
+
+})
+const MonthWrapper= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 8px',
+
+  cursor: 'pointer',
+  borderRadius: '0',
+    '&:hover' : {
+      // backgroundColor: veryLightGrey,
+      color: chitOrange,
+    },
+  })
+
+  
+const MonthWrapperSelected= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+  borderRadius: '0',
+  color: 'white',
+  backgroundColor: mediumGrey
+
+
+
+})
+
+
+
+
+// const useStyles = makeStyles({
+//   root: {
+//     height: 240,
+//     flexGrow: 1,
+//     maxWidth: 400,
+//   },
+// });
+
+
+
+const StyledSelectField= styled('select')({
+  border: '1px solid grey',
+  borderRadius: '5px',
+  width: '80%', 
+  textAlign: 'center',
+  fontSize: '.85rem',
+  // width: '16rem',
+  padding: '4px',
+  backgroundColor: 'white',
+  color: darkGrey,
+
+
+})

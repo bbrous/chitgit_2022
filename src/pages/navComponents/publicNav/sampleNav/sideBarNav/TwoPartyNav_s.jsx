@@ -47,178 +47,6 @@ import { styled, createTheme} from "@mui/material/styles"
 // import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
-
-
-const Wrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  width: '98%',
-  height: '100%',
-  padding: '4px 2px 16px 2px',
-  marginTop: '4px',
-  backgroundColor: 'white',
-  overflow: 'auto',
-
-  
-  [theme.breakpoints.down('xs')] : {
-    // display: 'none', 
-  }
-
-})
-
-
-const OrderWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  width: '100%',
-  height: '3rem',
-  fontSize: '.8em',
-  color: chitBurgandy,
-  margin: '8px 0 0 0',
-  // border: '1px solid purple',
-  backgroundColor: lightGrey,
-})
-
-const DisplayWrapper= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: '100%',
-  overflow: 'auto',
- 
- 
-})
-
-
-const StaticWrapper= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-   
-  color: 'black',
-  
-  
-  cursor: 'pointer',
-  width: '100%',
-  height: '2rem' ,
-  fontSize: '.85rem',
-  marginTop: '.2rem',
-  padding: '0 .5rem',
-  borderRadius: '0',
-  border: '1px solid #F6F7F8', 
- 
-    '&:hover' : {
-      // backgroundColor: 'white',
-        color: chitOrange,
-    },
-
-
-})
-const StaticWrapperSelected= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-   
-  color: 'white',
-  backgroundColor: mediumGrey,
-   
-  
-
-  width: '100%',
-  height: '2rem' ,
-  fontSize: '.85rem',
-  marginTop: '.2rem',
-  padding: '0 .5rem',
-  borderRadius: '0',
-
-
-})
-
-const PeopleWrapper= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-  width: '100%',
-  marginTop: '5px',
-  maxHeight: '65vh' ,
-  overflowY: 'auto',
-  paddingBottom: '3px',
-
-
-})
-
-const SelectorWrapper= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-  width: '100%',
-  height: '1.7rem' ,
-  fontSize: '.85rem',
-  marginTop: '.2rem',
-  padding: '0 .5rem',
-
-  cursor: 'pointer',
-  borderRadius: '0',
-    '&:hover' : {
-      // backgroundColor: veryLightGrey,
-      color: chitOrange,
-    },
-  })
-
-  
-const SelectorWrapperSelected= styled(Paper)({
-
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  
-  width: '100%',
-  height: '1.7rem' ,
-  fontSize: '.85rem',
-  marginTop: '.2rem',
-  padding: '0 .5rem',
-  borderRadius: '0',
-  color: 'white',
-  backgroundColor: mediumGrey,
-
-
-
-})
-
-
-const NoneMessage= styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1.5rem 0',
-  width: '80%',
-  height: '8rem',
-  backgroundColor: 'white',
-  marginTop: '3rem',
-  borderRadius: '10px',
-  textAlign: 'center',
-  color: chitBurgandy,
-
-  
-})
 
 
 
@@ -604,3 +432,175 @@ return chooseDisplayType()
 
 
 export default TwoPartyNav
+// -----------------------------------------------------------------
+
+
+const Wrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  width: '98%',
+  height: '100%',
+  padding: '4px 2px 16px 2px',
+  marginTop: '4px',
+  backgroundColor: 'white',
+  overflow: 'auto',
+
+  
+  [theme.breakpoints.down('xs')] : {
+    // display: 'none', 
+  }
+
+})
+
+
+const OrderWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  width: '100%',
+  height: '3rem',
+  fontSize: '.8em',
+  color: chitBurgandy,
+  margin: '8px 0 0 0',
+  // border: '1px solid purple',
+  backgroundColor: lightGrey,
+})
+
+const DisplayWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: '100%',
+  overflow: 'auto',
+ 
+ 
+})
+
+
+const StaticWrapper= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+   
+  color: 'black',
+  
+  
+  cursor: 'pointer',
+  width: '100%',
+  height: '2rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+  borderRadius: '0',
+  border: '1px solid #F6F7F8', 
+ 
+    '&:hover' : {
+      // backgroundColor: 'white',
+        color: chitOrange,
+    },
+
+
+})
+const StaticWrapperSelected= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+   
+  color: 'white',
+  backgroundColor: mediumGrey,
+   
+  
+
+  width: '100%',
+  height: '2rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+  borderRadius: '0',
+
+
+})
+
+const PeopleWrapper= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  marginTop: '5px',
+  maxHeight: '65vh' ,
+  overflowY: 'auto',
+  paddingBottom: '3px',
+
+
+})
+
+const SelectorWrapper= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+
+  cursor: 'pointer',
+  borderRadius: '0',
+    '&:hover' : {
+      // backgroundColor: veryLightGrey,
+      color: chitOrange,
+    },
+  })
+
+  
+const SelectorWrapperSelected= styled(Paper)({
+
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '100%',
+  height: '1.7rem' ,
+  fontSize: '.85rem',
+  marginTop: '.2rem',
+  padding: '0 .5rem',
+  borderRadius: '0',
+  color: 'white',
+  backgroundColor: mediumGrey,
+
+
+
+})
+
+
+const NoneMessage= styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '1.5rem 0',
+  width: '80%',
+  height: '8rem',
+  backgroundColor: 'white',
+  marginTop: '3rem',
+  borderRadius: '10px',
+  textAlign: 'center',
+  color: chitBurgandy,
+
+  
+})

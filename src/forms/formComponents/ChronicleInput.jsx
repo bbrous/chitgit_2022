@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
+import { chitBurgandy } from "../../styles/colors";
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
@@ -14,17 +15,19 @@ const StyledTextField= styled(TextField)({
 border: 'none',
   // width: '80%', 
  
-  width: '100%',
+  maxWidth: '40rem',
   // backgroundColor: 'white',
   marginRight: '8px',
   boxShadow: 'none',
 
   '& input' : 
-  {color: 'charcoal',
+  {
+  color: chitBurgandy,
   height: '1.8rem',
-  fontSize: '.85rem',
+
+  fontSize: '.95rem',
   padding: '0 .4rem',
-  border: '1px solid grey',
+  border: '1px solid #CFD0D1',
   borderRadius: '5px',
   backgroundColor: 'white',
   },

@@ -35,6 +35,7 @@ export function capitalizeFirstLetter(string) {
   @params array, parameter   
   @return array sorted 
 
+  
 ---------------------*/
 export function optionDescendSorter(array){
 

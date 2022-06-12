@@ -29,6 +29,19 @@ Feb 2
 1612246133000
 '2021-02-02T06:08:53.000Z'
 
+Jan 27
+2021-01-27
+1611791918000
+'2021-01-27T23:58:38.000Z'
+
+Jan 24
+2021-01-24
+1611532718000
+'2021-01-24T23:58:38.000Z'
+
+
+
+
 Jan 19
 2021-01-19
 1611036533000
@@ -38,6 +51,56 @@ Jan 14
 2021-01-14
 1610604533000
 '2021-01-14T06:08:53.000Z'
+
+
+// Log Layout ----------------------------------------
+
+// {
+//   id: 'log_XX', 
+//   type: 'person', // company, group, organization, topic, story, other
+  
+  
+//   otherPartyId: 'person_4', //Shelly 
+
+//   logDate: '',  
+//   lastEdit:  '',  
+//   timeLock:  '',
+
+//   meta: '',
+//   title: '#1 Left poop on my driveway',
+ 
+//   detail : '', 
+
+//   attachment: '',
+
+//   chitLink: null,
+  
+//   peopleArray: [],
+//   keywordArray: [''],
+
+// },
+
+
+// JOURNAL Layout
+
+    // {
+    //   id: 'jsection_XX',
+    //   title: '',
+      
+    //   content: '',
+  
+    //   journalDate: "",
+    //   lastEdit: " ",
+    //   chtiType: '',
+                  
+    //   mirrorType: '',
+    //   mirrorId: '',
+  
+    //   peopleArray: [],
+    //   keywordArray: [],
+      
+  
+    // },
 
 
 

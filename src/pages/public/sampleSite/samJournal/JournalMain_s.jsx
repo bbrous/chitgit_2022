@@ -78,11 +78,11 @@ function JournalMain(props) {
         <MiddleWrapper
         style={{
           // height: openForm ? '30vh' : ''
-           height: openForm ? '50%' : ''
+           height: openForm ? '30%' : ''
         }}
         
         >
-        <Scrollbars >
+        <Scrollbars  >
           <SectionsContainer>
          
             <SectionWrapper>
@@ -151,14 +151,14 @@ overflow: 'hidden',
 const TopWrapper = styled(Paper)({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
- 
+  height: '4rem',
 backgroundColor: '#F6F7F8',
   width: '100%',
    
   margin: '4px 0 8px 0',
-  padding: '.7rem 0',
+ 
   boxShadow: '2px 2px grey, -2px 0 2px lightgrey',
  
   // minHeight: '10rem',
@@ -257,7 +257,7 @@ const MiddleWrapper = styled('div')({
   width: '100%',
   // minHeight: '13rem',
  
-
+  
   // minHeight: '10rem',
 
 // height: '73vh',
@@ -291,11 +291,11 @@ const Container= styled(Paper)({
   // minHeight: '10rem',
   height: '99%',
   margin: '6px 0 1% 0',
-
+  
  
 
 
-  // overflowY: 'hidden',
+  overflow: 'hidden',
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',
@@ -314,7 +314,7 @@ const SectionsContainer = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  backgroundColor: lightGrey,
+ 
   // paddingTop: '6px',
 
   width: '98%',
@@ -342,7 +342,7 @@ const SectionWrapper = styled('div')({
 
   width: '100%',
   minHeight: '13rem',
-  // backgroundColor: 'blue',
+ 
 
   // minHeight: '10rem',
   // height: '90%',
@@ -367,7 +367,7 @@ const FormWrapper = styled('div')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  
+  border: '2px solid #33CC99',
 
   width: '100%',
   // minHeight: '13rem',
@@ -377,8 +377,8 @@ const FormWrapper = styled('div')({
   // height: '90%',
 
   // height: '43vh',
-  height: '50%',
-  // overflowY: 'hidden',
+  height: '70%',
+  overflowX: 'hidden',
 
   [theme.breakpoints.down('sm')] : {
     // height: '1.25rem',

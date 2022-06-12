@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import {
 
   checkIfWordExists,
@@ -60,17 +60,24 @@ import {
 // --- Form inputcomponent imports ---------
 
 
-import { Editor } from '../../../../forms/formComponents/ChronicleEditor'
+import { Editor } from '../../../../forms/formComponents/JournalEditor'
+
+
+
 import { EditorShort } from '../../../../forms/formComponents/ChronicleEditorShort'
 import { StyledChronicleMultiselect } from '../../../../forms/formComponents/StyledChronicleMultiselect';
 
 import { StyledSelectMuiCreatable } from '../../../../forms/formComponents/StyledSelectMuiCreatable';
 
 import { StyledInput } from '../../../../forms/formComponents/StyledInput'
-
+import { ChronicleInput } from '../../../../forms/formComponents/ChronicleInput';
 import { addJournalToStore } from '../../../../app/redux/journalRedux/sam_journalSlice'
 import { StyledDateTimePicker } from '../../../../forms/formComponents/StyledDateTimePicker'
+
+
 // --- MUI imports ---------
+
+import InfoIcon from '@mui/icons-material/Info';
 
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
@@ -205,7 +212,7 @@ journal =  selectJournalFromArray(allJournals, journalSectionId)
  
 
 
-journalSectionId  === 'new' ? content = ''  : content =  journal.detail 
+journalSectionId  === 'new' ? content = ''  : content =  journal.content 
 journalSectionId  === 'new' ? title = ''  : title =  journal.title 
 
 journalSectionId  === 'new' ? journalDate = new Date('2021-03-14T17:03:40.000Z')  : journalDate =   new Date(journal.journalDate)
@@ -250,7 +257,9 @@ journalSectionId  === 'new' ? defaultPeopleOptions = []  : defaultPeopleOptions 
  
 
 // - replace the <p>s with <div>s in Quill editor to make it appear better
-let noPtagContent = content.replaceAll('<p>' , '<div>')
+
+
+let noPtagContent = data.content.replaceAll('<p>' , '<div>')
 let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 
 // --- clean the input data from multiselectors (people and keywords)
@@ -260,13 +269,13 @@ let cleanContent = noPtagContent.replaceAll('</p>', '</div>')
 // let noPtagTitle = title.replaceAll('<p>' , '<div>')
 // let cleanTitle = noPtagTitle.replaceAll('</p>', '</div>')
 
-let passedKeyWordArray = data.keywords
-let cleanKeywordArray =  []
+let passedkeywordArray = data.keywords
+let cleankeywordArray =  []
 
-passedKeyWordArray.map((keyword, index) => {
-  cleanKeywordArray.push(cleanOptions(keyword, 'keywords'))
+passedkeywordArray.map((keyword, index) => {
+  cleankeywordArray.push(cleanOptions(keyword, 'keywords'))
 
-return cleanKeywordArray
+return cleankeywordArray
 }
 ) //end map
 
@@ -281,7 +290,7 @@ return cleanPeopleArray
 ) //end map
 
 
-// console.log('[ Journal SECTION FORM FORM FORM ] ---- CLEANED Keyword ARRAY',cleanKeywordArray);
+// console.log('[ Journal SECTION FORM FORM FORM ] ---- CLEANED Keyword ARRAY',cleankeywordArray);
 
 // console.log('[ Journal SECTION FORM FORM FORM ] ---- CLEANED people ARRAY',cleanPeopleArray);
 
@@ -298,7 +307,7 @@ try{
 
 // --- define the Journal data to create new Journal
 
-let newJournalData = {
+let editedJournalData = {
 
   id: sectionId,
   type: 'person',
@@ -308,11 +317,11 @@ let newJournalData = {
   timeLock: '',
   
   title: title,
-  detail: cleanContent,
+  content: cleanContent,
   attachment: '',
   chitLink: {},
   peopleArray: cleanPeopleArray,
-  keywordArray:  cleanKeywordArray
+  keywordArray:  cleankeywordArray
 }
 
 //  === New  Journal ======================================
@@ -320,9 +329,9 @@ let newJournalData = {
 // --- journalSectionId from Redux store view
   if (journalSectionId === 'new') {
 
-    console.log('[ journalSectionForm ] new journal dispatch here ', journalSectionId);
+    console.log('[ journalSectionForm ] XXX new journal dispatch here ', journalSectionId);
 
-    dispatch(addJournalToStore(newJournalData))
+    dispatch(addJournalToStore(editedJournalData))
 
   }
 
@@ -331,19 +340,19 @@ let newJournalData = {
 
 if (journalSectionId !== 'new') {
 
-  // console.log('[ JournalSectionForm ] new Journal dispatch here ', journalSectionId);
+  console.log('[ JournalSectionForm ] @@@ update Journal dispatch here ', journalSectionId);
 
-  dispatch(updateEditedJournal(newJournalData))
+  dispatch(updateEditedJournal(editedJournalData))
   
   }
 
 
 //  === update Keywords ===================================
-  let defaultKeywordArray = defaultKeywordOptions
-  let formKeywordArray = passedKeyWordArray // cleaned keyword array from form
+  let defaultkeywordArray = defaultKeywordOptions
+  let formkeywordArray = passedkeywordArray // cleaned keyword array from form
 
   //  check if keyword form data submitted is different from default 
-  let kewwordArrayDifference = isArrayDifferent(defaultKeywordArray, formKeywordArray)
+  let kewwordArrayDifference = isArrayDifferent(defaultkeywordArray, formkeywordArray)
 
 
   // --- only update keywords if keywordArrayDifference === [... someItems] ---
@@ -356,7 +365,7 @@ if (journalSectionId !== 'new') {
 
       // --- check if each keyword form data submitted is  different from default 
 
-      let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultKeywordArray)
+      let arrayItemInludedInDefault = doesArrayIncludeItem(item, defaultkeywordArray)
 
       if (!arrayItemInludedInDefault) {  // then it was added
 
@@ -621,13 +630,43 @@ if (peopleArrayDifference.length > 0) {
       
 
       <FormProvider {...methods}>
-        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
 
-        <ClickAwayListener
+
+      <ClickAwayListener
           onClickAway={handleClickAway}
           mouseEvent="onMouseDown"
           touchEvent="onTouchStart"
         >
+
+        <FormWrapper id="submit-form" onSubmit={handleSubmit(submitForm)} >
+        <ButtonWrapper>
+
+<StyledButton
+
+  variant="contained"
+  color="primary"
+  style={{ textTransform: 'none' }}
+  onClick={() => dispatch(closeJournalForm())}
+>
+  Cancel
+</StyledButton>
+
+<StyledButton
+  type="submit"
+  variant="contained"
+  color="primary"
+  style={{ textTransform: 'none' }}
+>
+  Submit
+</StyledButton>
+
+
+
+
+
+
+</ButtonWrapper>
+ 
           <MainWrapper>
             <TopWrapper>
               <DateWrapper>
@@ -656,27 +695,20 @@ if (peopleArrayDifference.length > 0) {
 
               <ContentWrapper>
 
-                <TitleWrapper>
+              <TitleWrapper>
 
-input form here
-
-                  {/* <Controller
-
-                    name="title"
-                    control={control}
-                    initialNote={'hi quill description'}
-
-                    render={({ field }) => (
-                      <EditorShort
-                        {...field}
-                        ref={null}
-                        IniitalValue={defaultValues.title} />
-                    )}
-
-                  /> */}
+<ChronicleInput
+    name={"title"}
+    control={control}
+    label={"newPerson"}
+    defaultValue= {''}
+    placeholder = ' create a headline'
+     
+     
+  />
 
 
-                </TitleWrapper>
+    </TitleWrapper>
 
 
                 <Content>
@@ -739,37 +771,11 @@ input form here
 
 
           </MainWrapper>
-</ClickAwayListener>
+ 
           {/* ------Submit ---------- -------------------------- */}
-          <ButtonWrapper>
 
-            <StyledButton
-
-              variant="contained"
-              color="primary"
-              style={{ textTransform: 'none' }}
-              onClick={() => dispatch(closeJournalForm())}
-            >
-              Cancel
-            </StyledButton>
-
-            <StyledButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ textTransform: 'none' }}
-            >
-              Submit
-            </StyledButton>
-
-
-
-
-
-
-          </ButtonWrapper>
         </FormWrapper>
-
+        </ClickAwayListener>
       </FormProvider>
 
     </Wrapper>
@@ -789,7 +795,7 @@ const Wrapper = styled(Paper)({
 
   width: '100%',
   height: '100%',
-  overflow: 'auto',
+ 
 border: '2px solid #33CC99',
 backgroundColor: veryLightGrey,
 
@@ -835,7 +841,7 @@ const MainWrapper= styled('div')({
   height: '100%',
   marginBottom: '6px',
   paddingBottom: '6px',
-overflow: 'auto',
+ 
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -940,10 +946,10 @@ const TitleWrapper= styled('div')({
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   fontSize: '.75rem',
-  width: '30%',
+  width: '900%',
   minHeight: '100%',
- 
-  backgroundColor: veryLightGrey,
+  margin: '16px 0 16px 4px',
+  // backgroundColor: veryLightGrey,
 
  
 
@@ -1080,7 +1086,7 @@ const Content= styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'center',
   fontSize: '.85rem',
-  width: '70%',
+  width: '100%',
 
    
   // borderLeft: '1px solid #E6E7E8',

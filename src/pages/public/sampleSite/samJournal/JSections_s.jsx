@@ -19,6 +19,8 @@ import{chitBurgandyDull, lightGrey, veryLightGrey, backgroundBlue} from '../../.
 import {selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
+
+import { descendSorter } from '../../../../app/helpers/commonHelpers'
  
 //  ---- Material Ui ------------------
 import Button from '@mui/material/Button'
@@ -52,7 +54,7 @@ const journalSections = (journalArray) =>
       timeStamp = {section.timeStamp}
       keywordArray = {section.keywordArray}
       category = {section.category}
-      people = {section.people}
+      peopleArray = {section.peopleArray}
      
     />
   )
@@ -60,8 +62,41 @@ const journalSections = (journalArray) =>
   ) //end map
  
 
+  let dateUnsorted = [
+    {
+      date: 'Mar 9',
+     journalDate: '2021-03-09T06:08:53.000Z'
+    },
+    {
+      date: 'Feb 18',
+     journalDate: '2021-02-18T06:08:53.000Z'
+    },
+
+    {
+      date: 'Jan 19',
+     journalDate: '2021-01-19T06:08:53.000Z'
+    },
+    {
+      date: 'Feb 22',
+     journalDate:'2021-02-22T06:08:53.000Z'
+    },
+    {
+      date: 'Jan 14',
+     journalDate: '2021-01-14T06:08:53.000Z'
+    },
+  ]
+
+  let dateSorted = descendSorter(dateUnsorted, 'journalDate')
+
 
 export default function JSections() {
+
+  console.log('[ where ] allJournalSelections unsorted', dateUnsorted);
+
+  console.log('[ where ] allJournalSelections sorted', dateSorted);
+
+
+
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const scrollToBottom = () => {
@@ -72,10 +107,11 @@ export default function JSections() {
     topRef.current?.scrollIntoView({ behavior: "smooth" })
   }
   const allJournalSelections = useSelector(selectJournals)
+  let sortedJournalSelections = descendSorter(allJournalSelections, 'journalDate')
 
   useEffect(()=>{
     scrollToBottom()
-  },[allJournalSelections])
+  },[])
   
   // console.log('[ JSections ]  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ', allJournalSelections);
 
@@ -91,7 +127,7 @@ export default function JSections() {
       </ArrowWrapper>
    
 
-   {journalSections(allJournalSelections)}
+   {journalSections(sortedJournalSelections)}
    
  
 <ArrowWrapper> 
@@ -120,7 +156,7 @@ const Wrapper= styled('div')({
   width: '100%',
   height: '100%',
 
- 
+ overflow: 'hidden',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -133,9 +169,8 @@ const ArrowWrapper = styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  margin: '4px',
-padding: '4px 0 ',
-  width: '100%',
+ 
+
 
   
 

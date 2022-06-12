@@ -26,7 +26,7 @@ export const logsSlice = createSlice({
 
   updateEditedLog: (state, action) => {
 
-
+console.log('[ updateEditedLog ] newLogDetail ', newLogDetail);
     let logId = action.payload.id
  
     

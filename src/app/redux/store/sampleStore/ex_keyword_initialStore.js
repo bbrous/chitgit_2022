@@ -32,6 +32,9 @@ const SampleKeywords =  [
     keywordHolders: [
       {dbCollection: 'journal', id: 'jsection_4' } ,
       {dbCollection: 'journal', id: 'jsection_6' },
+      {dbCollection: 'journal', id: 'jsection_10' },
+      {dbCollection: 'journal', id: 'jsection_13' },
+      {dbCollection: 'journal', id: 'jsection_17' }
 
     ],
    
@@ -43,6 +46,8 @@ const SampleKeywords =  [
     keywordHolders: [
       {dbCollection: 'journal', id: 'jsection_4' },
       {dbCollection: 'journal', id: 'jsection_6' }, 
+      {dbCollection: 'journal', id: 'jsection_10' },
+      {dbCollection: 'journal', id: 'jsection_13' }
     ],
    
   },
@@ -62,7 +67,10 @@ const SampleKeywords =  [
     keyword: 'vacation',
     keywordHolders: [
       {dbCollection: 'notes', id: 'note_2'},
-      {dbCollection: 'journal', id: 'jsection_4' } 
+      {dbCollection: 'journal', id: 'jsection_4' },
+      {dbCollection: 'journal', id: 'jsection_8' },
+      {collection: 'journals', id: 'jsection_16'} ,
+      {collection: 'journals', id: 'jsection_20'}   
     ],
    
   },
@@ -84,7 +92,8 @@ const SampleKeywords =  [
     keywordHolders: [
       {dbCollection: 'journal', id: 'jsection_3' }, 
       {dbCollection: 'notes', id: 'note_4'},
-
+      {dbCollection: 'journal', id: 'jsection_7' }, 
+      {dbCollection: 'journal', id: 'jsection_12' }, 
     ],
    
   },
@@ -95,8 +104,9 @@ const SampleKeywords =  [
     keywordHolders: [
       {dbCollection: 'journal', id: 'jsection_5' },
       {dbCollection: 'journal', id: 'jsection_6' },
-       
- 
+      {dbCollection: 'journal', id: 'jsection_8' },
+      {dbCollection: 'journal', id: 'jsection_14' },
+      {dbCollection: 'journal', id: 'jsection_21' }
 
     ],
    
@@ -123,6 +133,7 @@ const SampleKeywords =  [
       {dbCollection: 'logs', id: 'log_1' },
       {dbCollection: 'logs', id: 'log_18' },
       {dbCollection: 'logs', id: 'log_9' },
+      {dbCollection: 'journal', id: 'jsection_11' },
        
     ],
    
@@ -139,6 +150,56 @@ const SampleKeywords =  [
     ],
    
   },
+
+  { 
+    id: 'keyword_11',
+    keyword: 'goals',
+    keywordHolders: [
+      {dbCollection: 'journal', id: 'jSection_2' },
+ 
+       
+    ],
+   
+  },
+
+  { 
+    id: 'keyword_12',
+    keyword: 'work',
+    keywordHolders: [
+      {dbCollection: 'journal', id: 'jSection_3' },
+      {dbCollection: 'journal', id: 'jsection_9' },
+      {dbCollection: 'journal', id: 'jsection_12' }, 
+       
+    ],
+   
+  },
+
+  
+  { 
+    id: 'keyword_12',
+    keyword: 'project team',
+    keywordHolders: [
+      {dbCollection: 'journal', id: 'jSection_3' },
+      {dbCollection: 'journal', id: 'jsection_9' },
+      {dbCollection: 'journal', id: 'jsection_19' },
+       
+    ],
+   
+  },
+
+  {
+
+    id: 'keyword_13',
+    keyword: 'wakeboard',
+    keywordHolders: [
+      { dbCollection: 'journal', id: 'jSection_15' },
+
+
+    ],
+
+  },
+ 
+ 
  
  
  

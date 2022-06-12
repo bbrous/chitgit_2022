@@ -17,10 +17,10 @@ const SampleLogs =  [
       lastEdit:  "2021-01-03T10:01:00.000Z",  // Jan 3 2021 10:01 AM
       timeLock:  "2021-01-03T10:01:00.000Z",  // if exists - not editable
 
-      meta: 'meta for Shelly 1',
-      title: '#1 Left poop on my driveway',
+      meta: '',
+      title: '',
      
-      detail : '#1 Poop poop and more poop - Lorem officia deserunt mollit anim id est laborum.', 
+      detail : '<div>It started 2 months ago - I live in a large apartment&nbsp;complex.&nbsp;My upstairs neighbor (Shelly) would sit on the curb in front of my garage smoking cigarettes and brushing her long haired dog.&nbsp;</div><div>&nbsp;</div><div>She would leave all the hair - which was a lot - in front of my garage along with 2 or 3 cigarette butts - depending how long she brushed the dog.</div><div>&nbsp;</div><div>The first 2 times I cleaned them up because my dog would sometimes eat a butt and then regurgitate it in my apartment later.&nbsp;</div><div>&nbsp;</div><div>This 3rd time, when I saw her walking her dog I asked her to pick up the hair and butts when she was through.&nbsp;She was obviously not pleased with my request - and said she didn’t have to.</div><div>&nbsp;</div><div>The next time she did it (it occurs about every 10 days… I left a note on her door requesting she pick them up… I also kept a gave a copy for a file I started and gave a copy of the note to the main office of the complex to put on file.</div><div>&nbsp;</div><div>The office rep asked if she should say something to Shelly, I told her no.</div><div>&nbsp;</div><div>The fourth time Shelly left the hair and butts in front of my garage was December 27… that time I took a picture of it. I then picked up the hair and butts and left a 2nd note on her door and the butts and hair in a grocery bag in front.&nbsp;Also - gave a copy of the note to the front office again.</div><div>&nbsp;</div><div>She responded to my leaving the bag by emptying the bag on my front stoop.&nbsp;So I picked it up again.</div>', 
 
       attachment: '',
 
@@ -165,14 +165,14 @@ const SampleLogs =  [
   
   otherPartyId: 'person_4', //Shelly 
 
-  logDate: "2021-01-06T10:01:00.000Z",  // date input by user
-  lastEdit:  "2021-01-06T10:01:00.000Z",  // Jan 6 2021 10:01 AM
-  timeLock:  "",  // if exists - not editable
+  logDate: "2021-01-20T10:01:00.000Z",  // date input by user
+  lastEdit:  "2021-01-20T10:01:00.000Z",  // Jan 6 2021 10:01 AM
+  timeLock:   "2021-01-20T10:01:00.000Z",  // if exists - not editable
 
-  meta: '#2 meta Shelly',
-  title: '#2 Left poop on my driveway',
+  meta: '',
+  title: 'More poop on my driveway',
  
-  detail : '#2 Poop poop and more poop - Lorem officia deserunt mollit anim id est laborum.', 
+  detail : '<div>Escalation - Shelly did it again yesterday… left hair and butts in front of my garage.&nbsp;</div><div>&nbsp;</div><div>So this time took picture …&nbsp;left a note (again copy to the apartment complex) along with the hair and butts (sans bag) on her stoop.&nbsp;</div><div>&nbsp;</div><div>She responded by taking the hair I left and spread it over &nbsp;over my bushes surrounding my stoop -- and she also left a whole bunch of buts she must have had in an ash tray on my stoop.&nbsp;took a picture and then just cleaned it up.</div>', 
 
   attachment: '',
 
@@ -277,10 +277,10 @@ const SampleLogs =  [
   lastEdit:  "2021-01-05T10:01:00.000Z",  // Jan 5 2021 10:01 AM
   timeLock:  "",  // if exists - not editable
 
-  meta: 'meta Shelly 3',
-  title: '#3 Left poop on my driveway',
+  meta: '',
+  title: '',
  
-  detail : '#3 Poop poop and more poop - Lorem officia deserunt mollit anim id est laborum.  TOLD JERRY', 
+  detail : '<div> More hair and butts today… picture, copy of note to office… but this time I left the hair and butts I picked up on her car.</div><div> </div>', 
 
   attachment: '',
 
