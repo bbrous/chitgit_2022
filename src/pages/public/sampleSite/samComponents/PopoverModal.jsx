@@ -222,7 +222,7 @@ console.log('[ POPOVER ] pageType ', pageType);
 
 {pageType === 'logs' &&
           <Content>
-            <div> Logs are 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            <div> Logs are 1 of 3 "chronicle" types... They may all look similar, but each is designed to accomplish a different purpose. </div>
             
             <div> <em>Logs</em> are designed to help you keep track of
             interactions between you and another party or entity.
@@ -236,7 +236,7 @@ console.log('[ POPOVER ] pageType ', pageType);
         }
 {pageType === 'topicals' &&
           <Content>
-            <div> Topicals are 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            <div> Topicals are 1 of 3 "chronicle" types... They may all look similar, but each is designed to accomplish a different purpose. </div>
             <div> <em>Topicals</em> are designed to help you keep a record of, and store information about a specific topic for your personal pursuits.
              
             </div>
@@ -250,7 +250,7 @@ console.log('[ POPOVER ] pageType ', pageType);
 
 {pageType === 'journal' &&
           <Content>
-            <div> Your journal is 1 of 3 "chronicle" types... They all look similar, but each is designed to accomplish a different purpose. </div>
+            <div> Your journal is 1 of 3 "chronicle" types... They may all look similar, but each is designed to accomplish a different purpose. </div>
             <div> <em>Your journal</em> is designed to record your stream of consciousness.  Write about anything you thing, feel, or that happened in your day.
             </div>
 

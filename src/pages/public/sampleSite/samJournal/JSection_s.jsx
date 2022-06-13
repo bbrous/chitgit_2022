@@ -497,8 +497,8 @@ const HeadlineWrapper= styled('div')({
   color: chitBurgandy,
   width: '99%',
   padding: '6px 0',
-  fontSize: '1rem',
-  fontStyle: 'italic',
+  fontSize: '1.15rem',
+  
   // backgroundColor: 'pink',
   marginBottom: '4px',
 

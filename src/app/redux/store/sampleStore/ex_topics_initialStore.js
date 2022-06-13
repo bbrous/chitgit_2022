@@ -1,25 +1,39 @@
-// Samp Topics
+// Sample Store - keywords
+// Samp Spotlights
 
 
-const Topics =  [
+const SampleTopics =  [
 
+  { 
+    id: 'topic_0',
+    topic: 'Miscellaneous',  
+  },
 
-  // Begin log_1 ------------------------- >>
+  { 
+    id: 'topic_1',
+    topic: 'Wakeboard boot',
+  },
+
+  { 
+    id: 'topic_2',
+    topic: 'Vlog',
+  },
  
-    {
-      id: 'topic_1',
-      title: '',
+  { 
+    id: 'topic_3',
+    topic: 'Health',
+  },
 
-      chitsArray: [],
-      logsArray: [],
-      notesArray: [],
-
-      
-    },
-
-
-
-
-]// end Topics
-
-export default Topics
+ 
+ 
+ 
+ 
+ ] // end spotlights  ============================================
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ export default SampleTopics

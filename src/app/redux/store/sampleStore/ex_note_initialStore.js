@@ -16,9 +16,11 @@ const SampleNotes =  [
 
     noteContent: "<p>You tube how to :   <a href=\"https://www.youtube.com/watch?v=PkvKO8GchyE\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.youtube.com/watch?v=PkvKO8GchyE</a></p>",
 
-    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: ['videos'],
+    peopleArray: [], 
     noteCatgory : 'personal project'
    
   },
@@ -32,9 +34,11 @@ const SampleNotes =  [
 
     noteContent: "<p>Passport filing deadline - <u style=\"color: rgb(0, 102, 204);\">Tuesday</u></p>",
 
-    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: ['to do', 'vacation'],
+    peopleArray: [], 
     noteCatgory : 'family'
 
    
@@ -50,9 +54,11 @@ const SampleNotes =  [
 
     noteContent: "note-3 for task 1, task 1 - build deck - >  2 keywords test and idea",
 
-    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: [],
+    peopleArray: [], 
     noteCatgory : 'personal project'
    
   },
@@ -66,9 +72,11 @@ const SampleNotes =  [
 
     noteContent: "Get marketing projections from Cybil.",
 
-    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: ['marketing', 'to do', 'project team'],
+    peopleArray: [], 
     noteCatgory : 'work'
    
   },
@@ -83,19 +91,71 @@ const SampleNotes =  [
 
     noteContent: 'spotlight 1,  - Build Backyard - no keywords ...etc.',
 
-    lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+    peopleArray: [], 
+    noteCatgory : ''
+   
+  },
+
+  {
+    
+    id: 'note_6',
+    
+    noteHolderType: 'topics',
+    noteHolderId: 'topic_1',
+
+    noteContent: '<div>Steve - ME designs <span style="color: rgb(161, 0, 0);">888-555-1212</span> ,etc.</div>',
+
+    noteDate: '2021-02-16T06:08:53.000Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+    peopleArray: ['Steve - Jerry friend'], 
+    noteCatgory : ''
+   
+  },
+
+  {
+    
+    id: 'note_7',
+    
+    noteHolderType: 'topics',
+    noteHolderId: 'topic_1',
+
+    noteContent: '<div>Wakeboard bindings</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank">https://www.evo.com/reviews/wake/best-wakeboard-bindings</a></div>',
+
+    noteDate:  '2021-03-03T06:08:53.000Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
 
     noteKeywordArray: [],
     noteCatgory : ''
    
   }
+ 
+  ,
 
-  
+  {
+    
+    id: 'note_8',
+    
+    noteHolderType: 'topics',
+    noteHolderId: 'topic_1',
+
+    noteContent: '<div>Patent search web site</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank"https://www.uspto.gov/patents/search</a></div>',
+
+    noteDate:  '2021-03-03T06:08:53.000Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+    noteCatgory : ''
+   
+  }
  
  
- 
- 
- ] // end spotlights  ============================================
+ ] // end notes  ============================================
  
  
  

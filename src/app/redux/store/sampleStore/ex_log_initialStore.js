@@ -177,7 +177,7 @@ const SampleLogs =  [
   attachment: '',
 
   chitLink: null, //{dbCollection: 'twoPartyChits', id: 'XYZ'}
- peopleArray: ['Shelly-neighbor'], 
+  peopleArray: ['Shelly-neighbor'], 
   
   keywordArray: ['neighbor dispute'],
 

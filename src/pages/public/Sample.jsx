@@ -409,7 +409,7 @@ const Sample = () => {
                 <SlideLeft>
                   This example shows how Bob &#40;fictional&#41; uses Chit Git
                   to record his work and personal life.   <br />
-                  He joined Chit Git January 2020.  <br />The login date here is March 14, 2020
+                  He joined Chit Git January 2021.  <br />The login date here is March 14, 2021
                 </SlideLeft>
                 <SlideRight>
                   <PictureStyle>
@@ -483,7 +483,7 @@ const Sample = () => {
                 </SlideRight>
 
                 <SlideLeft>
-                  At home, he is going to add a new deck onto his house.
+                  At home, he's decided to add a new deck onto his house.
                   He is going to design and build it himself with the help of a
                   couple of friends.
                 </SlideLeft>

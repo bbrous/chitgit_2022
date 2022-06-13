@@ -38,7 +38,8 @@ import personalChitReducer from '../personalChitRedux/sam_personalChitSlice';
 import twoPartyChitReducer from '../twoPartyChitRedux/sam_twoPartyChitSlice';
 
 import spotlightReducer from '../spotlightRedux/sam_spotlightsSlice'
-import topicalReducer from '../topicalRedux/sam_topicalsSlice'
+import topics from '../topicalRedux/sam_topicsSlice'
+import topicalSections from '../topicalRedux/sam_topicalSectionsSlice'
 
 const sampleRootReducer = combineReducers({
   // data: homeReducer,
@@ -54,7 +55,8 @@ const sampleRootReducer = combineReducers({
     tasks: taskReducer,
     logs: logReducer,
     logHolders: logHolderReducer,
-    topicals: topicalReducer,
+    topics: topics,
+    topicalSections: topicalSections,
     journal: journalReducer,
     notes: noteReducer,
     // topics: topicReducer,

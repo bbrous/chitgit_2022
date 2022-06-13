@@ -6,17 +6,18 @@
 
 ------------------------------------*/
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { useSelector} from 'react-redux'
  
 import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-import{ selectTopicals } from '../../../../app/redux/topicalRedux/sam_topicalsSlice'
+import{ selectTopics } from '../../../../app/redux/topicalRedux/sam_topicsSlice'
 
 import TopicalsMain from './TopicalsMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
-
+import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 
 // -------Material UI 
@@ -25,6 +26,79 @@ import PopoverModal from '../samComponents/PopoverModal'
 import { styled, createTheme, withStyles  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+
+
+
+// ====================================
+function Topicals(props) {
+
+  let match = useParams()
+  // let navigate = useNavigate()
+  let status = useSelector(selectStatus)
+
+  let topicsArray = useSelector(selectTopics)
+ 
+  const topicalPage = match.pageView
+  const topicalId = match.id
+  // const displayPopoverModalMessage = status.initialMessage.spotlights
+
+
+
+
+// ###########  TEMP  ############## 
+// let topicsArray = [1,3]
+// let topicalId = 'wrw'
+ 
+let displayPopoverModalMessage = status.initialMessage.topicals
+console.log('[ Topicals_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
+
+  return (
+    <Wrapper>
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={topicalPage} />
+      
+
+      }
+
+      {topicsArray.length === 0 &&
+        <NoneMessage>
+          <div>You have no active or completed topicals</div>
+          <div>Create a new topical</div>
+        </NoneMessage>
+
+      }
+
+      {topicsArray.length > 0 && !topicalId &&
+        <NoneMessage>
+          <div>Choose a topical to be displayed</div>
+          <div>or</div>
+          <div>Create a new topical</div>
+        </NoneMessage>
+
+      }
+
+
+      {topicalId && topicsArray.length > 0 && 
+
+      // <div> Put Topical Main Here</div>
+            
+      <TopicalsMain />
+      
+      }
+
+
+
+
+    </Wrapper>
+  )
+}
+
+
+
+export default  Topicals
 // -----------------------------------------------------------------
 const Wrapper= styled('div')({
 
@@ -63,69 +137,3 @@ const NoneMessage= styled('div')({
   
 })
 //=======
-
-
-
-
-// ====================================
-function topicals(props) {
-
-  // let match = useParams()
-  // let navigate = useNavigate()
-
-  // const topicalPage = match.pageView
-  // const topicalId = match.id
-  // const displayPopoverModalMessage = status.initialMessage.spotlights
-
-// ###########  TEMP  ############## 
-let topicalsArray = [1,3]
-let topicalId = 'wrw'
- 
-let displayPopoverModalMessage = false
- 
-
-  return (
-    <Wrapper>
-
-{displayPopoverModalMessage &&
-        // <PopoverModal pageType={topicalPage} />
-        <div> Popover Page here</div>
-
-      }
-
-      {topicalsArray.length === 0 &&
-        <NoneMessage>
-          <div>You have no active or completed topicals</div>
-          <div>Create a new topical</div>
-        </NoneMessage>
-
-      }
-
-      {topicalsArray.length > 0 && !topicalId &&
-        <NoneMessage>
-          <div>Choose a topical to be displayed</div>
-          <div>or</div>
-          <div>Create a new topical</div>
-        </NoneMessage>
-
-      }
-
-
-      {topicalId && topicalsArray.length > 0 && 
-
-      // <div> Put Topical Main Here</div>
-            
-      <TopicalsMain />
-      
-      }
-
-
-
-
-    </Wrapper>
-  )
-}
-
-
-
-export default  topicals

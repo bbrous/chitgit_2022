@@ -7,9 +7,9 @@ import { createSelector } from 'reselect'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import InitialStore from '../store/sampleStore/ex_topical_initialStore'
+import InitialStore from '../store/sampleStore/ex_topics_initialStore'
 
-export const topicalsSlice = createSlice({
+export const topicsSlice = createSlice({
   name: 'topicalsSample',
   initialState: InitialStore,
 
@@ -86,17 +86,16 @@ export const {
   updateEditedTopicals,
   addTopicalsHolder 
 
-} = topicalsSlice.actions
+} = topicsSlice.actions
 
 
 
 // --- Export selectors ------------------------------------------
 
-export const selectTopicals = state => state.sample.topicals
-
+export const selectTopics = state => state.sample.topics
 
 
 
 // --- default Export reducers -----------------------------------
 
-export default topicalsSlice.reducer
+export default topicsSlice.reducer

@@ -12,6 +12,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
 import{ selectLogs } from '../../../../app/redux/logRedux/sam_logsSlice'
+import { selectlogHolders } from '../../../../app/redux/logHolderRedux/sam_logHolderSlice'
 import{ 
   selectStatus,
  
@@ -27,6 +28,68 @@ import PopoverModal from '../samComponents/PopoverModal'
 
 import { styled, createTheme, withStyles  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+
+
+
+// ====================================
+function Logs(props) {
+
+  let match = useParams()
+  let navigate = useNavigate()
+  let status = useSelector(selectStatus)
+  const LogPage = match.pageView
+  let logId = match.id
+  console.log('[ LOGS ] LogPage ', LogPage);
+   
+  const displayPopoverModalMessage = status.initialMessage.logs
+
+
+let logHoldersArray =useSelector(selectlogHolders)
+
+let logSectionId = ''
+ 
+ 
+
+  return (
+    <Wrapper>
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={LogPage} />
+
+      }
+
+      {logHoldersArray.length === 0 &&
+        <NoneMessage>
+          <div>You have no active or completed logs</div>
+          <div>Create a new log</div>
+        </NoneMessage>
+
+      }
+
+      {logHoldersArray.length > 0 && !logId &&
+        <NoneMessage>
+          <div>Choose a log to be displayed</div>
+          <div>or</div>
+          <div>Create a new log</div>
+        </NoneMessage>
+
+      }
+
+
+      {logId && logHoldersArray.length > 0 && <LogMain />}
+
+
+
+
+    </Wrapper>
+  )
+}
+
+
+
+export default  Logs
 
 // -----------------------------------------------------------------
 const Wrapper= styled('div')({
@@ -66,64 +129,3 @@ const NoneMessage= styled('div')({
   
 })
 //=======
-
-
-
-
-// ====================================
-function Logs(props) {
-
-  let match = useParams()
-  let navigate = useNavigate()
-  let status = useSelector(selectStatus)
-  const LogPage = match.pageView
-
-  console.log('[ LOGS ] LogPage ', LogPage);
-  const LogId = match.id
-  const displayPopoverModalMessage = status.initialMessage.logs
-
-// ###########  TEMP  ############## 
-let logsArray = [1]
-let logId = match.id
-let logSectionId = ''
- 
- 
-
-  return (
-    <Wrapper>
-
-{displayPopoverModalMessage &&
-        <PopoverModal pageType={LogPage} />
-
-      }
-
-      {logsArray.length === 0 &&
-        <NoneMessage>
-          <div>You have no active or completed logs</div>
-          <div>Create a new log</div>
-        </NoneMessage>
-
-      }
-
-      {logsArray.length > 0 && !logId &&
-        <NoneMessage>
-          <div>Choose a log to be displayed</div>
-          <div>or</div>
-          <div>Create a new log</div>
-        </NoneMessage>
-
-      }
-
-
-      {logId && logsArray.length > 0 && <LogMain />}
-
-
-
-
-    </Wrapper>
-  )
-}
-
-
-
-export default  Logs

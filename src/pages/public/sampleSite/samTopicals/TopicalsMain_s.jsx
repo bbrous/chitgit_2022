@@ -30,6 +30,59 @@ import Paper from '@mui/material/Paper'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+// ====================================================
+
+function TopicalsMain(props) {
+  let match = useParams()
+  // console.log('@@@ [TopicalsMAIN]- params' , match)
+
+
+  const [arrayOrder, setArrayOrder] = useState(false)
+
+  const handleSwitchState = (newState) => {
+    setArrayOrder(newState)
+    console.log('[Inside Spotlight Nav] new state is', newState)
+  }
+
+
+  return (
+    <Container>
+    <TopicalHeader/>
+      <MainWrapper>
+    
+      
+
+        <FilterWrapper> 
+         <TopicalFilters/>
+        <SliderWrapper>
+
+         
+        <SliderComponent
+          handleSwitchState={handleSwitchState} //gets new state from child switch
+          leftLabel='oldest first'
+          rightLabel='latest first'
+        />
+   
+        </SliderWrapper>
+
+
+        </FilterWrapper>     
+
+          <FormWrapper> Hidden Form Component </FormWrapper>
+
+          <TopicalDetail/>
+
+
+
+      </MainWrapper>
+    </Container>
+  )
+}// end func TopicalsMain
+
+
+ export default TopicalsMain
+
+ 
 // -----------------------------------------------------------------
 
 const Container = styled('div')({
@@ -152,55 +205,3 @@ backgroundColor: 'lightgrey',
  
 
  
-
-// ====================================================
-
-function TopicalsMain(props) {
-  let match = useParams()
-  // console.log('@@@ [TopicalsMAIN]- params' , match)
-
-
-  const [arrayOrder, setArrayOrder] = useState(false)
-
-  const handleSwitchState = (newState) => {
-    setArrayOrder(newState)
-    console.log('[Inside Spotlight Nav] new state is', newState)
-  }
-
-
-  return (
-    <Container>
-    <TopicalHeader/>
-      <MainWrapper>
-    
-      
-
-        <FilterWrapper> 
-         <TopicalFilters/>
-        <SliderWrapper>
-
-         
-        <SliderComponent
-          handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='oldest first'
-          rightLabel='latest first'
-        />
-   
-        </SliderWrapper>
-
-
-        </FilterWrapper>     
-
-          <FormWrapper> Hidden Form Component </FormWrapper>
-
-          <TopicalDetail/>
-
-
-
-      </MainWrapper>
-    </Container>
-  )
-}// end func TopicalsMain
-
-
- export default TopicalsMain

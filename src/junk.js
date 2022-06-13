@@ -1,4 +1,13 @@
 
+// *** Bob's login date ************************
+
+March 14
+2021-03-14
+1615707411000
+2021-03-14T07:36:51.000Z
+
+// **********************************************
+
 Mar 12
 2021-03-12
 1615529333000
@@ -91,7 +100,7 @@ Jan 14
   
     //   journalDate: "",
     //   lastEdit: " ",
-    //   chtiType: '',
+    //   chitLink: null: '',
                   
     //   mirrorType: '',
     //   mirrorId: '',
@@ -102,5 +111,27 @@ Jan 14
   
     // },
 
+
+    // Topical layout ----------
+
+    // {
+    //   id: 'tSection_XXX',
+    //   topic: 'topic_XXX',
+    //   title: '',
+
+    //   topicalDate: '',
+    //   lastEdit: '',
+    //   timeLock: '',  // if exists - not editable
+
+    //   detail : '', 
+
+    //   attachment: '',
+      
+    //   chitLink: {}, //{dbCollection: 'personalChits', id: 'XYZ'}
+     
+    //   peopleArray: [], 
+    //   keywordArray: [],
+
+    // },
 
 

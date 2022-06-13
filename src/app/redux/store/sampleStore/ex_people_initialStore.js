@@ -131,7 +131,9 @@ const People =  [
         {dbCollection: 'logs', id: 'log_9' }, 
         {dbCollection: 'logs', id: 'log_4' }, 
         {dbCollection: 'logs', id: 'log_12' }, 
-        {dbCollection: 'logs', id: 'log_8' }, 
+        {dbCollection: 'logs', id: 'log_8' },
+        {dbCollection: 'tSection_5', id: 'tSection_4' },
+         
       ]
 
 
@@ -153,9 +155,6 @@ const People =  [
     },
 
 
-        
-
-
     {
       id: 'person_17',
       name: "Simi B",
@@ -167,13 +166,25 @@ const People =  [
     },
 
     {
+      id: 'person_18',
+      name: 'Steve - Jerry friend',
+      meta: 'Mechanical engineer',
+    
+      personHolders: [
+        {dbCollection: 'topicalSections', id: 'tSection_4' },
+        {dbCollection: 'topicalSections', id: 'tSection_6' },
+    ]
+
+      
+    },
+
+    {
       id: 'person_100',
       type: 'person',
       name: "Brad B",
       meta: '',
       
       personHolders: []
-
       
     },
 

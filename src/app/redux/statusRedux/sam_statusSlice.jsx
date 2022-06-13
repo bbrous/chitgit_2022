@@ -39,6 +39,7 @@ export const statusSlice = createSlice({
         twoPartyChits: true,
         spotlights: true,
         logs: true,
+        topicals: 'true',
         journal: true,
         notes: true,
   
@@ -98,7 +99,7 @@ export const statusSlice = createSlice({
 
       topical: {
 
-        id: 'allTopicals',  // if no logId -- all else logId stuff
+        id: 'topic_1',  
         sectionId: ''
       },
   

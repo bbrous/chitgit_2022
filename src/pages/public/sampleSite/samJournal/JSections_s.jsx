@@ -15,7 +15,7 @@ import {useParams} from 'react-router-dom'
 
 
 
-import{chitBurgandyDull, lightGrey, veryLightGrey, backgroundBlue} from '../../../../styles/colors'
+import{chitBurgandyDull, lightGrey, veryLightGrey, backgroundBlue, chitLightGreen, darkGrey} from '../../../../styles/colors'
 import {selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
@@ -185,9 +185,9 @@ const ArrowWrapper = styled('div')({
 })
 
 const StyledButton= styled(Button)({
-  backgroundColor: 'white',
-  border: '1px solid #E6E7E8',
-  color: chitBurgandyDull,
+  backgroundColor: '#F0FFF6',
+  border: '1px solid #96FFDC',
+  color: darkGrey,
   margin: '0 8px',
   padding: ' 0 .5rem',
   height: '1rem',

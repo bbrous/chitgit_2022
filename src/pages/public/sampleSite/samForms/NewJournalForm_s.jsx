@@ -761,11 +761,11 @@ const Wrapper = styled(Paper)({
   alignItems: 'center',
   // zIndex: '95',
 
-  width: '98%',
+  width: '100%',
   height: '100%',
   // overflow: 'auto',
 
-backgroundColor: veryLightGrey,
+ 
 
   [theme.breakpoints.down('sm')]: {
     // height: '1.25rem',

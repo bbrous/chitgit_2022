@@ -11,7 +11,8 @@ const SampleKeywords =  [
     id: 'keyword_1',
     keyword: 'idea',
     keywordHolders: [
-      
+      {dbCollection: 'topicalSections', id: 'tSection_5'},
+      {dbCollection: 'topicalSections', id: 'tSection_8'},
     ],
    
   },

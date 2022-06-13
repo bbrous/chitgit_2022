@@ -258,7 +258,7 @@ export function ISOtoTraditionalWithDay(date){
        day = "Tue";
       break;
     case 3:
-      day = "Wen";
+      day = "Wed";
       break;
     case 4:
       day = "Thu";

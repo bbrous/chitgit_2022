@@ -6,12 +6,15 @@
 
 ------------------------------------*/
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { useSelector} from 'react-redux'
  
 import { useParams, useNavigate } from 'react-router-dom'
 import {veryLightGrey} from '../../../../styles/colors'
 
-// import{ selectJurnal } from '../../../../app/redux/journalRedux/X_sam_selectors_Journal'
+import { selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
+
+import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import JournalMain from './JournalMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
@@ -19,11 +22,60 @@ import PopoverModal from '../samComponents/PopoverModal'
 
 
 
-// -------Material UI 
-
-
 import { styled, createTheme, withStyles  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+
+
+
+
+// ====================================
+function Journal(props) {
+
+  let match = useParams()
+  let navigate = useNavigate()
+
+  let status = useSelector(selectStatus)
+  const JournalPage = match.pageView
+
+
+let jSectionsArray = useSelector(selectJournals)
+
+let displayPopoverModalMessage = status.initialMessage.journal
+ 
+
+  return (
+    <Wrapper>
+
+{displayPopoverModalMessage &&
+        <PopoverModal pageType={JournalPage} />
+
+      }
+
+      {jSectionsArray.length === 0 &&
+        <NoneMessage>
+          <div>You have no active or completed journal sections</div>
+          <div>Create a new journal section</div>
+        </NoneMessage>
+
+      }
+
+
+      {jSectionsArray.length > 0 && <JournalMain />}
+
+
+
+
+    </Wrapper>
+  )
+}
+
+
+
+export default  Journal
+// -------Material UI 
+
 
 // -----------------------------------------------------------------
 const Wrapper= styled('div')({
@@ -63,53 +115,3 @@ const NoneMessage= styled('div')({
   
 })
 //=======
-
-
-
-
-// ====================================
-function Journal(props) {
-
-  let match = useParams()
-  let navigate = useNavigate()
-
-  const JournalPage = match.pageView
-  const JournalId = match.id
-  // const displayPopoverModalMessage = status.initialMessage.spotlights
-
-// ###########  TEMP  ############## 
-let jSectionsArray = [1]
-let chronId = 'spectrum'
-let jSectionId = ''
-let displayPopoverModalMessage = false
- 
-
-  return (
-    <Wrapper>
-
-{displayPopoverModalMessage &&
-        <PopoverModal pageType={JournalPage} />
-
-      }
-
-      {jSectionsArray.length === 0 &&
-        <NoneMessage>
-          <div>You have no active or completed journal sections</div>
-          <div>Create a new journal section</div>
-        </NoneMessage>
-
-      }
-
-
-      {jSectionsArray.length > 0 && <JournalMain />}
-
-
-
-
-    </Wrapper>
-  )
-}
-
-
-
-export default  Journal
