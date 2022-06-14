@@ -228,7 +228,7 @@ console.log('[ POPOVER ] pageType ', pageType);
             interactions between you and another party or entity.
             </div>
             <div> Chit Git log sections can be converted into chits.</div>
-            <div> Chit Git logs sections can be timestamped.  A timestamped 
+            <div> Chit Git logs sections can be time-stamped.  A time-stamped 
                log section can NOT be edited once invoked ... a feature which can be useful in legal disputes.
             </div>
             <MoreInfo> Get detail info from <Info />  at top of logs page </MoreInfo>
@@ -242,7 +242,7 @@ console.log('[ POPOVER ] pageType ', pageType);
             </div>
             <div> Chit Git topicals sections can be converted into chits.</div>
 
-            <div> Chit Git topical sections can also be timestamped.  A timestamped  topical section can Not be edited once invoked ... a feature which can be useful in legal disputes.
+            <div> Chit Git topical sections can also be time-stamped.  A time-stamped  topical section can Not be edited once invoked ... a feature which can be useful in legal disputes.
             </div>
             <MoreInfo> Get detail info from <Info />  at top of topicals page </MoreInfo>
           </Content>

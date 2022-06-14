@@ -92,7 +92,7 @@ export const {
 
 // --- Export selectors ------------------------------------------
 
-export const selectTopicalSections = state => state.sample.topicals
+export const selectTopicalSections = state => state.sample.topicalSections
 
 
 

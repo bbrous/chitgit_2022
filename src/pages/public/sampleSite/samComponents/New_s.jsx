@@ -219,7 +219,7 @@ const handleNewChronicle = (collection)=>{
 
 
   ))
- navigate(`/sample/${collection}/newLog`)
+ navigate(`/sample/${collection}/${newType}`)
   
 }// end handleNewChronicle
 

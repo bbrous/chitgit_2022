@@ -14,7 +14,7 @@ import {veryLightGrey} from '../../../../styles/colors'
 
 import{ selectTopics } from '../../../../app/redux/topicalRedux/sam_topicsSlice'
 
-import TopicalsMain from './TopicalsMain_s'
+import TopicalMain from './TopicalMain_s'
 import PopoverModal from '../samComponents/PopoverModal'
 
 import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
@@ -42,24 +42,18 @@ function Topicals(props) {
  
   const topicalPage = match.pageView
   const topicalId = match.id
-  // const displayPopoverModalMessage = status.initialMessage.spotlights
-
-
-
-
-// ###########  TEMP  ############## 
-// let topicsArray = [1,3]
-// let topicalId = 'wrw'
  
-let displayPopoverModalMessage = status.initialMessage.topicals
-console.log('[ Topicals_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
+  let displayPopoverModalMessage = status.initialMessage.topicals
+
+
+// console.log('[ Topicals_s ] displayPopoverModalMessage ', displayPopoverModalMessage);
 
   return (
     <Wrapper>
 
-{displayPopoverModalMessage &&
+      {displayPopoverModalMessage &&
         <PopoverModal pageType={topicalPage} />
-      
+
 
       }
 
@@ -81,12 +75,10 @@ console.log('[ Topicals_s ] displayPopoverModalMessage ', displayPopoverModalMes
       }
 
 
-      {topicalId && topicsArray.length > 0 && 
+      {topicalId && topicsArray.length > 0 &&
 
-      // <div> Put Topical Main Here</div>
-            
-      <TopicalsMain />
-      
+        <TopicalMain />
+
       }
 
 

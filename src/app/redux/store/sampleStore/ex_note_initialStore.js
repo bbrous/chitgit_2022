@@ -133,9 +133,7 @@ const SampleNotes =  [
     noteKeywordArray: [],
     noteCatgory : ''
    
-  }
- 
-  ,
+  },
 
   {
     
@@ -145,6 +143,22 @@ const SampleNotes =  [
     noteHolderId: 'topic_1',
 
     noteContent: '<div>Patent search web site</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank"https://www.uspto.gov/patents/search</a></div>',
+
+    noteDate:  '2021-03-03T06:08:53.000Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+    noteCatgory : ''
+   
+  },
+  {
+    
+    id: 'note_9',
+    
+    noteHolderType: 'topics',
+    noteHolderId: 'topic_2',
+
+    noteContent: '<div>boot types</div><div><a href="https://www.wakesports.com/blogs/updates/kinds-of-wakeboard-boots-and-bindings" rel="noopener noreferrer" target="_blank">https://www.wakesports.com/blogs/updates/kinds-of-wakeboard-boots-and-bindings</a></div>',
 
     noteDate:  '2021-03-03T06:08:53.000Z',
     // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14

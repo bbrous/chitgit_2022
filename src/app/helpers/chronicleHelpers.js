@@ -38,9 +38,11 @@ export function sortLogsByDateDescending(logs){
 }
 
 
-/* -- func logsFilter ------------------
-  @desc - gets all chits for a specific person or group Id
+/* -- func filters various  ------------------
+  @desc - gets all of collection for a specific id
   @params - logs array, id
+            topicalSections array, id
+            notes array, id
 
 ---------------------*/ 
 export function logFilter(logsArray, filterId){
@@ -56,3 +58,27 @@ export function logFilter(logsArray, filterId){
 
 return displayedLogsArray
 }
+
+export function topicalFilter(topicalsArray, filterId){
+
+  console.log('[ ChronicleHelper ] filterId ', filterId);
+
+  let displayedTopicalsArray
+
+  displayedTopicalsArray = topicalsArray.filter(item => item.topic === filterId )
+
+return displayedTopicalsArray
+}
+
+export function noteFilter(notesArray, filterId){
+
+  console.log('[ ChronicleHelper ] filterId ', filterId);
+
+  let displayedNotesArray
+
+  displayedNotesArray = notesArray.filter(item => item.noteHolderId === filterId )
+
+return displayedNotesArray
+}
+
+// ----------------------------------------
