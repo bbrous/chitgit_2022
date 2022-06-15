@@ -27,7 +27,7 @@ import { selectNotes } from '../../../../app/redux/noteRedux/sam_notesSlice';
 
 import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice';
 
-import { sortLogsByDateAscending, sortLogsByDateDescending, noteFilter, topicalFilter } from '../../../../app/helpers/chronicleHelpers';
+import { sortTopicalsByDateAscending, sortTopicalsByDateDescending, noteFilter, topicalFilter ,  } from '../../../../app/helpers/chronicleHelpers';
 
 import SliderComponent from '../../../../common_components/SliderComponent'
 import TopicalFilters from './TopicalFilters_s'
@@ -81,22 +81,104 @@ function Topical(props) {
 
   /*
     create the 3 filtered entities for topicalId
+    but because each sections objects and notes objects
+    have no distinguishing attribute 
+    
+    ... need to add a 
+    topicalType to each array ... so that they can be
+    distinguished when  displayed.
+
+    ... also need to add a sortDate so that combined
+        sections and notes can be sorted (asc, desc)
+
       - filtereSections
       - filteredNotes
       - allTopicals (combo of above)
 
   */
 
-  let filteredSections = topicalFilter(allSectionsArray, id)
-  let filteredNotes = noteFilter(allNotesArray, id)
+      
+      let modifiedSectionsArray = []
+      let newSectionObject
+      allSectionsArray.map((item,  index) => {
+       newSectionObject = {...item, topicalType: 'section', topicalSortDate: item.topicalDate}
+       modifiedSectionsArray.push(newSectionObject)
+      return modifiedSectionsArray
+      }
+      ) //end map
 
-  let allTopicals = [...filteredSections, ...filteredNotes]
+      let modifiedNotesArray = []
+      let newNoteObject
+      allNotesArray.map((item,  index) => {
+       newNoteObject = {...item, topicalType: 'note', topicalSortDate: item.noteDate}
+       modifiedNotesArray.push(newNoteObject)
+      return modifiedNotesArray
+      }
+      ) //end map
+
+      
+ 
+    // --- filter the notes and sections array by topical Id
+    let filteredSections = topicalFilter(modifiedSectionsArray, id)
+    let filteredNotes = noteFilter(modifiedNotesArray, id)
+
+    // --- create the new combined allTopicals array
+    let allFilteredTopicals = [...filteredSections, ...filteredNotes]
+
+    // --- get the displayType from status view redux store
+    // --- choose which array (section, note, all) is to be displayed
+    
+    let displayType = status.view.topical.displayType
+    let topicalArrayDisplayed
+
+    if(displayType === 'all'){topicalArrayDisplayed = allFilteredTopicals}
+    if(displayType === 'sections'){topicalArrayDisplayed = filteredSections}
+    if(displayType === 'notes'){topicalArrayDisplayed = filteredNotes}
 
 
+    // console.log('[ Topical_s] displayType ', displayType);
+    // console.log('[ Topical_s] array ', topicalArrayDisplayed);
 
-  // console.log('@@@ [Topical]- filtered sections -- ' , filteredSections)
-  // console.log('@@@ [Topical]- filtered notes -- ' , filteredNotes)
-  // console.log('@@@ [Topical]- filtered allTopicals -- ' , allTopicals)
+
+    // --- order topicalArrayDisplayed (ascendding, descending)
+    const [arrayOrder, setArrayOrder] = useState(false)
+
+    let sortedTopicalsByDate  
+    if(arrayOrder=== true){
+      sortedTopicalsByDate = sortTopicalsByDateAscending(topicalArrayDisplayed)
+    }
+ 
+    if(arrayOrder=== false){
+      sortedTopicalsByDate= sortTopicalsByDateDescending(topicalArrayDisplayed)
+     }
+
+let test = [
+  {
+    id: '1',
+    topicalSortDate: '2021-03-14T07:36:51.000Z' //Mar 14
+ 
+  },
+  {
+    id: '5',
+    topicalSortDate: '2021-01-24T23:58:38.000Z' //Jan 24
+ 
+  },
+  {
+    id: '3',
+    topicalSortDate: '2021-02-22T06:08:53.000Z' //Feb 22
+ 
+  },
+
+]
+let aTest = [...topicalArrayDisplayed]
+
+ if(arrayOrder === true) {  aTest = sortTopicalsByDateDescending(aTest) }
+ if(arrayOrder === false) { aTest = sortTopicalsByDateAscending(aTest) }
+ 
+     console.log('@@@ [Topical]- aTest -- ' , aTest)
+ 
+  console.log('@@@ [Topical]- raw -- ' , topicalArrayDisplayed)
+
 
 
 // ##########################################################

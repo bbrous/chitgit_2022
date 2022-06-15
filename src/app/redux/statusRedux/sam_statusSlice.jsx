@@ -100,7 +100,8 @@ export const statusSlice = createSlice({
       topical: {
 
         id: 'topic_1',  
-        sectionId: ''
+        sectionId: '',
+        displayType: 'all'
       },
   
       // for journal.jsx ----------------------------------

@@ -38,6 +38,27 @@ export function sortLogsByDateDescending(logs){
 }
 
 
+export function sortTopicalsByDateAscending(topicals){
+
+  
+  topicals.sort((a, b) => (ISOtoUTC(a.topicalSortDate) > ISOtoUTC(b.topicalSortDate)) ? -1 : 1)
+
+  return topicals
+
+
+}
+
+export function sortTopicalsByDateDescending(topicals){
+
+  
+  topicals.sort((a, b) => (ISOtoUTC(a.topicalSortDate) < ISOtoUTC(b.topicalSortDate)) ? -1 : 1)
+
+  return topicals
+
+
+}
+
+
 /* -- func filters various  ------------------
   @desc - gets all of collection for a specific id
   @params - logs array, id
