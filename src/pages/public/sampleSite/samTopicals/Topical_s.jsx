@@ -143,51 +143,67 @@ function Topical(props) {
     // --- order topicalArrayDisplayed (ascendding, descending)
     const [arrayOrder, setArrayOrder] = useState(false)
 
-    let sortedTopicalsByDate  
-    if(arrayOrder=== true){
-      sortedTopicalsByDate = sortTopicalsByDateAscending(topicalArrayDisplayed)
+ 
+     
+    let sortedTopical = [...topicalArrayDisplayed]
+
+    if(arrayOrder === true) {  sortedTopical = sortTopicalsByDateDescending(sortedTopical) }
+    if(arrayOrder === false) { sortedTopical = sortTopicalsByDateAscending(sortedTopical) }
+
+    console.log('[ Topical] arrayOrder ', arrayOrder);
+console.log('@@@ [Topical]- sortedTopical -- ' , sortedTopical)
+ 
+
+    // --- create the display ----
+
+    const topicalsDisplay = () =>
+
+    sortedTopical.map((row, index) => {
+ 
+      if(row.topicalType === 'section'){
+      return (
+        <SectionWrapper>
+        <TopicalSection 
+         id={row.id}
+         key={row.id}
+         data={row}
+        
+        />
+      </SectionWrapper>
+      )
+    }else{
+      
+
+      return (
+        <NoteWrapper>
+        <TopicalNote 
+         id={row.id}
+         key={row.id}
+         data={row}
+        
+        />
+      </NoteWrapper>
+      )
+    
     }
- 
-    if(arrayOrder=== false){
-      sortedTopicalsByDate= sortTopicalsByDateDescending(topicalArrayDisplayed)
-     }
 
-let test = [
-  {
-    id: '1',
-    topicalSortDate: '2021-03-14T07:36:51.000Z' //Mar 14
- 
-  },
-  {
-    id: '5',
-    topicalSortDate: '2021-01-24T23:58:38.000Z' //Jan 24
- 
-  },
-  {
-    id: '3',
-    topicalSortDate: '2021-02-22T06:08:53.000Z' //Feb 22
- 
-  },
 
-]
-let aTest = [...topicalArrayDisplayed]
 
- if(arrayOrder === true) {  aTest = sortTopicalsByDateDescending(aTest) }
- if(arrayOrder === false) { aTest = sortTopicalsByDateAscending(aTest) }
- 
-     console.log('@@@ [Topical]- aTest -- ' , aTest)
- 
-  console.log('@@@ [Topical]- raw -- ' , topicalArrayDisplayed)
+
+    }
+    ) //end map
+    
+
 
 
 
 // ##########################################################
   // function to change the display order (oldest to newest)
   const handleSwitchState = (newState) => {
-    // newState === false? setArrayOrder(true): setArrayOrder(false)
+    newState === false? setArrayOrder(true): setArrayOrder(false)
     // 
   }
-// ##########################################################
+
 
 
   return (
@@ -200,8 +216,8 @@ let aTest = [...topicalArrayDisplayed]
         <SliderWrapper>
           <SliderComponent
             handleSwitchState={handleSwitchState} //gets new state from child switch
-            leftLabel='oldest first'
-            rightLabel='latest first'
+            leftLabel='latest first'
+            rightLabel='oldest first'
           />
 
         </SliderWrapper>
@@ -209,10 +225,10 @@ let aTest = [...topicalArrayDisplayed]
 
       </FilterWrapper>     
 
+{topicalsDisplay()}
 
 
-
-      <SectionWrapper>
+      {/* <SectionWrapper>
         <TopicalSection />
       </SectionWrapper>
 
@@ -244,7 +260,7 @@ let aTest = [...topicalArrayDisplayed]
 
       <SectionWrapper>
         <TopicalSection />
-      </SectionWrapper>
+      </SectionWrapper> */}
 
     </Wrapper>
 

@@ -13,18 +13,21 @@
 
 
 import React , {useState, useEffect, useRef} from 'react'
-import {connect} from 'react-redux'
 import {useSelector, useDispatch} from 'react-redux'
+ 
 
 import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chitDarkGreen} from '../../../../styles/colors'
 
+
+import { ISOtoTraditional, ISOtoTraditionalTime } from '../../../../app/helpers/dateHelper'
+
 // import TopicalForm from '../samForms/TopicalForm_s'
 // import topicalFormAlert from './topicalFormAlert'
-// import { selectStatus,
-//   opentopicalForm
 
-
-// } from '../../../../app/redux/statusRedux/sam_statusSlice'
+import { 
+  selectStatus,
+  opentopicalForm
+} from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { ISOtoTraditionalWithDay } from '../../../../app/helpers/dateHelper'
 
@@ -53,7 +56,144 @@ import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
-// -----------------------------------------------------------------
+
+//  =====================================================================
+
+ 
+
+export default function TopicalSection(props) {
+
+  let dispatch = useDispatch()
+  const {id, lastEdit, topicalDate, timeLock,  title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
+
+
+  let styledTopicalDate = ISOtoTraditional(topicalDate)
+  let styledTopicalTime = ISOtoTraditionalTime()
+  let styledLastEdit = ISOtoTraditionalTime(lastEdit)
+  let styledTimeLock
+  timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
+
+
+
+
+  return (
+
+      <>
+      {/* <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You have a section currently being edited.
+            Would you like to save your changes to that section?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <button
+            form="submit-form"
+            variant="contained"
+            color="primary"
+            type="submit"
+          // onClick={handleClose}
+          >
+            Save Edits
+          </button>
+
+          <button
+            form="submit-form"
+            variant="contained"
+            color="primary"
+
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
+
+        </DialogActions>
+      </Dialog> */}
+      
+      
+      
+         
+          <MainWrapper>
+      
+      
+          
+            <TopWrapper>
+              <DateWrapper>{styledTopicalDate}</DateWrapper>
+              
+              <IconWrapper>
+      
+                <LightTooltip title='Edit' arrow>
+                  <StyledEditIcon id = 'thweiwohaafagfagag'
+                  // onClick={()=>handleClick(id)}
+                  />
+                </LightTooltip>
+      
+                <ChitIcon />
+                <LightTooltip title='Convert to Chit' arrow>
+                  <StyledConvertIcon />
+                </LightTooltip>
+
+                <LightTooltip title='Attachment' arrow>
+            <StyledAttachmentIcon />
+          </LightTooltip>
+      
+               
+                <LightTooltip title='Delete' arrow>
+                  <StyledDeleteIcon />
+                </LightTooltip>
+              </IconWrapper>
+            </TopWrapper>
+            
+            <CategoryWrapper></CategoryWrapper>
+            <ContentWrapper>
+      
+      
+              <Content>
+                <HeadlineWrapper dangerouslySetInnerHTML={{__html: title}}/>  
+                <DetailContainer  dangerouslySetInnerHTML={{__html: detail}}/>
+              </Content>
+      
+              <SearchWrapper>
+            <PeopleWrapper>People: Joi Me</PeopleWrapper>
+              <CategoryWrapper>category: aaaa</CategoryWrapper>
+              <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+      
+            </SearchWrapper>
+      
+            </ContentWrapper>
+
+          </MainWrapper>
+         
+       {/* <ClickAwayListener 
+       onClickAway={handleClickAway}
+       mouseEvent="onMouseDown"
+       touchEvent="onTouchStart"
+       > */}
+      
+      {/* <topicalFormWrapper>  
+      Form here
+      <topicalForm id="submit-form"/>
+      
+      </topicalFormWrapper> */}
+      
+      {/* </ClickAwayListener> */}
+      
+      
+      
+          </>
+        )
+ 
+}
+
+ // -----------------------------------------------------------------
 
 
 
@@ -256,10 +396,18 @@ const HeadlineWrapper= styled('div')({
   color: chitBurgandy,
   width: '99%',
   padding: '6px 0',
-
+  fontSize: '1rem',
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
+
+
+})
+const DetailContainer= styled('div')({
+
+
+  fontSize: '.9rem',
+
 
 
 })
@@ -418,128 +566,3 @@ var stringToHTML = function (str) {
 	var doc = parser.parseFromString(str, 'text/html');
 	return doc.body;
 };
-
-//  =====================================================================
-
- 
-
-export default function TopicalSection(props) {
-  return (
-
-      <>
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You have a section currently being edited.
-            Would you like to save your changes to that section?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button
-            form="submit-form"
-            variant="contained"
-            color="primary"
-            type="submit"
-          // onClick={handleClose}
-          >
-            Save Edits
-          </button>
-
-          <button
-            form="submit-form"
-            variant="contained"
-            color="primary"
-
-            onClick={handleClose}
-          >
-            Cancel
-          </button>
-
-        </DialogActions>
-      </Dialog> */}
-      
-      
-      
-         
-          <MainWrapper>
-      
-      
-          
-            <TopWrapper>
-              <DateWrapper>Mar 4, 2022</DateWrapper>
-              
-              <IconWrapper>
-      
-                <LightTooltip title='Edit' arrow>
-                  <StyledEditIcon id = 'thweiwohaafagfagag'
-                  // onClick={()=>handleClick(id)}
-                  />
-                </LightTooltip>
-      
-                <ChitIcon />
-                <LightTooltip title='Convert to Chit' arrow>
-                  <StyledConvertIcon />
-                </LightTooltip>
-
-                <LightTooltip title='Attachment' arrow>
-            <StyledAttachmentIcon />
-          </LightTooltip>
-      
-               
-                <LightTooltip title='Delete' arrow>
-                  <StyledDeleteIcon />
-                </LightTooltip>
-              </IconWrapper>
-            </TopWrapper>
-            
-            <CategoryWrapper></CategoryWrapper>
-            <ContentWrapper>
-      
-      
-              <Content>
-                <HeadlineWrapper> Title Here</HeadlineWrapper>
-                {/* dangerouslySetInnerHTML={{__html: content}}*/}
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Content>
-      
-              <SearchWrapper>
-            <PeopleWrapper>People: Joi Me</PeopleWrapper>
-              <CategoryWrapper>category: aaaa</CategoryWrapper>
-              <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
-      
-            </SearchWrapper>
-      
-            </ContentWrapper>
-
-          </MainWrapper>
-         
-       {/* <ClickAwayListener 
-       onClickAway={handleClickAway}
-       mouseEvent="onMouseDown"
-       touchEvent="onTouchStart"
-       > */}
-      
-      {/* <topicalFormWrapper>  
-      Form here
-      <topicalForm id="submit-form"/>
-      
-      </topicalFormWrapper> */}
-      
-      {/* </ClickAwayListener> */}
-      
-      
-      
-          </>
-        )
- 
-}
-
- 

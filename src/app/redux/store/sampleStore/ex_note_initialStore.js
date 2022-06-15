@@ -142,7 +142,9 @@ const SampleNotes =  [
     noteHolderType: 'topics',
     noteHolderId: 'topic_1',
 
-    noteContent: '<div>Patent search web site</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank"https://www.uspto.gov/patents/search</a></div>',
+    noteContent:  '<div>Patent search web site</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank">https://www.evo.com/reviews/wake/best-wakeboard-bindings</a></div>',
+
+    // '<div>Patent search web site</div><div><a href="https://www.evo.com/reviews/wake/best-wakeboard-bindings" rel="noopener noreferrer" target="_blank"https://www.uspto.gov/patents/search</a></div>',
 
     noteDate:  '2021-02-03T06:08:53.000Z',
     // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
