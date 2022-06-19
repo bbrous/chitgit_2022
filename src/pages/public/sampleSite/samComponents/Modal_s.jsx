@@ -82,7 +82,7 @@ const Modal = (props) => {
     let {modalType, dbCollection, modalPage} = modalParams
 
 
-console.log('[ modal ] modalPage ', modalPage);
+console.log('[ modal ] modalParams ', modalParams);
 
   return(
 <Fragment>

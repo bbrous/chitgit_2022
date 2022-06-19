@@ -499,7 +499,35 @@ export const statusSlice = createSlice({
     },
 
 
+    openTopicalSectionForm: (state, action) => {
+      
+      let newTopicalId = action.payload
 
+      console.log('[ sam_StatusSlice ] newTopicalId ', action.payload);
+      state.view.topical.sectionId = newTopicalId
+
+    },
+
+
+    closeTopicalSectionForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.topical.sectionId = ''
+
+    },
+
+    closeNewTopicalForm: (state, action) => {
+      // state.modal.modalType = ''
+      // state.modal.dbCollection = ''
+      // state.modal.id = ''
+
+       
+      state.view.topical.id = ''
+
+    },
 
 
   }, //end reducers
@@ -529,6 +557,12 @@ export const {
   closeLogSectionForm,
   closeNewLogForm,
   openLogForm,
+
+  openTopicalSectionForm,
+  closeTopicalSectionForm,
+  closeNewTopicalForm,
+  openTopicalForm,
+
   updateAccordionDisplay,
   changeMonthView
 

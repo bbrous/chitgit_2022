@@ -95,6 +95,8 @@ const SampleKeywords =  [
       {dbCollection: 'notes', id: 'note_4'},
       {dbCollection: 'journal', id: 'jsection_7' }, 
       {dbCollection: 'journal', id: 'jsection_12' }, 
+      {dbCollection: 'journal', id: 'jsection_9' },
+      {dbCollection: 'journal', id: 'jsection_19' },
     ],
    
   },
@@ -176,17 +178,6 @@ const SampleKeywords =  [
   },
 
   
-  { 
-    id: 'keyword_12',
-    keyword: 'project team',
-    keywordHolders: [
-      {dbCollection: 'journal', id: 'jSection_3' },
-      {dbCollection: 'journal', id: 'jsection_9' },
-      {dbCollection: 'journal', id: 'jsection_19' },
-       
-    ],
-   
-  },
 
   {
 

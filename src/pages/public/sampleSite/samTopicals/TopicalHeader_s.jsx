@@ -8,7 +8,7 @@
 */
 
 import React  from 'react'
-import { useSelector} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {UTCtoDate, DatetoUTC,  UTCtoDateTradional} from '../../../../app/helpers/dateHelper'
 import{lightGrey, darkGrey} from '../../../../styles/colors'
@@ -21,11 +21,12 @@ import Delete_icon from '../samComponents/Delete_icon_s'
 import Paper from '@mui/material/Paper'
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button'
- 
+import { selectTopics } from '../../../../app/redux/topicRedux/sam_topicSlice';
+
+import { openModal, openTopicalForm, openTopicalSectionForm } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
-
 
 
 
@@ -36,20 +37,75 @@ function TopicalHeader(props) {
   const match = useParams()
 
   const matchId = match.id
+  const dispatch = useDispatch()
+
+
+  // --- get the topic name 
+  const allTopics = useSelector(selectTopics)
+  let topicObject = allTopics.find(element => element.id === matchId)
+  let topic 
+  matchId === 'junkyard' ? topic =  'Junkyard' : topic = topicObject.topic
+
+  
+  const openNewSectionForm = ()=>{
+ 
+   
+     console.log('[ LOG HEADER] open new Sectionform ');
+      dispatch(openTopicalSectionForm('new'))
+      
+    }
+
+    const openNewNoteForm = ()=>{
+ 
+   
+      console.log('[ LOG HEADER] open new NOTE form ');
+      dispatch(openModal(
+        {
+          modalParams: {
+            modalType: 'form',
+            dbCollection: 'notes', // dbCollection passed to modal
+            id: '',
+            noteHolderCollection: 'topics', // dbCollection FROM icon clicked
+            noteHolderId: matchId
+  
+          }
+        }
+  
+      ))
+       
+     }
+
+     const handleClick = ()=>{
+ 
+   
+      //  console.log('[ LOG HEADER] open new form ');
+        dispatch(openTopicalForm('new'))
+        
+      }
+    
 
 return (
 <Wrapper>
     <TitleWrapper>
       <TitleLabel> Topic : </TitleLabel>
       <Title>
-        Layout
+        {topic}
       </Title>
     </TitleWrapper>
     <BottomWrapper>
       <ButtonWrapper>
 
-        <FormButton startIcon={<AddIcon />}> add Section</FormButton>
-        <FormButton startIcon={<AddIcon />}> add Note</FormButton>
+        <FormButton 
+          startIcon={<AddIcon />}
+          onClick={()=>openNewSectionForm()}
+          > add Section
+        </FormButton>
+
+        <FormButton 
+          startIcon={<AddIcon />}
+          onClick={()=>openNewNoteForm()}
+          > add Note
+        </FormButton>
       </ButtonWrapper>
 
       <IconWrapper> 

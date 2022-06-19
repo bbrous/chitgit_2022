@@ -14,69 +14,18 @@ export const topicalSectionsSlice = createSlice({
   initialState: InitialStore,
 
   reducers: {
+ 
+    addTopicalSectionsToStore: (state, action) => {
 
-    addtopicalSectionsToStore: (state, action) => {
+      let topical = action.payload
 
-      // let topicalSectionsId = action.payload.topicalSectionsId
-      // let topicalSections = action.payload.topicalSections
-      // let topicalSectionsHolder = action.payload.topicalSectionsHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newtopicalSectionsHolder = {dbCollection: dbCollection, id: topicalSectionsHolder}
-
-      // let topicalSectionsObject = {
-      //   id: topicalSectionsId,
-      //   topicalSections: topicalSections,
-      //   topicalSectionsHolders: [newtopicalSectionsHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_topicalSectionsSlice ] topicalSectionsId ', topicalSectionsId)
-      // console.log('[ sam_topicalSectionsSlice ] newtopicalSectionsHolder ', newtopicalSectionsHolder)
-      // console.log('[ sam_topicalSectionsSlice ] dbCollection ', dbCollection)
-
-      // state.push(topicalSectionsObject)
+      state.push(topical)
     },
 
 
-
-  updateEditedtopicalSections: (state, action) => {
-
-
-    // let topicalSectionsId = action.payload.id
-    // let newtopicalSections = action.payload.topicalSections
-    
-    
-
-    // let topicalSectionsIndex = state.findIndex(index => index.id === topicalSectionsId)
-    
-    // state[topicalSectionsIndex].topicalSections  = newtopicalSections
-   
-
-
-  }, // end updateEditedtopicalSections
-
-  addtopicalSectionsHolder: (state, action) => {
-
-
-    // let topicalSectionsId = action.payload.topicalSectionsId
-    // let topicalSectionsHolder = action.payload.topicalSectionsHolder
-    // let dbCollection = action.payload.dbCollection
-    // let newtopicalSectionsHolder = {dbCollection: dbCollection, id: topicalSectionsHolder}
-    
-
-
-
-    // let topicalSectionsIndex = state.findIndex(index => index.id === topicalSectionsId)
-
-    // console.log('[ sam_topicalSectionsSlice ] topicalsIndex ', topicalsIndex)   
-    
-    // state[topicalsIndex].topicalsHolders.push(newtopicalsHolder)
-   
-  }, // end addtopicalsHolder
-
 }
 
-}) // end slice topicalsSlice 
+}) // end slice topicalSectionssSlice 
 
 
 // --- Export actions ---------------------------------------------

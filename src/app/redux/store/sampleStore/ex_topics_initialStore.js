@@ -4,10 +4,6 @@
 
 const SampleTopics =  [
 
-  { 
-    id: 'topic_0',
-    topic: 'Miscellaneous',  
-  },
 
   { 
     id: 'topic_1',
@@ -21,7 +17,7 @@ const SampleTopics =  [
  
   { 
     id: 'topic_3',
-    topic: 'Health',
+    topic: 'Diet',
   },
 
  

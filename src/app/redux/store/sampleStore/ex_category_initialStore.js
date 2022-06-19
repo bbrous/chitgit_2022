@@ -4,12 +4,12 @@
 
 const SampleCategories =  [
 
-  // { 
-  //   id: 'cat_1',
-  //   category: 'To do',
+  { 
+    id: 'cat_1',
+    category: 'Accomplishments',
 
    
-  // },
+  },
 
   // { 
   //   id: 'cat_2',

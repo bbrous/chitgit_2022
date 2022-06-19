@@ -12,13 +12,13 @@ import { useSelector} from 'react-redux'
 import{chitOrange, chitLightPink, veryLightGrey, backgroundBlue, chitBurgandy} from '../../../../styles/colors'
 
 import { useParams, useNavigate } from 'react-router-dom'
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import TopicalHeader from './TopicalHeader_s'
 // import TopicalDetail from './TopicalsContent_s'
 
 import Topical from './Topical_s'
-
-
+import NewTopicForm from '../samForms/NewTopicForm_s'
+import NewTopicalSectionForm from '../samForms/NewTopicalSectionForm_s'
 import{ 
   selectStatus,
  
@@ -50,6 +50,7 @@ function TopicalMain(props) {
   let topicalFormDisplay = status.view.topical.sectionId
   let statusId = status.view.topical.id
  
+  console.log('[ Topical main ] topicalFormDisplay ', topicalFormDisplay);
 
   const [topicalId, setTopicalId] = useState(statusId)
   useEffect(()=>{
@@ -82,8 +83,8 @@ function TopicalMain(props) {
             <Container>
 
               <FormContainer>
-                  {/* <LogForm />   */}
-                  <div> PUT TOPICAL FORM HERE</div>
+                
+                  <NewTopicForm/>
                   
                   </FormContainer>
 
@@ -94,23 +95,47 @@ function TopicalMain(props) {
         </>
   
       } 
-  {urlId !== 'newTopical'  &&
-        <>
-    <TopicalHeader/>
-      <MainWrapper>
-    
-      
+
+{/* --------------------------------------------------------- */}
+
+     {urlId !== 'newTopical'  &&
 
 
+
+
+        <MiddleWrapper>
+          <TopicalHeader />
+
+          {topicalFormDisplay === 'new' &&
+            <NewFormSectionContainer>
+
+              <NewTopicalSectionForm />
+
+            </NewFormSectionContainer>
+          }
+          <MainWrapper
+                  style={{
+                    // height: topicalFormDisplay === 'new' ? '30vh' : ''
+                    height: topicalFormDisplay === 'new' ? '50%' : ''
+                  }}
           
-
-          <Topical/>
-
+          >
 
 
-      </MainWrapper>
-      
-      </>}
+
+
+
+            <Scrollbars  >
+              <SectionsContainer>
+                <Topical />
+              </SectionsContainer>
+            </Scrollbars  >
+
+          </MainWrapper>
+
+        </MiddleWrapper>
+
+        }
     </OuterContainer>
   )
 }// end func TopicalMain
@@ -134,7 +159,9 @@ position: 'relative',
   // minHeight: '10rem',
   // height: '90%',
  width: '100%',
- height: '100%',
+ height: '98%',
+ paddingBottom: '1%',
+ 
  overflow: 'hidden',
 
   [theme.breakpoints.down('sm')]: {
@@ -153,7 +180,7 @@ const MainWrapper = styled('div')({
   alignItems: 'center',
 position: 'relative',
 
-  backgroundColor: 'white',
+ 
  
 
   // minHeight: '10rem',
@@ -172,25 +199,25 @@ position: 'relative',
 
 
 
-const FormWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
+// const FormWrapper = styled('div')({
+//   display: 'flex',
+//   flexDirection: 'row',
+//   justifyContent: 'center',
+//   alignItems: 'center',
   
-backgroundColor: 'lightgrey',
-  width: '95%',
-  height: '8rem',
-  paddingBottom: '6rem',
+// backgroundColor: 'lightgrey',
+//   width: '95%',
+//   height: '8rem',
+//   paddingBottom: '6rem',
  
 
 
-  [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
+//   [theme.breakpoints.down('sm')] : {
+//     // height: '1.25rem',
 
-  },
+//   },
 
-})
+// })
  
 
  
@@ -229,9 +256,9 @@ const FormContainer = styled('div')({
   
 
   width: '100%',
-  
-  backgroundColor: 'lightGrey',
 
+ 
+  border: '2px solid yellow',
   // minHeight: '10rem',
   // height: '90%',
 
@@ -246,6 +273,34 @@ const FormContainer = styled('div')({
  
 
 })
+
+const NewFormSectionContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+
+  width: '98%',
+  height: '70%',
+ 
+  border: '2px solid yellow',
+  // minHeight: '10rem',
+  // height: '90%',
+
+  
+  // overflowY: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+
 const HeaderWrapper = styled(Paper)({
   display: 'flex',
   flexDirection: 'row',
@@ -266,4 +321,49 @@ const HeaderWrapper = styled(Paper)({
     // height: '1.25rem',
 
   },
+})
+
+
+const SectionsContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+  // paddingTop: '6px',
+
+  width: '98%',
+ height: '100%',
+ 
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
+})
+
+
+const MiddleWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+ 
+  // paddingTop: '6px',
+
+  width: '100%',
+  height: '100%',
+  overflowX: 'hidden',
+ 
+
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+
+  },
+
+ 
+
 })

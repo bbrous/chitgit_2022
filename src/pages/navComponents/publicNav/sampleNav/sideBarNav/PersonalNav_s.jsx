@@ -76,7 +76,7 @@ function PersonalNav() {
     Order is determined by last time the spotlight was visited
   */
 
-  const [arrayOrder, setArrayOrder] = useState(false)
+  const [arrayOrder, setArrayOrder] = useState(true)
 
   let ascendingCategories= ascendSorter(categoryArray, 'category')
   let descendingCategories= descendSorter(categoryArray, 'category')
@@ -209,8 +209,8 @@ Create a new Personal Chit Category
 
         <SliderComponent
           handleSwitchState={handleSwitchState} //gets new state from child switch
-          leftLabel='z-A'
-          rightLabel=  'a-Z'
+          leftLabel='a-Z'
+          rightLabel=  'z-A' 
         />
 
       </OrderWrapper>

@@ -15,31 +15,15 @@ export const topicsSlice = createSlice({
 
   reducers: {
 
-    addTopicalsToStore: (state, action) => {
+    addTopicToStore: (state, action) => {
+      let journal = action.payload
 
-      // let topicalsId = action.payload.topicalsId
-      // let topicals = action.payload.topicals
-      // let topicalsHolder = action.payload.topicalsHolder
-      // let dbCollection = action.payload.dbCollection
-      // let newtopicalsHolder = {dbCollection: dbCollection, id: topicalsHolder}
-
-      // let topicalsObject = {
-      //   id: topicalsId,
-      //   topicals: topicals,
-      //   topicalsHolders: [newtopicalsHolder]
-      // }
-
-      // console.log('===============================================================')
-      // console.log('[ sam_topicalsSlice ] topicalsId ', topicalsId)
-      // console.log('[ sam_topicalsSlice ] newtopicalsHolder ', newtopicalsHolder)
-      // console.log('[ sam_topicalsSlice ] dbCollection ', dbCollection)
-
-      // state.push(topicalsObject)
+      state.push(journal)
     },
 
 
 
-  updateEditedTopicals: (state, action) => {
+  updateEditedTopic: (state, action) => {
 
 
     // let topicalsId = action.payload.id
@@ -55,24 +39,7 @@ export const topicsSlice = createSlice({
 
   }, // end updateEditedtopicals
 
-  addTopicalsHolder: (state, action) => {
-
-
-    // let topicalsId = action.payload.topicalsId
-    // let topicalsHolder = action.payload.topicalsHolder
-    // let dbCollection = action.payload.dbCollection
-    // let newTopicalsHolder = {dbCollection: dbCollection, id: topicalsHolder}
-    
-
-
-
-    // let topicalsIndex = state.findIndex(index => index.id === topicalsId)
-
-    // console.log('[ sam_topicalsSlice ] topicalsIndex ', topicalsIndex)   
-    
-    // state[topicalsIndex].topicalsHolders.push(newtopicalsHolder)
-   
-  }, // end addtopicalsHolder
+ 
 
 }
 
@@ -82,9 +49,9 @@ export const topicsSlice = createSlice({
 // --- Export actions ---------------------------------------------
 
 export const { 
-  addTopicalsToStore, 
-  updateEditedTopicals,
-  addTopicalsHolder 
+  addTopicToStore, 
+  updateEditedTopic,
+
 
 } = topicsSlice.actions
 

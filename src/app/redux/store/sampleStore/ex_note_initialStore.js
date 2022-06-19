@@ -3,7 +3,23 @@
 
 
 const SampleNotes =  [
+  {
+    
+    id: 'note_0',
+    
+    noteHolderType: 'topics',
+    noteHolderId: 'junkyard',
 
+    noteContent: "<div>Don't know where to put something ... </div><div>Put it here in the <span class=\"ql-size-large\" style=\"color: rgb(107, 36, 178);\">Junkyard</span>.</div>",
+
+    noteDate: '2020-11-01T11:16:20.619Z',
+    // lastEdit:  "2020-11-01T11:16:20.619Z",  // September 14
+
+    noteKeywordArray: [],
+    peopleArray: [], 
+    noteCatgory : ''
+   
+  },
 
 
 
@@ -170,6 +186,7 @@ const SampleNotes =  [
    
   }
  
+
  
  ] // end notes  ============================================
  

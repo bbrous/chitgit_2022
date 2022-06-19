@@ -57,6 +57,8 @@ function Topical(props) {
   const status = useSelector(selectStatus)
 
 
+
+  
   /*
     get all topicalSections for topicals
     get all notes topicals
@@ -97,6 +99,7 @@ function Topical(props) {
 
   */
 
+         
       
       let modifiedSectionsArray = []
       let newSectionObject
@@ -111,12 +114,14 @@ function Topical(props) {
       let newNoteObject
       allNotesArray.map((item,  index) => {
        newNoteObject = {...item, topicalType: 'note', topicalSortDate: item.noteDate}
+
        modifiedNotesArray.push(newNoteObject)
       return modifiedNotesArray
       }
       ) //end map
 
-      
+      console.log('[ Topical_s] modifiedNotesArray ', modifiedNotesArray);
+  
  
     // --- filter the notes and sections array by topical Id
     let filteredSections = topicalFilter(modifiedSectionsArray, id)
@@ -124,6 +129,8 @@ function Topical(props) {
 
     // --- create the new combined allTopicals array
     let allFilteredTopicals = [...filteredSections, ...filteredNotes]
+
+   
 
     // --- get the displayType from status view redux store
     // --- choose which array (section, note, all) is to be displayed
@@ -162,7 +169,7 @@ console.log('@@@ [Topical]- sortedTopical -- ' , sortedTopical)
  
       if(row.topicalType === 'section'){
       return (
-        <SectionWrapper>
+        <SectionWrapper key={row.id}>
         <TopicalSection 
          id={row.id}
          key={row.id}
@@ -175,7 +182,7 @@ console.log('@@@ [Topical]- sortedTopical -- ' , sortedTopical)
       
 
       return (
-        <NoteWrapper>
+        <NoteWrapper key={row.id}>
         <TopicalNote 
          id={row.id}
          key={row.id}
@@ -228,39 +235,6 @@ console.log('@@@ [Topical]- sortedTopical -- ' , sortedTopical)
 {topicalsDisplay()}
 
 
-      {/* <SectionWrapper>
-        <TopicalSection />
-      </SectionWrapper>
-
-      <NoteWrapper>
-        <TopicalNote />
-      </NoteWrapper>
-
-      <NoteWrapper>
-        <TopicalNote />
-      </NoteWrapper>
-
-      <NoteWrapper>
-        <TopicalNote />
-      </NoteWrapper>
-
-
-      <SectionWrapper>
-        <TopicalSection />
-      </SectionWrapper>
-
-      <NoteWrapper>
-        <TopicalNote />
-      </NoteWrapper>
-
-      <NoteWrapper>
-        <TopicalNote />
-      </NoteWrapper>
-
-
-      <SectionWrapper>
-        <TopicalSection />
-      </SectionWrapper> */}
 
     </Wrapper>
 
@@ -314,9 +288,9 @@ const NoteWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 
-  margin: '.25rem',
+ 
   padding: '.5rem',
-   
+  marginRight: '4rem',
   width: '10rem',
 
   height: '10rem',

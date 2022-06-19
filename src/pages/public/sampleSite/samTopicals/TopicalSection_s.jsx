@@ -21,12 +21,12 @@ import{chitOrange, mediumLightGrey, veryLightGrey, chitBurgandy, mediumGrey, chi
 
 import { ISOtoTraditional, ISOtoTraditionalTime } from '../../../../app/helpers/dateHelper'
 
-// import TopicalForm from '../samForms/TopicalForm_s'
+import EditTopicalSectionForm from '../samForms/EditTopicalSectionForm_s'
 // import topicalFormAlert from './topicalFormAlert'
-
+ 
 import { 
   selectStatus,
-  opentopicalForm
+  openTopicalSectionForm
 } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
 import { ISOtoTraditionalWithDay } from '../../../../app/helpers/dateHelper'
@@ -66,6 +66,20 @@ export default function TopicalSection(props) {
   let dispatch = useDispatch()
   const {id, lastEdit, topicalDate, timeLock,  title, detail, attachment, chitLink, keywordArray, peopleArray} = props.data
 
+  let status = useSelector(selectStatus)
+
+  let topicalViewId = status.view.topical.sectionId
+ 
+  console.log('[ Topical Section] open  topicalViewId outside func', topicalViewId);
+  // const [open, setOpen] = React.useState(false);
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   let styledTopicalDate = ISOtoTraditional(topicalDate)
   let styledTopicalTime = ISOtoTraditionalTime()
@@ -74,7 +88,54 @@ export default function TopicalSection(props) {
   timeLock ? styledTimeLock = ISOtoTraditional(timeLock): styledTimeLock = 'no'
 
 
+  let styledKeywords = ''
 
+  if (keywordArray.length > 0) {
+    
+
+  for(let i = 0; i < keywordArray.length; i++){
+    if(i === keywordArray.length - 1){
+      styledKeywords += keywordArray[i]  
+    }else{
+    styledKeywords += keywordArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (keywordArray.length === 0) {
+styledKeywords = 'none'
+  }
+
+
+  let styledPeople = ''
+
+  if (peopleArray.length > 0) {
+       
+
+  for(let i = 0; i < peopleArray.length; i++){
+    if(i === peopleArray.length - 1){
+      styledPeople += peopleArray[i]  
+    }else{
+    styledPeople += peopleArray[i] + ' , '
+    }
+  }
+ 
+
+  }//end if keyword.length > 0
+
+  if (peopleArray.length === 0) {
+styledPeople = 'none'
+  }
+
+
+  const openSectionForm = (id)=>{
+ 
+    console.log('[ Topical Section] open  topicalViewId inside function ', topicalViewId);
+     dispatch(openTopicalSectionForm(id))
+     
+   } 
 
   return (
 
@@ -119,7 +180,7 @@ export default function TopicalSection(props) {
       </Dialog> */}
       
       
-      
+      {topicalViewId !== id &&
          
           <MainWrapper>
       
@@ -131,9 +192,9 @@ export default function TopicalSection(props) {
               <IconWrapper>
       
                 <LightTooltip title='Edit' arrow>
-                  <StyledEditIcon id = 'thweiwohaafagfagag'
-                  // onClick={()=>handleClick(id)}
-                  />
+                <StyledEditIcon id={id}
+                  onClick={() => openSectionForm(id)}
+                />
                 </LightTooltip>
       
                 <ChitIcon />
@@ -162,15 +223,19 @@ export default function TopicalSection(props) {
               </Content>
       
               <SearchWrapper>
-            <PeopleWrapper>People: Joi Me</PeopleWrapper>
-              <CategoryWrapper>category: aaaa</CategoryWrapper>
-              <KeyWordWrapper>keywords:  bb cc dd</KeyWordWrapper>
+            <PeopleWrapper>{styledPeople}</PeopleWrapper>
+              
+              <KeyWordWrapper>keywords:  {styledKeywords}</KeyWordWrapper>
       
             </SearchWrapper>
       
             </ContentWrapper>
 
           </MainWrapper>
+
+      }
+
+
          
        {/* <ClickAwayListener 
        onClickAway={handleClickAway}
@@ -185,11 +250,17 @@ export default function TopicalSection(props) {
       </topicalFormWrapper> */}
       
       {/* </ClickAwayListener> */}
-      
-      
+      {topicalViewId === id &&
+      <TopicalFormWrapper>
+  
+        <EditTopicalSectionForm/>
+      </TopicalFormWrapper>
+
+    }
       
           </>
         )
+
  
 }
 
@@ -397,6 +468,21 @@ const HeadlineWrapper= styled('div')({
   width: '99%',
   padding: '6px 0',
   fontSize: '1rem',
+
+  
+  '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  },
+
+
   [theme.breakpoints.down('sm')] : {
     // width: '100%'
   },
@@ -407,7 +493,18 @@ const DetailContainer= styled('div')({
 
 
   fontSize: '.9rem',
-
+  
+  '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
 
 
 })
@@ -566,3 +663,40 @@ var stringToHTML = function (str) {
 	var doc = parser.parseFromString(str, 'text/html');
 	return doc.body;
 };
+
+
+const QuillDiv= styled('div')({
+
+  fontSize: '14px',
+  
+   '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
+  
+  })
+
+  const TopicalFormWrapper= styled('div')({
+
+    display: 'block',
+  
+    width: '100%',
+    [theme.breakpoints.down('sm')] : {
+      // width: '100%'
+    },
+    textAlign: 'left',
+    '& p' : {
+  
+      margin : '0 0 0 0',
+      padding: 0,
+      textAlign: 'left'
+    },
+  
+  })
