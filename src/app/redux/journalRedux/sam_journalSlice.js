@@ -55,7 +55,7 @@ export const journalSlice = createSlice({
   }, // end updateEditedjournal
 
 
-  deleteLogSection: (state, action) => {
+  deleteJournalSection: (state, action) => {
 
 
     let journalSectionId = action.payload

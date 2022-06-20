@@ -110,7 +110,7 @@ export default function JSections() {
   let sortedJournalSelections = descendSorter(allJournalSelections, 'journalDate')
 
   useEffect(()=>{
-    scrollToBottom()
+    scrollToTop()
   },[])
   
   // console.log('[ JSections ]  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ', allJournalSelections);

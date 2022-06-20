@@ -22,7 +22,8 @@ const SampleKeywords =  [
     keyword: 'to do',
     keywordHolders: [
       {dbCollection: 'notes', id: 'note_2'},
-      {dbCollection: 'notes', id: 'note_4'}
+      {dbCollection: 'notes', id: 'note_4'},
+      {dbCollection: 'logs', id: 'log_36'},
     ],
    
   },
@@ -58,6 +59,22 @@ const SampleKeywords =  [
     keyword: 'marketing',
     keywordHolders: [
       {dbCollection: 'notes', id: 'note_4'},
+      {dbCollection: 'logs', id: 'log_22'},
+      {dbCollection: 'logs', id: 'log_23'},
+      {dbCollection: 'logs', id: 'log_24'},
+      {dbCollection: 'logs', id: 'log_25'},
+      {dbCollection: 'logs', id: 'log_26'},
+      {dbCollection: 'logs', id: 'log_27'},
+      {dbCollection: 'logs', id: 'log_28'},
+      {dbCollection: 'logs', id: 'log_229'},
+      {dbCollection: 'logs', id: 'log_30'},
+      {dbCollection: 'logs', id: 'log_31'},
+      {dbCollection: 'logs', id: 'log_32'},
+      {dbCollection: 'logs', id: 'log_33'},
+      {dbCollection: 'logs', id: 'log_34'},
+      {dbCollection: 'logs', id: 'log_35'},
+      
+      
       
     ],
    

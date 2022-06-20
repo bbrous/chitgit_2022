@@ -1099,7 +1099,7 @@ const PersonalChits =  [
     chitDate: "2021-03-09T16:21:33.000Z", // Jan 5
     timeLock: '',  // if exists - not editable
 
-    chitColor: 'copper',   //gold, silver, red, milestone
+    chitColor: 'silver',   //gold, silver, red, milestone
 
     category: 'cat_8',
     workRelated: 'notWorkRelated',
@@ -1187,7 +1187,7 @@ const PersonalChits =  [
     chitDate: "2021-03-02T16:21:33.000Z", // Jan 5
     timeLock: '',  // if exists - not editable
 
-    chitColor: 'red',   //gold, silver, red, milestone
+    chitColor: 'gold',   //gold, silver, red, milestone
 
     category: 'cat_8',
     workRelated: 'notWorkRelated',

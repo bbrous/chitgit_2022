@@ -56,7 +56,7 @@ export const statusSlice = createSlice({
         personalDisplay: 'calendar',  // ledger or calendar
         twoPartyDisplay: 'ledger',
         personalChitId:  'cat_8',
-        id:  'allChits'
+        id:  'person_7'
       },
 
       personalChit: {

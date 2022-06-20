@@ -39,6 +39,14 @@ const SampleLogHolders =  [
     meta: ''
    
   },
+
+   
+  { 
+    id: 'person_1',
+    collection: 'people',
+    meta: ''
+   
+  },
  
  ] // end SampleLogHolders  ============================================
  

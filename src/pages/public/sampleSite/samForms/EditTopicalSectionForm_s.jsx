@@ -40,9 +40,9 @@ import {
 
 import {  
   selectTopicalSections,
-  addTopicalSectionsToStore, 
-  updateEditedTopicalSections,
-  addTopicalSectionsHolder 
+  updateEditedTopicalSection, 
+  selectTopicalSectionFromArray
+ 
 } from '../../../../app/redux/topicalRedux/sam_topicalSectionsSlice'
 
 
@@ -120,6 +120,8 @@ export default function EditTopicalSectionForm(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const status = useSelector(selectStatus)
+
+  const topicalSectionId = status.view.topical.sectionId
 
   let match = useParams()
   let urlId = match.id
@@ -210,15 +212,21 @@ const id = openPopover ? 'simple-popover' : undefined;
     // --- set up defaultValues
 
     let defaultValues,   sectionId, detail, title, keywordArray, 
-    peopleArray, sectionCreatedDate, dateTime, topic, topicalDate, defaultKeywordOptions, defaultPeopleOptions
+    peopleArray, sectionCreatedDate, dateTime, topic, topicalSection, topicalDate, defaultKeywordOptions, defaultPeopleOptions
 
-    sectionId = cuid() 
-    title = ''
-    detail = ''
-    topicalDate = new Date('2021-03-14T17:03:40.000Z') 
+    topicalSectionId  === 'new' ? sectionId = cuid()  : sectionId =  topicalSectionId  
+
+    topicalSection =  selectTopicalSectionFromArray(allTopicalSections, topicalSectionId)
+
+
+
+    
+    title = topicalSection.title
+    detail = topicalSection.detail
+    topicalDate = new Date(topicalSection.topicalDate) 
     dateTime = new Date('2021-03-14T17:03:40.000Z') 
-    defaultKeywordOptions = []
-    defaultPeopleOptions = []
+    defaultKeywordOptions = topicalSection.keywordArray
+    defaultPeopleOptions = topicalSection.peopleArray
 
 
     defaultValues = {
@@ -312,7 +320,7 @@ const submitForm = (data) => {
 
 
 
-      // dispatch(addTopicalSectionsToStore(topicalSectionData))
+      dispatch(updateEditedTopicalSection(topicalSectionData))
 
 
 

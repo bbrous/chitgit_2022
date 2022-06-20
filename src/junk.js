@@ -62,32 +62,7 @@ Jan 14
 '2021-01-14T06:08:53.000Z'
 
 
-// Log Layout ----------------------------------------
 
-// {
-//   id: 'log_XX', 
-//   type: 'person', // company, group, organization, topic, story, other
-  
-  
-//   otherPartyId: 'person_4', //Shelly 
-
-//   logDate: '',  
-//   lastEdit:  '',  
-//   timeLock:  '',
-
-//   meta: '',
-//   title: '#1 Left poop on my driveway',
- 
-//   detail : '', 
-
-//   attachment: '',
-
-//   chitLink: null,
-  
-//   peopleArray: [],
-//   keywordArray: [''],
-
-// },
 
 
 // JOURNAL Layout
@@ -135,3 +110,31 @@ Jan 14
     // },
 
 
+
+
+    // Log Layout ----------------------------------------
+
+// {
+//   id: 'log_XX', 
+//   type: 'person', // company, group, organization, topic, story, other
+  
+  
+//   otherPartyId: 'person_4', //Shelly 
+
+//   logDate: '',  
+//   lastEdit:  '',  
+//   timeLock:  '',
+
+//   meta: '',
+//   title: '',
+ 
+//   detail : '', 
+
+//   attachment: '',
+
+//   chitLink: null,
+  
+//   peopleArray: [],
+//   keywordArray: [''],
+
+// },
