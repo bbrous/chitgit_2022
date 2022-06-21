@@ -12,7 +12,7 @@ parent: SharedChit
 
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey, chitBurgandyDull, lightGrey } from '../../../styles/colors'
  
 import LinkCode from '../../../images/linkCode.svg'
@@ -199,15 +199,16 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
 
 
 
-
+<Scrollbars>
               <MessageWrapper>
                 <MessageTop>Message from {senderName}:    </MessageTop>
+                
                 <MessageBottom dangerouslySetInnerHTML={{ __html: message }} >
 
                 </MessageBottom>
 
               </MessageWrapper>
-
+</Scrollbars>
               <AddWrapper>
                 <AddHeader>
                   Add this chit to your repo
@@ -310,6 +311,7 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
 
   return (
     <>
+ 
       <HeaderPublic />
       <NavSpacer />
       
@@ -320,10 +322,11 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
         <HeaderLink onClick = {()=> goToHome()}>Learn more </HeaderLink>
 
         </HeadWrapper>
-
+  
       <ContentWrapper>
         {SharedChitDisplay(codeId)}
       </ContentWrapper>
+   
  </>
   );
 }
@@ -338,9 +341,9 @@ const NavSpacer = styled('div')({
   height: '2.5rem',
 
 
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('sm')] : {
  
-  
+    height: '1rem',
  }
 
 })
@@ -361,9 +364,11 @@ const HeadWrapper= styled('div')({
     padding: '0 0 1.5rem 0',
   
  
-  
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
+ 
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      margin: '.5rem 0 .25rem 0',
+      
     }
   
   
@@ -377,7 +382,7 @@ const HeadWrapper= styled('div')({
     fontSize: '.9rem',
 
     [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
+   
     }
 
   })
@@ -393,8 +398,8 @@ const HeadWrapper= styled('div')({
     cursor:'pointer',
     height: '1rem',
   
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
+    [theme.breakpoints.down('sm')] : {
+   
     }
 
 
@@ -411,6 +416,7 @@ const HeadWrapper= styled('div')({
    
     height: 'calc(100vh  - 2.5rem)',
 
+    maxHeight: '45rem',
 
 
     // height: '100%',
@@ -418,12 +424,13 @@ const HeadWrapper= styled('div')({
     // marginTop: '2.5rem',
     paddingBottom: '1rem 0',
     backgroundColor: backgroundBlue,
-    overflow: 'hidden',
-
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'hidden',
+  
+  
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    
+  
     }
-
   
   })
 
@@ -439,12 +446,13 @@ const HeadWrapper= styled('div')({
     position: 'relative',
   
     width: '45rem',
-
+   
     borderRadius: '20px',
-
-    [theme.breakpoints.down('xs')] : {
-      width: '25rem',
-      height: '25rem',
+   
+    [theme.breakpoints.down('sm')]: {
+      width: '96%',
+      height: '96%',
+       
     }
 
   
@@ -459,10 +467,12 @@ const SummaryWrapper = styled('div')({
   width: '75%',
   padding: '6px',
   color: chitBurgandy,
-  fontWeight: 'bold',
+ 
 
-  [theme.breakpoints.down('xs')]: {
-
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    margin : '.5rem 0 ',
+   
   }
 
 })
@@ -515,7 +525,6 @@ const SubHeader = styled('div')({
 // --- detail section -----
 
 const DetailWrapper = styled('div')({
-  // backgroundColor: 'red',
 
   display: 'flex',
   flexDirection: 'row',
@@ -523,9 +532,10 @@ const DetailWrapper = styled('div')({
   alignItems: 'center',
   margin: ' .5rem 3rem',
   width: 'calc(75% - 6rem)',
+  [theme.breakpoints.down('sm')]: {
 
-  [theme.breakpoints.down('xs')]: {
-
+    width: '96%',
+    margin: 0
   }
 
 })
@@ -582,7 +592,7 @@ const ActionRight = styled('div')({
   alignItems: 'center',
   fontSize: '.9rem',
   color: backgroundBlue,
-  fontWeight: 'bold',
+  
   [theme.breakpoints.down('xs')]: {
 
   }
@@ -595,14 +605,17 @@ const ActionRight = styled('div')({
 const MessageWrapper = styled('div')({
 
 
+
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '75%',
 
-  [theme.breakpoints.down('xs')]: {
-
+borderRadius: '5px',
+  [theme.breakpoints.down('sm')]: {
+    width: '96%',
+ 
   }
 
 })
@@ -614,32 +627,32 @@ const MessageTop = styled('div')({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
 
-  margin: '6px 0 6px 0 ',
+  margin: '0 0 6px 0 ',
   width: 'calc(100% - 12px)',
   fontSize: '.9rem',
   fontStyle: 'italic',
 
 
-  [theme.breakpoints.down('xs')]: {
-
+  [theme.breakpoints.down('sm')]: {
+    borderBottom: '1px solid #E6E7E8'
   }
 
 })
 
 
-const MessageBottom = styled(Paper)({
+const MessageBottom = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  border: '1px solid #E6E7E8',
+ 
   borderRadius: '5px',
   padding: '6px',
   width: 'calc(100% - 12px)',
   fontSize: '.9rem',
   minHeight: '5rem',
   height: '11rem',
-  overflow: 'auto',
+ 
   [theme.breakpoints.down('xs')]: {
 
   }
@@ -663,13 +676,13 @@ const ChitBox = styled('div')({
   height: '80%',
   marginTop: '8px',
 
-  // backgroundColor: 'red' ,
+
   borderRadius: '20px',
 
 
-  [theme.breakpoints.down('xs')]: {
-    width: '25rem',
-    height: '25rem',
+  [theme.breakpoints.down('sm')]: {
+ 
+  height: '86%'
   }
 
 
@@ -1019,10 +1032,9 @@ const HomeLink = styled('div')({
 
   cursor: 'pointer',
 
-  [theme.breakpoints.down('xs')]: {
+  [theme.breakpoints.down('sm')]: {
 
-    fontSize: '.95rem',
-    padding: '0 15% 0 5%',
+   margin: 0
 
 
   }

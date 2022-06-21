@@ -19,12 +19,9 @@ const NarWrapper= styled('div')({
   
 
   [theme.breakpoints.down('sm')] : {
-    // fontSize: '1rem',
-  },
-
-  [theme.breakpoints.down('xs')] : {
     width: '100%',
     // fontSize: '1.2rem',
+ 
   }
 
 })

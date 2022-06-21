@@ -25,6 +25,160 @@ import Button from '@mui/material/Button'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+// ==============================
+
+const Landing_page = (props) => {
+  let navigate = useNavigate()
+  const handlePageChange = (evt) => {
+    evt.persist()
+    console.log('I BE CLICKED in TP :: ', evt.currentTarget.id)
+    props.setPage(evt.currentTarget.id) //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+  }
+
+
+  const [chitInput, setChitInput] = useState('')
+
+  const handleInput = (evt) =>{
+    console.log('[Landing_page ] Input form value ', evt.target.value);
+    setChitInput(evt.target.value)
+  }
+
+  const handleSubmit = (code)=>{
+    
+    navigate(`/sharedChit`)
+ 
+  }
+
+  return (
+
+
+
+    <LandingWrapper>
+
+
+      <LandingContent>
+
+        <LeftSide>
+          <LogoStyle src={Logo} alt="Chit Git Logo" />
+          <LogoTag>A suite of  tools</LogoTag>
+
+          <Value>
+            Your deeds, dealings
+            and doings in one place
+          </Value>
+
+          <ChitsWrapperSmall>
+
+            <CoinStyle src={GoldCoin} alt="Chit Coin Gold" />
+            <CoinStyle src={SilverCoin} alt="Chit Coin Silver" />
+            <CoinStyle src={CopperCoin} alt="Chit Coin Copper" />
+            <CoinStyle src={AwChit} alt="Chit Coin Red" />
+          </ChitsWrapperSmall>
+
+
+          <ListWrapper>
+            <ListStyle>
+              
+              <li> appreciate someone for their help </li>
+              <li> get  better  performance reviews </li>
+              <li> resolve ongoing conflicts in your favor </li>
+              <li> establish legal ownership of your ideas </li>
+              <li> improve your personal work flow </li>
+              <li> incrase your motivation </li>
+
+
+
+
+            </ListStyle>
+
+          </ListWrapper>
+
+
+
+
+          <Notice >  
+            {/* <div > I received a chit </div> */}
+            {/* <NoticeForm> 
+              <StyledInput placeholder = 'enter code ' 
+               onChange = {(evt)=> handleInput(evt)}
+              /> 
+              <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
+              </NoticeForm> */}
+
+<div onClick = {()=> handleSubmit()}> I received a chit </div>
+        
+
+
+            </Notice>
+
+        </LeftSide>
+
+
+        {/* --------------------------------------------------------------------- */}
+
+        <Center />
+
+        <RightSide>
+
+          <ButtonWrapper>
+
+            <StyledLink to="/join" id='join' onClick={handlePageChange}>
+              <JoinButton>Join</JoinButton>
+            </StyledLink>
+
+          </ButtonWrapper>
+
+          <ChitsWrapper>
+
+            <CoinStyle src={GoldCoin} alt="Chit Coin Gold" />
+            <CoinStyle src={SilverCoin} alt="Chit Coin Silver" />
+            <CoinStyle src={CopperCoin} alt="Chit Coin Copper" />
+            <CoinStyle src={AwChit} alt="Chit Coin Red" />
+          </ChitsWrapper>
+
+          <Description>
+
+            Keep records of:
+          </Description>
+
+          <ListWrapper>
+            <ListStyle>
+              <li> people who you help</li>
+              <li> help you receive from others </li>
+              <li> your achievements in  work or in life </li>
+              <li> communications with others </li>
+              <li> your thoughts and ideas  </li>
+              <li> where you spend your time and energy </li>
+
+
+
+            </ListStyle>
+
+          </ListWrapper>
+          <Free>Chit Git is free</Free>
+
+        </RightSide>
+
+
+      </LandingContent>
+
+      <IconWrapper>
+
+      </IconWrapper>
+      <WhiteBreak>      </WhiteBreak>
+    </LandingWrapper>
+
+  )
+}
+
+
+
+
+export default Landing_page
+
+
 // -----------------------------------------------------------------
 
 const LandingWrapper= styled('div')({
@@ -92,6 +246,8 @@ position: 'relative',
   [theme.breakpoints.down('sm')] : {
     flexDirection: 'column',
     height: 'auto',
+    maxWidth: '100%',
+    minWidth: '100%',
   }
 
 })
@@ -546,157 +702,3 @@ const Free= styled('div')({
    
 
 })
-
-// ==============================
-
-const Landing_page = (props) => {
-  let navigate = useNavigate()
-  const handlePageChange = (evt) => {
-    evt.persist()
-    console.log('I BE CLICKED in TP :: ', evt.currentTarget.id)
-    props.setPage(evt.currentTarget.id) //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-  }
-
-
-  const [chitInput, setChitInput] = useState('')
-
-  const handleInput = (evt) =>{
-    console.log('[Landing_page ] Input form value ', evt.target.value);
-    setChitInput(evt.target.value)
-  }
-
-  const handleSubmit = (code)=>{
-    
-    navigate(`/sharedChit`)
- 
-  }
-
-  return (
-
-
-
-    <LandingWrapper>
-
-
-      <LandingContent>
-
-        <LeftSide>
-          <LogoStyle src={Logo} alt="Chit Git Logo" />
-          <LogoTag>A suite of  tools</LogoTag>
-
-          <Value>
-            Your deeds, dealings
-            and doings in one place
-          </Value>
-
-          <ChitsWrapperSmall>
-
-            <CoinStyle src={GoldCoin} alt="Chit Coin Gold" />
-            <CoinStyle src={SilverCoin} alt="Chit Coin Silver" />
-            <CoinStyle src={CopperCoin} alt="Chit Coin Copper" />
-            <CoinStyle src={AwChit} alt="Chit Coin Red" />
-          </ChitsWrapperSmall>
-
-
-          <ListWrapper>
-            <ListStyle>
-              
-              <li> appreciate someone for their help </li>
-              <li> get  better  performance reviews </li>
-              <li> resolve ongoing conflicts in your favor </li>
-              <li> establish legal ownership of your ideas </li>
-              <li> improve your personal work flow </li>
-              <li> incrase your motivation </li>
-
-
-
-
-            </ListStyle>
-
-          </ListWrapper>
-
-
-
-
-          <Notice >  
-            {/* <div > I received a chit </div> */}
-            {/* <NoticeForm> 
-              <StyledInput placeholder = 'enter code ' 
-               onChange = {(evt)=> handleInput(evt)}
-              /> 
-              <GoButton onClick = {()=> handleSubmit(chitInput)} >Go</GoButton> 
-              </NoticeForm> */}
-
-<div onClick = {()=> handleSubmit()}> I received a chit </div>
-        
-
-
-            </Notice>
-
-        </LeftSide>
-
-
-        {/* --------------------------------------------------------------------- */}
-
-        <Center />
-
-        <RightSide>
-
-          <ButtonWrapper>
-
-            <StyledLink to="/join" id='join' onClick={handlePageChange}>
-              <JoinButton>Join</JoinButton>
-            </StyledLink>
-
-          </ButtonWrapper>
-
-          <ChitsWrapper>
-
-            <CoinStyle src={GoldCoin} alt="Chit Coin Gold" />
-            <CoinStyle src={SilverCoin} alt="Chit Coin Silver" />
-            <CoinStyle src={CopperCoin} alt="Chit Coin Copper" />
-            <CoinStyle src={AwChit} alt="Chit Coin Red" />
-          </ChitsWrapper>
-
-          <Description>
-
-            Keep records of:
-          </Description>
-
-          <ListWrapper>
-            <ListStyle>
-              <li> people who you help</li>
-              <li> help you receive from others </li>
-              <li> your achievements in  work or in life </li>
-              <li> communications with others </li>
-              <li> your thoughts and ideas  </li>
-              <li> where you spend your time and energy </li>
-
-
-
-            </ListStyle>
-
-          </ListWrapper>
-          <Free>Chit Git is free</Free>
-
-        </RightSide>
-
-
-      </LandingContent>
-
-      <IconWrapper>
-
-      </IconWrapper>
-      <WhiteBreak>      </WhiteBreak>
-    </LandingWrapper>
-
-  )
-}
-
-
-
-
- 
-
-export default Landing_page

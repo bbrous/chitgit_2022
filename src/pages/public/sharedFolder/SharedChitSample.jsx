@@ -207,8 +207,8 @@ const TitleWrapper = styled('div')({
 
 
 
-  [theme.breakpoints.down('xs')]: {
-    overflow: 'auto',
+  [theme.breakpoints.down('sm')]: {
+    margin: '0  0 .25rem 0',
   }
 
 
@@ -234,8 +234,9 @@ const HeadWrapper = styled('div')({
 
 
 
-  [theme.breakpoints.down('xs')]: {
-    overflow: 'auto',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    margin: '.5rem 0 .25rem 0',
   }
 
 
@@ -249,8 +250,8 @@ const HeaderMsg = styled('div')({
   marginLeft: '6px',
   fontSize: '.9rem',
 
-  [theme.breakpoints.down('xs')]: {
-    overflow: 'auto',
+  [theme.breakpoints.down('sm')]: {
+
   }
 
 })
@@ -294,14 +295,15 @@ const ContentWrapper = styled('div')({
   // marginTop: '2.5rem',
   paddingBottom: '1rem 0',
   backgroundColor: backgroundBlue,
-  overflow: 'hidden',
+ 
+
+  maxHeight: '35rem',
 
 
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  
 
-
-
-  [theme.breakpoints.down('xs')]: {
-    overflow: 'hidden',
   }
 
 
@@ -329,9 +331,10 @@ const ContentBox = styled(Paper)({
   borderRadius: '20px',
 
 
-  [theme.breakpoints.down('xs')]: {
-    width: '25rem',
-    height: '25rem',
+  [theme.breakpoints.down('sm')]: {
+    width: '96%',
+    height: '96%',
+     
   }
 
 
@@ -347,12 +350,38 @@ const SummaryWrapper = styled('div')({
   width: '75%',
   padding: '6px',
   color: chitBurgandy,
-  fontWeight: 'bold',
-  [theme.breakpoints.down('xs')]: {
+ 
+  
+  [theme.breakpoints.down('sm')]: {
+    width: '96%',
+    height: '70%',
 
   }
 
 })
+
+const SubHeader = styled('div')({
+  
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  
+  width: '96%',
+
+  color: chitBurgandy,
+  fontSize: '1rem',
+  marginTop: '8px',
+  paddingLeft: '4px',
+
+  [theme.breakpoints.down('sm')]: {
+    margin: '8px',
+    fontSize: '.85rem',
+  }
+
+
+})
+
 
 const SummaryTop = styled('div')({
 
@@ -360,8 +389,8 @@ const SummaryTop = styled('div')({
   fontStyle: 'italic',
   fontSize: '.9rem',
 
-  [theme.breakpoints.down('xs')]: {
-
+  [theme.breakpoints.down('sm')]: {
+    
   }
 
 })
@@ -369,33 +398,13 @@ const SummaryTop = styled('div')({
 const SummaryBottom = styled('div')({
 
 
-  [theme.breakpoints.down('xs')]: {
-
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '.85rem' ,
   }
 
 })
 
-const SubHeader = styled('div')({
-  // backgroundColor: 'green',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
 
-  width: '100$',
-
-  color: chitBurgandy,
-  fontSize: '1rem',
-  marginTop: '8px',
-
-
-
-  [theme.breakpoints.down('xs')]: {
-    overflow: 'auto',
-  }
-
-
-})
 
 
 // --- detail section -----
@@ -410,8 +419,9 @@ const DetailWrapper = styled('div')({
   margin: ' .5rem 3rem',
   width: 'calc(75% - 6rem)',
 
-  [theme.breakpoints.down('xs')]: {
+  [theme.breakpoints.down('sm')]: {
 
+    width: '96%'
   }
 
 })
@@ -464,7 +474,7 @@ const ActionRight = styled('div')({
   alignItems: 'center',
   fontSize: '.9rem',
   color: backgroundBlue,
-  fontWeight: 'bold',
+ 
   [theme.breakpoints.down('xs')]: {
 
   }
@@ -483,8 +493,9 @@ const MessageWrapper = styled('div')({
   alignItems: 'center',
   width: '75%',
 
-  [theme.breakpoints.down('xs')]: {
-
+  [theme.breakpoints.down('sm')]: {
+    width: '96%',
+ 
   }
 
 })
@@ -500,9 +511,8 @@ const MessageTop = styled('div')({
   width: 'calc(100% - 12px)',
   fontSize: '.9rem',
   fontStyle: 'italic',
-
-
-  [theme.breakpoints.down('xs')]: {
+ 
+  [theme.breakpoints.down('sm')]: {
 
   }
 
@@ -520,8 +530,11 @@ const MessageBottom = styled(Paper)({
   width: 'calc(100% - 12px)',
   fontSize: '.9rem',
   minHeight: '5rem',
-  [theme.breakpoints.down('xs')]: {
 
+
+  [theme.breakpoints.down('sm')]: {
+    width: '98%',
+    fontSize: '.8rem',
   }
 
 })
@@ -569,9 +582,9 @@ const EmailMessageWrapper = styled(Paper)({
   color: mediumGrey,
   backgroundColor: veryLightGrey,
 
-  [theme.breakpoints.down('xs')]: {
-
-    fontSize: '.95rem',
+  [theme.breakpoints.down('sm')]: {
+ 
+    width: '96%',
     padding: '0 15% 0 5%',
 
 
@@ -617,15 +630,15 @@ const ButtonWrapper = styled('div')({
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   width: '70%',
-  fontSize: '.75rem',
+  
 
   margin: '1rem 0',
   color: mediumGrey,
 
-  [theme.breakpoints.down('xs')]: {
+  [theme.breakpoints.down('sm')]: {
 
-    fontSize: '.95rem',
-    padding: '0 15% 0 5%',
+    width: '96%',
+     
 
 
   }
@@ -642,6 +655,14 @@ const StyledButton = styled(Button)({
   fontSize: '.8rem',
   '&:hover': {
     backgroundColor: lightGrey,
+  },
+
+  [theme.breakpoints.down('sm')]: {
+
+    width: '96%',
+    fontSize: '.6rem'
+
+
   }
 
 })

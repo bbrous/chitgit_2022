@@ -223,6 +223,36 @@ const TwoPartyChits =  [
     },
 
     
+    {
+      id: 'tp9',
+
+      chitType: 'standard', //promise, kindness, awChit
+      chitBurden: 10,
+      chitValue: 60,    
+      chitColor: 'gold',   //gold, silver, copper red, 
+
+      dateCreated: "2021-02-04T19:07:36.000Z",
+      chitDate: "2021-02-04T19:07:36.000Z",
+      timeLock: '',  // if exists - not editable
+      
+      otherPartyCollection: 'people',
+      otherPartyId: 'person_2',
+      deedPerformedBy: 'person_2',
+
+      workRelated: 'workRelated',
+
+      description: '<div>  Mark came through with a detail MVP feature requirements package… just 1 day and excellent work </div>',
+ 
+      keyWordArray: [],
+      
+      chitLink: {dbCollection: 'logs', id: 'log_27'},
+
+      sharedId: 'X11rt2N',
+      sharedTitle: '',
+      message: ''
+
+    },
+
 
 ]// end SampleLogs
 

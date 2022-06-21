@@ -24,6 +24,55 @@ import HeaderNav from '../../navComponents/publicNav/Header_nav'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+// -------------------------
+
+const Header_landing = (props) => {
+  let location = useLocation()
+  let page = getPage(location)
+console.log('[Header_Landing ] - page location : ', page)
+
+  //  let handlePageChange = props.handlePageChange
+
+ 
+ 
+  return (
+
+    <HeaderWrapper position="fixed" elevation={0}>
+      <Header>
+        <Spacer />
+
+
+        <NavBox>
+          <HeaderNav
+            // handlePageChange={handlePageChange}
+
+
+          />
+        </NavBox>
+
+        {location !== 'login' &&
+          <LoginBox>
+            <LoginButton />
+          </LoginBox>
+        }
+
+
+
+      </Header>
+      <AppBarSpacer />
+
+    </HeaderWrapper>
+
+
+
+  )
+}
+
+
+export default Header_landing
+
 // -----------------------------------------------------------------
 
 const HeaderWrapper = styled(AppBar)({
@@ -117,52 +166,3 @@ const LoginBox= styled('div')({
 })
 
 
-
-
-
-// -------------------------
-
-const Header_landing = (props) => {
-  let location = useLocation()
-  let page = getPage(location)
-console.log('[Header_Landing ] - page location : ', page)
-
-  //  let handlePageChange = props.handlePageChange
-
- 
- 
-  return (
-
-    <HeaderWrapper position="fixed" elevation={0}>
-      <Header>
-        <Spacer />
-
-
-        <NavBox>
-          <HeaderNav
-            // handlePageChange={handlePageChange}
-
-
-          />
-        </NavBox>
-
-        {location !== 'login' &&
-          <LoginBox>
-            <LoginButton />
-          </LoginBox>
-        }
-
-
-
-      </Header>
-      <AppBarSpacer />
-
-    </HeaderWrapper>
-
-
-
-  )
-}
-
-
-export default Header_landing

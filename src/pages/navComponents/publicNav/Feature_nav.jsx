@@ -15,7 +15,7 @@ import React, {Fragment} from "react"
  
 
 import {NavLink, withRouter  } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import {useNavigate, useParams } from 'react-router-dom'
 
 import {connect} from 'react-redux'
 import{setPage} from '../../../app/redux/actions/X_landingActions'
@@ -28,85 +28,7 @@ import Button from '@mui/material/Button'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
-
-const NavButton= styled(Button)({
-
-  // border: 'none',
-  color: backgroundBlue,
-  textTransform: 'none',
-  fontWeight: '400',
-
-  padding: '0 10px 0 10px',
-  
-  '& :hover': {
-    backgroundColor: veryLightGrey,
-    backgroundShadow: 'none'
- 
-  },
-  [theme.breakpoints.down('sm')] : {
-    fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-
-
-
-  [theme.breakpoints.down('xs')] : {
-    fontWeight: 'bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
-  },
-
-})
-
-const NavButtonDisabled= styled(Button)({
-
-
-  
-  textTransform: 'none',
- 
-  // backgroundColor: shadowBlue,
-  borderBottom: '1px solid #8293B8',
-  borderRadius: '0',
-  color: 'white',
-  fontWeight: '400',
-  marginRight: '8px',
-  padding: '0 10px',
-
-  '&:disabled ' : {
-    color: '#8293B8'
-  },
-
-  '& :hover': {
-    backgroundColor: 'veryLightGrey',
-  },
-   
-  [theme.breakpoints.down('sm')] : {
-    fontWeight: 'bold',
-    fontSize: '.85rem',
-    padding: '1px',
-    
-  },
-  [theme.breakpoints.down('xs')] : {
-    fontWeight: 'Bold',
-    fontSize: '.75rem',
-    padding: '1px',
-    
-  }
-
-})
-
-
-
-const StyledLink= styled(NavLink)({
-
-    textDecoration: 'none',
-
-})
 
 
 
@@ -129,7 +51,28 @@ console.log('[Features Nav page] I  is:  ', view)
 
 
     
-    <Fragment>
+    <Container>
+
+      <StyledLink to="/features/overview" >
+
+      {view !== 'overview' &&
+        <NavButton
+          id='overview'
+        // onClick = {handlePageChange}
+
+        >Overview </NavButton>
+      }
+
+      {view === 'overview' &&
+        <NavButtonDisabled disabled
+          id='overview'
+        // onClick = {handlePageChange}
+
+        >Overview </NavButtonDisabled>
+      }
+
+
+      </StyledLink>
 
       <StyledLink to="/features/twoParty" >
 
@@ -199,22 +142,22 @@ console.log('[Features Nav page] I  is:  ', view)
 
 
  
-      <StyledLink to="/features/timestamps" >
+      <StyledLink to="/features/chronicles" >
 
-        {view !== 'timestamps' &&
+        {view !== 'chronicles' &&
           <NavButton
-            id='timestamps'
+            id='chronicles'
           // onClick = {handlePageChange}
 
-          >Timestamps </NavButton>
+          >Chronicles </NavButton>
         }
 
-        {view === 'timestamps' &&
+        {view === 'chronicles' &&
           <NavButtonDisabled disabled
-            id='timestamps'
+            id='chronicles'
           // onClick = {handlePageChange}
 
-          >Timestamps </NavButtonDisabled>
+          >Chronicles </NavButtonDisabled>
         }
 
 
@@ -223,51 +166,31 @@ console.log('[Features Nav page] I  is:  ', view)
 
 
 
-      <StyledLink to="/features/notes" >
+      <StyledLink to="/features/extras" >
 
-        {view !== 'notes' && 
+        {view !== 'extras' && 
           <NavButton
-            id = 'notes' 
+            id = 'extras' 
             // onClick = {handlePageChange}
           
-          >Notes </NavButton>
+          >Extra features </NavButton>
         }
 
-        {view === 'notes' && 
+        {view === 'extras' && 
           <NavButtonDisabled disabled
-            id = 'notes' 
+            id = 'extras' 
             // onClick = {handlePageChange}
           
-          >Notes </NavButtonDisabled>
+          >extra Features </NavButtonDisabled>
         }
 
 
         </StyledLink>
 
 
-      <StyledLink to="/features/logs" >
-
-        {view !== 'logs' &&
-          <NavButton
-            id='logs'
-          // onClick = {handlePageChange}
-
-          >Logs </NavButton>
-        }
-
-        {view === 'logs' &&
-          <NavButtonDisabled disabled
-            id='logs'
-          // onClick = {handlePageChange}
-
-          >Logs </NavButtonDisabled>
-        }
 
 
-      </StyledLink>
-
-
-  </Fragment>
+  </Container>
   );
 }
 
@@ -280,3 +203,104 @@ const mapState = state => ({
 });
 
 export default connect(mapState, actions)(FeatureNav)
+
+// -----------------------------------------------------------------
+const Container= styled('div')({
+ 
+ // position: 'absolute',
+ display: 'flex',
+  
+ justifyContent: 'space-around',
+ 
+ width: '100%',
+ height: '100%',
+
+
+
+
+  [theme.breakpoints.down('sm')] : {
+     
+  }
+
+
+
+// backgroundColor: testColors.testGreen
+
+})
+
+const NavButton= styled(Button)({
+
+  // border: 'none',
+  color: backgroundBlue,
+  textTransform: 'none',
+  fontWeight: '400',
+
+  padding: '0 10px 0 10px',
+  
+  '& :hover': {
+    backgroundColor: veryLightGrey,
+    backgroundShadow: 'none'
+ 
+  },
+  [theme.breakpoints.down('sm')] : {
+    fontWeight: 'bold',
+    fontSize: '.65rem',
+    padding: '1px',
+    
+  },
+
+
+
+  [theme.breakpoints.down('xs')] : {
+    fontWeight: 'bold',
+    fontSize: '.75rem',
+    padding: '1px',
+    
+  },
+
+})
+
+const NavButtonDisabled= styled(Button)({
+
+
+  
+  textTransform: 'none',
+ 
+  // backgroundColor: shadowBlue,
+  borderBottom: '1px solid #8293B8',
+  borderRadius: '0',
+  color: 'white',
+  fontWeight: '400',
+  marginRight: '8px',
+  padding: '0 10px',
+
+  '&:disabled ' : {
+    color: '#8293B8'
+  },
+
+  '& :hover': {
+    backgroundColor: 'veryLightGrey',
+  },
+   
+  [theme.breakpoints.down('sm')] : {
+    fontWeight: 'bold',
+    fontSize: '.85rem',
+    padding: '1px',
+    
+  },
+  [theme.breakpoints.down('xs')] : {
+    fontWeight: 'Bold',
+    fontSize: '.75rem',
+    padding: '1px',
+    
+  }
+
+})
+
+
+
+const StyledLink= styled(NavLink)({
+
+    textDecoration: 'none',
+
+})

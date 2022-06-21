@@ -413,7 +413,13 @@ const StyledButton= styled(Button)({
   fontSize: '.8rem',
   '&:hover' :{
     backgroundColor: lightGrey,
-  }
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '.65rem',
+
+  },
+
 
 })
 

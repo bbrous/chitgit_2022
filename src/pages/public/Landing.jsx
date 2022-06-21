@@ -11,11 +11,13 @@
 import React from 'react'
 import {backgroundBlue} from '../../styles/colors'
 import { useNavigate } from 'react-router-dom'
+ 
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import HeaderLanding from './landingElements/Header_landing'
 import LandingPage from './landingElements/Landing_page'
 import LandingSlides from './landingElements/Landing_slides'
- 
+
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
@@ -41,6 +43,7 @@ const Landing = () => {
 
   return (
     <BodyWrapper>
+      <Scrollbars>
       <Wrapper>
 
      
@@ -59,7 +62,7 @@ const Landing = () => {
      
 
 
-  
+      </Scrollbars>
 
 
 
@@ -141,9 +144,7 @@ backgroundColor: 'white',
 
 [theme.breakpoints.down('sm')] : {
    
-  width: '23%',
-  height: '2rem',
-  marginLeft: '1%', 
+
 }
 
 })

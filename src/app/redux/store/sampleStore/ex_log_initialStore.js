@@ -389,7 +389,7 @@ lastEdit:"2021-01-23T19:15:08.000Z",
   meta: '',
   title: '',
  
-  detail : '<div><span style="color: rgb(0, 71, 178);">Team received the repor from Cyn t this morning. -- 2 weeks late.&nbsp;</span>The good news is the segmentation report was pretty good.&nbsp;&nbsp;Told her the next thing we need from her is marketing’s feature wish list.&nbsp;&nbsp;</div><div>&nbsp;</div><div>The late segmentation report has already put us behind the schedule we agreed upon.&nbsp;Stressed that we needed the feature list ASAP so engineering could look it over and respond with a real timeline for a prototype of the MVP.</div>', 
+  detail : '<div><span style="color: rgb(0, 71, 178);">Team received the report from Cyn t this morning. -- 2 weeks late.&nbsp;</span>The good news is the segmentation report was pretty good.&nbsp;&nbsp;Told her the next thing we need from her is marketing’s feature wish list.&nbsp;&nbsp;</div><div>&nbsp;</div><div>The late segmentation report has already put us behind the schedule we agreed upon.&nbsp;Stressed that we needed the feature list ASAP so engineering could look it over and respond with a real timeline for a prototype of the MVP.</div>', 
 
   attachment: '',
 
@@ -625,11 +625,11 @@ lastEdit:"2021-02-04T19:07:36.000Z",
   meta: '<div>phone con</div>',
   title: '',
  
-  detail : '<div>PhoneCon&nbsp;- Mark came through with a detail MVP feature requirements package… just 1 day and excellent work.&nbsp;&nbsp;He said that most of it he had been working on before yesterday’s meeting.&nbsp;So it really didn’t take that long to finish it.&nbsp;<span style="color: rgb(230, 0, 0);">I’m going to let his boss know about his great work</span>.&nbsp;</div>', 
+  detail : '<div> Mark came through with a detail MVP feature requirements package… just 1 day and excellent work.&nbsp;&nbsp;He said that most of it he had been working on before yesterday’s meeting.&nbsp;So it really didn’t take that long to finish it.&nbsp;<span style="color: rgb(230, 0, 0);">I’m going to let his boss know about his great work</span>.&nbsp;</div>', 
 
   attachment: '',
 
-  chitLink: null,
+  chitLink: {dbCollection: 'twoParty', id: 'tp9'},
   
   peopleArray: [],
   keywordArray: ['to do'],

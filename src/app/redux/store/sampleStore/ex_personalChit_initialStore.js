@@ -2706,28 +2706,6 @@ const PersonalChits =  [
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -2773,6 +2751,27 @@ const PersonalChits =  [
         attachedToId: '',
 
         detail: '',
+       keyWordArray: [],  
+      },
+
+
+      {
+        id: 'p555',
+        chitType: 'personalChit',
+        dateCreated: "2021-01-21T16:21:33.000Z", // Jan 5
+        chitDate: "2021-01-21T16:21:33.000Z", // Jan 5
+        timeLock: '',  // if exists - not editable
+    
+        chitColor: 'milestone',   //gold, silver, red, milestone
+    
+        category: 'cat_1',
+        workRelated: 'notWorkRelated',
+        
+        chitLink: null, //{dbCollection: 'topicalSections', id: 'tSection_1'}
+        attachedToType: 'topicals',
+        attachedToId: 'tSection_1',
+    
+        detail: '<div>Came up with the idea of a new <span style="color: rgb(230, 0, 0);">wakeboard boot design</span>... a transitional boot.</div><div>The mechanical activated boot will transition from a side - by - side wakeboard position to a back - to - front position... turning a wakeboard into a slalom ski.</div>',
        keyWordArray: [],  
       },
 

@@ -9,6 +9,55 @@ import SilverPromise from '../../../../images/chitCoins/silver_promise.svg'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+
+export const Picture1= () => {
+  return (
+    <PictureStyle>
+      <CoinEnds>   
+        <CoinStyle src= {SilverStandard}   alt="Silver Standard" />  
+          <div>2 Party <br/> Chit</div>
+      </CoinEnds>
+      <CoinMiddle>  
+        <CoinStyle src= {SilverPersonal}   alt="Silver Personal" /> 
+        <div>Personal <br/> Chit</div>
+      </CoinMiddle>
+      <CoinEnds>  
+        <CoinStyle src= {SilverPromise}   alt="Silver Promise" />  
+        <div>Promise <br/> Chit</div>
+      </CoinEnds>
+  </PictureStyle>
+  )
+}
+
+
+export const Narration1= () => {
+  return (
+    <NarWrapper>
+<NarHeader> 
+              Chits are digital tokens that you <br/>
+              can give or receive 
+              </NarHeader>
+             
+                <NarDetail>
+                  <div><em>For things  - </em> done by you for someone else, or
+                    done by someone for you
+                  </div>
+                  <div><em>For promises  - </em>
+                  made by you to someone else, or 
+                    made by someone to you
+                  </div>
+                  <div>
+                  <em>For personal accomplishments  - </em> given to you by you
+                  </div>
+                </NarDetail>
+
+            </NarWrapper>
+  )
+}
+
+
 // -----------------------------------------------------------------
 
 const NarWrapper= styled('div')({
@@ -23,9 +72,10 @@ const NarWrapper= styled('div')({
     // fontSize: '1rem',
   },
 
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('sm')] : {
     width: '100%',
     // fontSize: '1.2rem',
+   
   }
 
 })
@@ -45,11 +95,7 @@ const NarHeader= styled('div')({
     fontSize: '.9rem',
     width: '100%',
   },
-
-  [theme.breakpoints.down('xs')] : {
-    // width: '65%',
-    // fontSize: '1.2rem',
-  }
+ 
 
 })
 
@@ -80,7 +126,7 @@ const NarDetail= styled('div')({
   [theme.breakpoints.down('sm')] : {
     
     textAlign: 'left'  ,
-    width: '70%',
+    width: '90%',
   },
   [theme.breakpoints.down('xs')] : {
     width: '70%',
@@ -170,50 +216,3 @@ const CoinStyle= styled('img')({
   }
 
 })
-
-
-
-export const Picture1= () => {
-  return (
-    <PictureStyle>
-      <CoinEnds>   
-        <CoinStyle src= {SilverStandard}   alt="Silver Standard" />  
-          <div>2 Party <br/> Chit</div>
-      </CoinEnds>
-      <CoinMiddle>  
-        <CoinStyle src= {SilverPersonal}   alt="Silver Personal" /> 
-        <div>Personal <br/> Chit</div>
-      </CoinMiddle>
-      <CoinEnds>  
-        <CoinStyle src= {SilverPromise}   alt="Silver Promise" />  
-        <div>Promise <br/> Chit</div>
-      </CoinEnds>
-  </PictureStyle>
-  )
-}
-
-
-export const Narration1= () => {
-  return (
-    <NarWrapper>
-<NarHeader> 
-              Chits are digital tokens that you <br/>
-              can give or receive 
-              </NarHeader>
-             
-                <NarDetail>
-                  <div><em>For things  - </em> done by you for someone else, or
-                    done by someone for you
-                  </div>
-                  <div><em>For promises  - </em>
-                  made by you to someone else, or 
-                    made by someone to you
-                  </div>
-                  <div>
-                  <em>For personal accomplishments  - </em> given to you by you
-                  </div>
-                </NarDetail>
-
-            </NarWrapper>
-  )
-}

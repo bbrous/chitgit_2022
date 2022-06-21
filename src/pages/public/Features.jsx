@@ -1,7 +1,7 @@
 /* Features.jsx
    contains child slideshow components: 
       SpotlightSlides
-      ChitSlides
+      OverviewSlides
       etc. etc
 
     parent: src/app/App.js
@@ -10,16 +10,18 @@
 
 
 import React from 'react'
+import {useParams} from 'react-router-dom'
 
 import {backgroundBlue, chitLightPink, } from '../../styles/colors'
 
-import ChitSlides from './landingElements/FeatureSlides_chits'
-import NoteSlides from './landingElements/FeatureSlides_notes'
-import LogSlides from './landingElements/FeatureSlides_logs'
-import TimestampSlides from './landingElements/FeatureSlides_timestamp'
-import SpotlightSlides from './landingElements/FeatureSlides_spotlights'
+import OverviewSlides from './slides/featureSlides/FeatureSlides_overview'
+import TwoPartySlides from './slides/featureSlides/FeatureSlides_twoParty'
+import ChroniclesSlides from './slides/featureSlides/FeatureSlides_chronicles'
+import PersonalSlides from './slides/featureSlides/FeatureSlides_personal'
+import SpotlightSlides from './slides/featureSlides/FeatureSlides_spotlights'
+import ExtrasSlides from './slides/featureSlides/FeatureSlides_extras'
 
-import {useParams} from 'react-router-dom'
+
 
 import HeaderPublic from './landingElements/Header_public'
 import FeaturesNav from '../navComponents/publicNav/Feature_nav'
@@ -28,6 +30,83 @@ import FeaturesNav from '../navComponents/publicNav/Feature_nav'
 
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+
+// =======================================
+
+
+function Features() {
+  let match = useParams()
+  console.log('[Features  page] matchis :  ', match.pageView)
+  let view
+ 
+
+if(!match){view = 'overview'}else{view = match.pageView}
+console.log('[Features  page] route id is :  ', view)
+
+  return (
+    <BodyWrapper>
+      <HeaderPublic/>
+      <NavSpacer/>
+      
+      <ContentWrapper>
+        <HeadWrapper>
+          <Header> Features and Tools</Header>
+          <JoinButton>Join</JoinButton>
+          <NavWrapper>
+
+            <FeaturesNav />
+            
+
+          </NavWrapper>
+
+        </HeadWrapper>
+        {/* <HeaderSpacer/> */}
+ 
+        <Content>
+
+
+
+
+          {view === 'overview' &&
+            <OverviewSlides />
+          }
+
+        
+          {view === 'spotlights' &&
+            <SpotlightSlides />
+        
+          }
+
+          {view === 'personal' &&
+            <PersonalSlides />
+          }
+        
+        {view === 'twoParty' &&
+            <TwoPartySlides />
+        
+          }
+
+{view === 'chronicles' &&
+            <ChroniclesSlides />
+          }
+        
+        {view === 'extras' &&
+            <ExtrasSlides />
+        
+          }
+
+
+
+        </Content>
+        
+      </ContentWrapper>
+    </BodyWrapper>
+  )
+}
+
+export default Features
 
 // -----------------------------------------------------------------
 
@@ -95,8 +174,9 @@ const HeadWrapper= styled('div')({
   
     borderBottom: '1px solid #CFD0D1',
   
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
+    [theme.breakpoints.down('sm')] : {
+      fontSize: '1.1rem',
+      height: '5rem',
     }
   
   
@@ -138,18 +218,18 @@ const NavWrapper= styled('div')({
 
   
   // position: 'absolute',
-    display: 'flex',
+    display: 'block',
   
     justifyContent: 'center',
     position: 'relative',
-    width: '100%',
+    width: '80%',
 
     // backgroundColor: 'red' ,
     // paddingBottom: '.5rem',
 
   
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
+    [theme.breakpoints.down('sm')] : {
+      width: '100%',
     }
   
   
@@ -216,26 +296,14 @@ borderTop: '1px solid #CFD0D1',
   // paddingTop: '1rem',
   // paddingBottom: '1rem',
 
-  overflow: 'auto',
-    
-    '&::-webkit-scrollbar': {
-      width: '0.75em' 
-    },
-    '&::-webkit-scrollbar-track': {
-      boxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)',
-      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)'
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,175,239,.5)',
-      border: '2px solid rgba(0,175,239,.4)',
-      borderRadius: '5px'
-    },
+ 
+ 
 
 
   borderBottom: '1px solid #606062',
 
-  [theme.breakpoints.down('xs')] : {
-    overflow: 'auto',
+  [theme.breakpoints.down('sm')] : {
+    width: '100%',
   }
 
 
@@ -247,8 +315,8 @@ borderTop: '1px solid #CFD0D1',
 const JoinButton= styled('div')({
 
  position: 'absolute',
-right: '5%',
-top: '2rem',
+right: '2.5%',
+top: '1rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -257,7 +325,7 @@ top: '2rem',
   width: '6rem',
 
   
-  border: '2px solid  #F285B5' ,
+  border: '1px solid  #3B30CC' ,
   borderRadius: '5px',
   // backgroundColor:  chitDarkPink,
   color: backgroundBlue,
@@ -275,78 +343,3 @@ top: '2rem',
 
 
 })
-
-// =======================================
-
-
-function Features() {
-  let match = useParams()
-
-  let view
-let brad = match.id
-
-if(!brad){view = 'chits'}else{view = match.id}
-console.log('[Features  page] route id is :  ', view)
-
-  return (
-    <BodyWrapper>
-      <HeaderPublic/>
-      <NavSpacer/>
-      
-      <ContentWrapper>
-        <HeadWrapper>
-          <Header> Features and Tools</Header>
-          <JoinButton>Join</JoinButton>
-          <NavWrapper>
-
-            <FeaturesNav />
-            
-
-          </NavWrapper>
-
-        </HeadWrapper>
-        {/* <HeaderSpacer/> */}
- 
-        <Content>
-
-{/* 
-
-
-        <p>Begin -- A page break</p>
-
-        <p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break</p><p>A page break END</p>
-         */}
-
-        
-          {view === 'spotlights' &&
-            <SpotlightSlides />
-        
-          }
-
-          {view === 'chits' &&
-            <ChitSlides />
-          }
-
-
-          {view === 'notes' &&
-            <NoteSlides />
-          }
-
-          {view === 'timestamps' &&
-            <TimestampSlides />
-          }
-
-
-          {view === 'logs' &&
-            <LogSlides />
-          }
-   
-
-        </Content>
-        
-      </ContentWrapper>
-    </BodyWrapper>
-  )
-}
-
-export default Features

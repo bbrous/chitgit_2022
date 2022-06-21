@@ -31,140 +31,7 @@ import {JoinButtonSlides, FeatureButtonSlides} from './Nav_buttons'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
-
-
-const SlideContent= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  width: '100vw',
-  minHeight: '15rem',
-  // marginBottom: '5rem',
-  background: 'white',
-  borderBottom: '1px solid #E6E7E8',
-  
-
-
-  [theme.breakpoints.down('sm')] : {
-    // backgroundColor: 'orange'
-  },
-
-  [theme.breakpoints.down('sm')] : {
-     
-  },
-
-  [theme.breakpoints.down('xs')] : {
-     
-    
-  }
-
-
-})
-
-const SlideWrapper= styled('div')({
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  width: '100vw',
-  minHeight: '15rem',
-  // marginBottom: '5rem',
- padding: '2.5rem 0',
-  borderBottom: '1px solid #E6E7E8',
-  maxWidth: '65rem',
-  
-  // overflow: 'hidden',
-
-  [theme.breakpoints.down('xs')] : {
-    flexDirection: 'column',
-    padding: '.5rem 0',
-    
-  }
-// backgroundColor: 'green'
-
-})
-
-const SlideWrapperReverse= styled('div')({
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'row-reverse',
-   
-  width: '100vw',
-  // height: '60vh',
-  minHeight: '15rem',
-  overflow: 'hidden',
-  backgroundColor: 'white',
-  padding: '2.5rem 0',
-  borderBottom: '1px solid #E6E7E8',
-  maxWidth: '65rem',
-
-  [theme.breakpoints.down('xs')] : {
-    flexDirection: 'column',
-    padding: '.5rem 0',
-  }
-})
-
-const Narration= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  jutifyContent: 'center',
-  alignItems: 'center',
-  width: '50%',
-  height: '100%',
-   
-  [theme.breakpoints.down('xs')] : {
-    width: '100%'
-  }
-})
-
-const Picture= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  jutifyContent: 'center',
-  alignItems: 'center',
-  width: '50%',
-
-  // height: '100%',
-  [theme.breakpoints.down('xs')] : {
-    width: '80%',
-    jutifyContent: 'flex-start',
-  }
-
-})
-
-const ButtonWrapper= styled('div')({
-
-  display: 'flex',
-  flexDirection: 'column',
-  jutifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  marginBottom: '2rem',
-
-
-  // height: '100%',
-  [theme.breakpoints.down('xs')] : {
-    
-  }
-
-})
-
-
-const StyledLink= styled(Link)({
-
-  textDecoration: 'none',
-
-})
 
 
 // ==========================================================
@@ -310,3 +177,142 @@ const mapState = state => ({
 export default connect(mapState, actions)(Landing_slides)
 
  
+// -----------------------------------------------------------------
+
+
+
+const SlideContent= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  width: '100vw',
+  minHeight: '15rem',
+  // marginBottom: '5rem',
+  background: 'white',
+  borderBottom: '1px solid #E6E7E8',
+  
+
+
+  [theme.breakpoints.down('sm')] : {
+  
+  },
+
+  [theme.breakpoints.down('sm')] : {
+     
+  },
+
+  [theme.breakpoints.down('xs')] : {
+     
+    
+  }
+
+
+})
+
+const SlideWrapper= styled('div')({
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  width: '100vw',
+  minHeight: '15rem',
+  // marginBottom: '5rem',
+ padding: '2.5rem 0',
+  borderBottom: '1px solid #E6E7E8',
+  maxWidth: '65rem',
+  
+  // overflow: 'hidden',
+
+  [theme.breakpoints.down('sm')] : {
+    flexDirection: 'column',
+    padding: '.5rem 0',
+    width: '96vw',
+      
+  }
+// backgroundColor: 'green'
+
+})
+
+const SlideWrapperReverse= styled('div')({
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row-reverse',
+   
+  width: '100vw',
+  // height: '60vh',
+  minHeight: '15rem',
+  overflow: 'hidden',
+  backgroundColor: 'white',
+  padding: '2.5rem 0',
+  borderBottom: '1px solid #E6E7E8',
+  maxWidth: '65rem',
+
+  [theme.breakpoints.down('sm')] : {
+    flexDirection: 'column',
+    
+    padding: '.5rem 0',
+    width: '96vw',
+     
+  }
+})
+
+const Narration= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'column',
+  jutifyContent: 'center',
+  alignItems: 'center',
+  width: '50%',
+  height: '100%',
+   
+  [theme.breakpoints.down('sm')] : {
+    width: '100%',
+    
+  }
+})
+
+const Picture= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'column',
+  jutifyContent: 'center',
+  alignItems: 'center',
+  width: '50%',
+
+  // height: '100%',
+  [theme.breakpoints.down('sm')] : {
+    width: '80%',
+    jutifyContent: 'flex-start',
+  }
+
+})
+
+const ButtonWrapper= styled('div')({
+
+  display: 'flex',
+  flexDirection: 'column',
+  jutifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  marginBottom: '2rem',
+
+
+  // height: '100%',
+  [theme.breakpoints.down('xs')] : {
+    
+  }
+
+})
+
+
+const StyledLink= styled(Link)({
+
+  textDecoration: 'none',
+
+})

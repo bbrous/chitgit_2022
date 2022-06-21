@@ -26,6 +26,267 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 //--------------------------------------------------- 
 
+
+
+
+// ================================================
+
+function HeaderNav(props) {
+  
+
+  let location = useLocation()
+  let page = getPage(location)
+console.log('[Header_Nav ] - page location : ', page)
+
+  return (
+
+<Container>
+    
+    <Wrapper>
+
+      <StyledLink to="/" >
+
+        {page !== 'home' && 
+          <NavButton
+            id = 'home' 
+            // onClick = {handlePageChange}
+          
+          >Home  </NavButton>
+        }
+
+        {page === 'home' && 
+          <NavButtonDisabled disabled
+            id = 'home' 
+            // onClick = {handlePageChange}
+          
+          >Home </NavButtonDisabled>
+        }
+
+      </StyledLink>
+
+      <StyledLink to="/features" >
+
+        {page !== 'features' && 
+          <NavButton
+            id = 'features' 
+            // onClick = {handlePageChange}
+          
+          >Features and Tools </NavButton>
+        }
+
+        {page === 'features' && 
+          <NavButtonDisabled disabled
+            id = 'features' 
+            // onClick = {handlePageChange}
+          
+          >Features and Tools </NavButtonDisabled>
+        }
+
+
+        </StyledLink>
+
+
+      
+    <StyledLink to="/sample" >
+
+      {page !== 'sample' && 
+        <NavButton
+          id = 'sample' 
+          // onClick = {handlePageChange}
+           
+        >Sample Site </NavButton>
+      }
+
+      {page === 'sample' && 
+        <NavButtonDisabled disabled
+          id = 'sample' 
+          // onClick = {handlePageChange}
+        
+        >Sample Site </NavButtonDisabled>
+      }
+
+
+    </StyledLink>
+ 
+    <HiddenStyledLink to="/login" >
+
+{page !== 'login' && 
+  <NavButton
+    id = 'login' 
+    // onClick = {handlePageChange}
+     
+  >Login </NavButton>
+}
+
+{page === 'login' && 
+  <NavButtonDisabled disabled
+    id = 'login' 
+    // onClick = {handlePageChange}
+  
+  >Login </NavButtonDisabled>
+}
+
+
+</HiddenStyledLink>
+   
+  </Wrapper>
+
+
+  <SmallWrapper>
+
+<StyledLink to="/" >
+
+  {page !== 'home' && 
+    <NavButton
+      id = 'home' 
+      // onClick = {handlePageChange}
+    
+    >Home  </NavButton>
+  }
+
+  {page === 'home' && 
+    <NavButtonDisabled disabled
+      id = 'home' 
+      // onClick = {handlePageChange}
+    
+    >Home </NavButtonDisabled>
+  }
+
+</StyledLink>
+
+<StyledLink to="/features" >
+
+  {page !== 'features' && 
+    <NavButton
+      id = 'features' 
+      // onClick = {handlePageChange}
+    
+    >Features </NavButton>
+  }
+
+  {page === 'features' && 
+    <NavButtonDisabled disabled
+      id = 'features' 
+      // onClick = {handlePageChange}
+    
+    >Features </NavButtonDisabled>
+  }
+
+
+  </StyledLink>
+
+
+
+<StyledLink to="/sample" >
+
+{page !== 'sample' && 
+  <NavButton
+    id = 'sample' 
+    // onClick = {handlePageChange}
+     
+  >Sample  </NavButton>
+}
+
+{page === 'sample' && 
+  <NavButtonDisabled disabled
+    id = 'sample' 
+    // onClick = {handlePageChange}
+  
+  >Sample </NavButtonDisabled>
+}
+
+
+</StyledLink>
+
+<HiddenStyledLink to="/login" >
+
+{page !== 'login' && 
+<NavButton
+id = 'login' 
+// onClick = {handlePageChange}
+
+>Login </NavButton>
+}
+
+{page === 'login' && 
+<NavButtonDisabled disabled
+id = 'login' 
+// onClick = {handlePageChange}
+
+>Login </NavButtonDisabled>
+}
+
+
+</HiddenStyledLink>
+
+</SmallWrapper>
+
+
+
+
+
+
+  </Container>
+  );
+}
+
+const actions = {
+  setPage 
+}
+
+const mapState = state => ({
+  page: state
+});
+
+export default connect(mapState, actions)(HeaderNav)
+
+// ----------------------------
+
+const Container= styled('div')({
+
+ 
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+
+ 
+
+})
+
+
+
+const Wrapper= styled('div')({
+
+ 
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+//  backgroundColor: 'yellow',
+
+  [theme.breakpoints.down('sm')] : {
+     display: 'none'
+ 
+     
+  }
+
+})
+
+const SmallWrapper= styled('div')({
+  display: 'none',
+ 
+
+
+  [theme.breakpoints.down('sm')] : {
+     
+     display: 'flex',
+     justifyContent: 'flex-start',
+     alignItems: 'center',
+    // backgroundColor: 'yellow',
+     
+  }
+
+})
 const NavButton= styled(Button)({
 
   // border: 'none',
@@ -113,118 +374,3 @@ const HiddenStyledLink= styled(NavLink)({
   }
 
 })
-
-
-// ================================================
-
-function HeaderNav(props) {
-  
-
-  let location = useLocation()
-  let page = getPage(location)
-console.log('[Header_Nav ] - page location : ', page)
-
-  return (
-
-
-    
-    <Fragment>
-
-      <StyledLink to="/" >
-
-        {page !== 'home' && 
-          <NavButton
-            id = 'home' 
-            // onClick = {handlePageChange}
-          
-          >Home </NavButton>
-        }
-
-        {page === 'home' && 
-          <NavButtonDisabled disabled
-            id = 'home' 
-            // onClick = {handlePageChange}
-          
-          >Home </NavButtonDisabled>
-        }
-
-      </StyledLink>
-
-      <StyledLink to="/features" >
-
-        {page !== 'features' && 
-          <NavButton
-            id = 'features' 
-            // onClick = {handlePageChange}
-          
-          >Features and Tools </NavButton>
-        }
-
-        {page === 'features' && 
-          <NavButtonDisabled disabled
-            id = 'features' 
-            // onClick = {handlePageChange}
-          
-          >Features and Tools </NavButtonDisabled>
-        }
-
-
-        </StyledLink>
-
-
-      
-    <StyledLink to="/sample" >
-
-      {page !== 'sample' && 
-        <NavButton
-          id = 'sample' 
-          // onClick = {handlePageChange}
-           
-        >Sample Site </NavButton>
-      }
-
-      {page === 'sample' && 
-        <NavButtonDisabled disabled
-          id = 'sample' 
-          // onClick = {handlePageChange}
-        
-        >Sample Site </NavButtonDisabled>
-      }
-
-
-    </StyledLink>
- 
-    <HiddenStyledLink to="/login" >
-
-{page !== 'login' && 
-  <NavButton
-    id = 'login' 
-    // onClick = {handlePageChange}
-     
-  >Login </NavButton>
-}
-
-{page === 'login' && 
-  <NavButtonDisabled disabled
-    id = 'login' 
-    // onClick = {handlePageChange}
-  
-  >Login </NavButtonDisabled>
-}
-
-
-</HiddenStyledLink>
-   
-  </Fragment>
-  );
-}
-
-const actions = {
-  setPage 
-}
-
-const mapState = state => ({
-  page: state
-});
-
-export default connect(mapState, actions)(HeaderNav)

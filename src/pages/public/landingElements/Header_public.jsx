@@ -27,6 +27,58 @@ import HeaderNav from '../../navComponents/publicNav/Header_nav'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+ 
+
+// -------------------------
+
+const Header_public = (props) => {
+
+  let location = useLocation()
+  let page = getPage(location)
+console.log('[Header_Public @@@@ ] - page location : ', page)
+
+   let handlePageChange = props.handlePageChange
+
+
+  return (
+    
+        <HeaderWrapper position="fixed" elevation={0}>
+          <Header>
+
+        <LogoWrapper>
+        <LogoStyle src= {Logo}   alt="Chit Git Logo" />
+         </LogoWrapper> 
+    
+
+        <NavBox> 
+          <HeaderNav 
+          handlePageChange = {handlePageChange}
+        
+       
+          />
+        </NavBox>
+
+        <LoginBox>
+        {page !== 'login' && 
+        <LoginButton/> 
+    }
+         
+        </LoginBox>
+
+          </Header>
+          <AppBarSpacer/>
+
+        </HeaderWrapper>
+
+   
+ 
+  )
+}
+
+
+export default Header_public
 // -----------------------------------------------------------------
 
 const HeaderWrapper = styled(AppBar)({
@@ -105,8 +157,8 @@ const NavBox= styled('div')({
 
   [theme.breakpoints.down('sm')] : {
     
-    width: '45%',
-    
+    width: '75%',
+   
   }
 
 })
@@ -121,60 +173,7 @@ const LoginBox= styled('div')({
   marginRight: '9%',
 
   [theme.breakpoints.down('sm')] : {
-    justifyContent: 'flex-end',
-    width: '12%',
-    marginRight: '2%'
+    display: 'none'
   }
 
 })
-
- 
-
-// -------------------------
-
-const Header_public = (props) => {
-
-  let location = useLocation()
-  let page = getPage(location)
-console.log('[Header_Public @@@@ ] - page location : ', page)
-
-   let handlePageChange = props.handlePageChange
-
-
-  return (
-    
-        <HeaderWrapper position="fixed" elevation={0}>
-          <Header>
-            
-        <LogoWrapper>
-        <LogoStyle src= {Logo}   alt="Chit Git Logo" />
-         </LogoWrapper> 
-    
-
-        <NavBox> 
-          <HeaderNav 
-          handlePageChange = {handlePageChange}
-        
-       
-          />
-        </NavBox>
-
-        <LoginBox>
-        {page !== 'login' && 
-        <LoginButton/> 
-    }
-         
-        </LoginBox>
-
-          </Header>
-          <AppBarSpacer/>
-
-        </HeaderWrapper>
-
-   
- 
-  )
-}
-
-
-export default Header_public
