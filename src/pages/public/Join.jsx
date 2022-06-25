@@ -76,15 +76,18 @@ const HeadWrapper= styled('div')({
     fontSize: '1.4rem',
     width: '100%',
     color: 'yellow',
- 
+    marginTop: '1rem',
     height: '6rem',
     padding: '1rem 0 1.5rem 0',
   
  
   
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
-    }
+ 
+    [theme.breakpoints.down('sm')]: {
+      width: '96%',
+      marginLeft: '2%'
+  
+    },
   
 
   
@@ -103,17 +106,19 @@ const HeadWrapper= styled('div')({
       fontSize: '.9rem',
       
      
+  
+ 
+      [theme.breakpoints.down('sm')]: {
+        width: '96%',
+        marginLeft: '2%'
     
-      [theme.breakpoints.down('xs')] : {
-        overflow: 'auto',
-      }
-    
+      },
     
     
     // backgroundColor: testColors.testGreen
     
     })
-    const ContentWrapper= styled('div')({
+    const ContentWrapper= styled(Paper)({
  
       display: 'flex',
       flexDirection: 'column',
@@ -129,15 +134,17 @@ const HeadWrapper= styled('div')({
       // marginTop: '2.5rem',
       paddingBottom: '1rem 0',
       backgroundColor: backgroundBlue,
-      overflow: 'hidden',
+      // overflow: 'hidden',
       fontFamily: 'Lato, sans-serif',
   
     
+   
+ 
+      [theme.breakpoints.down('sm')]: {
+        width: '96%',
+        marginLeft: '2%'
     
-    
-      [theme.breakpoints.down('xs')] : {
-        overflow: 'hidden',
-      }
+      },
     
     
     
@@ -154,7 +161,7 @@ const JoinBox= styled(Paper)({
   position: 'relative',
 
   width: '45rem',
-  height: '25rem',
+  minHeight: '25rem',
   
 
   backgroundColor: 'white' ,
@@ -206,16 +213,6 @@ const Join = () => {
       </HeadWrapper>
 
       <ContentWrapper>
-
-
-
-
-      <div> temporary - shared chit passed is : {match.sharedChitId} </div>
-
-
-
-
-
 
       
         <JoinBox>

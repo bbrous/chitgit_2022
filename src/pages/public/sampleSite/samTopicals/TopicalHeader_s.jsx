@@ -265,6 +265,16 @@ const FormButton = styled(Button)({
   height: '1.2rem',
 margin: '0 1rem',
   
+[theme.breakpoints.down('sm')] : {
+  fontSize: '.75rem',
+  padding: '0 .75rem',
+  width: '8.5rem',
+  height: '1.2rem',
+  margin: '0 .35rem',
+},
+
+
+
   '&:hover' : {
     // backgroundColor: chitBlueDull,
     textDecoration: 'none',

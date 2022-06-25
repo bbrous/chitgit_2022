@@ -25,44 +25,6 @@ import Button from '@mui/material/Button'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
-
-const NavButton= styled(Button)({
-  
-   
-  
-  display: 'block',
-  textTransform: 'none',
-  fontFamily: 'sans-serif',
- 
-  color: 'white',
-  border: '1px solid white',
-  borderRadius: '10px',
-  padding: '.3rem .8rem',
-  
-  fontSize: '1.2rem',
-  height: '3rem',
-  width: '7.5rem',
-  margin: '0 1rem',
-  '&:hover' : {
-    
-    textDecoration: 'none',
-    border: '1px solid #A8BEED' ,
-    color: '#A8BEED'
-  }
-
-
-})
-
-
-const StyledLink= styled(NavLink)({
-
-  textDecoration: 'none',
-
-})
-
-// =====================================
-
 function MainPage_NavButtons_s(props) {
 
 //  set initial Spotlight Route with Spotlight ID
@@ -82,7 +44,7 @@ const logsId = status.view.log.id
 const logLink = `/sample/logs/${logsId}`
 
   return (
-    <>
+    <Wrapper>
 
   
       <StyledLink to={chitLink}>
@@ -107,8 +69,80 @@ const logLink = `/sample/logs/${logsId}`
         <NavButton> Spotlights </NavButton>
       </StyledLink>
 
-    </>
+    </Wrapper>
   )
 }
 
 export default MainPage_NavButtons_s
+
+
+// -----------------------------------------------------------------
+
+const NavButton= styled(Button)({
+  
+   
+  
+  display: 'flex',
+  textTransform: 'none',
+  fontFamily: 'sans-serif',
+ 
+  color: 'white',
+  border: '1px solid white',
+  borderRadius: '10px',
+  padding: '.3rem .8rem',
+  
+  fontSize: '1.2rem',
+  height: '3rem',
+  width: '7.5rem',
+  margin: '0 1rem',
+  '&:hover' : {
+    
+    textDecoration: 'none',
+    border: '1px solid #A8BEED' ,
+    color: '#A8BEED'
+  },
+
+  [theme.breakpoints.down('md')] : {
+    display: 'flex',
+     fontSize: '.9rem',
+  height: '2rem',
+ padding: '0 4px',
+ width: '5.5rem',
+ margin: '0 .5rem',
+  },
+
+  [theme.breakpoints.down('sm')] : {
+    display: 'flex',
+     fontSize: '.7rem',
+  height: '2rem',
+  width: '4rem',
+ padding: '0 4px'
+    
+  },
+  
+
+
+})
+
+
+const StyledLink= styled(NavLink)({
+
+  textDecoration: 'none',
+
+})
+
+const Wrapper = styled('div')({
+ 
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-around',
+
+    [theme.breakpoints.down('xs')] : {
+       
+ 
+      
+      
+    }
+   
+
+})

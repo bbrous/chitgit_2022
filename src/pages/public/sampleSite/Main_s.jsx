@@ -321,8 +321,9 @@ overflow: 'hidden',
 
   height: 'calc(100% - 3.4rem)',
   backgroundColor: veryLightGrey,
+  
 
-  [theme.breakpoints.down('sm')] : {
+  [theme.breakpoints.down('md')] : {
     width: '100%'
   },
 
@@ -339,18 +340,7 @@ const MainContentWrapper= styled('div')({
 
   // paddingTop: '3rem',
   
-  '&::-webkit-scrollbar': {
-    width: '0.75em' 
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)',
-    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.4)'
-  },
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: 'rgba(0,0,0,.3)',
-    border: '2px solid rgba(0,0,0,.1)',
-    borderRadius: '5px'
-  },
+ 
   
 
 
@@ -380,12 +370,12 @@ overflow: 'auto',
 position: 'relative',
 
   // paddingTop: '.5rem',
-  
-  // backgroundColor: 'pink',
+   
+ 
 
-  [theme.breakpoints.down('sm')] : {
+  [theme.breakpoints.down('md')] : {
     // display: 'block'
-    marginLeft: '3rem',
+    marginLeft: '2rem',
   },
 
   [theme.breakpoints.down('xs')] : {
@@ -414,7 +404,7 @@ paddingBottom: '2rem',
   zIndex: '31',
 
 
-  [theme.breakpoints.down('sm')] : {
+  [theme.breakpoints.down('md')] : {
     
     left: '3rem',
     '&.hide' : {
@@ -431,7 +421,7 @@ paddingBottom: '2rem',
 
   
   
-  [theme.breakpoints.down('xs')] : {
+  [theme.breakpoints.down('md')] : {
     marginLeft: '0',
     // display: 'none'
 
@@ -455,7 +445,7 @@ const Handle = styled('div')({
   borderRadius: '0 5px 5px 0',
 
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

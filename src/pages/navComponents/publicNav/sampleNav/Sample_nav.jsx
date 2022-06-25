@@ -31,13 +31,53 @@ import LoginButton from '../../buttons/LoginButton'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+// -------------------------
+
+const SampleNav = (props) => {
+
+  let {handlePageChange} = props
+
+
+  return (
+    
+        <HeaderWrapper position="fixed" elevation={0}>
+          <Header>
+        <LogoWrapper>
+        <LogoStyle src= {Logo}   alt="Chit Git Logo" />
+         </LogoWrapper> 
+    
+
+        <NavBox> 
+          <HeaderNav 
+          handlePageChange = {handlePageChange}
+        
+       
+          />
+        </NavBox>
+
+
+        
+
+          </Header>
+          <AppBarSpacer/>
+
+        </HeaderWrapper>
+
+   
+ 
+  )
+}
+
+
+export default SampleNav
+
 // -----------------------------------------------------------------
 
-const HeaderWrapper = styled(AppBar)({
+const HeaderWrapper = styled('div')({
   height: '2.5rem', 
-  backgroundColor: backgroundBlue,
-  border: 'none'
-
+ 
+  border: 'none',
+  width: '100%',
 })
 
 const Header= styled('div')({
@@ -47,7 +87,7 @@ const Header= styled('div')({
  width: '100vw',
   display: 'flex',
 
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   alignItems: 'center',
 
   [theme.breakpoints.down('sm')] : {
@@ -78,15 +118,15 @@ const LogoWrapper= styled('div')({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  height: '100%',
+ 
   width: '23%',
   marginLeft: '2%',
-
+ 
   [theme.breakpoints.down('sm')] : {
      
     width: '23%',
-    height: '2rem',
-    marginLeft: '1%', 
+    height: '2.5rem',
+    marginLeft: '3%', 
   }
 
 })
@@ -95,7 +135,10 @@ const LogoStyle= styled('img')({
 
   height: '1.5rem',
 
-  // marginRight: '14px',
+  [theme.breakpoints.down('sm')] : {
+ 
+     height: '1.25rem',
+  }
 })
 
 
@@ -106,11 +149,11 @@ const NavBox= styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   width: '50%',
-  // backgroundColor: 'black',
+  
 
   [theme.breakpoints.down('sm')] : {
     
-    width: '45%',
+    width: '70%',
     
   }
 
@@ -128,7 +171,7 @@ const ButtonBox= styled('div')({
 
   [theme.breakpoints.down('sm')] : {
     justifyContent: 'flex-end',
-    width: '12%',
+     
     marginRight: '2%'
   }
 
@@ -147,58 +190,20 @@ const ButtonWrapper = styled('div')({
   }
 })
 
-
-
-
-// -------------------------
-
-const SampleNav = (props) => {
-
-  let {handlePageChange} = props
-
-
-  return (
-    
-        <HeaderWrapper position="fixed" elevation={0}>
-          <Header>
-        <LogoWrapper>
-        <LogoStyle src= {Logo}   alt="Chit Git Logo" />
-         </LogoWrapper> 
-    
-
-        <NavBox> 
-          <HeaderNav 
-          handlePageChange = {handlePageChange}
-        
-       
-          />
-        </NavBox>
-
-        <ButtonBox>
-          <ButtonWrapper>
-          <JoinButtonSmall/>
-
-          </ButtonWrapper>
-
-          <ButtonWrapper>
-
-          <LoginButton/>
-          </ButtonWrapper>
-          
-          
-           
-        </ButtonBox>
-        
-
-          </Header>
-          <AppBarSpacer/>
-
-        </HeaderWrapper>
-
+const LoginButtonWrapper = styled('div')({
+  display: 'flex',
    
+  justifyContent: 'center',
+  alignItems: 'center',
  
-  )
-}
+  marginLeft: '1rem',
+
+  [theme.breakpoints.down('md')]: {
+    display: 'none'
+  }
+})
 
 
-export default SampleNav
+
+
+

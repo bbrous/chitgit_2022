@@ -21,144 +21,7 @@ import Button from '@mui/material/Button';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
-// -----------------------------------------------------------------
 
-
-const Wrapper = styled('div')({
-
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-
-  [theme.breakpoints.down('sm')] : {
-    // fontWeight: 'bold',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    padding: '2px 0'
-    
-    // width: '150px'
-    
-  },
-
-
-})
-
-const NavButton= styled('div')({
-
-  // border: 'none',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  height: '100%',
-
-  color: shadowBlue,
-
-  textTransform: 'none',
-  fontWeight: '400',
-  paddingRight: '10px',
-  paddingLeft: '10px',
-  
-  '&:hover': {
-    backgroundColor: veryLightGrey,
-    boxShadow: 'none',
- 
-  },
-
-
-  [theme.breakpoints.down('sm')] : {
-    display: 'flex',
-justifyContent: 'flex-start',
-alignItems:'center',
-    fontSize: '.85rem',
-    padding: '2px 5px',
-    width: '10rem',
-    borderTop: '1px solid white'
-  },
-
-})
-
-const NavButtonDisabled= styled('div')({
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  height: '100%',
-
-  color: chitOrange,
-  
-  textTransform: 'none',
-  fontWeight: '400',
-  paddingRight: '10px',
-  paddingLeft: '10px',
-  backgroundColor: veryLightGrey,
-
-  '& :hover': {
-    backgroundColor: veryLightGrey,
-  },
-   
-  [theme.breakpoints.down('sm')] : {
-    display: 'flex',
-justifyContent: 'flex-start',
-alignItems:'center',
-    fontSize: '.9rem',
-    padding: '2px 15px',
-    width: '10rem',
-    margin: '1px 0',
-  },
-
-})
- 
-
-
-
-const StyledLink= styled(NavLink)({
-
-    textDecoration: 'none',
-
-})
-
-const Greeting = styled('div')({
-  paddingLeft: '5px',
-  display: 'none',
-
-  [theme.breakpoints.down('sm')] : {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-    color: 'white',
-    height: '1.25rem',
-    marginTop: '.25rem',
-    fontSize: '.rem',
-    backgroundColor: backgroundBlue,
-    marginBottom: '3px'
-    
-  }
-
-})
-
-const Submenu = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  padding: '5px',
-
-
-  [theme.breakpoints.down('sm')] : {
-
-    
-  }
-
-})
 
 
 // ================================================
@@ -329,22 +192,22 @@ const id = open ? 'simple-popover' : undefined;
 
 
 </StyledLink>
-<StyledLink to="/sample/notes" >
+<StyledLink to="/sample/reports" >
 
-{page !== 'notes' && 
+{page !== 'reports' && 
   <NavButton
-    id = 'notes' 
+    id = 'reports' 
     onClick = {handleClose}
   
-  >Notes </NavButton>
+  >Reports </NavButton>
 }
 
-{page === 'notes' && 
+{page === 'reports' && 
   <NavButtonDisabled disabled
-    id = 'notes' 
+    id = 'reports' 
     // onClick = {handleClose}
   
-  >Notes </NavButtonDisabled>
+  >Reports </NavButtonDisabled>
 }
 
 
@@ -412,3 +275,142 @@ const mapState = state => ({
 });
 
 export default connect(mapState, actions)(PageNav)
+
+// -----------------------------------------------------------------
+
+
+const Wrapper = styled('div')({
+
+  padding: 0,
+  margin: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+
+  [theme.breakpoints.down('sm')] : {
+    // fontWeight: 'bold',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    padding: '2px 0'
+    
+    // width: '150px'
+    
+  },
+
+
+})
+
+const NavButton= styled('div')({
+
+  // border: 'none',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  height: '100%',
+
+  color: shadowBlue,
+
+  textTransform: 'none',
+  fontWeight: '400',
+  paddingRight: '10px',
+  paddingLeft: '10px',
+  
+  '&:hover': {
+    backgroundColor: veryLightGrey,
+    boxShadow: 'none',
+ 
+  },
+
+
+  [theme.breakpoints.down('sm')] : {
+    display: 'flex',
+justifyContent: 'flex-start',
+alignItems:'center',
+    fontSize: '.85rem',
+    padding: '2px 5px',
+    width: '10rem',
+    borderTop: '1px solid white'
+  },
+
+})
+
+const NavButtonDisabled= styled('div')({
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  height: '100%',
+
+  color: chitOrange,
+  
+  textTransform: 'none',
+  fontWeight: '400',
+  paddingRight: '10px',
+  paddingLeft: '10px',
+  backgroundColor: veryLightGrey,
+
+  '& :hover': {
+    backgroundColor: veryLightGrey,
+  },
+   
+  [theme.breakpoints.down('sm')] : {
+    display: 'flex',
+justifyContent: 'flex-start',
+alignItems:'center',
+    fontSize: '.9rem',
+    padding: '2px 15px',
+    width: '10rem',
+    margin: '1px 0',
+  },
+
+})
+ 
+
+
+
+const StyledLink= styled(NavLink)({
+
+    textDecoration: 'none',
+
+})
+
+const Greeting = styled('div')({
+  paddingLeft: '5px',
+  display: 'none',
+
+  [theme.breakpoints.down('sm')] : {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '100%',
+    color: 'white',
+    height: '1.25rem',
+    marginTop: '.25rem',
+    fontSize: '.rem',
+    backgroundColor: backgroundBlue,
+    marginBottom: '3px'
+    
+  }
+
+})
+
+const Submenu = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  padding: '5px',
+
+
+  [theme.breakpoints.down('sm')] : {
+
+    
+  }
+
+})

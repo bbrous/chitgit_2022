@@ -27,6 +27,59 @@ import Paper from '@mui/material/Paper';
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+
+// ================================================
+
+const Login = (props) => {
+
+    // --- if come to Join from shared chit --- 
+    // make shared chit info available after login --------
+
+    let match = useParams()
+
+    console.log('[ Login ] params ', match.sharedChitId);
+    
+    //  ---------------------------------------
+ 
+  return (
+
+
+    <BodyWrapper>
+      
+      <HeaderPublic />
+      <NavSpacer />
+      <HeadWrapper>
+        <div>Login</div>
+
+        <SubHeader>
+          <span>not a member  </span> <JoinButtonSmall /> </SubHeader>
+      </HeadWrapper>
+      <ContentWrapper>
+
+
+
+
+        
+
+  
+
+
+
+        <LoginBox>
+          <LoginForm />
+
+
+        </LoginBox>
+
+      </ContentWrapper>
+    </BodyWrapper>
+  )
+}
+
+export default Login
+
 // -----------------------------------------------------------------
 
 
@@ -80,16 +133,18 @@ const HeadWrapper= styled('div')({
     fontSize: '1.4rem',
     width: '100%',
     color: 'yellow',
- 
+    marginTop: '2rem',
     height: '6rem',
-    padding: '1rem 0 1.5rem 0',
+    
   
  
   
-    [theme.breakpoints.down('xs')] : {
-      overflow: 'auto',
-    }
-
+ 
+    [theme.breakpoints.down('sm')]: {
+      width: '96%',
+      marginLeft: '2%'
+  
+    },
   
   })
 
@@ -112,13 +167,17 @@ const HeadWrapper= styled('div')({
       },
  
     
-      [theme.breakpoints.down('xs')] : {
-        overflow: 'auto',
-      }
+ 
+  
+ 
+      [theme.breakpoints.down('sm')]: {
+        width: '96%',
+        marginLeft: '2%'
     
+      },
     
     })
-    const ContentWrapper= styled('div')({
+    const ContentWrapper= styled(Paper)({
  
       display: 'flex',
       flexDirection: 'column',
@@ -137,10 +196,13 @@ const HeadWrapper= styled('div')({
       overflow: 'hidden',
       fontFamily: 'Lato, sans-serif',
   
-
-      [theme.breakpoints.down('xs')] : {
-        overflow: 'hidden',
-      }
+  
+ 
+      [theme.breakpoints.down('sm')]: {
+        width: '96%',
+        marginLeft: '2%'
+    
+      },
 
     
     })
@@ -165,56 +227,3 @@ const LoginBox= styled(Paper)({
 
 
 })
-
-
-
-// ================================================
-
-const Login = (props) => {
-
-    // --- if come to Join from shared chit --- 
-    // make shared chit info available after login --------
-
-    let match = useParams()
-
-    console.log('[ Login ] params ', match.sharedChitId);
-    
-    //  ---------------------------------------
- 
-  return (
-
-
-    <BodyWrapper>
-      
-      <HeaderPublic />
-      <NavSpacer />
-      <HeadWrapper>
-        <div>Login</div>
-
-        <SubHeader>
-          <span>not a member  </span> <JoinButtonSmall /> </SubHeader>
-      </HeadWrapper>
-      <ContentWrapper>
-
-
-
-
-        
-
-      <div> temporary - shared chit passed is : {match.sharedChitId} </div>
-
-
-
-
-        <LoginBox>
-          <LoginForm />
-
-
-        </LoginBox>
-
-      </ContentWrapper>
-    </BodyWrapper>
-  )
-}
-
-export default Login

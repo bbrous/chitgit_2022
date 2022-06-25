@@ -78,7 +78,7 @@ function TopicalMain(props) {
 
           <MainWrapper>
 
-            <HeaderWrapper>New Log</HeaderWrapper>
+            <HeaderWrapper>New Topical</HeaderWrapper>
 
             <Container>
 

@@ -102,10 +102,9 @@ const Wrapper = styled(Paper)({
  
 
 
-  [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
-
-  },
+  [theme.breakpoints.down('md')]: {
+    margin: '1rem  0 .5rem 0',
+width: '100%',  },
 })
 
 const TitleWrapper= styled('div')({
@@ -200,10 +199,10 @@ const ButtonWrapper = styled('div')({
   alignItems: 'center',
   
 
-[theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-    // backgroundColor: 'red'
-  },
+  [theme.breakpoints.down('md')] : {
+    backgroundColor: 'yellow'
+   
+    },
 })
 
 const FormButton = styled(Button)({
@@ -222,6 +221,13 @@ const FormButton = styled(Button)({
   width: '9.5rem',
   height: '1.2rem',
 margin: '0 1rem',
+
+[theme.breakpoints.down('md')] : {
+  fontSize: '.75rem',
+  padding: '0 .5rem',
+  width: '7.5rem',
+  margin: '0 0',
+ },
   
   '&:hover' : {
     // backgroundColor: chitBlueDull,

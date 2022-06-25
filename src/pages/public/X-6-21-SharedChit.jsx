@@ -147,7 +147,7 @@ View shared chit sample
                  onClick={(evt) => handelPageChange(evt)}
 
                 >
-                  View sample   site
+                  View the sample Chit Git site
                 </StyledButton>
 
               </Action>

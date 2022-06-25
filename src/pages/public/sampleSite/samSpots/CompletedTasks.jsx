@@ -63,7 +63,7 @@ function CompletedTasks(props) {
       </ViewNavWrapper>
 
      
-       tree  tasks
+       Completed  tasks
     </MainWrapper>
   )
 }

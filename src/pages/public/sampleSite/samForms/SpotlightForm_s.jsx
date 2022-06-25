@@ -402,7 +402,7 @@ const FormWrapper = styled('form')({
 
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    backgroundColor: 'pink'
+ 
 
   },
 

@@ -53,7 +53,7 @@ export default function Log() {
   var logsArray = [...allLogs]; // mutable copy of allLogsArray
 
 
-  const [arrayOrder, setArrayOrder] = useState(true)
+  const [arrayOrder, setArrayOrder] = useState(false)
 
 console.log('[ LOG_s] arrayOrder ', arrayOrder);
 

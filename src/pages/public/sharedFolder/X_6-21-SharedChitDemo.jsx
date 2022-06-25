@@ -12,11 +12,7 @@ parent: SharedChit
 
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-
 import { Scrollbars } from 'react-custom-scrollbars';
-
-
-
 import {backgroundBlue, chitBurgandy, chitSkyBlue, chitBlueDull, mediumGrey, veryLightGrey,  mediumLightGrey, chitBurgandyDull, lightGrey } from '../../../styles/colors'
  
 import LinkCode from '../../../images/linkCode.svg'
@@ -203,7 +199,7 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
 
 
 
- 
+<Scrollbars style = {{width: 500, height: 300}}>
               <MessageWrapper>
                 <MessageTop>Message from {senderName}:    </MessageTop>
                 
@@ -212,7 +208,7 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
                 </MessageBottom>
 
               </MessageWrapper>
- 
+</Scrollbars>
               <AddWrapper>
                 <AddHeader>
                   Add this chit to your repo
@@ -314,15 +310,7 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
   }
 
   return (
-    <StyledScrollbars
-
-  
-    renderTrackVertical={props => <div {...props} className="track-vertical"/>}
- 
-    renderThumbVertical={props => <div {...props} className="thumb-vertical"/>}
-    hideTracksWhenNotNeeded 
-    >
-    <Container>
+    <>
  
       <HeaderPublic />
       <NavSpacer />
@@ -339,8 +327,7 @@ deedPerformedBy === senderId ? performedByName = senderName: performedByName = r
         {SharedChitDisplay(codeId)}
       </ContentWrapper>
    
- </Container>
- </StyledScrollbars>
+ </>
   );
 }
 
@@ -427,9 +414,9 @@ const HeadWrapper= styled('div')({
     justifyContent: 'flex-start',
     alignItems: 'center',
    
-    // height: 'calc(100vh  - 2.5rem)',
+    height: 'calc(100vh  - 2.5rem)',
 
-    // maxHeight: '45rem',
+    maxHeight: '45rem',
 
 
     // height: '100%',
@@ -464,7 +451,7 @@ const HeadWrapper= styled('div')({
    
     [theme.breakpoints.down('sm')]: {
       width: '96%',
-      // height: '96%',
+      height: '96%',
        
     }
 
@@ -664,7 +651,7 @@ const MessageBottom = styled('div')({
   width: 'calc(100% - 12px)',
   fontSize: '.9rem',
   minHeight: '5rem',
-
+  height: '11rem',
  
   [theme.breakpoints.down('xs')]: {
 
@@ -1055,58 +1042,5 @@ const HomeLink = styled('div')({
 
 })
 
-const Container = styled('div')({
- 
- 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
- height: '100%',
- width: '100%',
 
-  [theme.breakpoints.down('sm')]: {
-
- 
-
-
-  }
-
-
-})
-
-const StyledScrollbars = styled(Scrollbars)({
- margin : '6px',
- '& .track-vertical ' : {
-    top: '2px' ,
-    bottom: '2px' ,
-    right: '2px' ,
-    borderRadius: '3px' ,
-    background: '#040952' ,
-
-    '& .thumb-vertical' : {
-        position: 'relative',
-        display: 'block',
-        width: '100%',
-        cursor: 'pointer',
-        borderRadius: 'inherit',
-        backgroundColor: '#A8BEED', // changed the color
-    }
-
-}
-
-
-// .view {
-//     position: absolute;
-//     top: 0px;
-//     left: 0px;
-//     right: 0px;
-//     bottom: 0px;
-//     overflow: scroll;
-//     margin-right: -15px;
-//     margin-bottom: -17px !important; // changed from -15px  (default) to -17px (native scrollbar had a portion visible) 
-// }
-
-
-})
 

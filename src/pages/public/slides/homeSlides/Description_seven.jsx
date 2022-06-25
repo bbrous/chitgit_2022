@@ -3,8 +3,8 @@ import{chitRedDark} from '../../../../styles/colors'
 
 
 
-import Tools from '../../../../images/slides/description/tools.jpg'
-
+// import Tools from '../../../../images/slides/description/tools.jpg'
+import Tools from '../../../../images/slides/description/AppSlide.svg'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
@@ -14,7 +14,7 @@ const theme = createTheme(); // allows use of mui theme in styled component
 export const Picture7= () => {
   return (
     <PictureStyle>
-      <div>fix me - public/slides/homeSlides/Description_seven</div>
+    
       <PhonePortraitStyle src= {Tools}   alt="Chit Git Tools" /> 
       
   </PictureStyle>
@@ -32,10 +32,10 @@ export const Narration7= () => {
         <NarDetail>
 
         <div> 
-        Chit Git is comprised of a suite of useful tools
+        Chit Git is a suite of useful tools
 that lets you archive and display
-what you do or accomplish ... who you do it with... and what you
-think or plan to do.   
+what you do or accomplish ... what you
+think or plan to do and ... who you do it with.  
 <em> At the core of these is the Chit.</em> 
         </div>
 

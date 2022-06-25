@@ -57,7 +57,7 @@ export default function TopicalFilters_s(props) {
         >
         <StyledLabel value="sections" control={<StyledRadio />} label="Sections Only" />
         <StyledLabel value="notes" control={<StyledRadio />} label="Notes Only" />
-        <StyledLabel value="all" control={<StyledRadio />} label="Sections and Notes" />
+        <StyledLabel value="all" control={<StyledRadio />} label="Sections + Notes" />
          
       </RadioGroup>
     </FormControl>
@@ -76,7 +76,7 @@ const Wrapper = styled('div')({
   // alignItems: 'center',
 
 
-  //  backgroundColor: 'lightgrey',
+   backgroundColor: 'lightgrey',
    
  
 

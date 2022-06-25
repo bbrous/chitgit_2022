@@ -223,8 +223,8 @@ console.log('@@@ [Topical]- sortedTopical -- ' , sortedTopical)
         <SliderWrapper>
           <SliderComponent
             handleSwitchState={handleSwitchState} //gets new state from child switch
-            leftLabel='latest first'
-            rightLabel='oldest first'
+            leftLabel='oldest first'
+            rightLabel='latest first'
           />
 
         </SliderWrapper>
@@ -260,7 +260,7 @@ const Wrapper = styled('div')({
 
 
   [theme.breakpoints.down('sm')]: {
-    // height: '1.25rem',
+    width: '100%',
 
   },
 })
@@ -321,8 +321,9 @@ const FilterWrapper = styled('div')({
   // overflowY: 'hidden',
 
   [theme.breakpoints.down('sm')] : {
-    // height: '1.25rem',
-
+    flexDirection: 'column',
+    width: '100%',
+    padding: '0 4px',
   },
 
 })

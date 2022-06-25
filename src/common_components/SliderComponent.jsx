@@ -89,7 +89,7 @@ function SliderComponent(props) {
 
   const [state, setState] = React.useState({
 
-    switchName: true
+    switchName: false
   });
 
   const handleChange = (event) => {

@@ -96,47 +96,11 @@ function HeaderNav(props) {
           id = 'sample' 
           // onClick = {handlePageChange}
         
-        >Sample  </NavButtonDisabled>
+        >Sample Site </NavButtonDisabled>
       }
-
-      
 
 
     </StyledLink>
-
-    <StyledLink to="/login" >
-
-
-
- 
-  <NavButton  
-    id = 'login' 
-    // onClick = {handlePageChange}
-  
-  >login  </NavButton  >
-
-
-
-
-
-</StyledLink>
-
-<StyledLink to="/join" >
-
-
-
- 
-<NavButton  
-  id = 'join' 
-  // onClick = {handlePageChange}
-
->join  </NavButton  >
-
-
-
-
-
-</StyledLink>
 
     {/* <StyledLink to="/main/twoParty" >
 
@@ -176,15 +140,20 @@ const NavButton= styled(Button)({
  
   },
   [theme.breakpoints.down('sm')] : {
-     
-    fontSize: '.75rem',
+    fontWeight: 'bold',
+    fontSize: '.85rem',
     padding: '1px',
     
   },
 
 
 
- 
+  [theme.breakpoints.down('xs')] : {
+    fontWeight: 'bold',
+    fontSize: '.75rem',
+    padding: '1px',
+    
+  },
 
 })
 
@@ -199,7 +168,7 @@ const NavButtonDisabled= styled(Button)({
   borderRadius: '0',
   color: 'white',
   fontWeight: '300',
-  
+  marginRight: '8px',
   padding: '0 10px',
 
   '&:disabled ' : {
@@ -211,8 +180,8 @@ const NavButtonDisabled= styled(Button)({
   },
    
   [theme.breakpoints.down('sm')] : {
-     
-    fontSize: '.75rem',
+    fontWeight: 'bold',
+    fontSize: '.85rem',
     padding: '1px',
     
   },
@@ -233,41 +202,3 @@ const StyledLink= styled(NavLink)({
 
 })
 
-const LoginButton= styled(Button)({
-
- 
-
-  
-     
-    color: 'white',
-    textTransform: 'none',
-    fontWeight: '300',
-    paddingRight: '10px',
-    paddingLeft: '10px',
-    
-    '& :hover': {
-      backgroundColor: '#2D259C',
-      boxShadow: 'none'
-   
-    },
-    
-
-
-
-
- 
-
-})
-
-const LoginStyledLink= styled(NavLink)({
-
-  textDecoration: 'none',
-  
-  [theme.breakpoints.down('med')] : {
-     
-    display: 'flex'
-    
-  },
-  
-
-})
