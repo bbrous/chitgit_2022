@@ -181,24 +181,16 @@ export default function TwoPartyChitForm_who_s(props) {
   }
   ) //end map
 
-  // console.log('[ LogForm ] sortedFilteredPeople ', sortedFilteredPeople);
+  console.log('[ LogForm ] sortedFilteredPeople ', sortedFilteredPeople);
 
   sortedFilteredPeople.map((person, index) => {
 
     let personExists = groupsIdArray.includes(person.id)
-  //   let personObject = person.name
-    if (personExists) {
-      // console.log('[ LOG SECTION FORM  ] Yes INCLUDED', person.id);
 
-
-
-
-    }
-    if (!personExists) {
       // console.log('[ LOG SECTION FORM  ] NO NO NO - Not INCLUDED',  person.id);
       peopleOptionsArray.push(person.name)
 
-    }
+    
 
     return peopleOptionsArray
   }

@@ -56,6 +56,8 @@ export function TaskItem(props) {
   const navigate = useNavigate()
   const {id, type, allSpotlights, allTasks, parentSpotlight} = props
 
+ 
+  // console.log('[ TaskItem ] props ', props);
 
   const {
     attributes,
@@ -101,14 +103,7 @@ const [objectItem, setObjectItem] = useState({
       setObjectItem(allSpotlights.find(spotlightItem => spotlightItem.id === props.id))
       if (objectItem) {
         setTitle(objectItem.title)
-
-        let status 
-
-        objectItem.spotlightStatus === 'completed'? status = true: status = false
-        setTaskStatus(status)
-
-
-
+        setTaskStatus(objectItem.completed)
       }//end if objectItem
     }// end if type === spotlight
 
@@ -124,7 +119,7 @@ const [objectItem, setObjectItem] = useState({
    
       }//end if objectItem
     }// end if type === task
-   
+
   }, [allSpotlights, allTasks, id, type, objectItem, props.id])
 
 // console.log('[ TaskItem !!!! ] taskStatus ', taskStatus);
@@ -250,6 +245,7 @@ let completed = false
                   <StatusWrapper>
 
 
+
                   </StatusWrapper>
 
                   <IconWrapper>
@@ -257,7 +253,7 @@ let completed = false
                     {/* XXXXXXXXXX  Edit for Spotlights only XXXXXXXXXXXXXXXXXX  */}
                     {/* XXXXXXXXXX Delete for Tasks only XXXXXXXXXXXXXXXXXX  */}
                     {type === 'task' &&
-                      <ConvertIcon taskId={id} parentId = {parentSpotlight} />
+                      <ConvertIcon id={id} type={type} />
                     }
                     {/* <NoteIcon id = {id} type = {type} /> */}
                     <NoteIcon noteHolderId={id} noteHolderCollection='tasks' noteId={objectItem.noteId} />
@@ -276,7 +272,16 @@ let completed = false
 
                   </IconWrapper>
 
+
+
+
+
+
+
                 </NotificationWrapper>
+
+
+
 
 
               </TaskBlockWrapper>

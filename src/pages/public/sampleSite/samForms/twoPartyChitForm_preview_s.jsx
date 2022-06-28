@@ -110,6 +110,12 @@ export default function TwoPartyChitForm_preview_s(props) {
   let match = useParams()
   let URLId = match.id
 
+  const [popupMessage, setPopupMessage] = useState(false)
+  function closeForm(){
+    dispatch(closeModal())
+  }
+
+
   const allPeople = useSelector(selectPeople)
   const allGroups = useSelector(selectGroups)
   const allKeywordsArray = useSelector(selectKeywords)
@@ -544,7 +550,10 @@ if(!twoPartyChitId) {
  
 
     dispatch(changeLoadingStatus(false))
-    dispatch(closeModal())
+    setPopupMessage(true)
+
+
+
     } catch (error) {
       alert(error.message)
       dispatch(changeLoadingStatus(false))
@@ -574,6 +583,8 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
   // ==== return - Form JSX  ======================================
 
   return (
+    <>
+      {!popupMessage && 
     <Wrapper>
 
       {noOtherParty === 'no' &&
@@ -741,6 +752,26 @@ console.log('[ twoPartyChitForm -chit ] noDate ', noDate);
         </FormProvider>
       }
     </Wrapper>
+ }
+
+
+{popupMessage && 
+    
+  <MessageWrapper> 
+    <SuccessMessage> 
+      
+       Your new personal chit has been Created
+
+    </SuccessMessage>
+
+    <CloseFormButton onClick = {()=> dispatch(closeModal())}> 
+    Got it - thanks
+    
+    </CloseFormButton>
+  </MessageWrapper>
+  }
+
+  </>
   );
 }
 
@@ -773,6 +804,60 @@ const Wrapper = styled(Paper)({
     // height: '1.25rem',
     // backgroundColor: 'red'
   },
+
+})
+
+
+
+const MessageWrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // zIndex: '95',
+  backgroundColor: 'none',
+  width: '100%',
+  height: '15rem',
+  overflow: 'auto',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const SuccessMessage = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // zIndex: '95',
+  // backgroundColor: 'red',
+ 
+  marginBottom: '.5rem',
+  color: chitBurgandy,
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const CloseFormButton = styled(Button)({
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '8rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
 
 })
 

@@ -106,7 +106,7 @@ export default function TwoPartyChitForm_when_s(props) {
   const {person, group, chitDate  }= status.view.forms.twoPartyChitForm
 
   let statusFormViewChitDate
-  !chitDate ? statusFormViewChitDate = '': statusFormViewChitDate = new Date(chitDate) 
+  !chitDate ? statusFormViewChitDate = new Date('2021-03-14T17:03:40.000Z'): statusFormViewChitDate = new Date(chitDate) 
 
 
 console.log('[twoPartyForm chitDate ] chitDate ', chitDate);

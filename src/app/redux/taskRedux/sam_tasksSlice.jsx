@@ -73,8 +73,8 @@ export const tasksSlice = createSlice({
     // console.log('[deleteTask] - action.payload' , action.payload)
     let taskId = action.payload.id
     let taskIndex = state.findIndex(index => index.id === taskId)
-    // console.log('[deleteTask- taskId' , taskId)
-    // console.log('[deleteTask- taskIndex' , taskIndex)
+    console.log('[deleteTask- taskId' , taskId)
+    console.log('[deleteTask- taskIndex' , taskIndex)
 
     state.splice(taskIndex, 1)
 

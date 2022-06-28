@@ -113,7 +113,7 @@ function SpotlightViewNav(props) {
 
           <StyledLabel value="tree" control={<StyledRadio />} label="Tree View" />
 
-          <StyledLabel value="completedTasks" control={<StyledRadio />} label="Completed View" />
+    
 
         </RadioGroup>
       </FormControl>

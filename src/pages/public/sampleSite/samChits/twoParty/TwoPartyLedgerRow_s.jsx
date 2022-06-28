@@ -225,7 +225,7 @@ let totalChitValue = chitBurden + chitValue
               <div> Description:</div>
 
             </TopRightContainer>
-            <BottomRightContainer dangerouslySetInnerHTML={{__html: description}} />
+            <QuillDiv dangerouslySetInnerHTML={{__html: description}} />
        
 
           </RightContainer>   
@@ -903,3 +903,20 @@ const KeyWordWrapper= styled('div')({
 
 
 
+const QuillDiv= styled('div')({
+
+  fontSize: '14px',
+  
+   '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
+  
+  })

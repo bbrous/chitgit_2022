@@ -136,12 +136,12 @@ export default function TwoPartyChitForm_chit_s(props) {
   !statusDeedPerformedBy ? statusFormViewDeedPerformedBy = '': statusFormViewDeedPerformedBy = statusDeedPerformedBy
 
   let statusFormViewChitValue
-  !statusChitValue ? statusFormViewChitValue = 0: statusFormViewChitValue = statusChitValue
+  !statusChitValue ? statusFormViewChitValue = 10: statusFormViewChitValue = statusChitValue
 
 
 
   let statusFormViewChitBurden
-  !statusChitBurden ? statusFormViewChitBurden = 0: statusFormViewChitBurden = statusChitBurden
+  !statusChitBurden ? statusFormViewChitBurden = 10: statusFormViewChitBurden = statusChitBurden
 
   console.log('[ Log FROM @@@@@  ] statusChitValue ', statusFormViewChitValue);
 

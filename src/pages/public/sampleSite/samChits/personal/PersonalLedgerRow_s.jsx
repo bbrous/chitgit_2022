@@ -152,8 +152,8 @@ export default function PersonalLedgerRow(props) {
 
 
             <BottomRightContainer>
-              <StyledDetail dangerouslySetInnerHTML={{ __html: detail }}>
-              </StyledDetail>
+              <QuillDiv dangerouslySetInnerHTML={{ __html: detail }}>
+              </QuillDiv>
 
             </BottomRightContainer>
           </RightContainer>
@@ -720,3 +720,20 @@ const StyledDetail= styled('div')({
 
 })
 
+const QuillDiv= styled('div')({
+
+  fontSize: '14px',
+  
+   '& p' :{
+    lineHeight: '.7'
+   },
+  
+  '& .ql-size-small':{
+    fontSize: '12px'
+  },
+  
+  '& .ql-size-large' :{
+    fontSize: '18px'
+  }
+  
+  })

@@ -149,6 +149,36 @@ console.log('[ addToTaskArray *************************** ] action.payload.id ',
  
 }, // updateTaskArray
 
+
+  // ---------------
+
+  convertTaskInTaskArray: (state, action) => {
+ 
+    let spotId = action.payload.spotId
+    let id = action.payload.id
+   
+    let newSpotlightId =  action.payload.newSpotlightId
+     
+  
+   
+  
+  //  get the index of the spotlight Object in store Spotlights Array
+  let spotIndex = state.findIndex(index => index.id === spotId)
+
+  let taskIndex = state[spotIndex].taskArray.findIndex(tasksIndex => tasksIndex.id === id)
+
+    state[spotIndex].taskArray[taskIndex] ={id: newSpotlightId, type: 'spotlight'}
+  
+  console.log('[ convertTaskInTaskArray *************************** ] taskIndex ', taskIndex);
+
+
+    // state[spotIndex].taskArray.push = {id: id, type: type}
+    // state[spotIndex].taskArray.push({id: id, type: type})
+  
+   
+   
+  }, // updateTaskArray
+
   // ---------------
 
   deleteTaskFromSpotlightArray: (state, action) => {
@@ -207,6 +237,7 @@ export const {
     changeSpotlightLastVisit,
     updateTaskArray,
     addToTaskArray,
+    convertTaskInTaskArray,
     updateSpotlightNoteId, 
     deleteSpotlight,
     deleteTaskFromSpotlightArray

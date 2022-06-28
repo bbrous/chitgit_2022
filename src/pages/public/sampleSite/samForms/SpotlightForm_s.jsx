@@ -132,7 +132,7 @@ export default function SpotlightForm_s(props) {
 
   let tempEndEst
   !spotlight.endEst ? tempEndEst = "" : tempEndEst = new Date(spotlight.endEst) 
-  !spotId ? endEst = ""  : endEst = tempEndEst
+  !spotId ? endEst = new Date('2021-03-14T17:03:40.000Z')  : endEst = tempEndEst
 
   !spotId ? parentId = "none"  : parentId = spotlight.parentId
 

@@ -236,7 +236,7 @@ const id = openPopover ? 'simple-popover' : undefined;
   const cancelNewForm = () => {
 
     dispatch(closeTopicalSectionForm())
-    navigate(`/sample/topicala`)
+    // navigate(`/sample/topical`)
   }
 
 
@@ -619,7 +619,7 @@ const submitForm = (data) => {
 
                   </StyledButton>
 
-              <StyledButton onClick={() => handleClick()}> Cancel</StyledButton>
+              <StyledButton onClick={() => cancelNewForm()}> Cancel</StyledButton>
               </ButtonWrapper>
 
                 

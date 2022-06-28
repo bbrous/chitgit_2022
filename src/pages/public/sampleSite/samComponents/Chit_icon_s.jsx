@@ -38,12 +38,112 @@ import LogoIconWhite from '../../../../images/logo_icon_white.svg'
 // Material UI --------------------
  
 import Tooltip from '@mui/material/Tooltip';
- 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button'
+
+
 
 
 import { styled, createTheme} from "@mui/material/styles"
 import {withStyles} from '@mui/styles'
 const theme = createTheme(); // allows use of mui theme in styled component
+
+
+
+
+function handleClick(passedId){
+  console.log('[Chit Icon  QQQ - I be clicked', passedId)
+}
+
+
+function ChitIcon(props) {
+
+  const {type, id} = props
+
+  // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+  let passedId = 'spot_1_task_1'
+  let chitId = ''
+  // let chitId = 'chit_1'
+
+
+    // --- Popup Dialog functions
+    const [open, setOpen] = React.useState(false)
+
+    const handleClick = (id, source) => {
+      setOpen(true);
+  
+    };
+  
+    const handleDialogClose = () => {
+      setOpen(false);
+    };
+
+  return (
+    <>
+
+
+      {!chitId &&
+        <LightTooltip title='Create Chit' arrow>
+          <LogoWrapperOrange
+
+            // onClick={handleClick(passedId)}
+            onClick={() => handleClick('repo')}
+
+
+          >
+            <LogoStyle src={LogoIconWhite} alt="Chit Git Logo" />
+          </LogoWrapperOrange>
+        </LightTooltip  >
+      }
+
+      {chitId &&
+        <LightTooltip title='View Chit' arrow>
+
+
+          <LogoWrapper
+            // onClick={handleClick(passedId)}
+            onClick={() => handleClick('bullah')}
+
+          >
+
+            <LogoStyle src={LogoIconWhite} alt="Chit Git Logo" />
+          </LogoWrapper>
+        </LightTooltip  >
+      }
+
+
+
+
+      {/* {chitId && 
+      <LightTooltip   title = 'Edit Note'  arrow> 
+      <Icon
+
+
+        onClick={handleClick(passedId)}
+        className='green'
+      />
+      </LightTooltip  >
+      }
+
+      {!chitId && <Icon
+
+    
+        onClick={handleClick(passedId)}
+
+      />
+
+      } */}
+
+    </>
+  )
+}
+
+
+export default ChitIcon
 
 // -----------------------------------------------------------------
 
@@ -80,7 +180,7 @@ const LogoWrapperOrange= styled('div')({
   
 cursor: 'pointer',
 borderRadius: '20px',
-  backgroundColor: mediumMediumGrey,
+  backgroundColor: chitOrange,
   '&:hover': {
     backgroundColor: mediumLightGrey
     // backgroundColor: mediummediumLightGrey
@@ -109,67 +209,3 @@ const LightTooltip = withStyles({
   }
 })(Tooltip);
 // ================================
-
-
-function handleClick(passedId){
-  // console.log('[Note_icon - I be clicked')
-}
-
-
-function ChitIcon(props) {
-
-  const {type, id} = props
-
-  // Temp variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-  let passedId = 'spot_1_task_1'
-  let chitId = ''
-  // let chitId = 'chit_1'
-
-
-  return (
-    <>
-        
-
-      {!chitId && 
-      <LightTooltip   title = 'Convert to Chit'  arrow> 
-<LogoWrapperOrange onClick={handleClick(passedId)}>
-        <LogoStyle src= {LogoIconWhite}   alt="Chit Git Logo" />
-         </LogoWrapperOrange> 
-      </LightTooltip  >
-      }
-
-{chitId && 
-      <LightTooltip   title = 'View Chit'  arrow> 
-<LogoWrapper onClick={handleClick(passedId)}>
-        <LogoStyle src= {LogoIconWhite}   alt="Chit Git Logo" />
-         </LogoWrapper> 
-      </LightTooltip  >
-      }
-
-{/* {chitId && 
-      <LightTooltip   title = 'Edit Note'  arrow> 
-      <Icon
-
-
-        onClick={handleClick(passedId)}
-        className='green'
-      />
-      </LightTooltip  >
-      }
-
-      {!chitId && <Icon
-
-    
-        onClick={handleClick(passedId)}
-
-      />
-
-      } */}
-
-    </>
-  )
-}
-
-
-export default ChitIcon

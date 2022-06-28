@@ -210,7 +210,7 @@ const SampleSpotlights =  [
         title: 'Gather resources',
     
     
-        spotlightStatus: 'completed', // inactive, begun, completed
+        spotlightStatus: 'begun', // inactive, begun, completed
         
         completedTimeStamp:  '', 
         

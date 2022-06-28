@@ -17,31 +17,19 @@ import {useHistory, useParams} from 'react-router-dom'
 
 import{backgroundBlue, chitOrange, chitOrangeVeryLight, veryLightGrey} from '../../../../styles/colors'
 
-import ViewNav from '../../../../pages/navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
+import ViewNav from '../../../navComponents/publicNav/sampleNav/Spotlight_View_nav_s'
 
-import{ selectSpotlights, 
-  makeSelectSpotlights,
-  selectTasks,
-  makeGetSpotlight,
-  // selectSpotlightTaskArray
-  
-} from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
+import{ selectSpotlights } from '../../../../app/redux/spotlightRedux/sam_spotlightsSlice'
 
- 
+import{ selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
+import { selectTasks } from '../../../../app/redux/taskRedux/sam_tasksSlice'
 
-// ####################################################################################
-
-// import SortableTasks from './SortableTasks_s'
-
-// ####################################################################################
+// 
 
 //  ---- Material Ui ------------------
 
-import InfoIcon from '@mui/icons-material/Info'
-import NotesIcon from '@mui/icons-material/Notes';
-import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
-import CheckIcon from '@mui/icons-material/Check';
+;
 import Paper from '@mui/material/Paper'
 
 import { styled, createTheme  } from "@mui/material/styles"
@@ -63,7 +51,17 @@ function CompletedTasks(props) {
       </ViewNavWrapper>
 
      
-       Completed  tasks
+      <TasksWrapper> 
+
+        <TaskWrapper>
+          <DateWrapper> Tue, Nov 1 2022</DateWrapper>
+          <TaskItem> I am an\ Task Item</TaskItem>
+          
+          <SpotlightItem> Spotlight title </SpotlightItem>
+          <SpotlightLink> Go to spotlight </SpotlightLink>
+        </TaskWrapper>
+
+      </TasksWrapper>
     </MainWrapper>
   )
 }
@@ -82,7 +80,7 @@ const MainWrapper= styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   backgroundColor: veryLightGrey,
   width: '100%',
@@ -105,11 +103,8 @@ const ViewNavWrapper= styled('div')({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  
-
-  position: 'absolute',
-  top: 0,
-  left: '5%',
+  marginBottom: '3rem',
+ 
 
 
   height: '2rem',
@@ -128,18 +123,18 @@ const ViewNavWrapper= styled('div')({
 
 
           // ----------------------
-          const FormContainer= styled('div')({
+          const TasksWrapper= styled('div')({
             display: 'flex',
             
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             
-            width: '98%',
+            width: '80%',
             margin: '.25rem 0 0 0',
             
             
           backgroundColor: veryLightGrey,
-            fontSize: '.8rem',
+            
 
 
   [theme.breakpoints.down('sm')] : {
@@ -148,15 +143,15 @@ const ViewNavWrapper= styled('div')({
   },
 })
 
-const TaskWrapper= styled('div')({
+const TaskWrapper= styled(Paper)({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   
   justifyContent: 'flex-start',
   alignItems: 'center',
   
-  width: '98%',
-  margin: '.25rem 0 0 0',
+  width: '95%',
+  // margin: '.25rem 0 0 0',
   
   
 backgroundColor: 'pink',
@@ -169,4 +164,88 @@ backgroundColor: 'pink',
 },
 })
 
+const DateWrapper= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '22%',
+  // margin: '.25rem 0 0 0',
+  
+  
+backgroundColor: 'orange',
+  fontSize: '.8rem',
 
+
+[theme.breakpoints.down('sm')] : {
+// height: '1.25rem',
+// backgroundColor: 'red'
+},
+})
+
+const TaskItem= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '22%',
+  // margin: '.25rem 0 0 0',
+  
+  
+backgroundColor: 'orange',
+  fontSize: '.8rem',
+
+
+[theme.breakpoints.down('sm')] : {
+// height: '1.25rem',
+// backgroundColor: 'red'
+},
+})
+
+const SpotlightItem= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '22%',
+  // margin: '.25rem 0 0 0',
+  
+  
+backgroundColor: 'red',
+  fontSize: '.8rem',
+
+
+[theme.breakpoints.down('sm')] : {
+// height: '1.25rem',
+// backgroundColor: 'red'
+},
+})
+
+
+const SpotlightLink= styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  
+  width: '22%',
+  // margin: '.25rem 0 0 0',
+  cursor: 'pointer',
+  textDecoration: 'underline',
+  backgroundColor: 'yellow',
+color: 'blue',
+  fontSize: '.8rem',
+
+
+[theme.breakpoints.down('sm')] : {
+// height: '1.25rem',
+// backgroundColor: 'red'
+},
+})

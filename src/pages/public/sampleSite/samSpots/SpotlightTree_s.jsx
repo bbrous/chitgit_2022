@@ -102,12 +102,22 @@ const createTreeFromFlat = arr => {
 export default function SpotlightTree() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
+
+
   // --- get all spotlights from the store
-  let allSpotlights = useSelector(selectSpotlights)
-  let allTasks = useSelector(selectTasks)
+ 
 
+  let spotlightsArray = useSelector(selectSpotlights)
+  let tasksArray = useSelector(selectTasks)
 
+  const [allTasks, setAllTasks] = useState(tasksArray)
+  const [allSpotlights, setAllSpotlights] = useState(spotlightsArray)
 
+  useEffect(()=>{
+
+    setAllTasks(tasksArray)
+    setAllSpotlights(spotlightsArray)
+  },[tasksArray, spotlightsArray])
 
   // --- prep for task list ---------------------------
 

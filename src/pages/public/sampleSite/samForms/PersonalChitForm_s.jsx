@@ -3,7 +3,7 @@
    
 */
 
-import React, {useEffect}  from 'react'
+import React, {useEffect, useState}  from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate } from 'react-router-dom'
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -102,6 +102,11 @@ export default function PersonalChitForm_s(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   let sampleDate = new Date('2021-03-14T17:03:40.000Z') 
+
+  const [popupMessage, setPopupMessage] = useState(false)
+  function closeForm(){
+    dispatch(closeModal())
+  }
 
   
   // --- get arrays from collections
@@ -475,7 +480,9 @@ export default function PersonalChitForm_s(props) {
        
 
       reset(defaultValues)
-      dispatch(closeModal())
+    setPopupMessage(true)
+
+
 
     } catch (error) {
 
@@ -562,7 +569,8 @@ export default function PersonalChitForm_s(props) {
    // --- Actual Form ---------------------------------------------
 
   return (
-
+<> 
+{!popupMessage && 
     <Wrapper>
       
       <HeaderWrapper> {headerMessage} </HeaderWrapper>
@@ -866,6 +874,28 @@ export default function PersonalChitForm_s(props) {
       </FormProvider>
 
     </Wrapper>
+    }
+
+    {popupMessage && 
+    
+    <MessageWrapper> 
+      <SuccessMessage> 
+        
+         Your new personal chit has been Created
+
+      </SuccessMessage>
+
+      <CloseFormButton onClick = {()=> dispatch(closeModal())}> 
+      Got it - thanks
+      
+      </CloseFormButton>
+    </MessageWrapper>
+    }
+
+
+
+    
+    </>
 
   );
 }
@@ -888,6 +918,58 @@ const Wrapper = styled(Paper)({
     // height: '1.25rem',
     // backgroundColor: 'red'
   },
+
+})
+
+const MessageWrapper = styled(Paper)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // zIndex: '95',
+  backgroundColor: 'none',
+  width: '100%',
+  height: '100%',
+  overflow: 'auto',
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const SuccessMessage = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // zIndex: '95',
+  // backgroundColor: 'red',
+ 
+  marginBottom: '.5rem',
+  color: chitBurgandy,
+
+
+  [theme.breakpoints.down('sm')]: {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
+
+})
+
+const CloseFormButton = styled(Button)({
+  backgroundColor: 'white',
+  border: '1px solid #E6E7E8',
+  color: chitBurgandyDull,
+  margin: '0 8px',
+  width: '8rem',
+  height: '1.5rem',
+  fontSize: '.8rem',
+  '&:hover' :{
+    backgroundColor: lightGrey
+  }
 
 })
 

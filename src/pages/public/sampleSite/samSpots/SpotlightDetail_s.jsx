@@ -24,6 +24,135 @@ import CountdownDisplay from './CountdownDisplay_s'
 import { styled, createTheme  } from "@mui/material/styles"
 const theme = createTheme(); // allows use of mui theme in styled component
 
+
+
+
+// ================================================
+function SpotlightDetail(props) {
+ 
+  const match = useParams()
+
+  const matchId = match.id
+
+  const spotlightsArray = useSelector(selectSpotlights)
+
+  // --- get spotlight object from mapStateToProps selector---
+  // let spotlightDisplayed = props.spotlight.spotlight
+  let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
+  
+  // (1) get parentId if exists in spotight from URL
+  const {id, endEst, lastVisit, spotlightStatus} = spotlightDisplayed
+
+  // (2) format for status display
+  let statusDisplay
+
+  if(spotlightStatus === 'completed') {statusDisplay = 'Spotlight Completed'}
+  if(spotlightStatus === 'begun' ){statusDisplay = 'In Progress'}
+  if(spotlightStatus === 'inactive' ){statusDisplay ='Not Yet Started'}
+
+
+  
+  // convert target Date in ISO to UTC for addition/subtraction etc
+  let targetDate, beginDate, targetDateInMilliseconds
+
+  if(endEst) {
+    targetDateInMilliseconds = DatetoUTC(endEst)
+    // format target Date in milliseconds for display
+    targetDate  =  UTCtoDate(targetDateInMilliseconds)
+  
+    // console.log('[SPOTLIGHT Detail] -- REMAINING' ,  days, hours, mins, secs)
+
+
+  }else{
+    targetDate  = 'No target date provided'
+    
+  }
+
+// ---- Return of main function -------------------------------------
+
+  return (
+    <Wrapper>
+
+      <StatusRow>
+        <StatusRowLeft>Status: </StatusRowLeft>
+        {spotlightStatus === 'inactive' &&
+          <StatusRowRight
+          > {statusDisplay}
+          </StatusRowRight>
+
+        }
+        {spotlightStatus === 'completed' &&
+          <StatusRowRight
+            className='redHighlight'
+          > {statusDisplay}
+
+          </StatusRowRight>
+
+        }
+
+        {spotlightStatus === 'begun' &&
+          <StatusRowRight
+            className='greenHighlight'
+
+          > {statusDisplay}
+          </StatusRowRight>
+
+        }
+
+      </StatusRow>
+
+      <VariablesWrapper>
+
+        <VariablesLeft>
+
+          <DetailRow>
+            <DetailRowLeft>Targeted End: </DetailRowLeft>
+
+            {!endEst &&
+              <DetailRowRight> No Targeted End  </DetailRowRight>
+            }
+
+            {endEst &&
+              <DetailRowRight className='greyHighlight'>
+                {UTCtoDateTradional(DatetoUTC(endEst))}
+              </DetailRowRight>
+            }
+
+          </DetailRow>
+
+          <DetailRow>
+            <DetailRowLeft>Last Visited: </DetailRowLeft>
+            <DetailRowRight className='greyHighlight'>
+              {UTCtoDateTradional(DatetoUTC(lastVisit))}
+            </DetailRowRight>
+
+            <DetailRowRight
+
+            >
+              {beginDate}
+            </DetailRowRight>
+
+          </DetailRow>
+
+        </VariablesLeft>
+
+        <VariablesRight>
+
+          <CountdownDisplay />
+
+
+        </VariablesRight>
+
+      </VariablesWrapper>
+
+    </Wrapper>
+
+  )
+}// end func SpotlightDetail
+
+ 
+export default SpotlightDetail
+
 // -----------------------------------------------------------------
 
 const Wrapper = styled('div')({
@@ -220,131 +349,3 @@ const DetailRowRight = styled('div')({
     // backgroundColor: 'red'
   },
 })
-
-
-
-// ================================================
-function SpotlightDetail(props) {
- 
-  const match = useParams()
-
-  const matchId = match.id
-
-  const spotlightsArray = useSelector(selectSpotlights)
-
-  // --- get spotlight object from mapStateToProps selector---
-  // let spotlightDisplayed = props.spotlight.spotlight
-  let spotlightDisplayed = selectSpotlightFromArray(spotlightsArray, matchId)
-  
-  // (1) get parentId if exists in spotight from URL
-  const {id, endEst, lastVisit, spotlightStatus} = spotlightDisplayed
-
-  // (2) format for status display
-  let statusDisplay
-
-  if(spotlightStatus === 'completed') {statusDisplay = 'Spotlight Completed'}
-  if(spotlightStatus === 'begun' ){statusDisplay = 'In Progress'}
-  if(spotlightStatus === 'inactive' ){statusDisplay ='Not Yet Started'}
-
-
-  
-  // convert target Date in ISO to UTC for addition/subtraction etc
-  let targetDate, beginDate, targetDateInMilliseconds
-
-  if(endEst) {
-    targetDateInMilliseconds = DatetoUTC(endEst)
-    // format target Date in milliseconds for display
-    targetDate  =  UTCtoDate(targetDateInMilliseconds)
-  
-    // console.log('[SPOTLIGHT Detail] -- REMAINING' ,  days, hours, mins, secs)
-
-
-  }else{
-    targetDate  = 'No target date provided'
-    
-  }
-
-// ---- Return of main function -------------------------------------
-
-  return (
-    <Wrapper>
-
-      <StatusRow>
-        <StatusRowLeft>Status: </StatusRowLeft>
-        {spotlightStatus === 'inactive' &&
-          <StatusRowRight
-          > {statusDisplay}
-          </StatusRowRight>
-
-        }
-        {spotlightStatus === 'completed' &&
-          <StatusRowRight
-            className='redHighlight'
-          > {statusDisplay}
-
-          </StatusRowRight>
-
-        }
-
-        {spotlightStatus === 'begun' &&
-          <StatusRowRight
-            className='greenHighlight'
-
-          > {statusDisplay}
-          </StatusRowRight>
-
-        }
-
-      </StatusRow>
-
-      <VariablesWrapper>
-
-        <VariablesLeft>
-
-          <DetailRow>
-            <DetailRowLeft>Targeted End: </DetailRowLeft>
-
-            {!endEst &&
-              <DetailRowRight> No Targeted End  </DetailRowRight>
-            }
-
-            {endEst &&
-              <DetailRowRight className='greyHighlight'>
-                {UTCtoDateTradional(DatetoUTC(endEst))}
-              </DetailRowRight>
-            }
-
-          </DetailRow>
-
-          <DetailRow>
-            <DetailRowLeft>Last Visited: </DetailRowLeft>
-            <DetailRowRight className='greyHighlight'>
-              {UTCtoDateTradional(DatetoUTC(lastVisit))}
-            </DetailRowRight>
-
-            <DetailRowRight
-
-            >
-              {beginDate}
-            </DetailRowRight>
-
-          </DetailRow>
-
-        </VariablesLeft>
-
-        <VariablesRight>
-
-          <CountdownDisplay />
-
-
-        </VariablesRight>
-
-      </VariablesWrapper>
-
-    </Wrapper>
-
-  )
-}// end func SpotlightDetail
-
- 
-export default SpotlightDetail

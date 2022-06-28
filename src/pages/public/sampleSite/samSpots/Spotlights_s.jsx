@@ -26,7 +26,7 @@ import{
 import PopoverModal from '../samComponents/PopoverModal'
 import Spotlight from './SpotlightMain_s'
 import SpotlightTree from './SpotlightTree_s'
-import CompletedTasks from './CompletedTasks'
+import CompletedTasks from './X_CompletedTasks'
 // -------Material UI 
 
 import Paper from '@mui/material/Paper'
