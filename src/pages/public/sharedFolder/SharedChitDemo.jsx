@@ -353,7 +353,7 @@ const NavSpacer = styled('div')({
   display: 'block',
   height: '2.5rem',
 
-
+ 
   [theme.breakpoints.down('sm')] : {
  
     height: '1rem',
@@ -372,10 +372,9 @@ const HeadWrapper= styled('div')({
     fontSize: '1.4rem',
     width: '100%',
     color: 'yellow',
- 
-    margin: '1rem 0 .25rem 0',
-    padding: '0 0 1.5rem 0',
-  
+  height: '1.5rem',
+    margin: '1rem 0 2rem 0',
+   
  
  
     [theme.breakpoints.down('sm')]: {
@@ -392,7 +391,7 @@ const HeadWrapper= styled('div')({
    
     color: 'yellow',
     marginLeft: '6px',
-    fontSize: '.9rem',
+    fontSize: '1rem',
 
     [theme.breakpoints.down('xs')] : {
    
@@ -405,12 +404,11 @@ const HeadWrapper= styled('div')({
    
  
     color: 'white',
-    fontSize: '.7rem',
+    fontSize: '1.2rem',
     marginLeft: '16px',
     textDecoration: 'underline',
     cursor:'pointer',
-    height: '1rem',
-  
+    
     [theme.breakpoints.down('sm')] : {
    
     }

@@ -98,7 +98,7 @@ return displayedChitsArray
 ---------------------*/ 
 export function personalChitFilter(chitsArray, filterId){
 
-  console.log('[ CHitHelper ] filterId ', filterId);
+  // console.log('[ CHitHelper ] filterId ', filterId);
 
   let displayedChitsArray
 
@@ -116,9 +116,25 @@ if(filterId === 'workChits' ){
 }else{
   displayedChitsArray = chitsArray.filter(item => item.category === filterId )
 }
-
+ 
+// console.log('[ chitHelpers ] displayedChitsArray ', displayedChitsArray);
 
 return displayedChitsArray
+}
+
+/* -- func getMilestonsOnly ------------------
+  @desc - sorts all chits by date
+  @params array of chits
+  @return array sorted 
+
+---------------------*/
+export function getMilestonesOnly(chitsArray){
+
+  let displayedMilestones = chitsArray.filter(item => item.chitColor === 'milestone')
+
+  return displayedMilestones
+
+
 }
 
 

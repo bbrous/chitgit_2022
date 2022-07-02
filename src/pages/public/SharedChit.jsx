@@ -79,7 +79,7 @@ const SharedChit = (props) => {
   return (
     <BodyWrapper>
       <HeaderPublic />
-      <NavSpacer />
+     
  
 
       <ContentContainer>

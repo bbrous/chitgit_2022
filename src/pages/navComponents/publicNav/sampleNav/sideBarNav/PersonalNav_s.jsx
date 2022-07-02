@@ -179,28 +179,17 @@ Create a new Personal Chit Category
 
  { allCategories.length > 0 && <> 
 
-      {displayId !== 'milestones' &&
+      
         <StaticWrapper elevation={1}
           id='milestones'
           onClick={(evt) => {
             handleChangeCategory(evt)
           }}
         >
-          All Milestones Only
+           
         </StaticWrapper>
+  
 
-      }
-      {displayId === 'milestones' &&
-        <StaticWrapperSelected elevation={1}
-          id='milestones'
-          onClick={(evt) => {
-            handleChangeCategory(evt)
-          }}
-        >
-          All Milestones Only
-        </StaticWrapperSelected>
-
-      }
 
  
       <OrderWrapper>  
@@ -279,7 +268,7 @@ const DisplayWrapper= styled('div')({
 })
 
 
-const StaticWrapper= styled(Paper)({
+const StaticWrapper= styled('div')({
 
   display: 'flex',
   flexDirection: 'row',
@@ -291,7 +280,7 @@ const StaticWrapper= styled(Paper)({
   
   cursor: 'pointer',
   width: '100%',
-  height: '2rem' ,
+  height: '1rem' ,
   fontSize: '.85rem',
   marginTop: '.2rem',
   padding: '0 .5rem',

@@ -244,6 +244,10 @@ export default function PersonalChitForm_s(props) {
     // get form data elements
     const {chitDate, chitColor, detail, workRelated, keywords, newExisting, existingCategory, category, chitType} = data
 
+    // - replace the <p>s with <div>s in Quill editor to make it appear better
+let noPtagContent = detail.replaceAll('<p>' , '<div>')
+let cleanDetail = noPtagContent.replaceAll('</p>', '</div>')
+
     /* --- combine chitTYpe and chitColor 
            Reason - 
            To decide the coin uses  - chitHelper uses
@@ -322,7 +326,7 @@ export default function PersonalChitForm_s(props) {
           category: formCategoryId,
           workRelated: workRelated,
           duplicate: '',
-          detail: detail,
+          detail: cleanDetail,
           keyWordArray: cleanKeywordArray
         
 

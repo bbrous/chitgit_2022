@@ -123,7 +123,30 @@ const SampleSharedChits =  [
     message: "<div>Thank you for taking the time to take a look at Chit Git and help me with Google Meet. I appreciate it more than I can describe...<div><br></div><div><span style=\"color: rgb(0, 102, 102);\">Again - thanks. </span><span style=\"color: rgb(0, 102, 102);\">.</span></div>",
   },
 
-  
+  { 
+    sharedId: 'sharedChit_5',
+    sharedLinkAddress: 'http://localhost:3000/sharedChit/generic',
+
+    receiverId: 'XXXXX',
+    receiverName: 'Len Schutzman',
+
+    senderId: 'person_100',
+    senderName: 'Brad ',
+
+    chitCategory: 'twoPartyChit', // twoPartyChit , personalChit
+    chitId: 'ZZZZZ',
+    deedPerformedBy: 'XXXXX',
+
+    chitType: 'standard', //kindness, awChit, etc
+    chitColor: 'gold',
+
+    chitDate: '2001-05-19T13:35:14.967Z',
+    sharedDate: '2022-06-29T13:35:14.967Z',
+     
+    sharedTitle: '21 years',
+    message: "<div>Len,</div><div><br></div><div>Thank you for believing and investing in me 20+ years ago.</div><div><br></div><div>The investing part - I still hop to repay... but the believing part - I'll never be able to repay.</div><div><br></div><div><span style='color: rgb(107, 36, 178);'>Thank you</span></div><div><br></div>",
+  },
+
 
 
 ]//end SampleSharedChits

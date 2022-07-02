@@ -108,8 +108,8 @@ export const selectCategories = state => state.sample.categories
 // export const getCategoryObjectFromId = (categoryArray, id) =>  categoryArray.find(category => category.id === id)
 
 export const getCategoryObjectFromId = (categoryArray, id) => {
-console.log('[ getCategoryObjectFromId ] categoryArray ', categoryArray);
-console.log('[ getCategoryObjectFromId ] id ', id);
+// console.log('[ getCategoryObjectFromId ] categoryArray ', categoryArray);
+// console.log('[ getCategoryObjectFromId ] id ', id);
   
   let categoryObject = categoryArray.find(category => category.id === id)
 
