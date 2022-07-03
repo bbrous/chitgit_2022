@@ -413,6 +413,47 @@ const SampleJournalSections =  [
     },
 
 
+    {
+      id: 'ajsection_66',
+      title: 'Test 1',
+      
+      content: '<div>Test dec 27</div>',
+  
+      journalDate: '2020-12-27T23:59:39.000Z',
+      lastEdit:  '2020-12-27T23:59:39.000Z',
+      chitLink: '',
+                  
+      mirrorType: '',
+      mirrorId: '',
+  
+      peopleArray: ['Billy'],
+      keywordArray: ['deck'],
+      
+  
+    },
+
+    
+    {
+      id: 'bjsection_66',
+      title: 'Test 2',
+      
+      content: '<div>Test nov 27</div>',
+  
+      journalDate: '2020-11-27T23:59:39.000Z',
+      lastEdit:  '2020-11-27T23:59:39.000Z',
+      chitLink: '',
+                  
+      mirrorType: '',
+      mirrorId: '',
+  
+      peopleArray: ['Billy'],
+      keywordArray: ['deck'],
+      
+  
+    },
+
+
+
 
 
 

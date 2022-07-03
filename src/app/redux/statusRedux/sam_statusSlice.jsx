@@ -109,6 +109,9 @@ export const statusSlice = createSlice({
       journal: {
         // journal has no id - because only 1 journal
         sectionId: '',  // if no journalId -- all else journalId stuff
+        year: '2021',
+        monthId: 'all',
+        
       },
   
       // for Notes.jsx ----------------------------------
@@ -422,6 +425,22 @@ export const statusSlice = createSlice({
                    
     },
 
+    updateJournalView: (state, action) => {
+
+      let newYear = action.payload.year
+      let newMonth = action.payload.monthId
+
+      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] Year', newYear);
+
+      console.log('[ samStatus_slice $$$$$$$$$$$$$$$$$ ] month', newMonth );
+  
+      if(newYear){
+      state.view.journal.year = newYear
+      }
+      state.view.journal.monthId = newMonth
+                   
+    },
+
 
     updateAccordionDisplay: (state, action) => {
       state.accordionDisplay.id = action.payload.id
@@ -546,6 +565,7 @@ export const {
   updateStatusView,
   updateChronicleView,
   updateTopicalView,
+  updateJournalView,
   closeJournalForm,
   openJournalForm,
   closeNewJournalForm,

@@ -132,7 +132,7 @@ styledKeywords = 'none'
   const {id,  title, journalDate, content,  chitId, timeStamp , keywordArray ,category ,peopleArray  
   }  = props
 
-  console.log('[ 00000000000000000000000000000000000000] date ',keywordArray);
+  // console.log('[ 00000000000000000000000000000000000000] date ',keywordArray);
     // format keywords
     let styledKeywords = ''
 

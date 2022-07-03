@@ -1,16 +1,35 @@
-import React from 'react'
+/*---- File - JournalNav_s.jsx 
+   Creates options to filter Journal
+
+
+   
+*/
+
+
+
+import React, { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+
 import {veryDarkBlue,lightGrey,  chitOrange,veryLightGrey, chitRedDark, chitOrangeLight,chitBlueDull,darkGrey, chitAquaBlue, chitGold, mediumGrey, chitBurgandy} from '../../../../../styles/colors'
 
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+ 
 import Paper from '@mui/material/Paper'
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeItem from '@mui/lab/TreeItem';
-import Checkbox from '@mui/material/Checkbox';
+ 
+
+import { selectJournals } from '../../../../../app/redux/journalRedux/sam_journalSlice';
+
+import { selectStatus } from '../../../../../app/redux/statusRedux/sam_statusSlice'
+
+import { updateJournalView } from '../../../../../app/redux/statusRedux/sam_statusSlice'
+
+import { descendSorter } from '../../../../../app/helpers/commonHelpers';
+
 
 import { makeStyles  } from "@mui/styles"
 import { styled, createTheme  } from "@mui/material/styles"
+
+import { monthArray } from '../../../../../app/helpers/dateHelper';
+
 const theme = createTheme(); // allows use of mui theme in styled component
 
 
@@ -18,18 +37,84 @@ const theme = createTheme(); // allows use of mui theme in styled component
 
 
 
+ 
+
+
 // =========================================
 
 function JournalNav() {
-
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  let dispatch = useDispatch()
   
-  // const changeFilter = (evt)=>{
+  let initialStatus = useSelector(selectStatus)
+ 
+  let yearView = initialStatus.view.journal.year
+  let monthView = initialStatus.view.journal.monthId
 
-  //   setFilter(evt.target.value)
-    
+  const [displayYear, setDisplayYear] = useState(yearView)
+  const [displayMonth, setDisplayMonth] = useState(monthView)
 
-  // }
+  useEffect(() => {
+    setDisplayYear(yearView)
+    setDisplayMonth(monthView)
+
+  }, [yearView, monthView])
+
+
+ // map months for display in side panel
+
+  const displayMonthOptions =  monthArray.map((month, index) => {
+
+  
+      if(month !== displayMonth) {
+        return(
+
+          <MonthWrapper id= {month} key= {month}
+          onClick={(evt) => handleChangeMonth(evt)}
+        >{month}</MonthWrapper>
+
+        )
+
+      }
+
+      if(month === displayMonth) {
+        return(
+
+          <MonthWrapperSelected id= {month} key= {month}
+          onClick={(evt) => handleChangeMonth(evt)}
+        >{month}</MonthWrapperSelected>
+
+        )
+
+      }
+
+
+
+  
+
+  })
+
+
+
+
+  const handleChangeYear = (evt) => {
+    let newYear = evt.currentTarget.value
+    console.log('[ Journal Nav ] newYear ', newYear);
+ 
+    dispatch(updateJournalView({
+      year: newYear,
+      monthId: 'all'
+     }))
+  }
+
+  const handleChangeMonth = (evt) => {
+    let newMonth = evt.currentTarget.id
+ 
+    console.log('[ Journal Nav ] newMonth ', newMonth);
+    dispatch(updateJournalView({
+      monthId: newMonth,
+     }))
+  }
+ 
 
   return (
     <Wrapper>
@@ -38,22 +123,49 @@ function JournalNav() {
       <YearWrapper elevation={1}>
         <FilterTitle> Filter</FilterTitle>
 
-        <StyledSelectField name="filters" id="filters"
-        // onChange={(evt) => changeFilter(evt)}
+        <StyledSelectField name="yearFilter" id="yearFilter"
+        onChange={(value) => handleChangeYear(value)}
         >
 
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
+          <option value="2021">current year</option>
+          <option value="2020">2020</option>
 
         </StyledSelectField>
 
       </YearWrapper>
       <MonthContainer>
 
+        {displayMonth !== 'all' && 
 
-      <MonthWrapper>March</MonthWrapper>
-      <MonthWrapper>February</MonthWrapper>
-      <MonthWrapper>January</MonthWrapper>
+        <AllContainer id='all' key='all'
+          onClick={(evt) => handleChangeMonth(evt)}
+        >All Sections </AllContainer>
+
+}
+
+{displayMonth === 'all' && 
+
+<AllContainerSelected id='all' key='all'
+  onClick={(evt) => handleChangeMonth(evt)}
+>All Sections </AllContainerSelected>
+
+}
+
+
+
+
+
+{displayMonthOptions}
+
+        {/* <MonthWrapper id='Mar' key='Mar'
+          onClick={(evt) => handleChangeMonth(evt)}
+        >March</MonthWrapper>
+        <MonthWrapper id='Feb' key='Feb'
+          onClick={(evt) => handleChangeMonth(evt)}
+        >February</MonthWrapper>
+        <MonthWrapper id='Jan' key='Jan'
+          onClick={(evt) => handleChangeMonth(evt)}
+        >January</MonthWrapper> */}
 
       </MonthContainer>
 
@@ -138,6 +250,7 @@ const MonthContainer= styled('div')({
   }
 
 })
+
 const MonthWrapper= styled(Paper)({
 
   display: 'flex',
@@ -159,6 +272,46 @@ const MonthWrapper= styled(Paper)({
     },
   })
 
+  const AllContainer= styled(Paper)({
+
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+    width: '100%',
+    height: '1.7rem' ,
+    fontSize: '.85rem',
+    marginTop: '.2rem',
+    padding: '0 8px',
+  
+    cursor: 'pointer',
+    borderRadius: '0',
+      '&:hover' : {
+        // backgroundColor: veryLightGrey,
+        color: chitOrange,
+      },
+    })
+
+    const AllContainerSelected= styled(Paper)({
+
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      
+      width: '100%',
+      height: '1.7rem' ,
+      fontSize: '.85rem',
+      marginTop: '.2rem',
+      padding: '0 .5rem',
+      borderRadius: '0',
+      color: 'white',
+      backgroundColor: mediumGrey
+    
+    
+    
+    })
   
 const MonthWrapperSelected= styled(Paper)({
 

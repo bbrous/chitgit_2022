@@ -15,13 +15,15 @@ import {useParams} from 'react-router-dom'
 
 
 
+import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
+
 import{chitBurgandyDull, lightGrey, veryLightGrey, backgroundBlue, chitLightGreen, darkGrey} from '../../../../styles/colors'
 import {selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
 
 import { descendSorter } from '../../../../app/helpers/commonHelpers'
- 
+ import { monthArray } from '../../../../app/helpers/dateHelper'
 //  ---- Material Ui ------------------
 import Button from '@mui/material/Button'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -62,38 +64,23 @@ const journalSections = (journalArray) =>
   ) //end map
  
 
-  let dateUnsorted = [
-    {
-      date: 'Mar 9',
-     journalDate: '2021-03-09T06:08:53.000Z'
-    },
-    {
-      date: 'Feb 18',
-     journalDate: '2021-02-18T06:08:53.000Z'
-    },
 
-    {
-      date: 'Jan 19',
-     journalDate: '2021-01-19T06:08:53.000Z'
-    },
-    {
-      date: 'Feb 22',
-     journalDate:'2021-02-22T06:08:53.000Z'
-    },
-    {
-      date: 'Jan 14',
-     journalDate: '2021-01-14T06:08:53.000Z'
-    },
-  ]
-
-  let dateSorted = descendSorter(dateUnsorted, 'journalDate')
 
 
 export default function JSections() {
 
-  console.log('[ where ] allJournalSelections unsorted', dateUnsorted);
+  let status = useSelector(selectStatus)
 
-  console.log('[ where ] allJournalSelections sorted', dateSorted);
+  let displayMonth = status.view.journal.monthId
+  let displayYear = status.view.journal.year
+  let dispalyYearNumeric = parseInt(displayYear)
+  let displayMonthNumeric = monthArray.indexOf(displayMonth)
+
+  console.log('[ JSections_s ] displayMonth', displayMonth);
+
+  console.log('[ JSections_s ] a  displayYear', displayYear);
+
+
 
 
 
@@ -108,6 +95,40 @@ export default function JSections() {
   }
   const allJournalSelections = useSelector(selectJournals)
   let sortedJournalSelections = descendSorter(allJournalSelections, 'journalDate')
+
+
+
+  let displayedJournalsForYear = allJournalSelections.filter(journal => new Date(journal.journalDate).getFullYear() === dispalyYearNumeric )
+
+  let displayedJournalsForMonth = () =>{
+    let journalsDisplayed
+    if(displayMonth === 'all'){
+
+      journalsDisplayed = displayedJournalsForYear
+
+    }
+
+    if(displayMonth !== 'all'){
+
+      console.log('JSECTIONS INSIDE xxxxxx BULLAH xxxx')
+
+      journalsDisplayed = displayedJournalsForYear.filter(journal => new Date(journal.journalDate).getMonth() === displayMonthNumeric)
+
+      console.log('JSECTIONS INSIDE xxxxxx Journal Date xxxx')
+    }
+   
+return journalsDisplayed
+
+  }
+
+  let x = displayedJournalsForMonth()
+
+  console.log('JSECTIONS xxxxxxxxxxxxxxxxxx', x)
+
+
+
+
+
 
   useEffect(()=>{
     scrollToTop()
