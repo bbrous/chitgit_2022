@@ -44,6 +44,9 @@ function FeatureNav(props) {
 let view
 let featureId = match.id
 
+ 
+ 
+
 if(!featureId){view = 'chits'}else{view = match.id}
 console.log('[Features Nav page] I  is:  ', view)
 
@@ -52,6 +55,18 @@ console.log('[Features Nav page] I  is:  ', view)
 
     
     <Container>
+
+{!view && 
+      <StyledLink to="/features/overview" > 
+      <NavButtonDisabled disabled
+      id='overview'
+    // onClick = {handlePageChange}
+
+    >Overview </NavButtonDisabled>
+      
+      </StyledLink>
+      
+      }
 
       <StyledLink to="/features/overview" >
 
@@ -267,7 +282,7 @@ const NavButtonDisabled= styled(Button)({
   textTransform: 'none',
  
   // backgroundColor: shadowBlue,
-  borderBottom: '1px solid #8293B8',
+
   borderRadius: '0',
   color: 'white',
   fontWeight: '400',

@@ -17,7 +17,7 @@ import {useParams} from 'react-router-dom'
 
 import { selectStatus } from '../../../../app/redux/statusRedux/sam_statusSlice'
 
-import{chitBurgandyDull, lightGrey, veryLightGrey, backgroundBlue, chitLightGreen, darkGrey} from '../../../../styles/colors'
+import{chitBurgandy, lightGrey, veryLightGrey, backgroundBlue, chitLightGreen, darkGrey} from '../../../../styles/colors'
 import {selectJournals } from '../../../../app/redux/journalRedux/sam_journalSlice'
 
 import JSection from './JSection_s'
@@ -105,6 +105,11 @@ export default function JSections() {
     if(displayMonth === 'all'){
 
       journalsDisplayed = displayedJournalsForYear
+      if(journalsDisplayed.length > 0){
+        return journalSections(journalsDisplayed)
+      }else{
+        return <NoneMessage> no journal sections for this year</NoneMessage>
+      }
 
     }
 
@@ -115,9 +120,15 @@ export default function JSections() {
       journalsDisplayed = displayedJournalsForYear.filter(journal => new Date(journal.journalDate).getMonth() === displayMonthNumeric)
 
       console.log('JSECTIONS INSIDE xxxxxx Journal Date xxxx')
+
+      if(journalsDisplayed.length > 0){
+        return journalSections(journalsDisplayed)
+      }else{
+        return <NoneMessage> no journal sections for this month</NoneMessage>
+      }
     }
    
-return journalsDisplayed
+ 
 
   }
 
@@ -148,8 +159,8 @@ return journalsDisplayed
       </ArrowWrapper>
    
 
-   {journalSections(sortedJournalSelections)}
-   
+   {/* {journalSections(sortedJournalSelections)} */}
+   {displayedJournalsForMonth()}
  
 <ArrowWrapper> 
    <StyledButton ref={bottomRef} 
@@ -219,3 +230,10 @@ const StyledButton= styled(Button)({
   }
 
 })
+
+const NoneMessage= styled('div')({
+
+  color: chitBurgandy
+ 
+ 
+ })

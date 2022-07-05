@@ -658,7 +658,7 @@ if (peopleArrayDifference.length > 0) {
 
                 <TitleWrapper>
 
-input form here
+ 
 
                   {/* <Controller
 

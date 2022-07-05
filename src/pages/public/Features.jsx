@@ -12,7 +12,7 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 
-import {backgroundBlue, chitLightPink, } from '../../styles/colors'
+import {backgroundBlue, chitLightPink, chitOrange, } from '../../styles/colors'
 
 import OverviewSlides from './slides/featureSlides/FeatureSlides_overview'
 import TwoPartySlides from './slides/featureSlides/FeatureSlides_twoParty'
@@ -21,7 +21,7 @@ import PersonalSlides from './slides/featureSlides/FeatureSlides_personal'
 import SpotlightSlides from './slides/featureSlides/FeatureSlides_spotlights'
 import ExtrasSlides from './slides/featureSlides/FeatureSlides_extras'
 
-
+import LockClockIcon from '@mui/icons-material/LockClock';
 
 import HeaderPublic from './landingElements/Header_public'
 import FeaturesNav from '../navComponents/publicNav/Feature_nav'
@@ -66,7 +66,9 @@ console.log('[Features  page] route id is :  ', view)
  
         <Content>
 
-
+        {!view &&
+            <OverviewSlides />
+          }
 
 
           {view === 'overview' &&
@@ -284,7 +286,7 @@ const NavWrapper= styled('div')({
   
 const Content= styled('div')({
   margin:'auto',
-  backgroundColor: 'white' ,
+  backgroundColor: 'black',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -292,7 +294,7 @@ const Content= styled('div')({
   width: '96%',
   height: 'calc(100% - 2.5rem - 2.5rem - 2rem)',
 
-borderTop: '1px solid #CFD0D1',
+ 
   // paddingTop: '1rem',
   // paddingBottom: '1rem',
 
@@ -342,4 +344,24 @@ top: '1rem',
   }
 
 
+})
+
+const StyledLockClockIcon= styled(LockClockIcon)({
+  
+  borderRadius: '5px',
+  fontSize: '5rem',
+  color: chitOrange,
+  margin: '0 .5rem .3rem .5rem',
+  cursor: 'pointer',
+  
+
+
+  '&:hover': {
+    
+    // backgroundColor: mediumLightGrey
+  },
+  [theme.breakpoints.down('sm')] : {
+    // height: '1.25rem',
+    // backgroundColor: 'red'
+  },
 })

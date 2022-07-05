@@ -413,44 +413,115 @@ const SampleJournalSections =  [
     },
 
 
+
     {
-      id: 'ajsection_66',
-      title: 'Test 1',
+      id: 'jsection_22',
+      title: 'Progress',
       
-      content: '<div>Test dec 27</div>',
+      content: " <div>Been a while since I've written.</div><div><br></div><div>Lost 10 pounds since I started my exercise and diet program. I like the exercise now... the diet not so much</div>",
   
-      journalDate: '2020-12-27T23:59:39.000Z',
-      lastEdit:  '2020-12-27T23:59:39.000Z',
+      journalDate: '2021-02-16T18:03:40.000Z',
+      lastEdit:  '2021-02-16T18:03:40.000Z',
       chitLink: '',
                   
       mirrorType: '',
       mirrorId: '',
   
-      peopleArray: ['Billy'],
+      peopleArray: [],
+      keywordArray: ['diet'],
+      
+  
+    },
+
+    {
+      id: 'jsection_23',
+      title: 'Deck',
+      
+      content: "<div>Finished the deck with the help of Billy and Jerry and Mark even helped - it’s beautiful.&nbsp;Put hot tub on order yesterday.</div>",
+  
+      journalDate: '2021-03-14T17:03:40.000Z',
+      lastEdit:  '2021-03-14T17:03:40.000Z',
+      chitLink: '',
+                  
+      mirrorType: '',
+      mirrorId: '',
+  
+      peopleArray: ['Billy', 'Jerry'],
       keywordArray: ['deck'],
       
   
     },
 
-    
     {
-      id: 'bjsection_66',
-      title: 'Test 2',
+      id: 'jsection_24',
+      title: 'More Deck',
       
-      content: '<div>Test nov 27</div>',
+      content: '<div>Deck painted, sealed with hot tub installed.&nbsp;Can’t say it was the most fun I’ve had - but really close.&nbsp;Couple that with the satisfaction of accomplishment and it is definitely something to celebrate.&nbsp;&nbsp;<span class="ql-size-large" style="color: rgb(107, 36, 178);">Mary loves it.</span></div>',
   
-      journalDate: '2020-11-27T23:59:39.000Z',
-      lastEdit:  '2020-11-27T23:59:39.000Z',
+      journalDate: '2021-03-22T17:03:40.000Z',
+      lastEdit:  '2021-03-22T17:03:40.000Z',
       chitLink: '',
                   
       mirrorType: '',
       mirrorId: '',
   
-      peopleArray: ['Billy'],
+      peopleArray: ['Billy', 'Jerry'],
       keywordArray: ['deck'],
       
   
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // {
+    //   id: 'ajsection_66',
+    //   title: 'Test 1',
+      
+    //   content: '<div>Test dec 27</div>',
+  
+    //   journalDate: '2020-12-27T23:59:39.000Z',
+    //   lastEdit:  '2020-12-27T23:59:39.000Z',
+    //   chitLink: '',
+                  
+    //   mirrorType: '',
+    //   mirrorId: '',
+  
+    //   peopleArray: ['Billy'],
+    //   keywordArray: ['deck'],
+      
+  
+    // },
+
+    
+    // {
+    //   id: 'bjsection_66',
+    //   title: 'Test 2',
+      
+    //   content: '<div>Test nov 27</div>',
+  
+    //   journalDate: '2020-11-27T23:59:39.000Z',
+    //   lastEdit:  '2020-11-27T23:59:39.000Z',
+    //   chitLink: '',
+                  
+    //   mirrorType: '',
+    //   mirrorId: '',
+  
+    //   peopleArray: ['Billy'],
+    //   keywordArray: ['deck'],
+      
+  
+    // },
 
 
 

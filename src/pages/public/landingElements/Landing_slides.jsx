@@ -167,7 +167,7 @@ const Landing_slides = (props) => {
 }
 
 const actions = {
-  setPage 
+  // setPage 
 }
 
 const mapState = state => ({
